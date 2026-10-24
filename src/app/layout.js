@@ -18,6 +18,7 @@ export const metadata = {
   title: "Organic BPS — Purpose is the journey that powers every other journey",
   description:
     "Organic BPS is a Brand Purpose Consultancy with more than 26 years of experience in brand strategy and communication.",
+  robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false, noarchive: true } },
 };
 
 export default function RootLayout({ children }) {

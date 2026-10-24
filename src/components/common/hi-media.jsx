@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 /**
  * The "Hi" lettermark: an SVG mask that clips a looping video (or a poster image until a video is supplied).
@@ -11,6 +11,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 export default function HiMedia({ video, poster, alt = "", className = "" }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
+  // Start fetching the video only when the section enters the viewport (poster shows meanwhile) (it is ~9MB and below the fold).
+  const near = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [1.25, 1.05, 1.0]);
   const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-6%", "6%"]);
@@ -38,7 +40,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
         {video ? (
           <video
             className="size-full object-cover"
-            src={video}
+            src={near ? video : undefined}
             poster={poster}
             autoPlay
             muted

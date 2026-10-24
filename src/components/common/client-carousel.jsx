@@ -89,7 +89,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
           else if (info.offset.x > 50) go(-1);
         }}
       >
-        <ul className="absolute inset-0 [transform-style:preserve-3d]" aria-live="off">
+        <div className="absolute inset-0 [transform-style:preserve-3d]" aria-live="off">
           {slides.map((item, i) => {
             const offset = wrap(i - active, count);
             const abs = Math.abs(offset);
@@ -98,7 +98,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
             const far = abs >= 3;
             const copy = i >= total;
             return (
-              <motion.li
+              <motion.div
                 key={i}
                 role="group"
                 aria-roledescription="slide"
@@ -123,10 +123,10 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
                     <Image src={item?.logo} alt={copy ? "" : (item?.name ?? "")} fill sizes="(min-width: 1200px) 18vw, 50vw" className="object-contain" />
                   </div>
                 </div>
-              </motion.li>
+              </motion.div>
             );
           })}
-        </ul>
+        </div>
       </motion.div>
 
       <div className="relative mt-4 flex items-center justify-center xl:mt-6">
