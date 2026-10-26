@@ -84,3 +84,10 @@ Reported: insights scrub broken on a 1270×552 laptop window, footer broken, hor
 | QA-17 | P2 | Horizontal scrollbar | Not reproduced at any tested size after the fixes (scrollWidth == clientWidth at all 14 sizes, every section, footer and during the insights pin). Likely tied to the stale-CSS dev server / earlier pin width; restart `npm run dev` |
 
 **Sizes tested (14):** 320×640, 375×812, 390×844, 430×932, 576×800, 768×1024, 1024×600, **1270×552**, 1280×720, 1366×768, 1440×900, 1536×730, 1600×900, 1920×1080 — horizontal scroll 0, no overflowing/clipped text, no console errors/warnings, no failed requests.
+
+## 10. Addendum — globe load freeze
+| ID | Sev | Finding | Status |
+|---|---|---|---|
+| QA-18 | P1 | Scrolling into why-we-do froze the page: the globe booted at 400 px from the viewport and compiled shaders + uploaded three 4096 px textures (mipmaps) in one 520 ms main-thread task, right as Lenis was animating | Fixed & verified — globe now boots when the page is idle after the intro loader (or earlier if it nears the viewport), calls `compileAsync` and uploads textures one per frame before the first render. Scrolling from the hero to the globe: 0 long tasks, 0 frame gaps >60 ms (was one 520 ms task) |
+
+Responsive re-run (14 sizes: 320×640 … 1270×552 … 1920×1080): horizontal scroll 0, no overflow/clipped text, footer not clipped, globe renders, no console errors/warnings. Long tasks while at the globe section: none at 9 sizes, 52–85 ms at 375/390/430/768/1270 (down from 520 ms; headless software WebGL, real GPUs are faster).

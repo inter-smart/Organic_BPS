@@ -25,7 +25,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
       className={`relative aspect-834/669 w-full ${className}`}
       initial={reduce ? false : { opacity: 0, scale: 0.92 }}
       whileInView={{ opacity: 1, scale: 0.92 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       style={{
         WebkitMaskImage: "url(/images/hi-mask.svg)",

@@ -3,16 +3,20 @@
 import { useEffect, useRef } from "react";
 import { animate, useInView, useReducedMotion } from "framer-motion";
 
-/** Count-up number (Magic UI "NumberTicker" style). Starts when scrolled into view. */
+/** Count-up number (Magic UI "NumberTicker" style). Counts up every time it scrolls into view and drops back to 0 when it leaves. */
 export default function NumberTicker({ value = 0, prefix = "", suffix = "", decimals = 0, duration = 2, className }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const inView = useInView(ref, { once: false, amount: 0.6 });
   const reduce = useReducedMotion();
   const format = (n) => `${prefix}${n.toFixed(decimals)}${suffix}`;
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !inView) return;
+    if (!el) return;
+    if (!inView) {
+      if (!reduce) el.textContent = format(0);
+      return;
+    }
     if (reduce) {
       el.textContent = format(value);
       return;

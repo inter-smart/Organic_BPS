@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { INTRO_EVENT } from "@/components/common/intro";
 import "@/lib/globe/globe.css";
 
 /**
@@ -20,26 +21,38 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
     let disposed = false;
     let visible = false;
     let seen = false;
-    let played = false;
     const motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (motion) gsap.set(el, { scale: 0.55, opacity: 0, transformOrigin: "50% 50%" });
-
-    const playIntro = () => {
-      if (played || !api || !seen) return;
-      played = true;
+    const hide = () => {
       if (!motion) return;
-      gsap.to(el, { scale: 1, opacity: 1, duration: 1.6, ease: "power3.out", clearProps: "transform,opacity" });
-      gsap.fromTo(api.globe.earthGroup.rotation, { y: Math.PI * 1.5 }, { y: 0, duration: 2.6, ease: "power3.out" });
+      gsap.killTweensOf(el);
+      gsap.set(el, { scale: 0.55, opacity: 0, transformOrigin: "50% 50%" });
+      if (api) {
+        gsap.killTweensOf(api.globe.earthGroup.rotation);
+        api.globe.earthGroup.rotation.y = Math.PI * 1.5;
+      }
+    };
+    hide();
+
+    // plays every time the globe scrolls back into view (and is ready); resets once it has fully left
+    const playIntro = () => {
+      if (!api || !seen || !motion) return;
+      gsap.to(el, { scale: 1, opacity: 1, duration: 1.6, ease: "power3.out", overwrite: true });
+      gsap.to(api.globe.earthGroup.rotation, { y: 0, duration: 2.6, ease: "power3.out", overwrite: true });
     };
 
     const reveal = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        seen = true;
-        reveal.disconnect();
-        playIntro();
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.intersectionRatio >= 0.3 && !seen) {
+            seen = true;
+            playIntro();
+          } else if (!entry.isIntersecting && seen) {
+            seen = false;
+            hide();
+          }
+        }
       },
-      { threshold: 0.3 }
+      { threshold: [0, 0.3] }
     );
     reveal.observe(el);
 
@@ -63,7 +76,8 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
         }
         api = instance;
         if (!visible) api.globe.stop();
-        playIntro();
+        if (seen) playIntro();
+        else hide();
       } catch (err) {
         console.error("Globe failed to initialise", err);
         const status = el.querySelector(".globe-loader__status");
@@ -71,16 +85,23 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       }
     };
 
-    const starter = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          starter.disconnect();
-          boot();
-        }
-      },
-      { rootMargin: "400px" }
-    );
+    // Boot as soon as the page is idle after the intro loader (far from the globe, while nobody is scrolling it),
+    // or earlier if the globe gets near the viewport first.
+    let booted = false;
+    const bootOnce = () => {
+      if (booted) return;
+      booted = true;
+      starter.disconnect();
+      boot();
+    };
+    const starter = new IntersectionObserver(([entry]) => entry.isIntersecting && bootOnce(), { rootMargin: "400px" });
     starter.observe(el);
+    let idleId;
+    const whenIdle = () => {
+      idleId = "requestIdleCallback" in window ? window.requestIdleCallback(bootOnce, { timeout: 4000 }) : window.setTimeout(bootOnce, 2000);
+    };
+    if (document.documentElement.dataset.intro === "done") whenIdle();
+    else window.addEventListener(INTRO_EVENT, whenIdle, { once: true });
     visibility.observe(el);
 
     // Pinch zoom stays; wheel zoom is blocked so the page keeps scrolling over the globe. Lenis owns page scroll,
@@ -97,6 +118,8 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       el.removeEventListener("wheel", stopWheel, { capture: true });
       disposed = true;
       starter.disconnect();
+      window.removeEventListener(INTRO_EVENT, whenIdle);
+      if (idleId !== undefined) ("cancelIdleCallback" in window ? window.cancelIdleCallback(idleId) : window.clearTimeout(idleId));
       visibility.disconnect();
       reveal.disconnect();
       gsap.killTweensOf(el);

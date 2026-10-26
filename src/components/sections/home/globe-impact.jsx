@@ -11,7 +11,7 @@ export default function GlobeImpact({ data }) {
     <section
       id="why-we-do"
       aria-labelledby="globe-impact-title"
-      className="relative isolate overflow-hidden bg-basecolor4 py-16 text-white sm:py-20 lg:h-257.5 lg:py-0"
+      className="relative isolate z-10 overflow-hidden bg-basecolor4 py-16 text-white sm:py-20 lg:-mt-[100svh] lg:h-svh lg:py-0"
     >
       <div className="container mx-auto px-4 relative z-10 grid gap-10 lg:pointer-events-none lg:h-full lg:grid-cols-[594fr_1fr] lg:items-center lg:gap-0">
         <div className="lg:pointer-events-auto lg:max-w-150">

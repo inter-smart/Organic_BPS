@@ -19,7 +19,8 @@ const shown = { opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" };
 /**
  * Scroll-triggered entrance (Magic UI "BlurFade" style) for any server-rendered children.
  * variant: up | down | left | right | scale | fade | blur | clip (image wipe-up)
- * Nothing plays until the preloader curtain has lifted.
+ * Nothing plays until the preloader curtain has lifted. It replays each time the element scrolls back into view
+ * (pass once to keep it final after the first play).
  */
 export default function Reveal({
   as = "div",
@@ -27,7 +28,7 @@ export default function Reveal({
   delay = 0,
   duration = 0.8,
   amount = 0.2,
-  once = true,
+  once = false,
   className,
   children,
   ...props
@@ -40,12 +41,16 @@ export default function Reveal({
   useEffect(() => {
     const el = variant === "clip" ? ref.current?.parentElement : ref.current;
     if (!el) return;
+    const need = variant === "clip" ? 0.05 : amount;
+    // visible once `need` of it is on screen; back to hidden only when it has fully left (no pop while partly visible)
     const io = new IntersectionObserver(
       ([e]) => {
-        setInView(e.isIntersecting);
-        if (e.isIntersecting && once) io.disconnect();
+        if (e.intersectionRatio >= need) {
+          setInView(true);
+          if (once) io.disconnect();
+        } else if (!e.isIntersecting) setInView(false);
       },
-      { threshold: variant === "clip" ? 0.05 : amount }
+      { threshold: [0, need] }
     );
     io.observe(el);
     return () => io.disconnect();
