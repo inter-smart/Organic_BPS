@@ -27,8 +27,8 @@ Issues found this run: 6 · fixed & verified: 3 · open / accepted: 3.
 ## 3. Performance (Lighthouse lab, `/`, production build)
 | Run | Perf | A11y | BP | SEO | FCP | LCP (simulated) | TBT | CLS |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|
-| Mobile | 47–53 | 96 | 100 | 66* | 1.1–2.3 s | 9.5 s (observed 1.4–4.4 s) | 630–820 ms | 0 |
-| Desktop | 84 | 96 | 100 | 66* | 0.4 s | 1.8 s (observed 4.4 s) | 150 ms | 0.003 |
+| Mobile | 42–53 | 96 | 100 | 66* | 1.1–2.3 s | 9.5 s (observed 1.4–4.4 s) | 630–1270 ms | 0 |
+| Desktop | 84–89 | 96 | 100 | 66* | 0.3–0.4 s | 1.7–1.8 s (observed ~4.0 s) | 50–150 ms | 0.003 |
 
 \*SEO 66 is the **intended** result of `noindex` (is-crawlable); do not "fix".
 Variance between runs is large (mobile 47–53). Lab only; no field/INP data. Previous report (2026-10-24, before loader/Lenis): mobile 67, desktop 93.
@@ -56,3 +56,31 @@ W3C Nu HTML validation, screen-reader and full keyboard-trap pass, Firefox/Safar
 
 ## 7. Files changed in this run
 `src/lib/globe/CardManager.js`, `src/components/layout/header.jsx`, `src/components/common/preloader.jsx` (logo stays visible from SSR, shorter minimum duration). Lint + production build re-run clean after changes.
+
+## 8. Addendum — responsive + layout pass (production build, port 3100)
+Change set: Figma desktop layout now holds from **1024 px** up and scales proportionally (`--u = 100vw/1920`, Tailwind `--spacing` = 4·u at ≥1024); section heights/paddings follow the Figma frames (What-we-do 1024, Globe 1030, Activation 1035, Clients pt 96/pb 63 at 1920); `xl:` design classes moved to `lg:`.
+
+**Widths tested (12):** 320, 375, 390, 430, 576, 768, 1024, 1280, 1366, 1440, 1600, 1920 (9 sections each; screenshots reviewed at 390, 768, 1024, 1280, 1366, 1440, 1920).
+Result at every width: **no horizontal overflow, no clipped text, no console errors/warnings, no failed requests.**
+
+| ID | Sev | Finding | Status |
+|---|---|---|---|
+| QA-09 | P1 | Client carousel stage collapsed to 0 height at ≥1024 (arbitrary `calc()` height); console "fill + height 0" warnings | Fixed & verified (`lg:h-[calc(621.5*var(--u))]`) — cards render at 1024/1366/1920 |
+| QA-10 | P2 | Header nav links wrapped onto two lines at 1024 | Fixed & verified (`whitespace-nowrap`) |
+| QA-11 | P2 | "purpose" ring word split mid-word in narrow headings (Greenstorm @1024) | Fixed & verified (`whitespace-nowrap` on the ring word) |
+| QA-12 | P3 | Dev server (port 3000) served stale CSS after `globals.css` edit (no `--u`), producing a 0-height carousel there | Environment: restart `npm run dev` to pick up the new CSS; production build verified |
+| QA-13 | P2 | Mobile Lighthouse 42 (TBT 1.27 s) after adding Lenis/GSAP/pin work; desktop 89 | **Open** — see QA-01/02; candidates: lazy-load GSAP plugins per section, drop Lenis on touch |
+
+Not performed in this pass: landscape phones, real touch devices, Firefox/Safari, screen reader.
+
+## 9. Addendum — short laptop windows (e.g. 1270×552)
+Reported: insights scrub broken on a 1270×552 laptop window, footer broken, horizontal scrollbar. Reproduced on the production build.
+
+| ID | Sev | Finding | Status |
+|---|---|---|---|
+| QA-14 | P1 | Scaling used viewport **width** only, so 1080-design-px sections (e.g. 1270 wide → 840 px) were taller than a 552 px window; sections did not fit and pins were skipped | Fixed & verified — `--u = min(100vw/1920, 100svh/1080)`; text tokens now derive from `--u` with px floors. At 1270×552 every ≥1024 section is ≤ viewport height |
+| QA-15 | P1 | Insights: with `u` shrunk, the 4 cards fit the screen → scrub distance 0 (no animation); on non-fitting screens the row pin sat inside a transformed Reveal wrapper, so `position:fixed` scrolled away with the page | Fixed & verified — card width/gap use viewport width (25.052vw / 2.135vw); row-pin now pins the slider wrapper; pin length ≥ 0.9×viewport height. Section pins (`fixed`, top 0) and scrubs at 1270×552, 1280×600, 1536×730, 1920×1080; row pin verified at 768 and 390 |
+| QA-16 | P2 | Footer bottom bar had a fixed 91u height, so the two-line copyright was clipped on short windows; credit text unscaled | Fixed & verified — `min-h` + padding, scaled text; no clipped text at any tested size |
+| QA-17 | P2 | Horizontal scrollbar | Not reproduced at any tested size after the fixes (scrollWidth == clientWidth at all 14 sizes, every section, footer and during the insights pin). Likely tied to the stale-CSS dev server / earlier pin width; restart `npm run dev` |
+
+**Sizes tested (14):** 320×640, 375×812, 390×844, 430×932, 576×800, 768×1024, 1024×600, **1270×552**, 1280×720, 1366×768, 1440×900, 1536×730, 1600×900, 1920×1080 — horizontal scroll 0, no overflowing/clipped text, no console errors/warnings, no failed requests.

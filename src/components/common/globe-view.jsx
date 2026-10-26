@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import "@/lib/globe/globe.css";
 
 /**
  * Interactive 3D globe (three.js) with partner pins. Booted the first time it nears the viewport,
  * and its render loop pauses whenever it is scrolled out of view.
+ * Intro: once it is ready and scrolled into view it scales in and spins from a turned-away angle round to the
+ * default view, then the normal auto-rotate takes over.
  */
 export default function GlobeView({ pins = [], className = "", label = "Interactive 3D globe showing partner locations worldwide" }) {
   const ref = useRef(null);
@@ -16,6 +19,29 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
     let api = null;
     let disposed = false;
     let visible = false;
+    let seen = false;
+    let played = false;
+    const motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (motion) gsap.set(el, { scale: 0.55, opacity: 0, transformOrigin: "50% 50%" });
+
+    const playIntro = () => {
+      if (played || !api || !seen) return;
+      played = true;
+      if (!motion) return;
+      gsap.to(el, { scale: 1, opacity: 1, duration: 1.6, ease: "power3.out", clearProps: "transform,opacity" });
+      gsap.fromTo(api.globe.earthGroup.rotation, { y: Math.PI * 1.5 }, { y: 0, duration: 2.6, ease: "power3.out" });
+    };
+
+    const reveal = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        seen = true;
+        reveal.disconnect();
+        playIntro();
+      },
+      { threshold: 0.3 }
+    );
+    reveal.observe(el);
 
     const visibility = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
@@ -37,6 +63,7 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
         }
         api = instance;
         if (!visible) api.globe.stop();
+        playIntro();
       } catch (err) {
         console.error("Globe failed to initialise", err);
         const status = el.querySelector(".globe-loader__status");
@@ -71,6 +98,8 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       disposed = true;
       starter.disconnect();
       visibility.disconnect();
+      reveal.disconnect();
+      gsap.killTweensOf(el);
       api?.destroy();
     };
     // pins are static page data

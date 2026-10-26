@@ -86,16 +86,16 @@
   --color-ring: var(--ring);
 
   /* Design-scale type sizes — fluid px, exact at the 1920 Figma frame */
-  --text-display: clamp(64px, 5.21vw, 100px); /* 100px @1920 */
+  --text-display: clamp(40px, calc(100 * var(--u)), 100px); /* 100px @1920 */
   --text-display--line-height: 1.12;
-  --text-display-md: clamp(48px, 3.75vw, 72px); /* 72px @1920 */
+  --text-display-md: clamp(32px, calc(72 * var(--u)), 72px); /* 72px @1920 */
   --text-display-md--line-height: 1.15;
-  --text-title: clamp(28px, 2.08vw, 40px); /* 40px @1920 */
+  --text-title: clamp(20px, calc(40 * var(--u)), 40px); /* 40px @1920 */
   --text-title--line-height: 1.4;
-  --text-card: clamp(22px, 1.41vw, 27px); /* 27px @1920 */
+  --text-card: clamp(16px, calc(27 * var(--u)), 27px); /* 27px @1920 */
   --text-card--line-height: 1.48;
-  --text-lead: clamp(16px, 1.04vw, 20px); /* 20px @1920 */
-  --text-stat: clamp(36px, 2.55vw, 48.93px);
+  --text-lead: clamp(14px, calc(20 * var(--u)), 20px); /* 20px @1920 */
+  --text-stat: clamp(26px, calc(48.93 * var(--u)), 48.93px);
 }
 
 /* ------------------------------------------------------------------
@@ -104,6 +104,19 @@
    rem = 16px at 1920x1080, shrinking with the smaller of width/height,
    so every full-height section (1080px) always fits the viewport.
 ------------------------------------------------------------------- */
+/* ------------------------------------------------------------------
+   Figma-proportional scaling from lg (1024) up: 1 design px = the smaller of
+   100vw / 1920 and 100svh / 1080, so a 4px spacing step is exactly the design
+   value at 1920x1080 and shrinks linearly on laptops, and every 1080-design-px
+   full-height section still fits short laptop windows (e.g. 1270x552). --u is used for Figma px values with no spacing step.
+------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  :root {
+    --u: min(calc(100vw / 1920), calc(100svh / 1080));
+    --spacing: calc(var(--u) * 4);
+  }
+}
+
 html:not([data-intro="done"]) {
   overflow: hidden;
 }

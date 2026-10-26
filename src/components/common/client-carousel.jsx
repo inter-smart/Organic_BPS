@@ -81,7 +81,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
     >
       <motion.div
         ref={stageRef}
-        className="relative mx-auto h-[calc(min(52vw,348px)*1.786)] w-full max-w-[1920px] touch-pan-y sm:h-[calc(min(40vw,348px)*1.786)]"
+        className="relative mx-auto h-[calc(min(52vw,348px)*1.786)] w-full max-w-[1920px] touch-pan-y sm:h-[calc(min(40vw,348px)*1.786)] lg:h-[calc(621.5*var(--u))]"
         style={{ perspective: PERSPECTIVE * k }}
         onPanEnd={(_, info) => {
           if (info.offset.x < -50) go(1);
@@ -103,7 +103,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
                 aria-roledescription="slide"
                 aria-label={`${(i % total) + 1} of ${total}: ${item?.name}`}
                 aria-hidden={far || copy || undefined}
-                className="absolute top-1/2 left-1/2 h-[76%] w-[min(52vw,348px)] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d] sm:w-[min(40vw,348px)]"
+                className="absolute top-1/2 left-1/2 h-[76%] w-[min(52vw,348px)] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d] sm:w-[min(40vw,348px)] lg:w-[calc(348*var(--u))]"
                 style={{ zIndex: 100 - abs * 10, pointerEvents: far ? "none" : "auto" }}
                 initial={false}
                 animate={{
@@ -128,26 +128,26 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
         </div>
       </motion.div>
 
-      <div className="relative mt-4 flex items-center justify-center xl:mt-6">
+      <div className="relative mt-4 flex items-center justify-center lg:mt-6">
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-24 -translate-y-1/2 bg-[url('/images/carousel-curve.svg')] bg-size-[100%_100%] bg-no-repeat xl:h-[112px]"
+          className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-24 -translate-y-1/2 bg-[url('/images/carousel-curve.svg')] bg-size-[100%_100%] bg-no-repeat lg:h-[calc(112*var(--u))]"
         />
         <button
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous client"
-          className="grid size-14 place-items-center rounded-full bg-[#e4e4e4] text-white transition-colors duration-300 hover:bg-basecolor/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 xl:size-[91.2px]"
+          className="grid size-14 place-items-center rounded-full bg-[#e4e4e4] text-white transition-colors duration-300 hover:bg-basecolor/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 lg:size-[91.2px]"
         >
-          <ArrowLeft strokeWidth={1.4} className="size-6 xl:size-8" />
+          <ArrowLeft strokeWidth={1.4} className="size-6 lg:size-8" />
         </button>
         <button
           type="button"
           onClick={() => go(1)}
           aria-label="Next client"
-          className="-ml-1 grid size-14 place-items-center rounded-full bg-basecolor text-white transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 xl:size-[91.2px]"
+          className="-ml-1 grid size-14 place-items-center rounded-full bg-basecolor text-white transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 lg:size-[91.2px]"
         >
-          <ArrowRight strokeWidth={1.4} className="size-6 xl:size-8" />
+          <ArrowRight strokeWidth={1.4} className="size-6 lg:size-8" />
         </button>
       </div>
     </div>

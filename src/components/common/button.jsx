@@ -20,8 +20,8 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          "h-12 px-6 text-base sm:h-14 sm:px-8 sm:text-lg lg:h-16 lg:px-10 xl:h-21 xl:px-12 xl:text-lead",
-        sm: "h-11 px-5 text-sm sm:h-12 sm:px-6 sm:text-base xl:h-16 xl:px-9 xl:text-lg",
+          "h-12 px-6 text-base sm:h-14 sm:px-8 sm:text-lg lg:h-21 lg:px-12 lg:text-lead",
+        sm: "h-11 px-5 text-sm sm:h-12 sm:px-6 sm:text-base lg:h-16 lg:px-9 lg:text-lg",
       },
     },
     defaultVariants: { variant: "light", size: "default" },
@@ -41,7 +41,7 @@ export default function Button({ href, children, variant, size, arrow = true, cl
         <span
           aria-hidden="true"
           className={cn(
-            "relative aspect-[19/14.35] w-4 shrink-0 transition-transform duration-500 ease-out group-hover:translate-x-1.5 xl:w-4.5 motion-reduce:transition-none",
+            "relative aspect-[19/14.35] w-4 shrink-0 transition-transform duration-500 ease-out group-hover:translate-x-1.5 lg:w-4.5 motion-reduce:transition-none",
             variant === "dark" ? "" : "group-hover:invert"
           )}
         >
