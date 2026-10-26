@@ -6,6 +6,7 @@ const googleSans = Google_Sans({
   variable: "--font-google-sans",
   weight: "variable",
   display: "swap",
+  adjustFontFallback: false, // Google Sans has no metrics in next/font's table
 });
 
 const inter = Inter({

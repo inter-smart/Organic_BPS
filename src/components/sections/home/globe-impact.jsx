@@ -13,7 +13,7 @@ export default function GlobeImpact({ data }) {
       aria-labelledby="globe-impact-title"
       className="relative isolate overflow-hidden bg-basecolor4 py-16 text-white sm:py-20 xl:h-270 xl:py-0"
     >
-      <div className="container relative z-10 grid gap-10 xl:pointer-events-none xl:h-full xl:grid-cols-[594fr_1fr] xl:items-center xl:gap-0">
+      <div className="container mx-auto px-4 relative z-10 grid gap-10 xl:pointer-events-none xl:h-full xl:grid-cols-[594fr_1fr] xl:items-center xl:gap-0">
         <div className="xl:pointer-events-auto xl:max-w-150">
           <Reveal variant="up">
             <Heading as="h2" id="globe-impact-title" size="display" className="text-white">
@@ -36,11 +36,11 @@ export default function GlobeImpact({ data }) {
         <GlobeView pins={data?.pins} className="size-full" />
       </div>
 
-      <div className="container relative z-10 mt-10 xl:pointer-events-none xl:absolute xl:inset-x-0 xl:top-0 xl:mt-0 xl:h-full">
+      <div className="container mx-auto px-4 relative z-10 mt-10 xl:pointer-events-none xl:absolute xl:inset-x-0 xl:top-0 xl:mt-0 xl:h-full">
         <ul className="grid grid-cols-1 gap-8 sm:grid-cols-3 xl:pointer-events-auto xl:absolute xl:top-[14.7%] xl:right-0 xl:bottom-[8%] xl:w-57.5 xl:grid-cols-1 xl:content-between xl:gap-0">
           {data?.stats?.map((stat, i) => (
             <Reveal as="li" key={stat?.id} variant="up" delay={0.15 * i} className="flex flex-col gap-3 xl:gap-0">
-              <div className="relative h-12 xl:h-16.25" style={{ aspectRatio: `${stat?.icon?.w} / ${stat?.icon?.h}`, maxWidth: `${(stat?.icon?.w ?? 0) / 16}rem` }}>
+              <div className="relative h-12 xl:h-16.25" style={{ aspectRatio: `${stat?.icon?.w} / ${stat?.icon?.h}`, maxWidth: `${stat?.icon?.w ?? 0}px` }}>
                 <Image src={stat?.icon?.src} alt="" fill className="object-contain object-left" />
               </div>
               <p className="font-inter text-4xl/none font-bold text-basecolor xl:mt-9 xl:text-stat/none">

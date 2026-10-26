@@ -7,7 +7,7 @@ import { RichLines, RichText } from "@/components/common/rich-text";
 export default function WhatWeDo({ data }) {
   return (
     <section id="what-we-do" aria-labelledby="what-we-do-title" className="relative overflow-hidden bg-white py-16 sm:py-20 xl:flex xl:h-270 xl:items-center xl:py-0">
-      <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:grid-cols-[834fr_690fr] xl:gap-27">
+      <div className="container mx-auto px-4 grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:grid-cols-[834fr_690fr] xl:gap-27">
         <HiMedia video={data?.media?.video} poster={data?.media?.poster} alt={data?.media?.alt} className="mx-auto max-w-md lg:max-w-none" />
 
         <div>

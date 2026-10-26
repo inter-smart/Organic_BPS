@@ -7,8 +7,8 @@ import { RichLines } from "@/components/common/rich-text";
 export default function Founder({ data }) {
   return (
     <section id="who-we-are" aria-labelledby="founder-title" className="relative isolate overflow-hidden bg-black text-white xl:h-270">
-      <div className="container relative z-10 py-16 sm:py-20 xl:flex xl:h-full xl:items-center xl:py-0">
-        <div className="xl:max-w-218.5">
+      <div className="container mx-auto px-4 relative z-10 py-16 sm:py-20 xl:flex xl:h-full xl:items-center xl:py-0">
+        <div className="xl:max-w-[50%] 2xl:max-w-[56%]">
           <Reveal variant="up">
             <Heading as="h2" id="founder-title" size="display" className="text-white">
               <RichLines lines={data?.title} />

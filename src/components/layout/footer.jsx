@@ -8,7 +8,7 @@ import { RichLines } from "@/components/common/rich-text";
 export default function Footer({ data }) {
   return (
     <footer id="contact" className="bg-white">
-      <div className="container relative pt-12 pb-14 xl:pt-27 xl:pb-12">
+      <div className="container mx-auto px-4 relative pt-12 pb-14 xl:pt-27 xl:pb-12">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-0 xl:min-h-140.5">
           {/* brand + CTA headline */}
           <div className="flex flex-col justify-between gap-16 lg:pr-12">
@@ -34,7 +34,7 @@ export default function Footer({ data }) {
                 <Link
                   key={l?.id}
                   href={l?.href ?? "#"}
-                  className="border-b border-basecolor pb-1 text-sm font-semibold tracking-wide text-black uppercase transition-colors hover:text-basecolor xl:pb-0 xl:text-[1.375rem]"
+                  className="border-b border-basecolor pb-1 text-sm font-semibold tracking-wide text-black uppercase transition-colors hover:text-basecolor xl:pb-0 xl:text-[22px]"
                 >
                   {l?.label}
                 </Link>
@@ -54,7 +54,7 @@ export default function Footer({ data }) {
       </div>
 
       <div className="bg-black text-white">
-        <div className="container flex flex-col items-center gap-4 py-5 text-center text-sm sm:text-base md:flex-row md:justify-between xl:h-22.75 xl:py-0 xl:text-lg">
+        <div className="container mx-auto px-4 flex flex-col items-center gap-4 py-5 text-center text-sm sm:text-base md:flex-row md:justify-between xl:h-22.75 xl:py-0 xl:text-lg">
           <p className="md:flex-1 md:text-left">{data?.copyright}</p>
           <ul className="flex items-center gap-2 md:flex-1 md:justify-center">
             {data?.social?.map((s) => (

@@ -6,10 +6,10 @@ import MenuSheet from "@/components/layout/menu-sheet";
 export default function Header({ data }) {
   return (
     <header className="absolute inset-x-0 top-0 z-50 pt-5 text-white sm:pt-7 xl:pt-11">
-      <div className="container flex items-center justify-between">
+      <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" aria-label={`${data?.logo?.alt ?? "Organic BPS"} — home`} className="relative block shrink-0">
           <div className="relative aspect-250/47 w-40 sm:w-48 xl:w-63.5">
-            <Image src="/images/organic-bps-logo.png" alt={data?.logo?.alt ?? "Organic BPS"} fill priority sizes="254px" className="object-contain object-left" />
+            <Image src="/images/organic-bps-logo.png" alt={data?.logo?.alt ?? "Organic BPS"} fill loading="eager" fetchPriority="high" sizes="254px" className="object-contain object-left" />
           </div>
           <div className="absolute -top-0.5 right-0 w-2.5 xl:w-3">
             <Image src="/images/registered-mark.svg" alt="" width={10} height={10} className="size-full" />

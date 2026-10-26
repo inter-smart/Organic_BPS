@@ -4,7 +4,7 @@ import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 
-// Figma mosaic slots (xl+): left / top / width / height in Tailwind spacing units (1 = 0.25rem)
+// Figma mosaic slots (xl+): left / top / width / height in Tailwind spacing units (1 = 4px)
 const slots = [
   "xl:left-0 xl:top-22.75 xl:h-139.25 xl:w-107.75",
   "xl:left-114 xl:top-10.75 xl:h-84.25 xl:w-107.75",
@@ -19,7 +19,7 @@ const mobileSpans = ["row-span-2", "", "", "row-span-2", "", ""];
 export default function TeamGallery({ data }) {
   return (
     <section id="people" aria-labelledby="people-title" className="relative overflow-hidden bg-white py-16 sm:py-20 xl:flex xl:h-270 xl:items-center xl:py-0">
-      <div className="container">
+      <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-start justify-between gap-6">
           <div>
             <Reveal variant="up">
@@ -37,13 +37,13 @@ export default function TeamGallery({ data }) {
         </div>
 
         {/* mobile / tablet: simple grid · xl+: the exact Figma collage */}
-        <div className="mt-8 grid auto-rows-[7rem] grid-cols-2 gap-3 sm:auto-rows-[10rem] md:grid-cols-3 xl:relative xl:left-1/2 xl:mt-9 xl:block xl:h-165.5 xl:w-430 xl:-translate-x-1/2">
+        <div className="mt-8 grid auto-rows-[112px] grid-cols-2 gap-3 sm:auto-rows-[160px] md:grid-cols-3 xl:relative xl:left-1/2 xl:mt-9 xl:block xl:h-165.5 xl:w-430 xl:-translate-x-1/2">
           {data?.images?.map((img, i) => (
             <Reveal
               key={img?.id ?? i}
               variant={i % 2 ? "up" : "scale"}
               delay={0.08 * i}
-              className={`group relative overflow-hidden rounded-[1.875rem] xl:absolute ${mobileSpans[i] ?? ""} ${slots[i] ?? ""}`}
+              className={`group relative overflow-hidden rounded-[30px] xl:absolute ${mobileSpans[i] ?? ""} ${slots[i] ?? ""}`}
             >
               <Image
                 src={img?.src}

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 /*
  * 3D ring carousel modelled on the vivo "umx-figure" slider (vivo.com/in/products/v80, Pet Pals):
@@ -40,7 +40,6 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
 
   const [active, setActive] = useState(Math.floor(total / 2));
   const [hovered, setHovered] = useState(false);
-  const [playing, setPlaying] = useState(true);
   const [cw, setCw] = useState(348);
   const stageRef = useRef(null);
 
@@ -57,10 +56,10 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
   }, [count]);
 
   useEffect(() => {
-    if (!autoplay || reduce || !playing || hovered || count < 2) return;
+    if (!autoplay || reduce || hovered || count < 2) return;
     const t = setInterval(() => go(1), autoplay);
     return () => clearInterval(t);
-  }, [autoplay, reduce, playing, hovered, count, go]);
+  }, [autoplay, reduce, hovered, count, go]);
 
   const k = cw / BASE_W;
 
@@ -82,7 +81,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
     >
       <motion.div
         ref={stageRef}
-        className="relative mx-auto h-72 w-full max-w-[120rem] touch-pan-y sm:h-88 xl:h-[26rem]"
+        className="relative mx-auto h-[calc(min(52vw,348px)*1.786)] w-full max-w-[1920px] touch-pan-y sm:h-[calc(min(40vw,348px)*1.786)]"
         style={{ perspective: PERSPECTIVE * k }}
         onPanEnd={(_, info) => {
           if (info.offset.x < -50) go(1);
@@ -104,7 +103,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
                 aria-roledescription="slide"
                 aria-label={`${(i % total) + 1} of ${total}: ${item?.name}`}
                 aria-hidden={far || copy || undefined}
-                className="absolute top-1/2 left-1/2 h-[76%] w-[min(52vw,21.75rem)] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d] sm:w-[min(40vw,21.75rem)]"
+                className="absolute top-1/2 left-1/2 h-[76%] w-[min(52vw,348px)] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d] sm:w-[min(40vw,348px)]"
                 style={{ zIndex: 100 - abs * 10, pointerEvents: far ? "none" : "auto" }}
                 initial={false}
                 animate={{
@@ -118,7 +117,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
                 transition={reduce ? { duration: 0 } : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 onClick={() => !far && setActive(i)}
               >
-                <div className="flex size-full items-center justify-center rounded-2xl bg-basecolor5 shadow-[0_10px_40px_-18px_rgba(0,0,0,0.25)]">
+                <div className="flex size-full items-center justify-center rounded-[15px] bg-basecolor5 shadow-[0_10px_40px_-18px_rgba(0,0,0,0.25)]">
                   <div className="relative h-1/2 w-[68%]">
                     <Image src={item?.logo} alt={copy ? "" : (item?.name ?? "")} fill sizes="(min-width: 1200px) 18vw, 50vw" className="object-contain" />
                   </div>
@@ -132,21 +131,13 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
       <div className="relative mt-4 flex items-center justify-center xl:mt-6">
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-24 -translate-y-1/2 bg-[url('/images/carousel-curve.svg')] bg-size-[100%_100%] bg-no-repeat xl:h-[7rem]"
+          className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-24 -translate-y-1/2 bg-[url('/images/carousel-curve.svg')] bg-size-[100%_100%] bg-no-repeat xl:h-[112px]"
         />
-        <button
-          type="button"
-          onClick={() => setPlaying((v) => !v)}
-          aria-label={playing ? "Pause autoplay" : "Start autoplay"}
-          className="mr-3 grid size-9 place-items-center rounded-full border border-basecolor/40 text-basecolor transition-colors duration-300 hover:bg-basecolor hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor xl:mr-5 xl:size-11"
-        >
-          {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
-        </button>
         <button
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous client"
-          className="grid size-14 place-items-center rounded-full bg-[#e4e4e4] text-white transition-colors duration-300 hover:bg-basecolor/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 xl:size-[5.7rem]"
+          className="grid size-14 place-items-center rounded-full bg-[#e4e4e4] text-white transition-colors duration-300 hover:bg-basecolor/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 xl:size-[91.2px]"
         >
           <ArrowLeft strokeWidth={1.4} className="size-6 xl:size-8" />
         </button>
@@ -154,7 +145,7 @@ export default function ClientCarousel({ items = [], autoplay = 3000, label = "O
           type="button"
           onClick={() => go(1)}
           aria-label="Next client"
-          className="-ml-1 grid size-14 place-items-center rounded-full bg-basecolor text-white transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 xl:size-[5.7rem]"
+          className="-ml-1 grid size-14 place-items-center rounded-full bg-basecolor text-white transition-transform duration-300 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor sm:size-16 xl:size-[91.2px]"
         >
           <ArrowRight strokeWidth={1.4} className="size-6 xl:size-8" />
         </button>

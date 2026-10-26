@@ -8,7 +8,7 @@ import { RichLines } from "@/components/common/rich-text";
 export default function Greenstorm({ data }) {
   const [a, b, c, d] = data?.photos ?? [];
   const photo = (p, delay, extra = "") => (
-    <Reveal variant="scale" delay={delay} className={`group relative overflow-hidden rounded-[1.25rem] ${extra}`}>
+    <Reveal variant="scale" delay={delay} className={`group relative overflow-hidden rounded-[20px] ${extra}`}>
       <Image
         src={p?.src}
         alt={p?.alt ?? ""}
@@ -21,7 +21,7 @@ export default function Greenstorm({ data }) {
 
   return (
     <section id="greenstorm" aria-labelledby="greenstorm-title" className="relative overflow-hidden bg-white py-16 sm:py-20 xl:flex xl:h-270 xl:items-center xl:py-0">
-      <div className="container">
+      <div className="container mx-auto px-4">
         <div className="grid gap-6 xl:grid-cols-[832fr_753fr] xl:gap-12">
           <Reveal variant="up">
             <Heading as="h2" id="greenstorm-title" size="display" className="text-black xl:max-w-208">
@@ -61,7 +61,7 @@ export default function Greenstorm({ data }) {
               </div>
             </Reveal>
 
-            <dl className="mt-8 grid grid-cols-2 xl:mt-0 xl:w-[24.5rem]">
+            <dl className="mt-8 grid grid-cols-2 xl:mt-0 xl:w-[392px]">
               {data?.stats?.map((s, i) => (
                 <Reveal
                   key={s?.id}
@@ -70,7 +70,7 @@ export default function Greenstorm({ data }) {
                   className={`py-5 xl:py-0 xl:h-41.75 ${i % 2 === 0 ? "border-r border-[#d4d4d4] pr-4 xl:pr-0" : "pl-4 xl:pl-12"} ${i < 2 ? "border-b border-[#d4d4d4]" : ""} ${i < 2 ? "xl:pb-0" : "xl:pt-6"} xl:flex xl:flex-col xl:justify-center`}
                 >
                   <dt className="order-2 text-sm text-black sm:text-base xl:text-lead">{s?.label}</dt>
-                  <dd className="order-1 text-3xl/[1.2] font-medium text-black sm:text-4xl xl:text-[3.125rem]/[1.2]">
+                  <dd className="order-1 text-3xl/[1.2] font-medium text-black sm:text-4xl xl:text-[50px]/[1.2]">
                     <NumberTicker value={s?.value} suffix={s?.suffix} />
                   </dd>
                 </Reveal>

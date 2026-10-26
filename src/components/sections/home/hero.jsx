@@ -10,11 +10,11 @@ export default function Hero({ data }) {
     <section
       id="home"
       aria-labelledby="hero-title"
-      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden text-white xl:h-270 xl:min-h-0"
+      className="relative isolate flex h-svh min-h-150 flex-col justify-center overflow-hidden text-white"
     >
       <HeroMedia slides={data?.slides} />
 
-      <div className="container relative pt-28 pb-24 xl:pt-30 xl:pb-0">
+      <div className="container mx-auto px-4 relative pt-28 pb-24 xl:pt-30 xl:pb-0">
         <Reveal variant="blur" duration={1.1}>
           <Heading as="h1" id="hero-title" size="display" className="max-w-190 text-white">
             <RichLines lines={data?.title} />

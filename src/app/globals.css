@@ -2,17 +2,47 @@
 @import "tw-animate-css";
 
 /* ------------------------------------------------------------------
-   Responsive system (project standard)
-   sm 576 · md 768 · lg 992 · xl 1200 · 2xl 1440 · 3xl 1600 · 4xl 1920
+   Tailwind default breakpoints (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536)
+   and the default `container` utility. Spacing, type, radii and container
+   widths are re-based to px so nothing depends on the root font-size.
 ------------------------------------------------------------------- */
 @theme {
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --breakpoint-2xl: 1440px;
-  --breakpoint-3xl: 1600px;
-  --breakpoint-4xl: 1920px;
+  --spacing: 4px;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+  --text-7xl: 72px;
+  --text-8xl: 96px;
+  --text-9xl: 128px;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-4xl: 32px;
+
+  --container-xs: 320px;
+  --container-sm: 384px;
+  --container-md: 448px;
+  --container-lg: 512px;
+  --container-xl: 576px;
+  --container-2xl: 672px;
+  --container-3xl: 768px;
+  --container-4xl: 896px;
+  --container-5xl: 1024px;
+  --container-6xl: 1152px;
+  --container-7xl: 1280px;
 }
 
 :root {
@@ -55,32 +85,27 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Design-scale type sizes (rem, so they follow the laptop scaling root below) */
-  --text-display: 6.25rem; /* 100px */
+  /* Design-scale type sizes — fluid px, exact at the 1920 Figma frame */
+  --text-display: clamp(64px, 5.21vw, 100px); /* 100px @1920 */
   --text-display--line-height: 1.12;
-  --text-display-md: 4.5rem; /* 72px — compressed display for dense sections */
+  --text-display-md: clamp(48px, 3.75vw, 72px); /* 72px @1920 */
   --text-display-md--line-height: 1.15;
-  --text-title: 2.5rem; /* 40px */
+  --text-title: clamp(28px, 2.08vw, 40px); /* 40px @1920 */
   --text-title--line-height: 1.4;
-  --text-card: 1.6875rem; /* 27px */
+  --text-card: clamp(22px, 1.41vw, 27px); /* 27px @1920 */
   --text-card--line-height: 1.48;
-  --text-lead: 1.25rem; /* 20px */
-  --text-stat: 3.0581rem; /* 48.93px */
+  --text-lead: clamp(16px, 1.04vw, 20px); /* 20px @1920 */
+  --text-stat: clamp(36px, 2.55vw, 48.93px);
 }
 
 /* ------------------------------------------------------------------
    Laptop-exact scaling.
-   From xl (1200px) up, 1rem tracks the Figma 1920x1080 frame:
+   From xl (1200px) up, 16px tracks the Figma 1920x1080 frame:
    rem = 16px at 1920x1080, shrinking with the smaller of width/height,
-   so every full-height section (67.5rem) always fits the viewport.
+   so every full-height section (1080px) always fits the viewport.
 ------------------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
-}
-@media (min-width: 1200px) {
-  html {
-    font-size: clamp(14px, 0.8333vw, 22px);
-  }
 }
 
 body {
@@ -93,48 +118,6 @@ body {
 /* Font variables are set by next/font in layout.js (named after the font) */
 @utility font-inter {
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-}
-
-/* Standard container (project responsive system) */
-.container {
-  width: 100%;
-  margin-inline: auto;
-  padding-inline: 16px;
-}
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-}
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1320px;
-  }
-}
-@media (min-width: 1600px) {
-  .container {
-    max-width: 1480px;
-  }
-}
-@media (min-width: 1920px) {
-  .container {
-    max-width: 1680px;
-  }
 }
 
 /* Editor / CMS content */
@@ -154,12 +137,12 @@ body {
     margin: 1.5em 0 0.6em;
     letter-spacing: -0.01em;
   }
-  .typography h1 { font-size: 2.5rem; }
-  .typography h2 { font-size: 2rem; }
-  .typography h3 { font-size: 1.5rem; }
-  .typography h4 { font-size: 1.25rem; }
-  .typography h5 { font-size: 1.125rem; }
-  .typography h6 { font-size: 1rem; }
+  .typography h1 { font-size: 40px; }
+  .typography h2 { font-size: 32px; }
+  .typography h3 { font-size: 24px; }
+  .typography h4 { font-size: 20px; }
+  .typography h5 { font-size: 18px; }
+  .typography h6 { font-size: 16px; }
   .typography p { margin: 0 0 1.1em; }
   .typography a { color: var(--basecolor3); text-decoration: underline; text-underline-offset: 3px; }
   .typography ul { list-style: disc; padding-left: 1.5em; margin: 0 0 1.1em; }
@@ -168,7 +151,7 @@ body {
   .typography blockquote { border-left: 3px solid var(--basecolor); padding-left: 1em; margin: 1.5em 0; font-style: italic; }
   .typography img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5em 0; }
   .typography figure { margin: 1.5em 0; }
-  .typography figcaption { font-size: 0.875rem; color: var(--muted-foreground); margin-top: 0.5em; }
+  .typography figcaption { font-size: 14px; color: var(--muted-foreground); margin-top: 0.5em; }
   .typography table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
   .typography th,
   .typography td { border: 1px solid var(--border); padding: 0.6em 0.8em; text-align: left; }
@@ -187,7 +170,7 @@ body {
     transform: translateX(0);
   }
   50% {
-    transform: translateX(0.6rem);
+    transform: translateX(9.6px);
   }
 }
 

@@ -21,7 +21,7 @@ export default function PurposeActivation({ data }) {
       aria-labelledby="purpose-activation-title"
       className="relative overflow-hidden bg-white py-16 sm:py-20 xl:flex xl:h-270 xl:flex-col xl:items-center xl:justify-center xl:py-0"
     >
-      <div className="container">
+      <div className="container mx-auto px-4">
         <TextReveal
           as="h2"
           lines={data?.lines}

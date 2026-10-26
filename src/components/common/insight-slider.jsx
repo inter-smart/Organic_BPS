@@ -17,7 +17,7 @@ export default function InsightSlider({ items = [] }) {
   const lit = hover ?? 1;
 
   return (
-    <div className="w-full [--slider-gutter:16px] sm:[--slider-gutter:max(16px,calc((100vw-540px)/2+16px))] md:[--slider-gutter:max(16px,calc((100vw-720px)/2+16px))] lg:[--slider-gutter:max(16px,calc((100vw-960px)/2+16px))] xl:[--slider-gutter:max(16px,calc((100vw-1140px)/2+16px))] 2xl:[--slider-gutter:max(16px,calc((100vw-1320px)/2+16px))] 3xl:[--slider-gutter:max(16px,calc((100vw-1480px)/2+16px))] 4xl:[--slider-gutter:max(16px,calc((100vw-1680px)/2+16px))]">
+    <div className="w-full [--slider-gutter:16px] sm:[--slider-gutter:max(16px,calc((100vw-640px)/2+16px))] md:[--slider-gutter:max(16px,calc((100vw-768px)/2+16px))] lg:[--slider-gutter:max(16px,calc((100vw-1024px)/2+16px))] xl:[--slider-gutter:max(16px,calc((100vw-1280px)/2+16px))] 2xl:[--slider-gutter:max(16px,calc((100vw-1536px)/2+16px))]">
       <Splide
         aria-label="Purpose insights"
         options={{
@@ -27,14 +27,14 @@ export default function InsightSlider({ items = [] }) {
           drag: true,
           snap: true,
           flickPower: 300,
-          fixedWidth: "30.0625rem",
-          gap: "2.5625rem",
+          fixedWidth: "481px",
+          gap: "41px",
           padding: { left: "var(--slider-gutter)", right: "var(--slider-gutter)" },
           speed: 650,
           easing: "cubic-bezier(0.22, 1, 0.36, 1)",
           breakpoints: {
-            1199: { fixedWidth: "26rem", gap: "1.5rem" },
-            767: { fixedWidth: "78vw", gap: "1rem", padding: { left: "var(--slider-gutter)", right: "1rem" } },
+            1279: { fixedWidth: "416px", gap: "24px" },
+            767: { fixedWidth: "78vw", gap: "16px", padding: { left: "var(--slider-gutter)", right: "16px" } },
           },
         }}
       >
@@ -47,16 +47,16 @@ export default function InsightSlider({ items = [] }) {
               onFocus={() => setHover(i)}
               onBlur={() => setHover(null)}
               className={cn(
-                "group relative h-full rounded-[1.875rem] border border-white/10 bg-[rgba(75,74,74,0.2)] text-white outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-white/50",
+                "group relative h-full rounded-[30px] border border-white/10 bg-[rgba(75,74,74,0.2)] text-white outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-white/50",
                 lit === i && "border-transparent bg-[linear-gradient(90deg,rgba(0,0,0,0.2),rgba(0,0,0,0.2)),linear-gradient(130.8deg,#2552aa_22.9%,#da4d47_58.3%,#da4d47_100%)]"
               )}
             >
-              <div className="relative aspect-481/287 overflow-hidden rounded-[1.875rem]">
+              <div className="relative aspect-481/287 overflow-hidden rounded-[30px]">
                 <Image
                   src={item?.image}
                   alt={item?.alt ?? ""}
                   fill
-                  sizes="(min-width: 1200px) 30rem, 80vw"
+                  sizes="(min-width: 1280px) 480px, 80vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>

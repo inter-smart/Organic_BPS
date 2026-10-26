@@ -8,9 +8,9 @@ export default function ClientLogos({ data }) {
     <section
       id="clients"
       aria-labelledby="clients-title"
-      className="relative overflow-hidden border-t border-[#cdc6c6] bg-white pt-14 pb-12 sm:pt-16 xl:flex xl:h-270 xl:flex-col xl:justify-center xl:py-0"
+      className="relative overflow-hidden border-t border-[#cdc6c6] bg-white pt-14 pb-12 sm:pt-16 xl:pt-39 xl:pb-16"
     >
-      <div className="container text-center">
+      <div className="container mx-auto px-4 text-center">
         <Reveal variant="up">
           <Heading as="h2" id="clients-title" size="displayMd" className="mx-auto max-w-5xl text-[#171717]">
             <RichLines lines={data?.title} />
@@ -20,7 +20,7 @@ export default function ClientLogos({ data }) {
           {data?.text}
         </Reveal>
       </div>
-      <Reveal variant="scale" delay={0.2} className="mt-8 xl:mt-9">
+      <Reveal variant="scale" delay={0.2} className="mt-0 xl:-mt-6">
         <ClientCarousel items={data?.items} />
       </Reveal>
     </section>
