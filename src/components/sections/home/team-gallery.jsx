@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
+import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 
@@ -41,17 +42,19 @@ export default function TeamGallery({ data }) {
           {data?.images?.map((img, i) => (
             <Reveal
               key={img?.id ?? i}
-              variant={i % 2 ? "up" : "scale"}
-              delay={0.08 * i}
+              variant="clip"
+              delay={0.08 * (i % 4)}
               className={`group relative overflow-hidden rounded-[30px] xl:absolute ${mobileSpans[i] ?? ""} ${slots[i] ?? ""}`}
             >
-              <Image
-                src={img?.src}
-                alt={img?.alt ?? ""}
-                fill
-                sizes="(min-width: 1200px) 30vw, 50vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
+              <Parallax className="absolute inset-0" from={-6} to={6}>
+                <Image
+                  src={img?.src}
+                  alt={img?.alt ?? ""}
+                  fill
+                  sizes="(min-width: 1280px) 30vw, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </Parallax>
             </Reveal>
           ))}
         </div>

@@ -1,12 +1,14 @@
 import { Google_Sans, Inter } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import Preloader from "@/components/common/preloader";
+import SmoothScroll from "@/components/common/smooth-scroll";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],
   variable: "--font-google-sans",
   weight: "variable",
   display: "swap",
-  adjustFontFallback: false, // Google Sans has no metrics in next/font's table
 });
 
 const inter = Inter({
@@ -25,7 +27,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${googleSans.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <noscript>
+          <style>{".preloader{display:none!important}"}</style>
+        </noscript>
+        <Preloader />
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

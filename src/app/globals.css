@@ -104,8 +104,8 @@
    rem = 16px at 1920x1080, shrinking with the smaller of width/height,
    so every full-height section (1080px) always fits the viewport.
 ------------------------------------------------------------------- */
-html {
-  scroll-behavior: smooth;
+html:not([data-intro="done"]) {
+  overflow: hidden;
 }
 
 body {
@@ -175,9 +175,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {

@@ -56,8 +56,14 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
     starter.observe(el);
     visibility.observe(el);
 
-    // Pinch zoom stays; mouse-wheel zoom is stopped so the page keeps scrolling over the globe.
-    const stopWheel = (e) => e.stopPropagation();
+    // Pinch zoom stays; wheel zoom is blocked so the page keeps scrolling over the globe. Lenis owns page scroll,
+    // so the wheel is re-sent to it (swallowing it left native and smooth scroll fighting = stuck/jumpy page).
+    const stopWheel = (e) => {
+      e.stopPropagation();
+      if (!document.documentElement.classList.contains("lenis") || !e.cancelable) return;
+      e.preventDefault();
+      window.dispatchEvent(new WheelEvent("wheel", e));
+    };
     el.addEventListener("wheel", stopWheel, { capture: true });
 
     return () => {

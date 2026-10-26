@@ -6,7 +6,7 @@ import { RichLines } from "@/components/common/rich-text";
 
 export default function PurposeInsights({ data }) {
   return (
-    <section id="insights" aria-labelledby="insights-title" className="relative overflow-hidden bg-black py-16 text-white sm:py-20 xl:flex xl:h-270 xl:flex-col xl:justify-center xl:py-0">
+    <section id="insights" aria-labelledby="insights-title" className="relative overflow-hidden bg-black py-16 text-white sm:py-20 xl:flex xl:min-h-svh xl:flex-col xl:justify-center xl:py-0">
       <div className="container mx-auto px-4 grid gap-6 xl:grid-cols-2 xl:items-start xl:gap-0">
         <Reveal variant="up">
           <Heading as="h2" id="insights-title" size="display" className="text-white">

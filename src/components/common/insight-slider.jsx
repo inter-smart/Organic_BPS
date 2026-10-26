@@ -1,45 +1,74 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/splide/css/core";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/utils";
 
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
 /*
- * Purpose / insights cards slider. The track bleeds off the right edge of the viewport (as in the design)
- * while the first card lines up with the page container via --slider-gutter.
- * Card highlight (blue → red gradient) follows hover/focus; slide 2 is lit by default, as designed.
- * No overflow is set on the track — Splide's own core CSS handles clipping.
+ * Purpose / insights cards. The section pins while vertical scroll scrubs the track sideways, then releases to the
+ * next section. xl+ screens tall enough for the whole section pin the section; smaller ones pin just the card row.
+ * The first card lines up with the page container via --slider-gutter and the last one ends on it.
+ * Card highlight (blue → red gradient) follows hover/focus, otherwise the card nearest the screen centre.
+ * With reduced motion nothing is pinned and the row scrolls natively.
  */
 export default function InsightSlider({ items = [] }) {
   const [hover, setHover] = useState(null);
-  const lit = hover ?? 1;
+  const [auto, setAuto] = useState(1);
+  const lit = hover ?? auto;
+  const wrap = useRef(null);
+  const track = useRef(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      const build = (pinSection) => {
+        const section = wrap.current.closest("section");
+        const cards = gsap.utils.toArray("li", track.current);
+        const distance = () => Math.max(0, track.current.scrollWidth - wrap.current.clientWidth);
+        gsap.to(track.current, {
+          x: () => -distance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: pinSection ? section : wrap.current,
+            pin: true,
+            start: pinSection ? "top top" : "center center",
+            end: () => `+=${distance()}`,
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+            onUpdate: () => {
+              const mid = window.innerWidth / 2;
+              let best = 0;
+              let bestDist = Infinity;
+              cards.forEach((c, i) => {
+                const r = c.getBoundingClientRect();
+                const d = Math.abs(r.left + r.width / 2 - mid);
+                if (d < bestDist) [best, bestDist] = [i, d];
+              });
+              setAuto(best);
+            },
+          },
+        });
+      };
+      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 1280px) and (min-height: 880px)", () => build(true));
+      mm.add("(prefers-reduced-motion: no-preference) and (not ((min-width: 1280px) and (min-height: 880px)))", () => build(false));
+      return () => mm.revert();
+    },
+    { scope: wrap }
+  );
 
   return (
-    <div className="w-full [--slider-gutter:16px] sm:[--slider-gutter:max(16px,calc((100vw-640px)/2+16px))] md:[--slider-gutter:max(16px,calc((100vw-768px)/2+16px))] lg:[--slider-gutter:max(16px,calc((100vw-1024px)/2+16px))] xl:[--slider-gutter:max(16px,calc((100vw-1280px)/2+16px))] 2xl:[--slider-gutter:max(16px,calc((100vw-1536px)/2+16px))]">
-      <Splide
-        aria-label="Purpose insights"
-        options={{
-          type: "slide",
-          arrows: false,
-          pagination: false,
-          drag: true,
-          snap: true,
-          flickPower: 300,
-          fixedWidth: "481px",
-          gap: "41px",
-          padding: { left: "var(--slider-gutter)", right: "var(--slider-gutter)" },
-          speed: 650,
-          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          breakpoints: {
-            1279: { fixedWidth: "416px", gap: "24px" },
-            767: { fixedWidth: "78vw", gap: "16px", padding: { left: "var(--slider-gutter)", right: "16px" } },
-          },
-        }}
-      >
+    <div
+      ref={wrap}
+      className="w-full overflow-x-clip [--slider-gutter:16px] motion-reduce:overflow-x-auto sm:[--slider-gutter:max(16px,calc((100vw-640px)/2+16px))] md:[--slider-gutter:max(16px,calc((100vw-768px)/2+16px))] lg:[--slider-gutter:max(16px,calc((100vw-1024px)/2+16px))] xl:[--slider-gutter:max(16px,calc((100vw-1280px)/2+16px))] 2xl:[--slider-gutter:max(16px,calc((100vw-1536px)/2+16px))]"
+    >
+      <ul ref={track} aria-label="Purpose insights" className="flex w-max gap-4 px-(--slider-gutter) will-change-transform xl:gap-[41px]">
         {items?.map((item, i) => (
-          <SplideSlide key={item?.id ?? i}>
+          <li key={item?.id ?? i} className="flex w-[78vw] shrink-0 sm:w-[416px] xl:w-[481px]">
             <article
               tabIndex={0}
               onMouseEnter={() => setHover(i)}
@@ -47,7 +76,7 @@ export default function InsightSlider({ items = [] }) {
               onFocus={() => setHover(i)}
               onBlur={() => setHover(null)}
               className={cn(
-                "group relative h-full rounded-[30px] border border-white/10 bg-[rgba(75,74,74,0.2)] text-white outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-white/50",
+                "group relative w-full rounded-[30px] border border-white/10 bg-[rgba(75,74,74,0.2)] text-white outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-white/50",
                 lit === i && "border-transparent bg-[linear-gradient(90deg,rgba(0,0,0,0.2),rgba(0,0,0,0.2)),linear-gradient(130.8deg,#2552aa_22.9%,#da4d47_58.3%,#da4d47_100%)]"
               )}
             >
@@ -65,9 +94,9 @@ export default function InsightSlider({ items = [] }) {
                 <p className="mt-3 text-sm/[1.6] sm:text-base/[1.6] xl:mt-5 xl:text-lg/[1.67] text-white/90 text-pretty">{item?.text}</p>
               </div>
             </article>
-          </SplideSlide>
+          </li>
         ))}
-      </Splide>
+      </ul>
     </div>
   );
 }

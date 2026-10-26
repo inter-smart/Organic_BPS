@@ -2,20 +2,23 @@ import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import NumberTicker from "@/components/common/number-ticker";
+import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 
 export default function Greenstorm({ data }) {
   const [a, b, c, d] = data?.photos ?? [];
   const photo = (p, delay, extra = "") => (
-    <Reveal variant="scale" delay={delay} className={`group relative overflow-hidden rounded-[20px] ${extra}`}>
-      <Image
-        src={p?.src}
-        alt={p?.alt ?? ""}
-        fill
-        sizes="(min-width: 1200px) 33vw, 50vw"
-        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      />
+    <Reveal variant="clip" delay={delay} className={`group relative overflow-hidden rounded-[20px] ${extra}`}>
+      <Parallax className="absolute inset-0" from={-6} to={6}>
+        <Image
+          src={p?.src}
+          alt={p?.alt ?? ""}
+          fill
+          sizes="(min-width: 1280px) 33vw, 50vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      </Parallax>
     </Reveal>
   );
 

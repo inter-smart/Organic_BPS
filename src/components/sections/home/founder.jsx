@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
+import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 
@@ -43,7 +44,9 @@ export default function Founder({ data }) {
         duration={1.1}
         className="relative mx-auto aspect-1095/955 w-full max-w-2xl xl:absolute xl:right-[2.6%] xl:bottom-0 xl:mx-0 xl:w-[57%] xl:max-w-none"
       >
-        <Image src="/images/founder-portrait.png" alt={data?.photoAlt} fill sizes="(min-width: 1200px) 57vw, 100vw" className="object-contain object-bottom" />
+        <Parallax className="absolute inset-0" from={12} to={0} scale={1} end="center center">
+          <Image src="/images/founder-portrait.png" alt={data?.photoAlt} fill sizes="(min-width: 1280px) 57vw, 100vw" className="object-contain object-bottom" />
+        </Parallax>
       </Reveal>
     </section>
   );

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import HeroMedia from "@/components/common/hero-media";
+import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 
@@ -10,9 +11,11 @@ export default function Hero({ data }) {
     <section
       id="home"
       aria-labelledby="hero-title"
-      className="relative isolate flex h-svh min-h-150 flex-col justify-center overflow-hidden text-white"
+      className="relative isolate flex h-svh min-h-150 flex-col justify-center overflow-hidden bg-basecolor4 text-white"
     >
-      <HeroMedia slides={data?.slides} />
+      <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
+        <HeroMedia slides={data?.slides} />
+      </Parallax>
 
       <div className="container mx-auto px-4 relative pt-28 pb-24 xl:pt-30 xl:pb-0">
         <Reveal variant="blur" duration={1.1}>
