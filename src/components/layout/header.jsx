@@ -16,7 +16,7 @@ export default function Header({ data }) {
           </div>
         </Link>
 
-        <nav aria-label="Main" className="ml-auto mr-20 hidden items-center gap-15 whitespace-nowrap lg:flex">
+        <nav aria-label="Main" className="mx-auto hidden items-center gap-15 whitespace-nowrap lg:flex">
           <span aria-hidden="true" className="-mr-9 size-1.5 rounded-full bg-basecolor" />
           {data?.links?.map((link) => (
             <Link

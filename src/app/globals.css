@@ -135,6 +135,29 @@ body {
 
 /* Editor / CMS content */
 @layer components {
+  .button-gradient-border {
+    isolation: isolate;
+  }
+  .button-gradient-border::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 2.5px;
+    border-radius: inherit;
+    background: linear-gradient(
+      to bottom right,
+      #da4d47 20%,
+      #2552aa 35%,
+      #2552aa 100%
+    );
+    content: "";
+    pointer-events: none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
   .typography {
     line-height: 1.7;
     color: var(--basecolor2);
