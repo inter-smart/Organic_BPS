@@ -1816,7 +1816,7 @@
       },
       "details": {
         "type": "table",
-        "headings": [
+        "headings": [ 
           {
             "key": "url",
             "valueType": "url",

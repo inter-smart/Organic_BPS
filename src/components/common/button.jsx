@@ -25,10 +25,18 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: { variant: "light", size: "default" },
-  }
+  },
 );
 
-export default function Button({ href, children, variant, size, arrow = true, className, ...props }) {
+export default function Button({
+  href,
+  children,
+  variant,
+  size,
+  arrow = true,
+  className,
+  ...props
+}) {
   const classes = cn(buttonVariants({ variant, size }), className);
   const inner = (
     <>
@@ -42,11 +50,15 @@ export default function Button({ href, children, variant, size, arrow = true, cl
           aria-hidden="true"
           className={cn(
             "relative aspect-[19/14.35] w-4 shrink-0 transition-transform duration-500 ease-out group-hover:translate-x-1.5 xl:w-4.5 motion-reduce:transition-none",
-            variant === "dark" ? "" : "group-hover:invert"
+            variant === "dark" ? "" : "group-hover:invert",
           )}
         >
           <Image
-            src={variant === "dark" ? "/images/arrow-right-white.svg" : "/images/arrow-right-dark.svg"}
+            src={
+              variant === "dark"
+                ? "/images/arrow-right-white.svg"
+                : "/images/arrow-right-dark.svg"
+            }
             alt=""
             fill
             className="object-contain"
@@ -55,7 +67,6 @@ export default function Button({ href, children, variant, size, arrow = true, cl
       ) : null}
     </>
   );
-
   if (href) {
     return (
       <Link href={href} className={classes} {...props}>
