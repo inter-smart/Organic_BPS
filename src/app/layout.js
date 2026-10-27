@@ -1,4 +1,7 @@
 import { Google_Sans, Inter } from "next/font/google";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
+import { footerData, headerData } from "@/lib/layout-data";
 import "./globals.css";
 
 const googleSans = Google_Sans({
@@ -29,7 +32,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${googleSans.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Header data={headerData} />
+        {children}
+        <Footer data={footerData} />
+      </body>
     </html>
   );
 }
