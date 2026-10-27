@@ -3,7 +3,9 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import Preloader from "@/components/common/preloader";
 import SmoothScroll from "@/components/common/smooth-scroll";
+import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import { layout_data } from "@/lib/layout-data";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],
@@ -34,7 +36,9 @@ export default function RootLayout({ children }) {
         </noscript>
         <Preloader />
         <SmoothScroll />
+        <Header data={layout_data.header} />
         {children}
+        <Footer data={layout_data.footer} />
       </body>
     </html>
   );
