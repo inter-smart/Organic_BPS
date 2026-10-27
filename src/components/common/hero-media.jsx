@@ -55,7 +55,7 @@ export default function HeroMedia({ slides = [] }) {
                 animate={{ scale: 1 }}
                 transition={{ duration: 8, ease: "easeOut" }}
               >
-                <Image src={slide.src} alt={slide.alt ?? ""} fill priority={index === 0} sizes="100vw" className="object-cover object-[72%_center] xl:object-center" />
+                <Image src={slide.src} alt={slide.alt ?? ""} fill priority={index === 0} sizes="100vw" className="object-cover object-[72%_center] lg:object-center" />
               </motion.div>
             )}
           </motion.div>

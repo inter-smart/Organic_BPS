@@ -16,7 +16,7 @@ export function Ring({ className = "" }) {
 export default function PurposeWord({ word = "purpose" }) {
   const i = word.toLowerCase().indexOf("o");
   return (
-    <span>
+    <span className="whitespace-nowrap">
       <span className="sr-only">{word}</span>
       <span aria-hidden="true">
         {word.slice(0, i)}

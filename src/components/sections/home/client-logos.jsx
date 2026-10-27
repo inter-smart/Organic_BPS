@@ -8,19 +8,19 @@ export default function ClientLogos({ data }) {
     <section
       id="clients"
       aria-labelledby="clients-title"
-      className="relative overflow-hidden border-t border-[#cdc6c6] bg-white pt-14 pb-12 sm:pt-16 xl:flex xl:h-270 xl:flex-col xl:justify-center xl:py-0"
+      className="relative overflow-hidden border-t border-[#cdc6c6] bg-white pt-14 pb-12 sm:pt-16 lg:pt-24 lg:pb-16"
     >
-      <div className="container text-center">
+      <div className="container mx-auto px-4 text-center">
         <Reveal variant="up">
           <Heading as="h2" id="clients-title" size="displayMd" className="mx-auto max-w-5xl text-[#171717]">
             <RichLines lines={data?.title} />
           </Heading>
         </Reveal>
-        <Reveal as="p" variant="up" delay={0.15} className="mx-auto mt-5 max-w-3xl text-sm/[1.8] text-black sm:text-base/[1.8] xl:mt-6 xl:max-w-221 xl:text-lead/[1.6] text-pretty">
+        <Reveal as="p" variant="up" delay={0.15} className="mx-auto mt-5 max-w-3xl text-sm/[1.8] text-black sm:text-base/[1.8] lg:mt-6 lg:max-w-221 lg:text-lead/[1.6] text-pretty">
           {data?.text}
         </Reveal>
       </div>
-      <Reveal variant="scale" delay={0.2} className="mt-8 xl:mt-9">
+      <Reveal variant="scale" delay={0.2} className="mt-0 lg:-mt-6">
         <ClientCarousel items={data?.items} />
       </Reveal>
     </section>

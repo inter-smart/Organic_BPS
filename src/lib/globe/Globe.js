@@ -31,7 +31,7 @@ export class Globe {
     this.textures = textures;
     this.tickCallbacks = [];
     this.resizeCallbacks = [];
-    this.clock = new THREE.Clock();
+    this.clock = new THREE.Timer();
     this._raf = null;
     this._reducedMotion = prefersReducedMotion();
 
@@ -226,8 +226,9 @@ export class Globe {
   start() {
     const loop = () => {
       this._raf = requestAnimationFrame(loop);
+      this.clock.update();
       const delta = Math.min(this.clock.getDelta(), 0.1);
-      const elapsed = this.clock.getElapsedTime();
+      const elapsed = this.clock.getElapsed();
 
       if (this.stars) this.stars.material.uniforms.uTime.value = elapsed;
 

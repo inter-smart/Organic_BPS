@@ -11,10 +11,10 @@ export default function GlobeImpact({ data }) {
     <section
       id="why-we-do"
       aria-labelledby="globe-impact-title"
-      className="relative isolate overflow-hidden bg-basecolor4 py-16 text-white sm:py-20 xl:h-270 xl:py-0"
+      className="relative isolate z-10 overflow-hidden bg-basecolor4 py-16 text-white sm:py-20 lg:-mt-[100svh] lg:h-svh lg:py-0"
     >
-      <div className="container relative z-10 grid gap-10 xl:pointer-events-none xl:h-full xl:grid-cols-[594fr_1fr] xl:items-center xl:gap-0">
-        <div className="xl:pointer-events-auto xl:max-w-150">
+      <div className="container mx-auto px-4 relative z-10 grid gap-10 lg:pointer-events-none lg:h-full lg:grid-cols-[594fr_1fr] lg:items-center lg:gap-0">
+        <div className="lg:pointer-events-auto lg:max-w-150">
           <Reveal variant="up">
             <Heading
               as="h2"
@@ -25,15 +25,10 @@ export default function GlobeImpact({ data }) {
               <RichLines lines={data?.title} />
             </Heading>
           </Reveal>
-          <Reveal
-            as="p"
-            variant="up"
-            delay={0.15}
-            className="mt-6 max-w-xl text-base/[1.75] text-white sm:text-lg/[1.75] xl:mt-8 xl:max-w-115.75 xl:text-lead/[1.75] text-pretty"
-          >
+          <Reveal as="p" variant="up" delay={0.15} className="mt-6 max-w-xl text-base/[1.75] text-white sm:text-lg/[1.75] lg:mt-8 lg:max-w-115.75 lg:text-lead/[1.75] text-pretty">
             {data?.text}
           </Reveal>
-          <Reveal variant="up" delay={0.3} className="mt-8 xl:mt-11">
+          <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-11">
             <Button href={data?.cta?.href} variant="dark">
               {data?.cta?.label}
             </Button>
@@ -42,40 +37,21 @@ export default function GlobeImpact({ data }) {
       </div>
 
       {/* Interactive globe — in flow on small screens, positioned behind the copy on xl+ */}
-      <div className="relative mx-auto mt-10 h-112 w-full max-w-3xl sm:h-136 xl:absolute xl:top-[12%] xl:left-[22%] xl:mt-0 xl:h-[72%] xl:w-[62%] xl:max-w-none">
+      <div className="relative mx-auto mt-10 h-112 w-full max-w-3xl sm:h-136 lg:absolute lg:top-[12%] lg:left-[22%] lg:mt-0 lg:h-[72%] lg:w-[62%] lg:max-w-none">
         <GlobeView pins={data?.pins} className="size-full" />
       </div>
 
-      <div className="container relative z-10 mt-10 xl:pointer-events-none xl:absolute xl:inset-x-0 xl:top-0 xl:mt-0 xl:h-full">
-        <ul className="grid grid-cols-1 gap-8 sm:grid-cols-3 xl:pointer-events-auto xl:absolute xl:top-[14.7%] xl:right-0 xl:bottom-[8%] xl:w-57.5 xl:grid-cols-1 xl:content-between xl:gap-0">
+      <div className="container mx-auto px-4 relative z-10 mt-10 lg:pointer-events-none lg:absolute lg:inset-x-0 lg:top-0 lg:mt-0 lg:h-full">
+        <ul className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:pointer-events-auto lg:absolute lg:top-[14.7%] lg:right-0 lg:bottom-[8%] lg:w-57.5 lg:grid-cols-1 lg:content-between lg:gap-0">
           {data?.stats?.map((stat, i) => (
-            <Reveal
-              as="li"
-              key={stat?.id}
-              variant="up"
-              delay={0.15 * i}
-              className="flex flex-col gap-3 xl:gap-0"
-            >
-              <div
-                className="relative h-12 xl:h-16.25"
-                style={{
-                  aspectRatio: `${stat?.icon?.w} / ${stat?.icon?.h}`,
-                  maxWidth: `${(stat?.icon?.w ?? 0) / 16}rem`,
-                }}
-              >
-                <Image
-                  src={stat?.icon?.src}
-                  alt=""
-                  fill
-                  className="object-contain object-left"
-                />
+            <Reveal as="li" key={stat?.id} variant="up" delay={0.15 * i} className="flex flex-col gap-3 lg:gap-0">
+              <div className="relative h-12 lg:h-16.25" style={{ aspectRatio: `${stat?.icon?.w} / ${stat?.icon?.h}`, maxWidth: `${stat?.icon?.w ?? 0}px` }}>
+                <Image src={stat?.icon?.src} alt="" fill className="object-contain object-left" />
               </div>
-              <p className="font-inter text-4xl/none font-bold text-basecolor xl:mt-9 xl:text-stat/none">
+              <p className="font-inter text-4xl/none font-bold text-basecolor lg:mt-9 lg:text-stat/none">
                 <NumberTicker value={stat?.value} suffix={stat?.suffix} />
               </p>
-              <p className="font-inter text-base/[1.6] font-medium text-white lowercase sm:text-lg/[1.6] xl:mt-4 xl:text-lead/[1.6]">
-                {stat?.label}
-              </p>
+              <p className="font-inter text-base/[1.6] font-medium text-white lowercase sm:text-lg/[1.6] lg:mt-4 lg:text-lead/[1.6]">{stat?.label}</p>
             </Reveal>
           ))}
         </ul>

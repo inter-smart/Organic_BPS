@@ -20,6 +20,8 @@ import { projectToScreen, surfaceVisibility, rectsOverlap, clampRectToViewport, 
 const CHEVRON_SVG =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
 
+const escapeHtml = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
 export class CardManager {
   constructor({ container, camera, config, leaderLine }) {
     this.container = container;
@@ -49,12 +51,14 @@ export class CardManager {
 
       const el = document.createElement('div');
       el.className = 'globe-card';
+      const title = escapeHtml(pin.title);
+      const subtitle = escapeHtml(pin.subtitle);
       el.innerHTML = `
-        <div class="globe-card__inner" tabindex="0" role="button" aria-label="${pin.title}: ${pin.subtitle}">
+        <div class="globe-card__inner" tabindex="0" role="button" aria-label="${title}: ${subtitle}">
           <span class="globe-card__icon">${icons[pin.icon] || ''}</span>
           <span class="globe-card__text">
-            <span class="globe-card__title">${pin.title}</span>
-            <span class="globe-card__subtitle">${pin.subtitle}</span>
+            <span class="globe-card__title">${title}</span>
+            <span class="globe-card__subtitle">${subtitle}</span>
           </span>
           <span class="globe-card__chevron" aria-hidden="true">${CHEVRON_SVG}</span>
         </div>

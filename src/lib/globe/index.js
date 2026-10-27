@@ -105,6 +105,18 @@ export async function createGlobeComponent(userConfig = {}) {
     applyResponsiveCardSizing();
   });
 
+  // Do the heavy GPU work (shader compile, 4096px texture upload + mipmaps) now, in small frame-spaced steps,
+  // so the first real frame — usually while the user is scrolling the page — does not freeze the main thread.
+  try {
+    await globe.renderer.compileAsync(globe.scene, globe.camera);
+  } catch {
+    /* compile happens on first render instead */
+  }
+  for (const texture of Object.values(textures)) {
+    globe.renderer.initTexture(texture);
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+  }
+
   globe.start();
 
   if (loaderEl) {

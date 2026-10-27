@@ -10,7 +10,7 @@ export default function MenuSheet({ links = [], cta }) {
     <Sheet>
       <SheetTrigger
         aria-label="Open menu"
-        className="relative block aspect-[34/23.4] w-7 shrink-0 cursor-pointer transition-transform duration-300 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white sm:w-8 xl:w-8.5"
+        className="relative block aspect-[34/23.4] w-7 shrink-0 cursor-pointer transition-transform duration-300 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white sm:w-8 lg:w-8.5"
       >
         <Image src="/images/menu-icon.svg" alt="" fill className="object-contain" />
       </SheetTrigger>

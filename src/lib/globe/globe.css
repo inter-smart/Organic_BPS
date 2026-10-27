@@ -85,7 +85,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 15rem;
+  width: 240px;
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   will-change: transform, opacity;
   opacity: 0;
@@ -93,18 +93,18 @@
 }
 @media (max-width: 640px) {
   .globe-card {
-    width: 14.5rem;
+    width: 232px;
   }
 }
 
 .globe-card__inner {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 10.4px;
   width: 100%;
-  height: 4.75rem;
-  padding: 0 0.85rem;
-  border-radius: 0.875rem;
+  height: 76px;
+  padding: 0 13.6px;
+  border-radius: 14px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   box-shadow: var(--card-shadow);
@@ -135,15 +135,15 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  width: 2.125rem;
-  height: 2.125rem;
-  border-radius: 0.5625rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
   background: var(--icon-chip-bg);
   color: var(--icon-color);
 }
 .globe-card__icon svg {
-  width: 1.0625rem;
-  height: 1.0625rem;
+  width: 17px;
+  height: 17px;
 }
 
 .globe-card__text {
@@ -154,7 +154,7 @@
 }
 
 .globe-card__title {
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 700;
   color: var(--card-title);
   white-space: nowrap;
@@ -163,8 +163,8 @@
 }
 
 .globe-card__subtitle {
-  margin-top: 0.1rem;
-  font-size: 1rem;
+  margin-top: 1.6px;
+  font-size: 16px;
   color: var(--card-subtitle);
   white-space: nowrap;
   overflow: hidden;
@@ -190,7 +190,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 16px;
   background: var(--globe-bg);
   transition: opacity 0.6s ease;
 }
@@ -225,7 +225,7 @@
 
 .globe-loader__status {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 12.8px;
   color: var(--text-secondary);
   letter-spacing: 0.02em;
 }

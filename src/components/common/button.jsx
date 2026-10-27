@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 /*
  * Pill CTA used across the site. `light` sits on white sections, `dark` on black/photo ones.
  * Premium hover: a brand-colour fill sweeps in from the left, the label flips colour and the arrow slides.
- * Padding / type steps through base → sm → lg → xl; xl+ is exact thanks to the rem scaling root.
+ * Padding / type steps through base → sm → lg → xl.
  */
 const buttonVariants = cva(
   "group relative isolate inline-flex w-fit items-center justify-center gap-4 overflow-hidden rounded-full border-[2.5px] border-basecolor3 font-medium whitespace-nowrap transition-[transform,box-shadow] duration-500 ease-out hover:shadow-[0_12px_30px_-12px_rgba(37,82,170,0.65)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 motion-reduce:transition-none motion-reduce:hover:translate-y-0 " +
@@ -20,8 +20,8 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          "h-12 px-6 text-base sm:h-14 sm:px-8 sm:text-lg lg:h-16 lg:px-10 xl:h-21 xl:px-12 xl:text-lead",
-        sm: "h-11 px-5 text-sm sm:h-12 sm:px-6 sm:text-base xl:h-16 xl:px-9 xl:text-lg",
+          "h-12 px-6 text-base sm:h-14 sm:px-8 sm:text-lg lg:h-21 lg:px-12 lg:text-lead",
+        sm: "h-11 px-5 text-sm sm:h-12 sm:px-6 sm:text-base lg:h-16 lg:px-9 lg:text-lg",
       },
     },
     defaultVariants: { variant: "light", size: "default" },
@@ -49,8 +49,8 @@ export default function Button({
         <span
           aria-hidden="true"
           className={cn(
-            "relative aspect-[19/14.35] w-4 shrink-0 transition-transform duration-500 ease-out group-hover:translate-x-1.5 xl:w-4.5 motion-reduce:transition-none",
-            variant === "dark" ? "" : "group-hover:invert",
+            "relative aspect-[19/14.35] w-4 shrink-0 transition-transform duration-500 ease-out group-hover:translate-x-1.5 lg:w-4.5 motion-reduce:transition-none",
+            variant === "dark" ? "" : "group-hover:invert"
           )}
         >
           <Image

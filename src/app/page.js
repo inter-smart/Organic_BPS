@@ -1,3 +1,7 @@
+import Clients from "@/components/sections/home/client-logos";
+import Founder from "@/components/sections/home/founder";
+import GlobeImpact from "@/components/sections/home/globe-impact";
+import Greenstorm from "@/components/sections/home/greenstorm";
 import Hero from "@/components/sections/home/hero";
 import Founder from "@/components/sections/home/founder";
 import WhatWeDo from "@/components/sections/home/what-we-do";
@@ -128,18 +132,13 @@ const local_data = {
       ],
       [
         { t: "We", c: "#333333" },
-        { t: "build", c: "#555555" },
-        { t: "belief", c: "#777777" },
-        { t: "around", c: "#999999" },
-        { t: "it", c: "#a8a8a8" },
+        { t: "build", c: "#333333" },
+        { t: "belief", c: "#333333" },
+        { t: "around", c: "#333333" },
+        { t: "it", c: "#333333" },
         { t: ".", c: "#da4d47", attach: true },
       ],
-      [
-        { t: "We", c: "#b8b8b8" },
-        { t: "drive", c: "#b8b8b8" },
-        { t: "action", c: "#b8b8b8" },
-        { t: ".", c: "#da4d47", attach: true },
-      ],
+      [{ t: "We", c: "#333333" }, { t: "drive", c: "#333333" }, { t: "action", c: "#333333" }, { t: ".", c: "#da4d47", attach: true }],
     ],
     links: [
       { id: 1, label: "Purpose strategy", href: "#contact" },

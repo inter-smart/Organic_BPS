@@ -14,7 +14,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
   // Start fetching the video only when the section enters the viewport (poster shows meanwhile) (it is ~9MB and below the fold).
   const near = useInView(ref, { once: true });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [1.25, 1.05, 1.0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduce ? [1, 1, 1] : [1.3, 1.2, 1.13]);
   const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-6%", "6%"]);
 
   return (
@@ -24,8 +24,8 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
       aria-label={alt}
       className={`relative aspect-834/669 w-full ${className}`}
       initial={reduce ? false : { opacity: 0, scale: 0.92 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
+      whileInView={{ opacity: 1, scale: 0.92 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       style={{
         WebkitMaskImage: "url(/images/hi-mask.svg)",
