@@ -3,6 +3,7 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import Preloader from "@/components/common/preloader";
 import SmoothScroll from "@/components/common/smooth-scroll";
+import Header from "@/components/layout/header";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],

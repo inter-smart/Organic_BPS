@@ -28,7 +28,6 @@ export default function Hero({ data }) {
             {data?.cta?.label}
           </Button>
         </Reveal>
-
         <a
           href={data?.scroll?.href}
           aria-label={data?.scroll?.label}
