@@ -1,12 +1,8 @@
 import Clients from "@/components/sections/home/client-logos";
-import Founder from "@/components/sections/home/founder";
-import GlobeImpact from "@/components/sections/home/globe-impact";
 import Greenstorm from "@/components/sections/home/greenstorm";
 import Hero from "@/components/sections/home/hero";
 import Founder from "@/components/sections/home/founder";
 import WhatWeDo from "@/components/sections/home/what-we-do";
-import Clients from "@/components/sections/home/client-logos";
-import Greenstorm from "@/components/sections/home/greenstorm";
 import GlobeImpact from "@/components/sections/home/globe-impact";
 import TeamGallery from "@/components/sections/home/team-gallery";
 import PurposeInsights from "@/components/sections/home/purpose-insights";
@@ -46,7 +42,7 @@ const local_data = {
     ],
     paragraphs: [
       [
-        { t: "We are a Brand Purpose Consultancy with more than " },
+        { t: "We are a Brand Purpose Consultancy with more than" },
         { t: "26 years of experience", accent: true },
         { t: " in brand strategy and communication." },
       ],
@@ -63,7 +59,6 @@ const local_data = {
     ],
     cta: { label: "Discover our purpose", href: "#how-we-do" },
   },
-
   globe: {
     title: [
       [{ t: "Good for business." }],
@@ -138,7 +133,12 @@ const local_data = {
         { t: "it", c: "#333333" },
         { t: ".", c: "#da4d47", attach: true },
       ],
-      [{ t: "We", c: "#333333" }, { t: "drive", c: "#333333" }, { t: "action", c: "#333333" }, { t: ".", c: "#da4d47", attach: true }],
+      [
+        { t: "We", c: "#333333" },
+        { t: "drive", c: "#333333" },
+        { t: "action", c: "#333333" },
+        { t: ".", c: "#da4d47", attach: true },
+      ],
     ],
     links: [
       { id: 1, label: "Purpose strategy", href: "#contact" },

@@ -14,7 +14,14 @@ export default function Hero({ data }) {
       aria-labelledby="hero-title"
       className="relative isolate flex h-svh min-h-150 flex-col justify-center overflow-hidden bg-basecolor4 text-white"
     >
-      <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
+      <Parallax
+        className="absolute inset-0 -z-10"
+        from={0}
+        to={25}
+        scale={1}
+        start="top top"
+        end="bottom top"
+      >
         <HeroMedia slides={data?.slides} />
       </Parallax>
 
@@ -34,13 +41,18 @@ export default function Hero({ data }) {
             {data?.cta?.label}
           </Button>
         </Reveal>
-        <a
+        <Link
           href={data?.scroll?.href}
           aria-label={data?.scroll?.label}
           className="absolute right-4 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-bottom-14 lg:right-0"
         >
           <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
-            <Image src="/images/arrow-down.svg" alt="" fill className="object-contain" />
+            <Image
+              src="/images/arrow-down.svg"
+              alt=""
+              fill
+              className="object-contain"
+            />
           </span>
         </Link>
       </div>

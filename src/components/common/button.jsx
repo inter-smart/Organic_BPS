@@ -50,7 +50,7 @@ export default function Button({
           aria-hidden="true"
           className={cn(
             "relative aspect-[19/14.35] w-4 shrink-0 transition-transform duration-500 ease-out group-hover:translate-x-1.5 lg:w-4.5 motion-reduce:transition-none",
-            variant === "dark" ? "" : "group-hover:invert"
+            variant === "dark" ? "" : "group-hover:invert",
           )}
         >
           <Image
