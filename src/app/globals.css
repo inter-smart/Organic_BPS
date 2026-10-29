@@ -2,12 +2,13 @@
 @import "tw-animate-css";
 
 /* ------------------------------------------------------------------
-   Tailwind default breakpoints (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536)
+   Tailwind default breakpoints (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536 · 3xl 1920)
    and the default `container` utility. Spacing, type, radii and container
    widths are re-based to px so nothing depends on the root font-size.
 ------------------------------------------------------------------- */
 @theme {
   --spacing: 4px;
+  --breakpoint-3xl: 1920px;
 
   --text-xs: 12px;
   --text-sm: 14px;
@@ -99,21 +100,30 @@
 }
 
 /* ------------------------------------------------------------------
-   Laptop-exact scaling.
-   From xl (1200px) up, 16px tracks the Figma 1920x1080 frame:
-   rem = 16px at 1920x1080, shrinking with the smaller of width/height,
-   so every full-height section (1080px) always fits the viewport.
-------------------------------------------------------------------- */
-/* ------------------------------------------------------------------
-   Figma-proportional scaling from lg (1024) up: 1 design px = the smaller of
-   100vw / 1920 and 100svh / 1080, so a 4px spacing step is exactly the design
-   value at 1920x1080 and shrinks linearly on laptops, and every 1080-design-px
-   full-height section still fits short laptop windows (e.g. 1270x552). --u is used for Figma px values with no spacing step.
+   Figma-proportional scaling, stepped per tier. --u = 1 design px.
+   3xl (>=1920) is the Figma frame: values are exact (1px). Smaller tiers use a
+   fixed ratio, capped by 100svh/1080 so 1080-design-px full-height sections
+   still fit short laptop windows. Below lg (1024) the mobile layout is unscaled.
 ------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   :root {
-    --u: min(calc(100vw / 1920), calc(100svh / 1080));
+    --u: min(0.6px, calc(100svh / 1080)); /* lg */
     --spacing: calc(var(--u) * 4);
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --u: min(0.72px, calc(100svh / 1080)); /* xl */
+  }
+}
+@media (min-width: 1536px) {
+  :root {
+    --u: min(0.85px, calc(100svh / 1080)); /* 2xl */
+  }
+}
+@media (min-width: 1920px) {
+  :root {
+    --u: 1px; /* 3xl: exact Figma */
   }
 }
 
