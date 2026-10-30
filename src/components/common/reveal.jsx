@@ -29,6 +29,7 @@ export default function Reveal({
   duration = 0.8,
   amount = 0.2,
   once = false,
+  immediate = false,
   className,
   children,
   ...props
@@ -55,14 +56,24 @@ export default function Reveal({
     io.observe(el);
     return () => io.disconnect();
   }, [variant, amount, once]);
-  const ready = useIntroDone();
+  const introReady = useIntroDone();
+  // `immediate` is for the one LCP element per page (the hero <h1>) only. The preloader's own opaque
+  // curtain already hides everything until it lifts, so skipping the entrance animation there is
+  // invisible to users — but it matters for Lighthouse/Core Web Vitals. Gating `animate` on `inView`
+  // (set by an IntersectionObserver effect) means the server-rendered HTML — and the first client
+  // paint, before that effect has run — is stuck at `hidden[variant]` (opacity:0) regardless of
+  // `initial`, since `inView` starts `false` on both. Chrome can't count the heading as painted until
+  // client JS hydrates, the observer fires, and the intro curtain finishes — several seconds under
+  // throttled conditions. `immediate` bypasses both the intro gate and the inView gate so the element
+  // is simply always shown, matching what the preloader already guarantees is hidden from the user.
+  const ready = immediate || introReady;
   const target = variant === "clip" ? { ...shown, clipPath: "inset(0% 0% 0% 0%)" } : shown;
   return (
     <Tag
       ref={ref}
       className={className}
-      initial={reduce ? false : hidden[variant]}
-      animate={reduce || (ready && inView) ? target : hidden[variant]}
+      initial={reduce || immediate ? false : hidden[variant]}
+      animate={reduce || immediate || (ready && inView) ? target : hidden[variant]}
       transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
       {...props}
     >

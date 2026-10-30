@@ -5,11 +5,11 @@ export const layout_data = {
     links: [
       { id: 1, label: "Home", href: "/#home" },
       { id: 2, label: "How We Do", href: "/#how-we-do" },
-      { id: 3, label: "What We Do", href: "/#what-we-do" },
+      { id: 3, label: "What We Do", href: "/what-we-do" },
       { id: 4, label: "Why We Do", href: "/#why-we-do" },
       { id: 5, label: "Who We Are", href: "/who-we-are" },
     ],
-    cta: { label: "Contact", href: "/#contact" },
+    cta: { label: "Contact", href: "/contact" },
   },
 
   footer: {
@@ -21,7 +21,7 @@ export const layout_data = {
     ],
     text: "To founders building businesses, brands looking for change, and people ready to create it.",
     welcome: "Welcome.",
-    cta: { label: "Contact", href: "/#contact" },
+    cta: { label: "Contact", href: "/contact" },
     copyright: "© Copyright 2026, Organic BPS Pvt ltd, All rights reserved",
     social: [
       { id: 1, label: "Facebook", href: "#", icon: "/images/social-facebook.svg" },

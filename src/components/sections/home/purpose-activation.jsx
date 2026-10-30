@@ -25,6 +25,7 @@ export default function PurposeActivation({ data }) {
         <TextReveal
           as="h2"
           lines={data?.lines}
+          from="#8e8e8e"
           className="text-center text-3xl/[1.4] font-bold tracking-[-0.02em] sm:text-5xl/[1.4] md:text-6xl/[1.4] lg:text-display/[1.411]"
         />
         <Reveal variant="up" delay={0.1} className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:mt-26 lg:gap-5">

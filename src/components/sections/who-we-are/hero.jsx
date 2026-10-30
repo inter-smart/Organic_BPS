@@ -14,7 +14,7 @@ export default function Hero({ data }) {
       </Parallax>
 
       <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-0">
-        <Reveal variant="blur" duration={1.1}>
+        <Reveal variant="blur" duration={1.1} immediate>
           <Heading as="h1" id="who-hero-title" size="display" className="text-white">
             <RichLines lines={data?.title} />
           </Heading>

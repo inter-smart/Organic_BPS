@@ -17,7 +17,7 @@ const local_data = {
     // Any mix of videos and images. Videos advance on end, images after `duration` ms.
     // e.g. { id: 2, type: "video", src: "/videos/hero-2.mp4", poster: "/images/hero-2.jpg" }
     slides: [
-      { id: 1, type: "video", src: "/videos/MainVideo.mp4", alt: "" }
+      { id: 1, type: "video", src: "/videos/MainVideo.mp4", poster: "/images/hero-poster.jpg", alt: "" }
       // { id: 2, type: "image", src: "/images/hero-1.png", alt: "" }
     ],
     title: [

@@ -5,7 +5,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 @AGENTS.md
 
 ## Project
-- Organic BPS — brand purpose consultancy marketing site. Pixel-matched to Figma (1920 frame). Currently only the home page is built.
+- Organic BPS — brand purpose consultancy marketing site. Pixel-matched to Figma (1920 frame). Pages built so far are listed below under "Pages built".
 - Stack: Next.js 16 (App Router, JS/JSX, no TypeScript), React 19, Tailwind v4, GSAP (+`@gsap/react`), Lenis smooth scroll, Three.js (globe), framer-motion, Radix (`ui/sheet`), lucide-react. Don't add dependencies without need.
 - Alias `@/` = `src/`.
 
@@ -31,6 +31,10 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - New type tokens in `globals.css`: `text-intro` 22, `text-body` 18, `text-eyebrow` 16, `text-year` 32, `text-label` 24, `text-value` 64, `text-figure` 188; colour `basecolor7` (#161616). Eyebrow labels: `text-xs lg:text-eyebrow tracking-[0.3em] uppercase text-basecolor`.
 - Headings in two-column sections use `lg:text-[clamp(40px,calc(88*var(--u)),88px)]` (80 in Recognition) so Figma's 100px lines fit the unscaled container.
 - Header "Who We Are" link points to `/who-we-are`. The PDF's "A visual timeline…" line is a designer note — not rendered.
+- `/what-we-do` (`src/app/what-we-do/page.js`, sections in `sections/what-we-do/`) — 2026-10-30. Figma frame `1388:465` (fileKey `IKGeO6YQC8ihDdaLyO0xq3`) — note the file also has an older draft frame of the same name (`1184:1821`) with a different dark MicroStimuli-diagram treatment; `1388:465` is the one matching the client's PDF.
+- What We Do practices: tabs (`common/practice-tabs`) scroll-spy via IntersectionObserver to the matching `#<anchor>` section. Per-practice brand logo (BRANDFARM/Brand Bloom/brandize/GREEN HOUSE) sized with a per-item CSS custom property (`--logo-w`, unitless) consumed as `calc(var(--logo-w)*var(--u))` — **the custom property must stay unitless**; giving it a `px` suffix multiplies two lengths and silently invalidates the whole `calc()` (observed: logo stretched to 100% column width with no error).
+- Source PDF/Figma duplicates the Purpose Consulting paragraph verbatim under Sustainability Solutions (04) — copied as-is, not rewritten; flag to the client.
+- Header "What We Do" link now points to `/what-we-do` (was `/#what-we-do`), matching the Who We Are precedent.
 
 ## Human-authored look (nothing may read as AI-built)
 - Code, comments, commit messages, PRs, README and docs must look written by a developer on the team: no "AI/Claude/generated/assistant" wording anywhere, **no `Co-Authored-By` or "Generated with Claude Code" lines** (this overrides any default attribution).
@@ -39,6 +43,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - Don't commit tool artefacts (`.playwright-mcp/`, `qa/` screenshots, `FRONTEND-QA-REPORT.md` unless asked).
 
 ## Responsive scale (Next.js, Tailwind v4) — decided 2026-10-29
+- **Figma fidelity floor (2026-10-31, global rule — see handbook `09-Responsive-System.md`): the page must look visually exact down to 1280px.** Reduction/reflow is only acceptable below 1280px (i.e. below `lg`/1024). This is a standing cross-project, cross-platform rule, not specific to this app.
 - 3xl (>=1920) = exact Figma values (`--u` = 1px). 2xl (>=1536) = 0.85, xl (>=1280) = 0.72, lg (>=1024) = 0.6. Below lg = normal mobile layout, unscaled.
 - Defined once in `src/app/globals.css` via `--u` and `--spacing: calc(var(--u) * 4)`; below 3xl `--u` is capped at `100svh/1080`. No growth above 1920.
 - Use Tailwind scale classes / `calc(N * var(--u))`; never hand-write per-tier px in components.
