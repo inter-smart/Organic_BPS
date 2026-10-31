@@ -47,7 +47,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
         maskRepeat: "no-repeat",
       }}
     >
-      <motion.div className="absolute inset-0" style={{ scale, y }}>
+      <motion.div className="absolute inset-0 size-full" style={{ scale, y }}>
         {video ? (
           <video
             className="size-full object-cover"
@@ -63,7 +63,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
         ) : (
           <Image
             src={poster}
-            alt=""
+            alt="Poster"
             fill
             sizes="(min-width: 1200px) 45vw, 100vw"
             className="object-cover"

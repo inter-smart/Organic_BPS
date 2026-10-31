@@ -12,16 +12,18 @@ export default function WhatWeDo({ data }) {
       aria-labelledby="what-we-do-title"
       className="relative overflow-hidden bg-white py-16 sm:py-20 lg:flex lg:items-center lg:py-0"
     >
-      <div className="container mx-auto px-4 grid items-center gap-10 lg:grid-cols-[834fr_690fr] lg:gap-27">
-        <div data-hi className="will-change-transform">
+      <div className="container mx-auto px-4 grid items-center gap-10 lg:grid-cols-[834fr_690fr] 2xl:grid-cols-[834fr_690fr] lg:gap-27">
+        <div
+          data-hi
+          className="will-change-transform lg:self-stretch lg:flex lg:items-center"
+        >
           <HiMedia
             video={data?.media?.video}
             poster={data?.media?.poster}
             alt={data?.media?.alt}
-            className="mx-auto max-w-md lg:max-w-none"
+            className="lg:h-full lg:aspect-auto"
           />
         </div>
-
         <div data-copy>
           <Reveal variant="up">
             <Heading

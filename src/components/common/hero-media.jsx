@@ -4,11 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-/**
- * Hero background: any mix of videos and images, cross-faded in sequence.
- * slides: [{ id, type: "image" | "video", src, poster?, alt?, duration? }]
- * Images stay `duration` ms (default 6000); videos advance when they finish playing.
- */
 export default function HeroMedia({ slides = [] }) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
@@ -20,7 +15,6 @@ export default function HeroMedia({ slides = [] }) {
     if (count < 2 || slide?.type === "video") return;
     const t = setTimeout(next, slide?.duration ?? 6000);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, count, slide?.type, slide?.duration]);
 
   return (
@@ -55,18 +49,27 @@ export default function HeroMedia({ slides = [] }) {
                 animate={{ scale: 1 }}
                 transition={{ duration: 8, ease: "easeOut" }}
               >
-                <Image src={slide.src} alt={slide.alt ?? ""} fill priority={index === 0} sizes="100vw" className="object-cover object-[72%_center] lg:object-center" />
+                <Image
+                  src={slide.src}
+                  alt={slide.alt ?? ""}
+                  fill
+                  priority={index === 0}
+                  sizes="100vw"
+                  className="object-cover object-[72%_center] lg:object-center"
+                />
               </motion.div>
             )}
           </motion.div>
         ) : null}
       </AnimatePresence>
-      {/* legibility overlay: darkens the left (copy) side and the bottom edge */}
       <div className="absolute inset-0 bg-linear-to-r from-black/55 via-black/15 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/40 to-transparent" />
-
       {count > 1 ? (
-        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Hero media">
+        <div
+          className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2"
+          role="tablist"
+          aria-label="Hero media"
+        >
           {slides.map((s, i) => (
             <button
               key={s?.id ?? i}

@@ -16,8 +16,9 @@ const buttonVariants = cva(
           "[background-origin:border-box] [background-clip:padding-box,border-box] " +
           "bg-[image:linear-gradient(#fcfcfc,#fcfcfc),radial-gradient(55%_100%_at_0%_0%,#DA4D47_55%,#2552AA_95%)]",
         dark:
-          "border-basecolor3 bg-black/40 text-white " +
-          "bg-[radial-gradient(60%_90%_at_6%_8%,rgba(218,77,71,0.5),transparent_62%),radial-gradient(70%_100%_at_94%_100%,rgba(37,82,170,0.22),transparent_65%)]",
+          "border-transparent text-white " +
+          "[background-origin:border-box] [background-clip:padding-box,border-box] " +
+          "bg-[image:linear-gradient(#000,#000),radial-gradient(55%_100%_at_0%_0%,#DA4D47_55%,#2552AA_95%)]",
       },
       size: {
         default:

@@ -1,7 +1,6 @@
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 
-
 import Image from "next/image";
 
 const local_data = {
@@ -11,14 +10,14 @@ const local_data = {
       media: {
         url: "/images/insight-1.png",
         alt: "Designer working at a desk with two monitors",
-      }
+      },
     },
     {
       title: "Item 1",
       media: {
         url: "/images/insight-2.png",
         alt: "Designer working at a desk with two monitors",
-      }
+      },
     },
     {
       title: "Item 1",
@@ -35,7 +34,7 @@ const local_data = {
 export default function About({ data = local_data }) {
   return (
     <div>
-        <Header data={local_data.header} />
+      <Header data={local_data.header} />
       <h1 className="text-[40px] text-black">About</h1>
       <ul>
         {data?.items.map((item, index) => (
@@ -44,7 +43,10 @@ export default function About({ data = local_data }) {
             <div>
               <Image
                 src={item.media?.url || "/images/globe-poster.png"}
-                alt={item.media?.alt || "Designer working at a desk with two monitors"}
+                alt={
+                  item.media?.alt ||
+                  "Designer working at a desk with two monitors"
+                }
                 width={100}
                 height={100}
               />
