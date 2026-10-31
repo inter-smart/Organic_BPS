@@ -2,11 +2,8 @@
 
 import { useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import useScrubTrack from "@/components/common/use-scrub-track";
 import { cn } from "@/lib/utils";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /*
  * Year-by-year timeline. Same pinning approach as InsightSlider: the section pins while vertical scroll scrubs the
@@ -19,54 +16,28 @@ export default function TimelineSlider({ items = [] }) {
   const wrap = useRef(null);
   const track = useRef(null);
 
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      const build = (pinSection) => {
-        const section = wrap.current.closest("section");
-        const years = gsap.utils.toArray("[data-year]", track.current);
-        const focal = () => window.innerWidth * 0.24;
-        // screen-x of a year's centre with the row's current translation taken out
-        const centre = (el) => {
-          const r = el.getBoundingClientRect();
-          return r.left + r.width / 2 - gsap.getProperty(track.current, "x");
-        };
-        const distance = () => Math.max(0, centre(years[years.length - 1]) - focal());
-        const pinEl = pinSection ? section : wrap.current.parentElement;
-        const pick = () => {
-          let best = 0;
-          let bestDist = Infinity;
-          years.forEach((y, i) => {
-            const r = y.getBoundingClientRect();
-            const d = Math.abs(r.left + r.width / 2 - focal());
-            if (d < bestDist) [best, bestDist] = [i, d];
-          });
-          setActive(best);
-        };
-        gsap.to(track.current, {
-          x: () => -distance(),
-          ease: "none",
-          // on the tween, not the trigger: the scrubbed row keeps easing after scrolling stops
-          onUpdate: pick,
-          scrollTrigger: {
-            trigger: pinEl,
-            pin: true,
-            start: pinSection ? "top top" : "center center",
-            end: () => `+=${Math.max(distance(), window.innerHeight * 0.9)}`,
-            scrub: 0.6,
-            invalidateOnRefresh: true,
-            onRefresh: pick,
-          },
-        });
-      };
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const section = wrap.current.closest("section");
-        build(window.innerWidth >= 1024 && section.offsetHeight <= window.innerHeight + 1);
-      });
-      return () => mm.revert();
+  // the highlighted year is the one on the focal line (24% of the viewport)
+  const pick = () => {
+    const focal = window.innerWidth * 0.24;
+    let best = 0;
+    let bestDist = Infinity;
+    gsap.utils.toArray("[data-year]", track.current).forEach((y, i) => {
+      const r = y.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - focal);
+      if (d < bestDist) [best, bestDist] = [i, d];
+    });
+    setActive(best);
+  };
+
+  useScrubTrack(wrap, track, {
+    // centre of the last year with the row's current translation taken out, so the row stops with it on the focal line
+    distance: (el) => {
+      const r = gsap.utils.toArray("[data-year]", el).at(-1).getBoundingClientRect();
+      return Math.max(0, r.left + r.width / 2 - gsap.getProperty(el, "x") - window.innerWidth * 0.24);
     },
-    { scope: wrap },
-  );
+    onUpdate: pick,
+    onRefresh: pick,
+  });
 
   return (
     <div

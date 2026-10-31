@@ -3,19 +3,14 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import useScrubTrack from "@/components/common/use-scrub-track";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
 /*
- * Purpose / insights cards. The section pins while vertical scroll scrubs the track sideways, then releases to the
- * next section. lg+ screens tall enough for the whole section pin the section; smaller ones pin just the card row.
- * Card width/gap follow the viewport width (481/1920) rather than the min(width,height) scale, so the row always
- * overflows the screen and there is something to scrub, even on short laptop windows. The first card lines up with the page container via --slider-gutter and the last one ends on it.
+ * Purpose / insights cards, scrubbed sideways by use-scrub-track. Card width/gap follow the viewport width (481/1920)
+ * rather than the min(width,height) scale, so the row always overflows the screen and there is something to scrub,
+ * even on short laptop windows. The first card lines up with the page container via --slider-gutter and the last one ends on it.
  * Card highlight (blue → red gradient) follows hover/focus, otherwise the card nearest the screen centre.
- * With reduced motion nothing is pinned and the row scrolls natively.
  */
 export default function InsightSlider({ items = [] }) {
   const [hover, setHover] = useState(null);
@@ -24,48 +19,19 @@ export default function InsightSlider({ items = [] }) {
   const wrap = useRef(null);
   const track = useRef(null);
 
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      const build = (pinSection) => {
-        const section = wrap.current.closest("section");
-        const cards = gsap.utils.toArray("li", track.current);
-        const distance = () => Math.max(0, track.current.scrollWidth - wrap.current.clientWidth);
-        const pinEl = pinSection ? section : wrap.current.parentElement;
-        gsap.to(track.current, {
-          x: () => -distance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: pinEl,
-            pin: true,
-            start: pinSection ? "top top" : "center center",
-            // hold at least ~one screen of scroll even when the row only overflows a little (laptops)
-            end: () => `+=${Math.max(distance(), window.innerHeight * 0.9)}`,
-            scrub: 0.6,
-            invalidateOnRefresh: true,
-            onUpdate: () => {
-              const mid = window.innerWidth / 2;
-              let best = 0;
-              let bestDist = Infinity;
-              cards.forEach((c, i) => {
-                const r = c.getBoundingClientRect();
-                const d = Math.abs(r.left + r.width / 2 - mid);
-                if (d < bestDist) [best, bestDist] = [i, d];
-              });
-              setAuto(best);
-            },
-          },
-        });
-      };
-      // pin the whole section only on lg+ screens it fits on; otherwise just the card row
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const section = wrap.current.closest("section");
-        build(window.innerWidth >= 1024 && section.offsetHeight <= window.innerHeight + 1);
+  useScrubTrack(wrap, track, {
+    onUpdate: () => {
+      const mid = window.innerWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      gsap.utils.toArray("li", track.current).forEach((c, i) => {
+        const r = c.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - mid);
+        if (d < bestDist) [best, bestDist] = [i, d];
       });
-      return () => mm.revert();
+      setAuto(best);
     },
-    { scope: wrap }
-  );
+  });
 
   return (
     <div

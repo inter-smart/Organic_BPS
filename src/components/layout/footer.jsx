@@ -55,7 +55,7 @@ export default function Footer({ data }) {
 
       <div className="bg-black text-white">
         <div className="container mx-auto px-4 flex flex-col items-center gap-4 py-5 text-center text-sm sm:text-base md:flex-row md:justify-between lg:min-h-22.75 lg:py-3 lg:text-[clamp(14px,calc(18*var(--u)),18px)]">
-          <p className="md:flex-1 md:text-left">{data?.copyright}</p>
+          <p className="md:flex-1 md:text-left lg:flex-[1.4] lg:whitespace-nowrap">{data?.copyright}</p>
           <ul className="flex items-center gap-2 md:flex-1 md:justify-center">
             {data?.social?.map((s) => (
               <li key={s?.id}>

@@ -8,7 +8,7 @@ export default function OurPurpose({ data }) {
     <section
       id="our-purpose"
       aria-labelledby="our-purpose-eyebrow"
-      className="relative isolate flex min-h-svh flex-col items-center justify-center overflow-hidden bg-black py-20 text-center lg:h-[calc(850*var(--u))] lg:min-h-0 lg:py-0"
+      className="relative isolate flex min-h-svh flex-col items-center justify-center overflow-hidden bg-black py-20 text-center lg:h-[calc(850*var(--u))] lg:min-h-0 lg:py-[calc(100*var(--u))]"
     >
       <Parallax className="absolute inset-0 -z-10" from={-8} to={8} scale={1.2}>
         <Image src={data?.image?.src} alt={data?.image?.alt ?? ""} fill sizes="100vw" className="object-cover" />
@@ -23,7 +23,7 @@ export default function OurPurpose({ data }) {
           as="h2"
           lines={data?.lines}
           from="#4b4b4b"
-          className="mx-auto mt-5 max-w-5xl text-3xl/[1.3] font-bold tracking-[-0.02em] sm:text-5xl/[1.3] lg:mt-[calc(36*var(--u))] lg:max-w-[calc(1560*var(--u))] lg:text-display-md/[1.3]"
+          className="mx-auto mt-5 max-w-5xl text-3xl/[1.3] font-bold tracking-[-0.02em] sm:text-5xl/[1.3] lg:mt-[calc(36*var(--u))] lg:max-w-[1560px] lg:text-display-md/[1.3]"
         />
       </div>
     </section>

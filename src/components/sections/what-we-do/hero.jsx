@@ -13,20 +13,20 @@ export default function Hero({ data }) {
         <HeroMedia slides={data?.slides} />
       </Parallax>
 
-      <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-0">
+      <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-[calc(100*var(--u))]">
         <div>
           <Reveal variant="blur" duration={1.1} immediate>
             <Heading as="h1" id="what-we-do-hero-title" size="display" className="text-white">
               <RichLines lines={data?.title} />
             </Heading>
           </Reveal>
-          <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-[calc(50*var(--u))]">
+          <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-[calc(50*var(--u))]" immediate>
             <Button href={data?.cta?.href}>{data?.cta?.label}</Button>
           </Reveal>
         </div>
 
         <div className="lg:pl-[calc(9*var(--u))]">
-          <Reveal as="p" variant="up" delay={0.2} className="text-base/[1.6] font-medium text-pretty text-white sm:text-lg/[1.6] lg:max-w-[calc(674*var(--u))] lg:text-intro/[1.52]">
+          <Reveal as="p" variant="up" delay={0.2} className="text-base/[1.6] font-medium text-pretty text-white sm:text-lg/[1.6] lg:max-w-[674px] lg:text-intro/[1.52]" immediate>
             {data?.paragraph}
           </Reveal>
         </div>

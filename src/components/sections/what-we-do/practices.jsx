@@ -33,7 +33,7 @@ export default function Practices({ data }) {
           </Heading>
         </Reveal>
 
-        <div className="sticky top-0 z-20 mt-8 bg-white py-4 lg:mt-[calc(60*var(--u))] lg:py-[calc(20*var(--u))]">
+        <div className="sticky top-20 z-20 mt-8 bg-white py-4 lg:mt-[calc(60*var(--u))] lg:py-[calc(20*var(--u))]">
           <Reveal variant="up" delay={0.2}>
             <PracticeTabs items={data?.tabs} />
           </Reveal>
@@ -41,7 +41,7 @@ export default function Practices({ data }) {
 
         <ol className="mt-10 lg:mt-[calc(65*var(--u))]">
           {data?.items?.map((item, i) => (
-            <li key={item?.id} id={item?.anchorId} className="scroll-mt-28 border-t border-[#ddd] py-10 lg:py-[calc(70*var(--u))]">
+            <li key={item?.id} id={item?.anchorId} className="scroll-mt-48 border-t border-[#ddd] py-10 lg:py-[calc(70*var(--u))]">
               <div className="grid gap-6 lg:grid-cols-2 lg:gap-[calc(90*var(--u))]">
                 <div>
                   <Reveal as="p" variant="fade" aria-hidden="true" className="text-4xl font-bold text-[#e1e1e1] sm:text-5xl lg:text-[clamp(32px,calc(70*var(--u)),70px)]">
@@ -56,7 +56,7 @@ export default function Practices({ data }) {
                     {item?.label}
                   </Reveal>
                   <Reveal variant="up" delay={0.1}>
-                    <Heading as="h3" size="display" className="mt-3 text-basecolor2 lg:mt-[calc(18*var(--u))]">
+                    <Heading as="h3" size="display" className="mt-3 text-basecolor2 lg:mt-[calc(18*var(--u))] lg:text-[clamp(40px,calc(88*var(--u)),88px)]">
                       <RichText segments={item?.heading} />
                     </Heading>
                   </Reveal>

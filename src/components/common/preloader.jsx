@@ -72,7 +72,7 @@ export default function Preloader() {
   return (
     <div ref={root} className="preloader fixed inset-0 z-100 flex flex-col items-center justify-center bg-basecolor4 text-white [clip-path:inset(0_0_0_0)]" role="status" aria-label="Loading">
       <div data-logo className="relative aspect-250/47 w-56 sm:w-72 xl:w-87.5">
-        <Image src="/images/organic-bps-logo.png" alt="Organic BPS" fill loading="eager" sizes="350px" className="object-contain" />
+        <Image src="/images/organic-bps-logo.png" alt="Organic BPS" fill loading="eager" fetchPriority="high" sizes="350px" className="object-contain" />
       </div>
       <div data-meta className="absolute inset-x-0 bottom-0 flex items-end justify-between px-4 pb-6 sm:px-10 sm:pb-10">
         <span className="text-sm tracking-[0.14em] text-white/60 uppercase sm:text-base">Purpose is the journey</span>

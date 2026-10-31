@@ -35,6 +35,15 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - What We Do practices: tabs (`common/practice-tabs`) scroll-spy via IntersectionObserver to the matching `#<anchor>` section. Per-practice brand logo (BRANDFARM/Brand Bloom/brandize/GREEN HOUSE) sized with a per-item CSS custom property (`--logo-w`, unitless) consumed as `calc(var(--logo-w)*var(--u))` — **the custom property must stay unitless**; giving it a `px` suffix multiplies two lengths and silently invalidates the whole `calc()` (observed: logo stretched to 100% column width with no error).
 - Source PDF/Figma duplicates the Purpose Consulting paragraph verbatim under Sustainability Solutions (04) — copied as-is, not rewritten; flag to the client.
 - Header "What We Do" link now points to `/what-we-do` (was `/#what-we-do`), matching the Who We Are precedent.
+- **Header is fixed (2026-10-31):** `layout/header.jsx` is `position: fixed`, transparent over the hero, solid dark bar after 40px scroll. Anything sticky below it (e.g. practice tabs) must sit at `top-20`.
+- **Section padding (2026-10-31):** every section keeps top and bottom padding at every breakpoint (`py-16 sm:py-20 lg:py-[calc(100*var(--u))]`); never `py-0`, even for min-height/centred sections.
+- **Sideways scrub rows (2026-10-31):** pin + horizontal scrub lives in `common/use-scrub-track`; `InsightSlider` (home) and `AwardSlider` (Who We Are recognition) both use it. Reuse it for new card rows.
+
+- **Performance bar (2026-10-31):** every page must score Lighthouse/PageSpeed Performance 95+ on both Mobile and Desktop (reference: 98 mobile / 97 desktop, TBT ≤10 ms, LCP ≤1.7 s mobile, CLS <0.1). Measure on a production build (`npm run build` + `next start`) before finishing any page; fix regressions before delivery.
+
+- **Viewport resize (2026-10-31):** pinned/scrubbed sections must survive changing the window height at runtime. Pin mode is decided in `use-scrub-track` and rebuilt after resize (debounced); never decide layout once on mount. Don't give a pinned section a fixed `min-h` (it swallows the pin spacing and the next section scrolls over it).
+- **Height QA (2026-10-31):** before finishing anything, check every page at short and tall window heights (e.g. 1920x700, 1440x500, 1280x600, 1920x1400), not only widths: no clipped text, no horizontal overflow, columns still fill the container. Column and text widths must not be sized from `--u` (height-capped); use fr/percent columns and px max-widths. `--u` is for type, spacing and heights.
+- **Values cards (2026-10-31):** the lit card switches the instant scroll crosses its slice of the pinned distance (no scrub timeline); easing is CSS transitions only.
 
 ## Human-authored look (nothing may read as AI-built)
 - Code, comments, commit messages, PRs, README and docs must look written by a developer on the team: no "AI/Claude/generated/assistant" wording anywhere, **no `Co-Authored-By` or "Generated with Claude Code" lines** (this overrides any default attribution).
@@ -44,7 +53,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 
 ## Responsive scale (Next.js, Tailwind v4) — decided 2026-10-29
 - **Figma fidelity floor (2026-10-31, global rule — see handbook `09-Responsive-System.md`): the page must look visually exact down to 1280px.** Reduction/reflow is only acceptable below 1280px (i.e. below `lg`/1024). This is a standing cross-project, cross-platform rule, not specific to this app.
-- 3xl (>=1920) = exact Figma values (`--u` = 1px). 2xl (>=1536) = 0.85, xl (>=1280) = 0.72, lg (>=1024) = 0.6. Below lg = normal mobile layout, unscaled.
+- 3xl (>=1920) = exact Figma values (`--u` = 1px, capped at `100svh/1080` like the other tiers so short windows shrink instead of clipping). 2xl (>=1536) = 0.85, xl (>=1280) = 0.72, lg (>=1024) = 0.6. Below lg = normal mobile layout, unscaled.
 - Defined once in `src/app/globals.css` via `--u` and `--spacing: calc(var(--u) * 4)`; below 3xl `--u` is capped at `100svh/1080`. No growth above 1920.
 - Use Tailwind scale classes / `calc(N * var(--u))`; never hand-write per-tier px in components.
 - **Do NOT scale the container.** Keep Tailwind default `container mx-auto px-4` (content sits nearer the edge on xl/lg — expected).

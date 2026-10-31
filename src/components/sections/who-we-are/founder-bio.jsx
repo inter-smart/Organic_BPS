@@ -14,7 +14,7 @@ export default function FounderBio({ data }) {
         {data?.watermark}
       </span>
 
-      <div className="container mx-auto px-4 relative grid items-end gap-8 pt-16 lg:grid-cols-[calc(700*var(--u))_1fr] lg:items-stretch lg:gap-0 lg:pt-0">
+      <div className="container mx-auto px-4 relative grid items-end gap-8 pt-16 lg:grid-cols-[7fr_12fr] lg:items-stretch lg:gap-0 lg:pt-0">
         <Reveal variant="right" duration={1.1} className="relative order-2 mx-auto aspect-2191/1910 w-full max-w-xl lg:order-1 lg:mx-0 lg:w-full lg:max-w-none lg:self-end">
           <Parallax className="absolute inset-0" from={10} to={0} scale={1} end="center center">
             <Image src={data?.image?.src} alt={data?.image?.alt ?? ""} fill sizes="(min-width: 1280px) 45vw, 90vw" className="object-contain object-bottom" />
@@ -32,7 +32,7 @@ export default function FounderBio({ data }) {
           </Reveal>
           <div className="mt-5 space-y-5 text-base/[1.7] font-medium text-basecolor2 sm:text-lg/[1.7] lg:mt-[calc(40*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-body">
             {data?.paragraphs?.map((p, i) => (
-              <Reveal as="p" key={i} variant="up" delay={0.08 * (i + 1)} className="text-pretty lg:max-w-[calc(780*var(--u))]">
+              <Reveal as="p" key={i} variant="up" delay={0.08 * (i + 1)} className="text-pretty lg:max-w-[780px]">
                 {p}
               </Reveal>
             ))}

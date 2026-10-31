@@ -8,11 +8,11 @@ export default function OurStory({ data }) {
     <section
       id="our-story"
       aria-labelledby="our-story-title"
-      className="relative overflow-hidden bg-white py-16 sm:py-20 lg:flex lg:min-h-svh lg:flex-col lg:justify-center lg:py-0"
+      className="relative overflow-hidden bg-white py-16 sm:py-20 lg:flex lg:min-h-[min(100svh,1080px)] lg:flex-col lg:justify-center lg:py-[calc(100*var(--u))]"
     >
       <div className="container mx-auto px-4 grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-0">
         <Reveal variant="up">
-          <Heading as="h2" id="our-story-title" size="display" className="text-basecolor2 lg:max-w-[calc(900*var(--u))] lg:text-[clamp(40px,calc(88*var(--u)),88px)]">
+          <Heading as="h2" id="our-story-title" size="display" className="text-basecolor2 lg:max-w-[900px] lg:text-[clamp(40px,calc(88*var(--u)),88px)]">
             <RichLines lines={data?.title} />
           </Heading>
         </Reveal>
@@ -22,7 +22,7 @@ export default function OurStory({ data }) {
           </Reveal>
           <div className="mt-4 space-y-5 text-base/[1.7] font-medium text-basecolor2 sm:text-lg/[1.7] lg:mt-[calc(34*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-body">
             {data?.paragraphs?.map((segments, i) => (
-              <Reveal as="p" key={i} variant="up" delay={0.1 * (i + 1)} className="text-pretty lg:max-w-[calc(735*var(--u))]">
+              <Reveal as="p" key={i} variant="up" delay={0.1 * (i + 1)} className="text-pretty lg:max-w-[735px]">
                 <RichText segments={segments} />
               </Reveal>
             ))}

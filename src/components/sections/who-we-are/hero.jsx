@@ -13,7 +13,7 @@ export default function Hero({ data }) {
         <HeroMedia slides={data?.slides} />
       </Parallax>
 
-      <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-0">
+      <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-[calc(100*var(--u))]">
         <Reveal variant="blur" duration={1.1} immediate>
           <Heading as="h1" id="who-hero-title" size="display" className="text-white">
             <RichLines lines={data?.title} />
@@ -23,14 +23,14 @@ export default function Hero({ data }) {
         <div className="lg:pl-[calc(9*var(--u))]">
           <div className="space-y-6 text-base/[1.6] font-medium text-white sm:text-lg/[1.6] lg:space-y-[calc(36*var(--u))] lg:text-intro">
             {data?.paragraphs?.map((p, i) => (
-              <Reveal as="p" key={i} variant="up" delay={0.2 + 0.15 * i} className="text-pretty lg:max-w-[calc(660*var(--u))]">
+              <Reveal as="p" key={i} variant="up" delay={0.2 + 0.15 * i} className="text-pretty lg:max-w-[660px]" immediate>
                 {p}
               </Reveal>
             ))}
           </div>
 
-          <Reveal variant="up" delay={0.55} className="mt-8 lg:mt-[calc(50*var(--u))]">
-            <dl className="flex w-full divide-x divide-white/30 border border-white/40 bg-black/10 py-4 backdrop-blur-[2px] lg:max-w-[calc(659*var(--u))] lg:py-[calc(33*var(--u))]">
+          <Reveal variant="up" delay={0.55} className="mt-8 lg:mt-[calc(50*var(--u))]" immediate>
+            <dl className="flex w-full divide-x divide-white/30 border border-white/40 bg-black/10 py-4 backdrop-blur-[2px] lg:max-w-[659px] lg:py-[calc(33*var(--u))]">
               {data?.stats?.map((s) => (
                 <div key={s?.id} className="flex flex-col-reverse px-3 first:pl-4 max-sm:flex-1 sm:px-5 lg:px-[calc(36*var(--u))] lg:first:pl-[calc(24*var(--u))]">
                   <dt className="text-[11px] font-medium tracking-[0.1em] text-white/90 sm:whitespace-nowrap uppercase sm:text-xs lg:mt-[calc(8*var(--u))] lg:text-[clamp(11px,calc(18*var(--u)),18px)]">

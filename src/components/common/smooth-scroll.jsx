@@ -15,10 +15,11 @@ export default function SmoothScroll() {
 
     const lenis = new Lenis({ lerp: 0.09, anchors: true });
     if (document.documentElement.dataset.intro !== "done") lenis.stop();
-    // layout was measured while the loader hid the scrollbar, so re-measure pins/triggers once it is back
+    // the loader can hide a classic scrollbar, so the width ScrollTrigger measured with may be off; overlay scrollbars (touch) never change it
+    const width = document.documentElement.clientWidth;
     const start = () => {
       lenis.start();
-      ScrollTrigger.refresh();
+      if (document.documentElement.clientWidth !== width) ScrollTrigger.refresh();
     };
     const tick = (t) => lenis.raf(t * 1000);
 

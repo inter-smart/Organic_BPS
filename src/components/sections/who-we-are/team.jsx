@@ -16,15 +16,15 @@ function Photo({ image, sizes, className, delay = 0 }) {
 
 export default function Team({ data }) {
   return (
-    <section id="team" aria-labelledby="team-title" className="relative overflow-hidden bg-basecolor7 py-16 text-white sm:py-20 lg:flex lg:min-h-270 lg:items-center lg:py-0">
-      <div className="container mx-auto px-4 grid gap-10 lg:grid-cols-[1fr_calc(630*var(--u))] lg:gap-x-[calc(98*var(--u))] lg:gap-y-0">
+    <section id="team" aria-labelledby="team-title" className="relative overflow-hidden bg-basecolor7 py-16 text-white sm:py-20 lg:flex lg:min-h-270 lg:items-center lg:py-[calc(100*var(--u))]">
+      <div className="container mx-auto px-4 grid gap-10 lg:grid-cols-[976fr_630fr] lg:gap-x-[5vw] lg:gap-y-0">
         <div className="lg:flex lg:flex-col lg:justify-between lg:gap-[calc(60*var(--u))]">
           <Reveal variant="up">
             <Heading as="h2" id="team-title" size="display" className="text-white lg:text-[clamp(40px,calc(88*var(--u)),88px)]">
               <RichLines lines={data?.title} />
             </Heading>
           </Reveal>
-          <Photo image={data?.images?.[1]} sizes="(min-width: 1280px) 52vw, 92vw" delay={0.1} className="mt-8 aspect-1672/941 w-full lg:mt-0 lg:max-w-[calc(976*var(--u))]" />
+          <Photo image={data?.images?.[1]} sizes="(min-width: 1280px) 52vw, 92vw" delay={0.1} className="mt-8 aspect-1672/941 w-full lg:mt-0 lg:max-w-[976px]" />
         </div>
 
         <div className="lg:pt-[calc(10*var(--u))]">
