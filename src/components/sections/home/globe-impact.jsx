@@ -1,10 +1,15 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Button from "@/components/common/button";
-import GlobeView from "@/components/common/globe-view";
 import Heading from "@/components/common/heading";
 import NumberTicker from "@/components/common/number-ticker";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
+
+// Three.js globe engine is heavy and well below the fold — keep it out of the initial bundle.
+// (`ssr: false` isn't allowed on a dynamic import inside a Server Component; GlobeView is itself
+// a client component and only touches the DOM/WebGL inside useEffect, so plain SSR of its markup is safe.)
+const GlobeView = dynamic(() => import("@/components/common/globe-view"));
 
 export default function GlobeImpact({ data }) {
   return (

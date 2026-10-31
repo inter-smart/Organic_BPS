@@ -1,10 +1,32 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import Button from "@/components/common/button";
 import MenuSheet from "@/components/layout/menu-sheet";
 
+/** Site header — fixed to the top; transparent over the hero, solid once the page scrolls. Nav links show from xl; below that they live in the menu sheet. */
 export default function Header({ data }) {
+  const [stuck, setStuck] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="absolute inset-x-0 top-0 z-50 pt-5 text-white sm:pt-7 lg:pt-11">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 text-white transition-[padding,background-color,backdrop-filter] duration-500",
+        stuck
+          ? "bg-basecolor7/90 py-3 backdrop-blur-md lg:py-4"
+          : "pt-5 sm:pt-7 lg:pt-11",
+      )}
+    >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link
           href="/"
@@ -32,13 +54,14 @@ export default function Header({ data }) {
             />
           </div>
         </Link>
+
         <nav
           aria-label="Main"
-          className="mx-auto hidden items-center gap-15 whitespace-nowrap lg:flex"
+          className="ml-auto mr-10 hidden items-center gap-10 xl:mr-14 xl:gap-15 whitespace-nowrap lg:flex"
         >
           <span
             aria-hidden="true"
-            className="-mr-9 size-1.5 rounded-full bg-basecolor"
+            className="-mr-6 xl:-mr-9 size-1.5 rounded-full bg-basecolor"
           />
           {data?.links?.map((link) => (
             <Link
@@ -50,7 +73,21 @@ export default function Header({ data }) {
             </Link>
           ))}
         </nav>
-        <MenuSheet links={data?.links} cta={data?.cta} />
+
+        <div className="flex items-center gap-6">
+          {data?.cta ? (
+            <Button
+              href={data.cta.href}
+              variant="dark"
+              size="sm"
+              arrow={false}
+              className="hidden lg:inline-flex"
+            >
+              {data.cta.label}
+            </Button>
+          ) : null}
+          <MenuSheet links={data?.links} cta={data?.cta} />
+        </div>
       </div>
     </header>
   );

@@ -13,7 +13,7 @@ const local_data = {
     // Any mix of videos and images. Videos advance on end, images after `duration` ms.
     // e.g. { id: 2, type: "video", src: "/videos/hero-2.mp4", poster: "/images/hero-2.jpg" }
     slides: [
-      { id: 1, type: "video", src: "/videos/MainVideo.mp4", alt: "" },
+      { id: 1, type: "video", src: "/videos/MainVideo.mp4", poster: "/images/hero-poster.jpg", alt: "" }
       // { id: 2, type: "image", src: "/images/hero-1.png", alt: "" }
     ],
     title: [
@@ -30,16 +30,8 @@ const local_data = {
 
   whatWeDo: {
     // Set `video` (e.g. "/videos/hi.mp4") and the "Hi" mask will clip it; until then the poster is shown.
-    media: {
-      video: "/videos/whatwedo.mp4",
-      poster: "/images/hi-photo-1.png",
-      alt: "Colleagues collaborating in a modern office",
-    },
-    title: [
-      [{ t: "We do", accent: true }],
-      [{ t: "purpose", ring: true }, { t: " on" }],
-      [{ t: "purpose" }, { t: ".", accent: true }],
-    ],
+    media: { video: "/videos/whatwedo.mp4", poster: "/images/hi-photo-1.jpg", alt: "Colleagues collaborating in a modern office" },
+    title: [[{ t: "We do", accent: true }], [{ t: "purpose", ring: true }, { t: " on" }], [{ t: "purpose" }, { t: ".", accent: true }]],
     paragraphs: [
       [
         { t: "We are a Brand Purpose Consultancy with more than" },

@@ -1,44 +1,35 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { useIntroDone } from "@/components/common/intro";
-
-const hidden = {
-  up: { opacity: 0, y: 48 },
-  down: { opacity: 0, y: -48 },
-  left: { opacity: 0, x: -64 },
-  right: { opacity: 0, x: 64 },
-  scale: { opacity: 0, scale: 0.9 },
-  fade: { opacity: 0 },
-  blur: { opacity: 0, y: 24, filter: "blur(10px)" },
-  clip: { opacity: 0, scale: 1.12, clipPath: "inset(100% 0% 0% 0%)" },
-};
-const shown = { opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" };
+import { useEffect, useRef } from "react";
 
 /**
  * Scroll-triggered entrance (Magic UI "BlurFade" style) for any server-rendered children.
  * variant: up | down | left | right | scale | fade | blur | clip (image wipe-up)
- * Nothing plays until the preloader curtain has lifted. It replays each time the element scrolls back into view
- * (pass once to keep it final after the first play).
+ * Nothing plays until the preloader curtain has lifted (html[data-intro="done"]). It replays each time the element
+ * scrolls back into view (pass once to keep it final after the first play).
+ * Purely CSS-driven (see `[data-reveal]` in globals.css): the observer only flips an attribute, so there is no React
+ * state, re-render or JS animation when the curtain lifts — that keeps the main thread free during load.
+ * `immediate` is for the one LCP element per page (the hero <h1>): it is always shown, since the preloader's opaque
+ * curtain already hides it from users.
  */
 export default function Reveal({
-  as = "div",
+  as: Tag = "div",
   variant = "up",
   delay = 0,
   duration = 0.8,
   amount = 0.2,
   once = false,
+  immediate = false,
   className,
+  style,
   children,
   ...props
 }) {
-  const reduce = useReducedMotion();
-  const Tag = motion[as] ?? motion.div;
   const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  // clip-path: inset(100%) hides the element from IntersectionObserver, so "clip" watches its parent instead
+
   useEffect(() => {
+    if (immediate) return;
+    // clip-path: inset(100%) hides the element from IntersectionObserver, so "clip" watches its parent instead
     const el = variant === "clip" ? ref.current?.parentElement : ref.current;
     if (!el) return;
     const need = variant === "clip" ? 0.05 : amount;
@@ -46,24 +37,23 @@ export default function Reveal({
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.intersectionRatio >= need) {
-          setInView(true);
+          ref.current.dataset.in = "1";
           if (once) io.disconnect();
-        } else if (!e.isIntersecting) setInView(false);
+        } else if (!e.isIntersecting) ref.current.dataset.in = "0";
       },
       { threshold: [0, need] }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [variant, amount, once]);
-  const ready = useIntroDone();
-  const target = variant === "clip" ? { ...shown, clipPath: "inset(0% 0% 0% 0%)" } : shown;
+  }, [variant, amount, once, immediate]);
+
   return (
     <Tag
       ref={ref}
+      data-reveal={variant}
+      data-immediate={immediate ? "" : undefined}
       className={className}
-      initial={reduce ? false : hidden[variant]}
-      animate={reduce || (ready && inView) ? target : hidden[variant]}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      style={{ "--rv-delay": `${delay}s`, "--rv-dur": `${duration}s`, ...style }}
       {...props}
     >
       {children}

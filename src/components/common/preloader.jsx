@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { INTRO_EVENT } from "@/components/common/intro";
 
-const MIN_MS = 1400;
+const MIN_MS = 900;
 
 const finish = () => {
   document.documentElement.dataset.intro = "done";
@@ -56,7 +56,7 @@ export default function Preloader() {
         0
       )
       .to("[data-logo], [data-meta]", { yPercent: -30, opacity: 0, duration: 0.5, ease: "power2.in" })
-      .to(el, { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power4.inOut" }, "-=0.1")
+      .to(el, { clipPath: "inset(0 0 100% 0)", duration: 0.8, ease: "power4.inOut" }, "-=0.1")
       .add(() => {
         finish();
         setGone(true);
@@ -72,7 +72,7 @@ export default function Preloader() {
   return (
     <div ref={root} className="preloader fixed inset-0 z-100 flex flex-col items-center justify-center bg-basecolor4 text-white [clip-path:inset(0_0_0_0)]" role="status" aria-label="Loading">
       <div data-logo className="relative aspect-250/47 w-56 sm:w-72 xl:w-87.5">
-        <Image src="/images/organic-bps-logo.png" alt="Organic BPS" fill loading="eager" sizes="350px" className="object-contain" />
+        <Image src="/images/organic-bps-logo.png" alt="Organic BPS" fill loading="eager" fetchPriority="high" sizes="350px" className="object-contain" />
       </div>
       <div data-meta className="absolute inset-x-0 bottom-0 flex items-end justify-between px-4 pb-6 sm:px-10 sm:pb-10">
         <span className="text-sm tracking-[0.14em] text-white/60 uppercase sm:text-base">Purpose is the journey</span>

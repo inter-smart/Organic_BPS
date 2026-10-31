@@ -1,0 +1,42 @@
+import Heading from "@/components/common/heading";
+import Reveal from "@/components/common/reveal";
+import { RichLines } from "@/components/common/rich-text";
+import ContactForm from "./contact-form";
+
+export default function Enquiry({ data }) {
+  return (
+    <section id="enquiry" aria-labelledby="enquiry-title" className="relative bg-white py-16 sm:py-20 lg:py-[calc(100*var(--u))]">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-2 lg:items-start lg:gap-[calc(60*var(--u))]">
+          <div>
+            <Reveal as="p" variant="fade" className="text-xs font-bold tracking-[0.2em] text-basecolor uppercase lg:text-[clamp(14px,calc(20*var(--u)),20px)]">
+              {data?.eyebrow}
+            </Reveal>
+            <Reveal variant="up" delay={0.1}>
+              <Heading as="h2" id="enquiry-title" size="display" className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))]">
+                <RichLines lines={data?.title} />
+              </Heading>
+            </Reveal>
+            <Reveal as="p" variant="up" delay={0.2} className="mt-5 max-w-130 text-base/[1.6] font-medium text-pretty text-basecolor2 sm:text-lg/[1.6] lg:mt-[calc(30*var(--u))] lg:text-lead/[1.5]">
+              {data?.paragraph}
+            </Reveal>
+
+            <Reveal variant="up" delay={0.3} className="mt-10 lg:mt-[calc(140*var(--u))]">
+              <p className="text-base font-semibold text-basecolor2 lg:text-body">{data?.business?.label}</p>
+              <a href={`mailto:${data?.business?.email}`} className="mt-3 block text-2xl font-medium [overflow-wrap:anywhere] text-basecolor hover:underline sm:text-3xl lg:mt-[calc(16*var(--u))] lg:text-title">
+                {data?.business?.email}
+              </a>
+              <a href={`tel:${data?.business?.phone?.replace(/\s+/g, "")}`} className="mt-2 block text-2xl font-medium text-basecolor2 hover:underline sm:text-3xl lg:mt-[calc(8*var(--u))] lg:text-title">
+                {data?.business?.phone}
+              </a>
+            </Reveal>
+          </div>
+
+          <Reveal variant="up" delay={0.15} className="rounded-[38px] border border-[#1d4288]/15 bg-white p-5 shadow-[0_4px_44px_0_rgba(0,0,0,0.1)] sm:p-8 lg:p-[calc(48*var(--u))]">
+            <ContactForm />
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}

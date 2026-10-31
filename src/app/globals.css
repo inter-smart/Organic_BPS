@@ -71,6 +71,8 @@
   --basecolor4: #05060a; /* near-black section background */
   --basecolor5: #ededed; /* light card grey */
   --basecolor6: #565656; /* muted heading grey */
+  --basecolor7: #161616; /* dark section background */
+  --basecolor8: #e8645e; /* brand red tint for small text on dark backgrounds (4.5:1) */
 
   /* shadcn tokens mapped to the palette (see handbook ch.29) */
   --background: #ffffff;
@@ -92,6 +94,8 @@
   --color-basecolor4: var(--basecolor4);
   --color-basecolor5: var(--basecolor5);
   --color-basecolor6: var(--basecolor6);
+  --color-basecolor7: var(--basecolor7);
+  --color-basecolor8: var(--basecolor8);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -115,6 +119,20 @@
   --text-card--line-height: 1.48;
   --text-lead: clamp(14px, calc(20 * var(--u)), 20px); /* 20px @1920 */
   --text-stat: clamp(26px, calc(48.93 * var(--u)), 48.93px);
+  --text-intro: clamp(15px, calc(22 * var(--u)), 22px); /* 22px @1920 */
+  --text-intro--line-height: 1.65;
+  --text-body: clamp(14px, calc(18 * var(--u)), 18px); /* 18px @1920 */
+  --text-body--line-height: 1.67;
+  --text-eyebrow: clamp(12px, calc(16 * var(--u)), 16px); /* 16px @1920 */
+  --text-eyebrow--line-height: 1.5;
+  --text-year: clamp(20px, calc(32 * var(--u)), 32px); /* 32px @1920 */
+  --text-year--line-height: 1.2;
+  --text-label: clamp(15px, calc(24 * var(--u)), 24px); /* 24px @1920 */
+  --text-label--line-height: 1.4;
+  --text-value: clamp(30px, calc(64 * var(--u)), 64px); /* 64px @1920 */
+  --text-value--line-height: 1.15;
+  --text-figure: clamp(88px, calc(188 * var(--u)), 188px); /* 188px @1920 */
+  --text-figure--line-height: 1;
 }
 
 /* ------------------------------------------------------------------
@@ -141,7 +159,7 @@
 }
 @media (min-width: 1920px) {
   :root {
-    --u: 1px; /* 3xl: exact Figma */
+    --u: min(1px, calc(100svh / 1080)); /* 3xl: exact Figma at 1080 tall */
   }
 }
 
@@ -320,6 +338,12 @@ body {
   }
 }
 
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -327,5 +351,37 @@ body {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+[data-reveal] {
+  transition:
+    opacity var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay),
+    transform var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay),
+    filter var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay),
+    clip-path var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay);
+  opacity: 0;
+}
+[data-reveal="up"] { transform: translateY(48px); }
+[data-reveal="down"] { transform: translateY(-48px); }
+[data-reveal="left"] { transform: translateX(-64px); }
+[data-reveal="right"] { transform: translateX(64px); }
+[data-reveal="scale"] { transform: scale(0.9); }
+[data-reveal="blur"] { transform: translateY(24px); filter: blur(10px); }
+[data-reveal="clip"] { transform: scale(1.12); clip-path: inset(100% 0% 0% 0%); }
+html[data-intro="done"] [data-reveal][data-in="1"],
+[data-reveal][data-immediate] {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+html[data-intro="done"] [data-reveal="clip"][data-in="1"] { clip-path: inset(0% 0% 0% 0%); }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+    transition: none;
   }
 }

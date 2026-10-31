@@ -26,7 +26,7 @@ export default function Hero({ data }) {
       </Parallax>
 
       <div className="container mx-auto px-4 relative pt-28 pb-24 lg:pt-30 lg:pb-0">
-        <Reveal variant="blur" duration={1.1}>
+        <Reveal variant="blur" duration={1.1} immediate>
           <Heading
             as="h1"
             id="hero-title"

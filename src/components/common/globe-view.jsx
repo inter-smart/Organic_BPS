@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { INTRO_EVENT } from "@/components/common/intro";
 import "@/lib/globe/globe.css";
 
 /**
@@ -85,8 +84,7 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       }
     };
 
-    // Boot as soon as the page is idle after the intro loader (far from the globe, while nobody is scrolling it),
-    // or earlier if the globe gets near the viewport first.
+    // The engine is heavy: boot it only when the globe is about a screen away, so the first load stays light.
     let booted = false;
     const bootOnce = () => {
       if (booted) return;
@@ -94,14 +92,8 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       starter.disconnect();
       boot();
     };
-    const starter = new IntersectionObserver(([entry]) => entry.isIntersecting && bootOnce(), { rootMargin: "400px" });
+    const starter = new IntersectionObserver(([entry]) => entry.isIntersecting && bootOnce(), { rootMargin: "600px" });
     starter.observe(el);
-    let idleId;
-    const whenIdle = () => {
-      idleId = "requestIdleCallback" in window ? window.requestIdleCallback(bootOnce, { timeout: 4000 }) : window.setTimeout(bootOnce, 2000);
-    };
-    if (document.documentElement.dataset.intro === "done") whenIdle();
-    else window.addEventListener(INTRO_EVENT, whenIdle, { once: true });
     visibility.observe(el);
 
     // Pinch zoom stays; wheel zoom is blocked so the page keeps scrolling over the globe. Lenis owns page scroll,
@@ -118,8 +110,6 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       el.removeEventListener("wheel", stopWheel, { capture: true });
       disposed = true;
       starter.disconnect();
-      window.removeEventListener(INTRO_EVENT, whenIdle);
-      if (idleId !== undefined) ("cancelIdleCallback" in window ? window.cancelIdleCallback(idleId) : window.clearTimeout(idleId));
       visibility.disconnect();
       reveal.disconnect();
       gsap.killTweensOf(el);
