@@ -43,6 +43,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 
 - **Viewport resize (2026-10-31):** pinned/scrubbed sections must survive changing the window height at runtime. Pin mode is decided in `use-scrub-track` and rebuilt after resize (debounced); never decide layout once on mount. Don't give a pinned section a fixed `min-h` (it swallows the pin spacing and the next section scrolls over it).
 - **Height QA (2026-10-31):** before finishing anything, check every page at short and tall window heights (e.g. 1920x700, 1440x500, 1280x600, 1920x1400), not only widths: no clipped text, no horizontal overflow, columns still fill the container. Column and text widths must not be sized from `--u` (height-capped); use fr/percent columns and px max-widths. `--u` is for type, spacing and heights.
+- **Lighthouse targets (2026-10-31):** aim for 100 on Accessibility and Best Practices, 95+ Performance. SEO stays 66 on purpose ("Page is blocked from indexing" = the required noindex); never remove noindex to raise it. Score only production builds; `next dev` scores (unminified, ~8 MB) are not valid. Compress images before adding them (no multi-MB PNGs).
 - **Values cards (2026-10-31):** the lit card switches the instant scroll crosses its slice of the pinned distance (no scrub timeline); easing is CSS transitions only.
 
 ## Human-authored look (nothing may read as AI-built)

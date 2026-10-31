@@ -4,7 +4,7 @@ import { useState } from "react";
 import Button from "@/components/common/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const inputClass = "w-full bg-transparent text-lg text-basecolor2 outline-none placeholder:text-[#b2b2b2] lg:text-xl";
+const inputClass = "w-full bg-transparent text-lg text-basecolor2 outline-none placeholder:text-[#757575] focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-basecolor3 lg:text-xl";
 
 const topics = [
   { value: "purpose", label: "Purpose strategy" },
@@ -41,7 +41,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-8 lg:gap-[calc(42*var(--u))]" noValidate={false}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-8 lg:gap-[calc(42*var(--u))]">
       <div className="grid gap-6 border-b border-[#ddd] pb-6 sm:grid-cols-2 sm:gap-x-10 lg:pb-[calc(30*var(--u))]">
         <Field label="Your name *">
           <input name="name" type="text" required placeholder="Full name" className={inputClass} />
@@ -63,7 +63,7 @@ export default function ContactForm() {
       <div className="border-b border-[#ddd] pb-6 lg:pb-[calc(30*var(--u))]">
         <Field label="What would you like to explore?">
           <Select name="topic">
-            <SelectTrigger>
+            <SelectTrigger className="border-b-0 pb-0 text-lg lg:text-xl">
               <SelectValue placeholder="Let's explore together" />
             </SelectTrigger>
             <SelectContent>
@@ -77,11 +77,13 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      <Field label="Tell us about your challenge *">
-        <textarea name="message" required rows={3} placeholder="What are you working towards?" className={`${inputClass} resize-none`} />
-      </Field>
+      <div className="border-b border-[#ddd] pb-6 lg:pb-[calc(30*var(--u))]">
+        <Field label="Tell us about your challenge *">
+          <textarea name="message" required rows={3} placeholder="What are you working towards?" className={`${inputClass} resize-none`} />
+        </Field>
+      </div>
 
-      <Button type="submit" className="self-start">
+      <Button type="submit" className="self-end">
         Prepare your enquiry
       </Button>
     </form>

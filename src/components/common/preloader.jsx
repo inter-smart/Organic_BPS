@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { INTRO_EVENT } from "@/components/common/intro";
 
-const MIN_MS = 1400;
+const MIN_MS = 900;
 
 const finish = () => {
   document.documentElement.dataset.intro = "done";
@@ -56,7 +56,7 @@ export default function Preloader() {
         0
       )
       .to("[data-logo], [data-meta]", { yPercent: -30, opacity: 0, duration: 0.5, ease: "power2.in" })
-      .to(el, { clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power4.inOut" }, "-=0.1")
+      .to(el, { clipPath: "inset(0 0 100% 0)", duration: 0.8, ease: "power4.inOut" }, "-=0.1")
       .add(() => {
         finish();
         setGone(true);

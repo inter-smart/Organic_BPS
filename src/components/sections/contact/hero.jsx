@@ -12,24 +12,25 @@ export default function Hero({ data }) {
         <HeroMedia slides={data?.slides} />
       </Parallax>
 
-      <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-0">
-        <div>
+      <div className="container mx-auto px-4 relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-y-[calc(90*var(--u))] lg:pt-30 lg:pb-0">
+        <div className="lg:col-span-2">
           <Reveal variant="blur" duration={1.1} immediate>
             <Heading as="h1" id="contact-hero-title" size="display" className="text-white">
               <RichLines lines={data?.title} />
             </Heading>
           </Reveal>
-          <Reveal variant="up" delay={0.25} className="mt-6 flex items-center gap-3 lg:mt-[calc(32*var(--u))]">
-            <div className="flex -space-x-2">
-              {data?.avatars?.map((a, i) => (
-                <div key={a?.id ?? i} className="relative size-9 overflow-hidden rounded-full ring-2 ring-basecolor4 lg:size-[calc(38*var(--u))]">
-                  <Image src={a?.src} alt={a?.alt ?? ""} fill sizes="38px" className="object-cover" />
-                </div>
-              ))}
-            </div>
-            <p className="text-xs text-white/90 lg:text-sm">{data?.avatarsCaption}</p>
-          </Reveal>
         </div>
+
+        <Reveal variant="up" delay={0.25} className="flex items-center gap-3 lg:mt-0">
+          <div className="flex -space-x-2">
+            {data?.avatars?.map((a, i) => (
+              <div key={a?.id ?? i} className="relative size-9 overflow-hidden rounded-full ring-2 ring-basecolor4 lg:size-[calc(38*var(--u))]">
+                <Image src={a?.src} alt={a?.alt ?? ""} fill sizes="38px" className="object-cover" />
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-white/90 lg:text-sm">{data?.avatarsCaption}</p>
+        </Reveal>
 
         <div className="lg:pl-[calc(29*var(--u))]">
           <Reveal as="p" variant="up" delay={0.2} className="text-base/[1.6] font-medium text-pretty text-white sm:text-lg/[1.6] lg:max-w-[calc(674*var(--u))] lg:text-intro/[1.52]">

@@ -35,6 +35,9 @@ const local_data = {
 
   locations: {
     title: [[{ t: "Where to" }], [{ t: "find us", accent: true }]],
+    text: "Let’s connect with the team closest to you.",
+    eyebrow: "Office locations",
+    map: { label: "Location Map", href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Organic BPS, Kochi") },
     offices: [
       {
         id: 1,
@@ -43,23 +46,21 @@ const local_data = {
         address: "GTWRA 31, Parthasarathy Temple Road, Changampuzha Park, Kochi – 682024, Kerala, India",
         email: "kochi@organicbps.com",
         phone: "+91 484 2345323",
-        mapHref: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("GTWRA 31, Parthasarathy Temple Road, Changampuzha Park, Kochi – 682024, Kerala, India"),
       },
       {
         id: 2,
         country: "UAE",
         city: "Dubai",
         address: "6th Floor, Business Center, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates",
-        email: "dubai@organicbps.com",
+        email: "Dubai@organicbps.com",
         // Source Figma repeats the Kochi phone number here verbatim — flagged to the client, not invented.
         phone: "+91 484 2345323",
-        mapHref: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("6th Floor, Business Center, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates"),
       },
     ],
   },
 
   careers: {
-    title: [[{ t: "Want to " }, { t: "grow", accent: true }], [{ t: "with us?" }]],
+    title: [[{ t: "Want to grow" }], [{ t: "with us?" }]],
     text: "Get in touch about career opportunities.",
     email: "jobs@organicbps.com",
   },

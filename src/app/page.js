@@ -30,7 +30,7 @@ const local_data = {
 
   whatWeDo: {
     // Set `video` (e.g. "/videos/hi.mp4") and the "Hi" mask will clip it; until then the poster is shown.
-    media: { video: "/videos/whatwedo.mp4", poster: "/images/hi-photo-1.png", alt: "Colleagues collaborating in a modern office" },
+    media: { video: "/videos/whatwedo.mp4", poster: "/images/hi-photo-1.jpg", alt: "Colleagues collaborating in a modern office" },
     title: [[{ t: "We do", accent: true }], [{ t: "purpose", ring: true }, { t: " on" }], [{ t: "purpose" }, { t: ".", accent: true }]],
     paragraphs: [
       [
