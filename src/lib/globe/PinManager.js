@@ -1,4 +1,4 @@
-﻿/**
+/**
  * PinManager.js
  * ---------------------------------------------------------------------------
  * Builds glowing location pins from JSON data, drives their forever-pulsing

@@ -64,6 +64,22 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - Check at 1920x1080, ~1600x1000, ~1300x800, ~1100x800: measure `--u` (1 / 0.85 / 0.72 / 0.6), look for clipping and horizontal overflow (only carousels/marquees may exceed the viewport).
 - Port 3000 on this machine belongs to a different app ("Lincoln Oman"). Run this project on another port (e.g. `npx next dev -p 3100`) and stop it afterwards.
 
+## Session start (2026-11-03)
+- At the start of every session, before the first reply: activate ponytail (full) and caveman, and use graphify. These are chat-working modes only; they never change how code, comments, commits or docs are written.
+- graphify: if `graphify-out/graph.json` exists, answer codebase questions with `graphify query` first. Never run a full `/graphify .` (corpus is 3M+ words, mostly `.playwright-mcp` and `public`); build and update on `src` only (`/graphify src`, then `--update`).
+
+## Changes from branch `dev-abish` (merged 2026-11-03, commits 1d56d9f, 75ef500)
+Follow these in new builds; they replace the older behaviour described above where they overlap.
+- **Header hides on scroll (supersedes the plain fixed/solid header):** `layout/header.jsx` hides on forward scroll and returns on reverse scroll (accumulated thresholds: hide 20px, show 10px, always visible within 80px of the top, kept visible while a `[role="dialog"]` is open or when focus enters it). Classes `.header-smooth`, `.header-hidden`, `.header-visible` live in `globals.css` (transform-only, 0.48s). Solid `bg-basecolor7/90` bar + shadow once past the top. Nav is centred (`mx-auto`); the header CTA button was removed (CTA stays inside `MenuSheet`). Sticky elements below the header still sit at `top-20`, but expect the header to be off-screen while scrolling down.
+- **Custom scrollbar (`globals.css`):** 3px wide, white track, `--basecolor` thumb with pill radius, no arrow buttons; Firefox fallback via `scrollbar-width: thin` inside `@supports not selector(::-webkit-scrollbar)`. The thumb hover (`#c43f39`) and track (`#ffff`) are raw hex, outside the token rule — move to tokens when next touched.
+- **Timeline (`common/timeline-slider`) rewritten on GSAP ScrollTrigger + `gsap.matchMedia`:** starts at index 0, milestones inside the visible area light up one by one at a calm scroll pace, then the row glides left so the next item becomes active; the track stops at `trackWidth - containerWidth` (last item flush right, no empty space). Year click and arrow keys navigate to that milestone. Reduced motion = no pin, native scroll. It no longer uses `use-scrub-track` or the 24% focal line.
+- **Client carousel (`common/client-carousel`):** neighbours now face inward (concave arc, outer cards nearer the viewer and larger). Perspective 585; poses per |offset|: 0 `{0,0,0}`, 1 `{40°, x1.04, z-37}`, 2 `{58°, x1.81, z45}`, 3 `{60°, x2.4, z140}`; scaled by card width / 156. Stage height is capped with `min(348*var(--u), …)`. Slide lookup uses `[role=group]`, not `li`.
+- **Globe (`src/lib/globe/`):** pin is one combined canvas texture (grey halo disc + thin border + red dot) instead of separate glow and core sprites. Card hover/click/focus events are routed through the shared emitter; `globe.css`, `CardManager`, `LeaderLine`, `PinManager`, `index.js` were reworked together, so change them as a set. `GlobeImpact` stat labels are `text-sm` on mobile.
+- **Hero (Who We Are):** content block is bottom-aligned (`justify-end`), lead copy gets `3xl:text-[25px]`.
+- **What We Do practices / page data:** same structure, only reformatted; copy and ids unchanged.
+- **Formatting:** all touched files were run through Prettier (80 cols, double quotes, trailing commas, multi-line JSX props). Keep that style in files you edit; don't reformat untouched files in the same commit.
+- **Do not repeat:** `PinManager.js` picked up a BOM (`﻿`) at the top and `.playwright-mcp/` screenshots were committed. Save files as UTF-8 without BOM and keep screenshots out of git.
+
 ## Git
 - Branch `dev-vishal`, remote `origin`. Commit/push only when asked. Don't commit `.playwright-mcp/` (test screenshots).
 - Handbook lives outside this repo (`D:\wamp\www\AI_Build\Frontend-Engineering-Handbook`).

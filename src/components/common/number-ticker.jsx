@@ -33,8 +33,11 @@ export default function NumberTicker({ value = 0, prefix = "", suffix = "", deci
   }, [inView, value, duration, reduce]);
 
   return (
-    <span ref={ref} className={className} aria-label={format(value)}>
-      {format(value)}
+    <span className={className}>
+      <span className="sr-only">{format(value)}</span>
+      <span ref={ref} aria-hidden="true">
+        {format(value)}
+      </span>
     </span>
   );
 }

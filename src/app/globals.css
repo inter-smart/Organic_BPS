@@ -66,17 +66,25 @@
 }
 
 :root {
-  --basecolor: #da4d47; /* brand red */
-  --basecolor2: #222222; /* ink */
-  --basecolor3: #2552aa; /* brand blue (button outline) */
-  --basecolor4: #05060a; /* near-black section background */
-  --basecolor5: #ededed; /* light card grey */
-  --basecolor6: #565656; /* muted heading grey */
-  --basecolor7: #161616; /* dark section background */
-  --basecolor8: #e8645e; /* brand red tint for small text on dark backgrounds (4.5:1) */
+  --basecolor: #da4d47;
+  /* brand red */
+  --basecolor2: #222222;
+  /* ink */
+  --basecolor3: #2552aa;
+  /* brand blue (button outline) */
+  --basecolor4: #05060a;
+  /* near-black section background */
+  --basecolor5: #ededed;
+  /* light card grey */
+  --basecolor6: #565656;
+  /* muted heading grey */
+  --basecolor7: #161616;
+  /* dark section background */
+  --basecolor8: #e8645e;
+  /* brand red tint for small text on dark backgrounds (4.5:1) */
 
   /* shadcn tokens mapped to the palette (see handbook ch.29) */
-  --background: #ffffff;
+  --background: white;
   --foreground: #171717;
   --popover: #ffffff;
   --popover-foreground: #171717;
@@ -110,29 +118,41 @@
   --color-ring: var(--ring);
 
   /* Design-scale type sizes — fluid px, exact at the 1920 Figma frame */
-  --text-display: clamp(40px, calc(100 * var(--u)), 100px); /* 100px @1920 */
+  --text-display: clamp(40px, calc(100 * var(--u)), 100px);
+  /* 100px @1920 */
   --text-display--line-height: 1.12;
-  --text-display-md: clamp(32px, calc(72 * var(--u)), 72px); /* 72px @1920 */
+  --text-display-md: clamp(32px, calc(72 * var(--u)), 72px);
+  /* 72px @1920 */
   --text-display-md--line-height: 1.15;
-  --text-title: clamp(20px, calc(40 * var(--u)), 40px); /* 40px @1920 */
+  --text-title: clamp(20px, calc(40 * var(--u)), 40px);
+  /* 40px @1920 */
   --text-title--line-height: 1.4;
-  --text-card: clamp(16px, calc(27 * var(--u)), 27px); /* 27px @1920 */
+  --text-card: clamp(16px, calc(27 * var(--u)), 27px);
+  /* 27px @1920 */
   --text-card--line-height: 1.48;
-  --text-lead: clamp(14px, calc(20 * var(--u)), 20px); /* 20px @1920 */
+  --text-lead: clamp(14px, calc(20 * var(--u)), 20px);
+  /* 20px @1920 */
   --text-stat: clamp(26px, calc(48.93 * var(--u)), 48.93px);
-  --text-intro: clamp(15px, calc(22 * var(--u)), 22px); /* 22px @1920 */
+  --text-intro: clamp(15px, calc(22 * var(--u)), 22px);
+  /* 22px @1920 */
   --text-intro--line-height: 1.65;
-  --text-body: clamp(14px, calc(18 * var(--u)), 18px); /* 18px @1920 */
+  --text-body: clamp(14px, calc(18 * var(--u)), 18px);
+  /* 18px @1920 */
   --text-body--line-height: 1.67;
-  --text-eyebrow: clamp(12px, calc(16 * var(--u)), 16px); /* 16px @1920 */
+  --text-eyebrow: clamp(12px, calc(16 * var(--u)), 16px);
+  /* 16px @1920 */
   --text-eyebrow--line-height: 1.5;
-  --text-year: clamp(20px, calc(32 * var(--u)), 32px); /* 32px @1920 */
+  --text-year: clamp(20px, calc(32 * var(--u)), 32px);
+  /* 32px @1920 */
   --text-year--line-height: 1.2;
-  --text-label: clamp(15px, calc(24 * var(--u)), 24px); /* 24px @1920 */
+  --text-label: clamp(15px, calc(24 * var(--u)), 24px);
+  /* 24px @1920 */
   --text-label--line-height: 1.4;
-  --text-value: clamp(30px, calc(64 * var(--u)), 64px); /* 64px @1920 */
+  --text-value: clamp(30px, calc(64 * var(--u)), 64px);
+  /* 64px @1920 */
   --text-value--line-height: 1.15;
-  --text-figure: clamp(88px, calc(188 * var(--u)), 188px); /* 188px @1920 */
+  --text-figure: clamp(88px, calc(188 * var(--u)), 188px);
+  /* 188px @1920 */
   --text-figure--line-height: 1;
 }
 
@@ -144,23 +164,30 @@
 ------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   :root {
-    --u: min(0.6px, calc(100svh / 1080)); /* lg */
+    --u: min(0.6px, calc(100svh / 1080));
+    /* lg */
     --spacing: calc(var(--u) * 4);
   }
 }
+
 @media (min-width: 1280px) {
   :root {
-    --u: min(0.72px, calc(100svh / 1080)); /* xl */
+    --u: min(0.72px, calc(100svh / 1080));
+    /* xl */
   }
 }
+
 @media (min-width: 1536px) {
   :root {
-    --u: min(0.85px, calc(100svh / 1080)); /* 2xl */
+    --u: min(0.85px, calc(100svh / 1080));
+    /* 2xl */
   }
 }
+
 @media (min-width: 1920px) {
   :root {
-    --u: min(1px, calc(100svh / 1080)); /* 3xl: exact Figma at 1080 tall */
+    --u: min(1px, calc(100svh / 1080));
+    /* 3xl: exact Figma at 1080 tall */
   }
 }
 
@@ -180,7 +207,7 @@ body::-webkit-scrollbar,
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track,
 ::-webkit-scrollbar-track {
-  background: #ffff;
+  background: white;
 }
 
 html::-webkit-scrollbar-thumb,
@@ -193,7 +220,7 @@ body::-webkit-scrollbar-thumb,
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #c43f39;
+  background-color: color-mix(in srgb, var(--basecolor) 85%, black);
 }
 
 html::-webkit-scrollbar-button,
@@ -213,7 +240,7 @@ body::-webkit-scrollbar-button,
 html::-webkit-scrollbar-corner,
 body::-webkit-scrollbar-corner,
 ::-webkit-scrollbar-corner {
-  background: #ffffff;
+  background: white;
 }
 
 /* Scoped for browsers that do not support ::-webkit-scrollbar (e.g. Firefox)
@@ -221,7 +248,7 @@ body::-webkit-scrollbar-corner,
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--basecolor) #ffffff;
+    scrollbar-color: var(--basecolor) white;
   }
 }
 
@@ -246,18 +273,17 @@ body {
   .button-gradient-border {
     isolation: isolate;
   }
+
   .button-gradient-border::before {
     position: absolute;
     inset: 0;
     z-index: 1;
     padding: 2.5px;
     border-radius: inherit;
-    background: linear-gradient(
-      to bottom right,
-      #da4d47 20%,
-      #2552aa 35%,
-      #2552aa 100%
-    );
+    background: linear-gradient(to bottom right,
+        #da4d47 20%,
+        #2552aa 35%,
+        #2552aa 100%);
     content: "";
     pointer-events: none;
     -webkit-mask:
@@ -274,6 +300,7 @@ body {
     line-height: 1.7;
     color: var(--basecolor2);
   }
+
   .typography h1,
   .typography h2,
   .typography h3,
@@ -285,97 +312,120 @@ body {
     margin: 1.5em 0 0.6em;
     letter-spacing: -0.01em;
   }
+
   .typography h1 {
     font-size: 40px;
   }
+
   .typography h2 {
     font-size: 32px;
   }
+
   .typography h3 {
     font-size: 24px;
   }
+
   .typography h4 {
     font-size: 20px;
   }
+
   .typography h5 {
     font-size: 18px;
   }
+
   .typography h6 {
     font-size: 16px;
   }
+
   .typography p {
     margin: 0 0 1.1em;
   }
+
   .typography a {
     color: var(--basecolor3);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+
   .typography ul {
     list-style: disc;
     padding-left: 1.5em;
     margin: 0 0 1.1em;
   }
+
   .typography ol {
     list-style: decimal;
     padding-left: 1.5em;
     margin: 0 0 1.1em;
   }
+
   .typography li {
     margin-bottom: 0.4em;
   }
+
   .typography blockquote {
     border-left: 3px solid var(--basecolor);
     padding-left: 1em;
     margin: 1.5em 0;
     font-style: italic;
   }
+
   .typography img {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
     margin: 1.5em 0;
   }
+
   .typography figure {
     margin: 1.5em 0;
   }
+
   .typography figcaption {
     font-size: 14px;
     color: var(--muted-foreground);
     margin-top: 0.5em;
   }
+
   .typography table {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5em 0;
   }
+
   .typography th,
   .typography td {
     border: 1px solid var(--border);
     padding: 0.6em 0.8em;
     text-align: left;
   }
+
   .typography th {
     background: var(--accent);
     font-weight: 600;
   }
+
   .typography hr {
     border: 0;
     border-top: 1px solid var(--border);
     margin: 2em 0;
   }
+
   .typography strong {
     font-weight: 700;
   }
+
   .typography em {
     font-style: italic;
   }
+
   .typography code {
     background: var(--accent);
     padding: 0.15em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
   }
+
   .typography pre {
     background: var(--basecolor4);
     color: #fff;
@@ -384,6 +434,7 @@ body {
     overflow-x: auto;
     margin: 1.5em 0;
   }
+
   .typography pre code {
     background: transparent;
     padding: 0;
@@ -391,10 +442,12 @@ body {
 }
 
 @keyframes bob {
+
   0%,
   100% {
     transform: translateX(0);
   }
+
   50% {
     transform: translateX(9.6px);
   }
@@ -428,6 +481,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

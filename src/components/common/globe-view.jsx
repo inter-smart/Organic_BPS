@@ -133,6 +133,8 @@ export default function GlobeView({
       gsap.killTweensOf(el);
       api?.destroy();
     };
+    // the globe is built once; pins are static page data
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

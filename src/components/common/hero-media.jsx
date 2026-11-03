@@ -13,7 +13,10 @@ export default function HeroMedia({ slides = [] }) {
 
   useEffect(() => {
     if (count < 2 || slide?.type === "video") return;
-    const t = setTimeout(next, slide?.duration ?? 6000);
+    const t = setTimeout(
+      () => setIndex((i) => (i + 1) % count),
+      slide?.duration ?? 6000,
+    );
     return () => clearTimeout(t);
   }, [index, count, slide?.type, slide?.duration]);
 

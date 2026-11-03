@@ -61,9 +61,10 @@ export default function ContactForm() {
       </div>
 
       <div className="border-b border-[#ddd] pb-6 lg:pb-[calc(30*var(--u))]">
-        <Field label="What would you like to explore?">
+        <div className="flex flex-col gap-2">
+          <span id="topic-label" className="text-sm font-medium text-basecolor2 lg:text-lead">What would you like to explore?</span>
           <Select name="topic">
-            <SelectTrigger className="border-b-0 pb-0 text-lg lg:text-xl">
+            <SelectTrigger aria-labelledby="topic-label" className="border-b-0 pb-0 text-lg lg:text-xl">
               <SelectValue placeholder="Let's explore together" />
             </SelectTrigger>
             <SelectContent>
@@ -74,7 +75,7 @@ export default function ContactForm() {
               ))}
             </SelectContent>
           </Select>
-        </Field>
+        </div>
       </div>
 
       <div className="border-b border-[#ddd] pb-6 lg:pb-[calc(30*var(--u))]">

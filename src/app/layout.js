@@ -35,10 +35,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${googleSans.variable} ${inter.variable}`}>
-      <body>
+      <head>
         <noscript>
           <style>{".preloader{display:none!important}"}</style>
         </noscript>
+      </head>
+      <body>
         <Preloader />
         <SmoothScroll />
         <Header data={layout_data.header} />

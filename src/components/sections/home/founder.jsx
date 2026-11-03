@@ -12,49 +12,53 @@ export default function Founder({ data }) {
       aria-labelledby="founder-title"
       className="relative isolate overflow-hidden bg-black text-white lg:h-270"
     >
-      <div className="container mx-auto px-4 relative z-10 py-16 sm:py-20 lg:flex lg:h-full lg:items-center lg:py-0">
-        <div className="lg:max-w-[50%] 2xl:max-w-[56%]">
-          <Reveal variant="up">
-            <Heading
-              as="h2"
-              id="founder-title"
-              size="display"
-              className="text-white"
-            >
-              <RichLines lines={data?.title} />
-            </Heading>
-          </Reveal>
-          <Reveal
-            as="p"
-            variant="fade"
-            delay={0.1}
-            className="mt-3 text-sm font-medium tracking-[0.14em] text-basecolor uppercase lg:mt-6 lg:text-lead lg:tracking-[0.14em]"
-          >
-            {data?.role}
-          </Reveal>
-          <div className="mt-4 space-y-5 text-base/[1.8] font-medium text-white sm:text-lg/[1.8] lg:mt-6 lg:space-y-8 lg:text-lead/[2]">
-            {data?.paragraphs?.map((p, i) => (
+      <div className="relative z-10 lg:flex lg:h-full lg:items-center">
+        <div className="container mx-auto px-4">
+          <div className="py-16 sm:py-20 lg:py-0">
+            <div className="lg:max-w-[50%] 2xl:max-w-[56%]">
+              <Reveal variant="up">
+                <Heading
+                  as="h2"
+                  id="founder-title"
+                  size="display"
+                  className="text-white"
+                >
+                  <RichLines lines={data?.title} />
+                </Heading>
+              </Reveal>
               <Reveal
                 as="p"
-                key={i}
-                variant="up"
-                delay={0.1 * (i + 1)}
-                className="text-pretty"
+                variant="fade"
+                delay={0.1}
+                className="mt-3 text-sm font-medium tracking-[0.14em] text-basecolor uppercase lg:mt-6 lg:text-lead lg:tracking-[0.14em]"
               >
-                {p}
+                {data?.role}
               </Reveal>
-            ))}
+              <div className="mt-4 space-y-5 text-base/[1.8] font-medium text-white sm:text-lg/[1.8] lg:mt-6 lg:space-y-8 lg:text-lead/[2]">
+                {data?.paragraphs?.map((p, i) => (
+                  <Reveal
+                    as="p"
+                    key={i}
+                    variant="up"
+                    delay={0.1 * (i + 1)}
+                    className="text-pretty"
+                  >
+                    {p}
+                  </Reveal>
+                ))}
+              </div>
+              <Reveal variant="up" delay={0.3} className="mt-7 lg:mt-8">
+                <p className="text-2xl/[1.4] font-bold sm:text-3xl/[1.4] lg:text-title/[1.4]">
+                  <RichLines lines={data?.tagline} />
+                </p>
+              </Reveal>
+              <Reveal variant="up" delay={0.4} className="mt-7 lg:mt-11">
+                <Button href={data?.cta?.href} variant="dark">
+                  {data?.cta?.label}
+                </Button>
+              </Reveal>
+            </div>
           </div>
-          <Reveal variant="up" delay={0.3} className="mt-7 lg:mt-8">
-            <p className="text-2xl/[1.4] font-bold sm:text-3xl/[1.4] lg:text-title/[1.4]">
-              <RichLines lines={data?.tagline} />
-            </p>
-          </Reveal>
-          <Reveal variant="up" delay={0.4} className="mt-7 lg:mt-11">
-            <Button href={data?.cta?.href} variant="dark">
-              {data?.cta?.label}
-            </Button>
-          </Reveal>
         </div>
       </div>
 
