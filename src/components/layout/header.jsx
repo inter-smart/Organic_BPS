@@ -57,7 +57,7 @@ export default function Header({ data }) {
 
         <nav
           aria-label="Main"
-          className="ml-auto mr-10 hidden items-center gap-10 xl:mr-14 xl:gap-15 whitespace-nowrap lg:flex"
+          className="mx-auto hidden items-center gap-10 xl:gap-15 whitespace-nowrap lg:flex"
         >
           <span
             aria-hidden="true"
@@ -75,7 +75,7 @@ export default function Header({ data }) {
         </nav>
 
         <div className="flex items-center gap-6">
-          {data?.cta ? (
+          {/* {data?.cta ? (
             <Button
               href={data.cta.href}
               variant="dark"
@@ -85,7 +85,7 @@ export default function Header({ data }) {
             >
               {data.cta.label}
             </Button>
-          ) : null}
+          ) : null} */}
           <MenuSheet links={data?.links} cta={data?.cta} />
         </div>
       </div>

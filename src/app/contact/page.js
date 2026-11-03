@@ -5,7 +5,8 @@ import Locations from "@/components/sections/contact/locations";
 
 export const metadata = {
   title: "Contact — Organic BPS",
-  description: "Every meaningful relationship begins with a conversation. Tell us what you're working towards.",
+  description:
+    "Every meaningful relationship begins with a conversation. Tell us what you're working towards.",
 };
 
 /*
@@ -14,9 +15,12 @@ export const metadata = {
  */
 const local_data = {
   hero: {
-    slides: [{ id: 1, type: "image", src: "/images/contact/hero.jpg", alt: "" }],
+    slides: [
+      { id: 1, type: "image", src: "/images/contact/hero.jpg", alt: "" },
+    ],
     title: [[{ t: "Let’s start a " }], [{ t: "conversation.", accent: true }]],
-    paragraph: "Every meaningful relationship begins with a conversation. Tell us what you’re working towards.",
+    paragraph:
+      "Every meaningful relationship begins with a conversation. Tell us what you’re working towards.",
     avatars: [
       { id: 1, src: "/images/contact/team-1.png", alt: "" },
       { id: 2, src: "/images/contact/team-2.png", alt: "" },
@@ -29,21 +33,32 @@ const local_data = {
   enquiry: {
     eyebrow: "Put purpose to work",
     title: [[{ t: "What’s your" }], [{ t: "next chapter?" }]],
-    paragraph: "A clearer purpose. A stronger brand. A change in behaviour. Let’s explore how we can help you move forward.",
-    business: { label: "Business enquiries", email: "admin@organicbps.com", phone: "+91 99611 42800" },
+    paragraph:
+      "A clearer purpose. A stronger brand. A change in behaviour. Let’s explore how we can help you move forward.",
+    business: {
+      label: "Business enquiries",
+      email: "admin@organicbps.com",
+      phone: "+91 99611 42800",
+    },
   },
 
   locations: {
     title: [[{ t: "Where to" }], [{ t: "find us", accent: true }]],
     text: "Let’s connect with the team closest to you.",
     eyebrow: "Office locations",
-    map: { label: "Location Map", href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Organic BPS, Kochi") },
+    map: {
+      label: "Location Map",
+      href:
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent("Organic BPS, Kochi"),
+    },
     offices: [
       {
         id: 1,
         country: "India",
         city: "Kochi",
-        address: "GTWRA 31, Parthasarathy Temple Road, Changampuzha Park, Kochi – 682024, Kerala, India",
+        address:
+          "GTWRA 31, Parthasarathy Temple Road, Changampuzha Park, Kochi – 682024, Kerala, India",
         email: "kochi@organicbps.com",
         phone: "+91 484 2345323",
       },
@@ -51,7 +66,8 @@ const local_data = {
         id: 2,
         country: "UAE",
         city: "Dubai",
-        address: "6th Floor, Business Center, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates",
+        address:
+          "6th Floor, Business Center, Meydan Road, Nad Al Sheba, Dubai, United Arab Emirates",
         email: "Dubai@organicbps.com",
         // Source Figma repeats the Kochi phone number here verbatim — flagged to the client, not invented.
         phone: "+91 484 2345323",

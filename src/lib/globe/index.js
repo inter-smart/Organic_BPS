@@ -1,12 +1,14 @@
-/**
+﻿/**
  * main.js
  * ---------------------------------------------------------------------------
  * Entry point. Loads assets, instantiates every module, and wires them
- * together. This is the only file that knows about all the other modules —
+ * together. This is the only file that knows about all the other modules â€”
  * Globe/PinManager/CardManager/CameraController/LeaderLine stay decoupled
  * and talk to each other only through the small event emitters exposed here.
  */
+import * as THREE from 'three';
 import { resolveConfig } from './Config.js';
+import { surfaceVisibility } from './Utils.js';
 import { AssetLoader } from './AssetLoader.js';
 import { AnimationManager } from './Animation.js';
 import { Globe } from './Globe.js';
@@ -16,7 +18,7 @@ import { CardManager } from './CardManager.js';
 import { LeaderLine } from './LeaderLine.js';
 
 /**
- * Public component factory — mirrors the API requested in the spec:
+ * Public component factory â€” mirrors the API requested in the spec:
  *   new GlobeComponent({ container, rotationSpeed, autoRotate, pins, ... })
  */
 export async function createGlobeComponent(userConfig = {}) {
@@ -77,7 +79,7 @@ export async function createGlobeComponent(userConfig = {}) {
   const cardManager = new CardManager({ container, camera: globe.camera, config, leaderLine });
   cardManager.build(pins, icons);
 
-  // ---- Cross-module wiring: pin ⇄ card hover/click stay in sync ----------
+  // ---- Cross-module wiring: pin â‡„ card hover/click stay in sync ----------
   let activeId = null;
   const select = (pin) => {
     activeId = pin.id;
@@ -96,9 +98,18 @@ export async function createGlobeComponent(userConfig = {}) {
   cardManager.on('click', select);
 
   // ---- Shared render loop -------------------------------------------------
+  const _globeCenter = new THREE.Vector3(0, 0, 0);
   globe.onTick(() => {
     cameraController.update();
     cardManager.update(globe.camera.position);
+    // Fade pin sprites by surface visibility so they dissolve before the canvas edge clips them
+    for (const pin of pins) {
+      const vis = surfaceVisibility(pin.surfaceNormal, globe.camera.position, _globeCenter);
+      const opacity = Math.max(0, Math.min(1, vis));
+      // core and glow are the same pinSprite — set opacity once at full value
+      pin.core.material.opacity = opacity;
+      pin.ring.visible = false;
+    }
   });
   globe.onResize((w, h) => {
     leaderLine.setSize(w, h);
@@ -106,7 +117,7 @@ export async function createGlobeComponent(userConfig = {}) {
   });
 
   // Do the heavy GPU work (shader compile, 4096px texture upload + mipmaps) now, in small frame-spaced steps,
-  // so the first real frame — usually while the user is scrolling the page — does not freeze the main thread.
+  // so the first real frame â€” usually while the user is scrolling the page â€” does not freeze the main thread.
   try {
     await globe.renderer.compileAsync(globe.scene, globe.camera);
   } catch {

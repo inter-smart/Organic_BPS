@@ -1,16 +1,13 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "@/lib/globe/globe.css";
 
-/**
- * Interactive 3D globe (three.js) with partner pins. Booted the first time it nears the viewport,
- * and its render loop pauses whenever it is scrolled out of view.
- * Intro: once it is ready and scrolled into view it scales in and spins from a turned-away angle round to the
- * default view, then the normal auto-rotate takes over.
- */
-export default function GlobeView({ pins = [], className = "", label = "Interactive 3D globe showing partner locations worldwide" }) {
+export default function GlobeView({
+  pins = [],
+  className = "",
+  label = "Interactive 3D globe showing partner locations worldwide",
+}) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -20,7 +17,8 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
     let disposed = false;
     let visible = false;
     let seen = false;
-    const motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motion = !window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches;
     const hide = () => {
       if (!motion) return;
       gsap.killTweensOf(el);
@@ -32,11 +30,21 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
     };
     hide();
 
-    // plays every time the globe scrolls back into view (and is ready); resets once it has fully left
     const playIntro = () => {
       if (!api || !seen || !motion) return;
-      gsap.to(el, { scale: 1, opacity: 1, duration: 1.6, ease: "power3.out", overwrite: true });
-      gsap.to(api.globe.earthGroup.rotation, { y: 0, duration: 2.6, ease: "power3.out", overwrite: true });
+      gsap.to(el, {
+        scale: 1,
+        opacity: 1,
+        duration: 1.6,
+        ease: "power3.out",
+        overwrite: true,
+      });
+      gsap.to(api.globe.earthGroup.rotation, {
+        y: 0,
+        duration: 2.6,
+        ease: "power3.out",
+        overwrite: true,
+      });
     };
 
     const reveal = new IntersectionObserver(
@@ -51,7 +59,7 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
           }
         }
       },
-      { threshold: [0, 0.3] }
+      { threshold: [0, 0.3] },
     );
     reveal.observe(el);
 
@@ -60,15 +68,21 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       if (!api) return;
       if (visible) {
         if (!api.globe._raf) api.globe.start();
-      }
-      else api.globe.stop();
+      } else api.globe.stop();
     });
 
     const boot = async () => {
       const { createGlobeComponent } = await import("@/lib/globe");
       if (disposed) return;
       try {
-        const instance = await createGlobeComponent({ container: el, pins, theme: "dark", showStars: false, showBloom: false, enableZoom: true });
+        const instance = await createGlobeComponent({
+          container: el,
+          pins,
+          theme: "dark",
+          showStars: false,
+          showBloom: false,
+          enableZoom: true,
+        });
         if (disposed) {
           instance.destroy();
           return;
@@ -84,7 +98,6 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       }
     };
 
-    // The engine is heavy: boot it only when the globe is about a screen away, so the first load stays light.
     let booted = false;
     const bootOnce = () => {
       if (booted) return;
@@ -92,15 +105,20 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       starter.disconnect();
       boot();
     };
-    const starter = new IntersectionObserver(([entry]) => entry.isIntersecting && bootOnce(), { rootMargin: "600px" });
+    const starter = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && bootOnce(),
+      { rootMargin: "600px" },
+    );
     starter.observe(el);
     visibility.observe(el);
 
-    // Pinch zoom stays; wheel zoom is blocked so the page keeps scrolling over the globe. Lenis owns page scroll,
-    // so the wheel is re-sent to it (swallowing it left native and smooth scroll fighting = stuck/jumpy page).
     const stopWheel = (e) => {
       e.stopPropagation();
-      if (!document.documentElement.classList.contains("lenis") || !e.cancelable) return;
+      if (
+        !document.documentElement.classList.contains("lenis") ||
+        !e.cancelable
+      )
+        return;
       e.preventDefault();
       window.dispatchEvent(new WheelEvent("wheel", e));
     };
@@ -115,12 +133,16 @@ export default function GlobeView({ pins = [], className = "", label = "Interact
       gsap.killTweensOf(el);
       api?.destroy();
     };
-    // pins are static page data
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div ref={ref} className={`globe ${className}`} role="region" aria-label={label} data-theme="dark">
+    <div
+      ref={ref}
+      className={`globe ${className}`}
+      role="region"
+      aria-label={label}
+      data-theme="dark"
+    >
       <div className="globe-loader">
         <div className="globe-loader__spinner" aria-hidden="true" />
         <div className="globe-loader__track">

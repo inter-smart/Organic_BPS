@@ -12,11 +12,21 @@ export default function ClientLogos({ data }) {
     >
       <div className="container mx-auto px-4 text-center">
         <Reveal variant="up">
-          <Heading as="h2" id="clients-title" size="displayMd" className="mx-auto max-w-5xl text-[#171717]">
+          <Heading
+            as="h2"
+            id="clients-title"
+            size="displayMd"
+            className="mx-auto max-w-5xl text-[#171717]"
+          >
             <RichLines lines={data?.title} />
           </Heading>
         </Reveal>
-        <Reveal as="p" variant="up" delay={0.15} className="mx-auto mt-5 max-w-3xl text-sm/[1.8] text-black sm:text-base/[1.8] lg:mt-6 lg:max-w-221 lg:text-lead/[1.6] text-pretty">
+        <Reveal
+          as="p"
+          variant="up"
+          delay={0.15}
+          className="mx-auto mt-5 max-w-3xl text-sm/[1.8] text-black sm:text-base/[1.8] lg:mt-6 lg:max-w-221 lg:text-lead/[1.6] text-pretty"
+        >
           {data?.text}
         </Reveal>
       </div>
