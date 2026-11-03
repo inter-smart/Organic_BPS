@@ -10,9 +10,77 @@ import MenuSheet from "@/components/layout/menu-sheet";
 /** Site header — fixed to the top; transparent over the hero, solid once the page scrolls. Nav links show from xl; below that they live in the menu sheet. */
 export default function Header({ data }) {
   const [stuck, setStuck] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setStuck(window.scrollY > 40);
+    let lastScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    let accumulatedScroll = 0;
+    let ticking = false;
+
+    const TOP_THRESHOLD = 80;
+    const HIDE_THRESHOLD = 20;
+    const SHOW_THRESHOLD = 10;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Keep header visible while navigation menu / dialog is open
+          if (document.querySelector('[role="dialog"]')) {
+            setVisible(true);
+            ticking = false;
+            return;
+          }
+
+          const currentScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+          const maxScroll = Math.max(
+            0,
+            document.documentElement.scrollHeight - window.innerHeight
+          );
+
+          // Always visible and unstuck near the top of the page
+          if (currentScrollY <= TOP_THRESHOLD) {
+            setStuck(false);
+            setVisible(true);
+            accumulatedScroll = 0;
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          setStuck(true);
+
+          // Prevent iOS/macOS rubber-band at the bottom from triggering false scroll up
+          if (maxScroll > 0 && currentScrollY >= maxScroll - 15) {
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          const delta = currentScrollY - lastScrollY;
+
+          // Reset accumulation if scroll direction flipped
+          if ((delta > 0 && accumulatedScroll < 0) || (delta < 0 && accumulatedScroll > 0)) {
+            accumulatedScroll = 0;
+          }
+          accumulatedScroll += delta;
+
+          if (accumulatedScroll >= HIDE_THRESHOLD) {
+            // Forward scroll -> hide
+            setVisible(false);
+            accumulatedScroll = 0;
+          } else if (accumulatedScroll <= -SHOW_THRESHOLD) {
+            // Reverse scroll -> show
+            setVisible(true);
+            accumulatedScroll = 0;
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -20,10 +88,12 @@ export default function Header({ data }) {
 
   return (
     <header
+      onFocusCapture={() => setVisible(true)}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 text-white transition-[padding,background-color,backdrop-filter] duration-500",
+        "fixed inset-x-0 top-0 z-50 text-white header-smooth",
+        visible ? "header-visible" : "header-hidden",
         stuck
-          ? "bg-basecolor7/90 py-3 backdrop-blur-md lg:py-4"
+          ? "bg-basecolor7/90 py-3 backdrop-blur-md lg:py-4 shadow-md shadow-black/20"
           : "pt-5 sm:pt-7 lg:pt-11",
       )}
     >
@@ -75,17 +145,6 @@ export default function Header({ data }) {
         </nav>
 
         <div className="flex items-center gap-6">
-          {/* {data?.cta ? (
-            <Button
-              href={data.cta.href}
-              variant="dark"
-              size="sm"
-              arrow={false}
-              className="hidden lg:inline-flex"
-            >
-              {data.cta.label}
-            </Button>
-          ) : null} */}
           <MenuSheet links={data?.links} cta={data?.cta} />
         </div>
       </div>

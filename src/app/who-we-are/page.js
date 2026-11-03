@@ -9,7 +9,8 @@ import Values from "@/components/sections/who-we-are/values";
 
 export const metadata = {
   title: "Who We Are — Organic BPS",
-  description: "Organic BPS began in Kochi in 1999 as an advertising agency and grew into a Brand Purpose Consultancy with more than 26 years of experience.",
+  description:
+    "Organic BPS began in Kochi in 1999 as an advertising agency and grew into a Brand Purpose Consultancy with more than 26 years of experience.",
 };
 
 /*
@@ -18,8 +19,14 @@ export const metadata = {
  */
 const local_data = {
   hero: {
-    slides: [{ id: 1, type: "image", src: "/images/who-we-are/hero.jpg", alt: "" }],
-    title: [[{ t: "Purpose", ring: true }], [{ t: "has shaped" }], [{ t: "our " }, { t: "journey.", accent: true }]],
+    slides: [
+      { id: 1, type: "image", src: "/images/who-we-are/hero.jpg", alt: "" },
+    ],
+    title: [
+      [{ t: "Purpose", ring: true }],
+      [{ t: "has shaped" }],
+      [{ t: "our " }, { t: "journey.", accent: true }],
+    ],
     paragraphs: [
       "Organic BPS is a Brand Purpose Consultancy with more than 26 years of experience in brand strategy and communication.",
       "We bring together strategic capability and creative execution to help organisations discover purpose, build belief and drive action for sustainable growth",
@@ -33,7 +40,10 @@ const local_data = {
   },
 
   story: {
-    title: [[{ t: "Born in brand communication." }], [{ t: "Evolved through purpose.", accent: true }]],
+    title: [
+      [{ t: "Born in brand communication." }],
+      [{ t: "Evolved through purpose.", accent: true }],
+    ],
     eyebrow: "Our story",
     paragraphs: [
       [
@@ -42,11 +52,19 @@ const local_data = {
         },
       ],
       [
-        { t: "This conviction led us to place purpose at the centre of our work and develop " },
+        {
+          t: "This conviction led us to place purpose at the centre of our work and develop ",
+        },
         { t: "BPS — Brand Purpose Solutions", accent: true },
-        { t: ", our proprietary framework for purpose discovery and activation." },
+        {
+          t: ", our proprietary framework for purpose discovery and activation.",
+        },
       ],
-      [{ t: "Today, from Kochi and Dubai, we continue to combine the depth of strategic thinking with the power of creative communication." }],
+      [
+        {
+          t: "Today, from Kochi and Dubai, we continue to combine the depth of strategic thinking with the power of creative communication.",
+        },
+      ],
     ],
     timeline: [
       { id: 1, year: "1999", label: "The Beginning" },
@@ -89,7 +107,10 @@ const local_data = {
 
   belief: {
     eyebrow: "Our core belief",
-    title: [[{ t: "Growth for All." }], [{ t: "Growth for Good.", accent: true }]],
+    title: [
+      [{ t: "Growth for All." }],
+      [{ t: "Growth for Good.", accent: true }],
+    ],
     paragraphs: [
       "We believe businesses can grow while creating value for people and contributing positively to the planet.",
       "This belief shapes the organisations we work with, the ideas we pursue and the way we conduct ourselves.",
@@ -111,7 +132,10 @@ const local_data = {
     watermark: "Organic BPS",
     name: "Dileep Narayanan",
     role: "Founder & Managing Director",
-    image: { src: "/images/who-we-are/founder.png", alt: "Dileep Narayanan, founder and managing director of Organic BPS" },
+    image: {
+      src: "/images/who-we-are/founder.png",
+      alt: "Dileep Narayanan, founder and managing director of Organic BPS",
+    },
     paragraphs: [
       "Dileep Narayanan founded Organic BPS in 1999 and has more than 26 years of experience in brand strategy, communication and purpose consulting.",
       "His work has focused on helping organisations discover the beliefs that can guide their business, build stronger brands and create wider value.",
@@ -122,10 +146,22 @@ const local_data = {
   },
 
   team: {
-    title: [[{ t: "Strategic minds." }], [{ t: "Creative hands.", accent: true }], [{ t: "Shared commitment." }]],
+    title: [
+      [{ t: "Strategic minds." }],
+      [{ t: "Creative hands.", accent: true }],
+      [{ t: "Shared commitment." }],
+    ],
     images: [
-      { id: 1, src: "/images/who-we-are/team-1.jpg", alt: "The Organic BPS team gathered for a group photo" },
-      { id: 2, src: "/images/who-we-are/team-2.jpg", alt: "The core team of Organic BPS posing together in the office lobby" },
+      {
+        id: 1,
+        src: "/images/who-we-are/team-1.jpg",
+        alt: "The Organic BPS team gathered for a group photo",
+      },
+      {
+        id: 2,
+        src: "/images/who-we-are/team-2.jpg",
+        alt: "The core team of Organic BPS posing together in the office lobby",
+      },
     ],
     paragraphs: [
       "Our core team brings together strategic thinking and creative execution.",
@@ -136,9 +172,17 @@ const local_data = {
 
   recognition: {
     eyebrow: "Recognition",
-    title: [[{ t: "Recognised for" }], [{ t: "strategic & creative" }], [{ t: "excellence", accent: true }]],
+    title: [
+      [{ t: "Recognised for" }],
+      [{ t: "strategic & creative" }],
+      [{ t: "excellence", accent: true }],
+    ],
     count: { value: 80, suffix: "+" },
-    text: [{ t: "Over the years, the work of Organic BPS has received more than " }, { t: "80 national and international awards", accent: true }, { t: "." }],
+    text: [
+      { t: "Over the years, the work of Organic BPS has received more than " },
+      { t: "80 national and international awards", accent: true },
+      { t: "." },
+    ],
     items: [
       {
         id: 1,

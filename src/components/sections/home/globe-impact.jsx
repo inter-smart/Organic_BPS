@@ -1,10 +1,10 @@
-import dynamic from "next/dynamic";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import Reveal from "@/components/common/reveal";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
-import NumberTicker from "@/components/common/number-ticker";
-import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
+import NumberTicker from "@/components/common/number-ticker";
 
 const GlobeView = dynamic(() => import("@/components/common/globe-view"));
 
