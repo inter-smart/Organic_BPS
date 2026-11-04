@@ -6,7 +6,7 @@ export default function Cta({ data }) {
     <section
       id="privacy-contact"
       aria-labelledby="privacy-cta-title"
-      className="bg-basecolor py-16 text-white sm:py-20 lg:py-[calc(81*var(--u))]"
+      className="bg-basecolor14 py-16 text-white sm:py-20 lg:py-[calc(81*var(--u))]"
     >
       <div className="container mx-auto px-4">
         <div className="grid gap-6 lg:grid-cols-[1214fr_506fr] lg:items-start lg:gap-0">

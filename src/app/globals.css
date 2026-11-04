@@ -92,6 +92,10 @@
   /* soft card border */
   --basecolor14: color-mix(in srgb, var(--basecolor) 88%, black);
   /* brand red for small text on light backgrounds (4.5:1) */
+  --basecolor15: #f6f3ef;
+  /* warm cream section background */
+  --basecolor16: #d9d6d1;
+  /* soft pill border */
 
   /* shadcn tokens mapped to the palette (see handbook ch.29) */
   --background: white;
@@ -120,6 +124,8 @@
   --color-basecolor12: var(--basecolor12);
   --color-basecolor13: var(--basecolor13);
   --color-basecolor14: var(--basecolor14);
+  --color-basecolor15: var(--basecolor15);
+  --color-basecolor16: var(--basecolor16);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -488,7 +494,7 @@ body {
 
     .typography.policy-copy h3::before {
       position: absolute;
-      top: calc(46 * var(--u));
+      top: calc(54 * var(--u));
       left: 0;
       margin: 0;
     }
