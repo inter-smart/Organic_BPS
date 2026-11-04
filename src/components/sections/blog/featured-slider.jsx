@@ -92,7 +92,10 @@ export default function FeaturedSlider({ items = [], author, cta, labels }) {
                   </div>
 
                   <div className="mt-6 lg:mt-[calc(46*var(--u))]">
-                    <Button href={item.href}>{cta?.label}</Button>
+                    <Button href={item.href}>
+                      {cta?.label}
+                      <span className="sr-only">: {item.title}{item.accent}</span>
+                    </Button>
                   </div>
                 </div>
               </article>

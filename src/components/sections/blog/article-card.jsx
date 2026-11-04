@@ -34,6 +34,7 @@ export default function ArticleCard({ article, labels }) {
           className="group mt-auto flex w-fit items-center gap-3 text-sm font-bold text-basecolor7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]"
         >
           {labels?.link}
+          <span className="sr-only">: {article?.title}</span>
           <Image src="/images/arrow-right-red.svg" alt="" width={20} height={20} className="size-5 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
         </a>
       </div>

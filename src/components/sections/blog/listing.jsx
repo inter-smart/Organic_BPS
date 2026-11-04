@@ -14,7 +14,9 @@ const pill =
 
 /** "Latest thinking": topic filters, search and paged article grid. */
 export default function Listing({ data }) {
-  const { category, setCategory, query, setQuery } = useBlogFilter();
+  const { category: picked, setCategory, query, setQuery } = useBlogFilter();
+  // an unknown topic in a shared link falls back to All
+  const category = picked === "all" || data?.filters?.items?.includes(picked) ? picked : "all";
   const pageSize = data?.pageSize ?? 9;
   // any filter or search change starts again from the first page (state adjusted during render, no effect needed)
   const filterKey = `${category}|${query}`;

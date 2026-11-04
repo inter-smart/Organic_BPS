@@ -41,7 +41,7 @@
   padding-inline: 20px;
 
   @media (min-width: 640px) {
-    max-width: 540px;
+    max-width: 100%;
   }
 
   @media (min-width: 768px) {
@@ -511,6 +511,232 @@ body {
 
     .typography.policy-copy li {
       font-size: clamp(14px, calc(16 * var(--u)), 16px);
+    }
+  }
+
+  /* Blog article body: opening statement, numbered h2 sections, red pull quote and a leaders box */
+  .typography.article-copy {
+    counter-reset: article;
+    color: var(--basecolor2);
+    line-height: 1.68;
+  }
+
+  .typography.article-copy > * {
+    margin: 0;
+  }
+
+  .typography.article-copy p {
+    margin-top: 24px;
+    font-size: 16px;
+  }
+
+  .typography.article-copy p.lead {
+    margin-top: 0;
+    max-width: 1273px;
+    color: var(--basecolor7);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.34;
+    letter-spacing: -0.012em;
+  }
+
+  .typography.article-copy p.lead em {
+    color: var(--basecolor);
+    font-style: normal;
+  }
+
+  .typography.article-copy h2 {
+    counter-increment: article;
+    display: flex;
+    gap: 16px;
+    margin: 48px 0 0;
+    color: var(--basecolor7);
+    font-size: 28px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    scroll-margin-top: 7rem;
+  }
+
+  .typography.article-copy h2::before {
+    content: counter(article, decimal-leading-zero);
+    flex: none;
+    width: 28px;
+    padding-top: 0.4em;
+    color: var(--basecolor14);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    line-height: 1;
+  }
+
+  .typography.article-copy h2 + p {
+    margin-top: 20px;
+  }
+
+  .typography.article-copy blockquote {
+    position: relative;
+    margin: 48px 0 0;
+    padding: 40px 28px;
+    border: 0;
+    border-radius: 28px;
+    background: var(--basecolor14);
+    color: white;
+    font-style: normal;
+  }
+
+  .typography.article-copy blockquote::before {
+    content: "“";
+    display: block;
+    height: 0.5em;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 0.65;
+    opacity: 0.5;
+  }
+
+  .typography.article-copy blockquote p {
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+  }
+
+  .typography.article-copy blockquote footer {
+    margin-top: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 1;
+  }
+
+  .typography.article-copy blockquote + h2 {
+    margin-top: 48px;
+  }
+
+  .typography.article-copy aside {
+    margin-top: 28px;
+    padding: 24px;
+    border: 1px solid var(--basecolor16);
+    border-radius: 20px;
+  }
+
+  .typography.article-copy aside p {
+    margin: 0;
+    color: var(--basecolor14);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .typography.article-copy aside ol {
+    display: grid;
+    gap: 16px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: question;
+  }
+
+  .typography.article-copy aside li {
+    counter-increment: question;
+    display: flex;
+    gap: 14px;
+    margin: 0;
+    color: var(--basecolor7);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .typography.article-copy aside li::before {
+    content: counter(question, decimal-leading-zero);
+    flex: none;
+    width: 28px;
+    padding-top: 0.35em;
+    color: var(--basecolor14);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .typography.article-copy p {
+      margin-top: calc(30 * var(--u));
+      font-size: clamp(15px, calc(20 * var(--u)), 20px);
+    }
+
+    .typography.article-copy p.lead {
+      margin-top: 0;
+      font-size: clamp(22px, calc(37 * var(--u)), 37px);
+    }
+
+    .typography.article-copy p.lead + p {
+      margin-top: calc(32 * var(--u));
+    }
+
+    .typography.article-copy h2 {
+      gap: calc(22 * var(--u));
+      margin-top: calc(65 * var(--u));
+      font-size: clamp(26px, calc(43 * var(--u)), 43px);
+    }
+
+    .typography.article-copy h2::before {
+      width: calc(42 * var(--u));
+      font-size: clamp(12px, calc(15 * var(--u)), 15px);
+    }
+
+    .typography.article-copy h2 + p {
+      margin-top: calc(30 * var(--u));
+    }
+
+    .typography.article-copy blockquote {
+      margin-top: calc(57 * var(--u));
+      padding: calc(79.6 * var(--u)) calc(93.4 * var(--u));
+      border-radius: calc(43.9 * var(--u));
+    }
+
+    .typography.article-copy blockquote::before {
+      font-size: clamp(60px, calc(101.6 * var(--u)), 101.6px);
+    }
+
+    .typography.article-copy blockquote p {
+      margin-top: calc(32.9 * var(--u));
+      font-size: clamp(30px, calc(61.8 * var(--u)), 61.8px);
+    }
+
+    .typography.article-copy blockquote footer {
+      margin-top: calc(32.9 * var(--u));
+      font-size: clamp(14px, calc(19.2 * var(--u)), 19.2px);
+    }
+
+    .typography.article-copy blockquote + h2 {
+      margin-top: calc(81 * var(--u));
+    }
+
+    .typography.article-copy aside {
+      margin-top: calc(30 * var(--u));
+      padding: calc(34 * var(--u));
+      border-radius: calc(24 * var(--u));
+    }
+
+    .typography.article-copy aside p {
+      font-size: clamp(12px, calc(16 * var(--u)), 16px);
+    }
+
+    .typography.article-copy aside ol {
+      gap: calc(22 * var(--u));
+      margin-top: calc(22 * var(--u));
+    }
+
+    .typography.article-copy aside li {
+      gap: calc(18 * var(--u));
+      font-size: clamp(16px, calc(22 * var(--u)), 22px);
+    }
+
+    .typography.article-copy aside li::before {
+      width: calc(28 * var(--u));
+      font-size: clamp(11px, calc(13 * var(--u)), 13px);
     }
   }
 
