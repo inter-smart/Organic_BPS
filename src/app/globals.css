@@ -82,6 +82,16 @@
   /* dark section background */
   --basecolor8: #e8645e;
   /* brand red tint for small text on dark backgrounds (4.5:1) */
+  --basecolor9: #6f6f6f;
+  /* body copy grey */
+  --basecolor11: #e5e5e5;
+  /* hairline rules */
+  --basecolor12: #f7f7f5;
+  /* soft card background */
+  --basecolor13: #e7e4e1;
+  /* soft card border */
+  --basecolor14: color-mix(in srgb, var(--basecolor) 88%, black);
+  /* brand red for small text on light backgrounds (4.5:1) */
 
   /* shadcn tokens mapped to the palette (see handbook ch.29) */
   --background: white;
@@ -105,6 +115,11 @@
   --color-basecolor6: var(--basecolor6);
   --color-basecolor7: var(--basecolor7);
   --color-basecolor8: var(--basecolor8);
+  --color-basecolor9: var(--basecolor9);
+  --color-basecolor11: var(--basecolor11);
+  --color-basecolor12: var(--basecolor12);
+  --color-basecolor13: var(--basecolor13);
+  --color-basecolor14: var(--basecolor14);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -385,6 +400,112 @@ body {
     font-size: 14px;
     color: var(--muted-foreground);
     margin-top: 0.5em;
+  }
+
+  /* Privacy policy body: numbered h3 sections, hairline between them, numbers in a left gutter on desktop */
+  .typography.policy-copy {
+    counter-reset: policy;
+    color: var(--basecolor9);
+    line-height: 1.65;
+  }
+
+  .typography.policy-copy h3 {
+    counter-increment: policy;
+    position: relative;
+    scroll-margin-top: 7rem;
+    margin: 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--basecolor11);
+    color: var(--basecolor7);
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .typography.policy-copy h3:not(:first-child) {
+    margin-top: 40px;
+  }
+
+  .typography.policy-copy h3::before {
+    content: counter(policy, decimal-leading-zero);
+    display: block;
+    margin-bottom: 12px;
+    color: var(--basecolor14);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+  }
+
+  .typography.policy-copy p {
+    margin: 16px 0 0;
+    font-size: 16px;
+  }
+
+  .typography.policy-copy ul {
+    display: grid;
+    gap: 12px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .typography.policy-copy li {
+    position: relative;
+    margin: 0;
+    padding-left: 21px;
+    color: var(--basecolor7);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .typography.policy-copy li::before {
+    content: "";
+    position: absolute;
+    top: 0.5em;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: var(--basecolor);
+  }
+
+  @media (min-width: 1024px) {
+    .typography.policy-copy > :not(h3) {
+      margin-left: 88px;
+    }
+
+    .typography.policy-copy h3 {
+      padding-top: calc(46 * var(--u));
+      padding-left: 88px;
+      font-size: clamp(22px, calc(34 * var(--u)), 34px);
+    }
+
+    .typography.policy-copy h3:not(:first-child) {
+      margin-top: calc(52 * var(--u));
+    }
+
+    .typography.policy-copy h3::before {
+      position: absolute;
+      top: calc(46 * var(--u));
+      left: 0;
+      margin: 0;
+    }
+
+    .typography.policy-copy p {
+      margin-top: calc(20 * var(--u));
+      font-size: clamp(14px, calc(18 * var(--u)), 18px);
+    }
+
+    .typography.policy-copy ul {
+      margin-top: calc(24 * var(--u));
+      gap: calc(12 * var(--u));
+    }
+
+    .typography.policy-copy li {
+      font-size: clamp(14px, calc(16 * var(--u)), 16px);
+    }
   }
 
   .typography table {
