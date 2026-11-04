@@ -3,7 +3,7 @@ export const layout_data = {
   header: {
     logo: { alt: "Organic BPS" },
     links: [
-      { id: 1, label: "Why Purpose", href: "/#why-purpose" },
+      { id: 1, label: "Why Purpose", href: "/why-purpose" },
       { id: 2, label: "What we do", href: "/what-we-do" },
       { id: 3, label: "How We Work", href: "/#how-we-work" },
       { id: 4, label: "Who we are", href: "/who-we-are" },
