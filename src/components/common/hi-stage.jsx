@@ -24,7 +24,7 @@ export default function HiStage({ children, ...props }) {
     () => {
       const mm = gsap.matchMedia();
       mm.add(
-        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        "(min-width: 960px) and (prefers-reduced-motion: no-preference)",
         () => {
           const section = root.current;
           const hi = section.querySelector("[data-hi]");

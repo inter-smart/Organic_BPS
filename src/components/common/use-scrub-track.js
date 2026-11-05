@@ -12,18 +12,18 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * Whether the section fits depends on the viewport, so everything is torn down and rebuilt (after the pin spacer
  * is gone, so the section is measured at its natural height) once the window stops resizing.
  * onUpdate runs on every scrub tick, onRefresh after each layout refresh. `measure` overrides how far the row travels.
- * Nothing is pinned with reduced motion.
+ * Nothing is pinned with reduced motion. `lgUp` also skips the scrub below 960px (the row scrolls natively there).
  */
-export default function useScrubTrack(wrap, track, { onUpdate, onRefresh, distance: measure } = {}) {
+export default function useScrubTrack(wrap, track, { onUpdate, onRefresh, distance: measure, lgUp = false } = {}) {
   useGSAP(
     () => {
       let mm;
       const build = () => {
         mm?.revert();
         mm = gsap.matchMedia();
-        mm.add("(prefers-reduced-motion: no-preference)", () => {
+        mm.add(`(prefers-reduced-motion: no-preference)${lgUp ? " and (min-width: 960px)" : ""}`, () => {
           const section = wrap.current.closest("section");
-          const pinSection = window.innerWidth >= 1024 && section.offsetHeight <= window.innerHeight + 1;
+          const pinSection = window.innerWidth >= 960 && section.offsetHeight <= window.innerHeight + 1;
           // a section shorter than a tall window would leave the pin spacer showing underneath it
           if (pinSection) gsap.set(section, { minHeight: "100svh" });
           const distance = measure ? () => measure(track.current) : () => Math.max(0, track.current.scrollWidth - wrap.current.clientWidth);

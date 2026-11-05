@@ -36,7 +36,7 @@ export default function InsightSlider({ items = [] }) {
   return (
     <div
       ref={wrap}
-      className="w-full overflow-x-clip [--slider-gutter:16px] motion-reduce:overflow-x-auto sm:[--slider-gutter:max(16px,calc((100vw-640px)/2+16px))] md:[--slider-gutter:max(16px,calc((100vw-768px)/2+16px))] lg:[--slider-gutter:max(16px,calc((100vw-1024px)/2+16px))] xl:[--slider-gutter:max(16px,calc((100vw-1280px)/2+16px))] 2xl:[--slider-gutter:max(16px,calc((100vw-1536px)/2+16px))]"
+      className="w-full overflow-x-clip [--slider-gutter:16px] motion-reduce:overflow-x-auto sm:[--slider-gutter:max(16px,calc((100vw-640px)/2+16px))] md:[--slider-gutter:max(16px,calc((100vw-768px)/2+16px))] lg:[--slider-gutter:max(16px,calc((100vw-960px)/2+16px))] xl:[--slider-gutter:max(16px,calc((100vw-1280px)/2+16px))] 2xl:[--slider-gutter:max(16px,calc((100vw-1536px)/2+16px))]"
     >
       <ul ref={track} aria-label="Purpose insights" className="flex w-max gap-4 px-(--slider-gutter) will-change-transform lg:gap-[2.135vw]">
         {items?.map((item, i) => (

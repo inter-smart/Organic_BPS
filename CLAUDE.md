@@ -80,6 +80,12 @@ Follow these in new builds; they replace the older behaviour described above whe
 - **Formatting:** all touched files were run through Prettier (80 cols, double quotes, trailing commas, multi-line JSX props). Keep that style in files you edit; don't reformat untouched files in the same commit.
 - **Do not repeat:** `PinManager.js` picked up a BOM (`﻿`) at the top and `.playwright-mcp/` screenshots were committed. Save files as UTF-8 without BOM and keep screenshots out of git.
 
+## Sticky below header (2026-11-05)
+- Use `.below-header-sticky` (not `top-20`): it sits at `--header-h` (measured live by `layout/header.jsx`) while the header shows and at `top: 0` while it is hidden, so there is no gap.
+
 ## Git
 - Branch `dev-vishal`, remote `origin`. Commit/push only when asked. Don't commit `.playwright-mcp/` (test screenshots).
 - Handbook lives outside this repo (`D:\wamp\www\AI_Build\Frontend-Engineering-Handbook`).
+
+## Breakpoint (2026-11-05)
+- Tailwind `lg` is 960px (`--breakpoint-lg` in globals.css), matching the container step; JS matchMedia/scale thresholds use 960 too. Between 960 and 1023 the desktop (`lg:`) styles apply, not sm/md.

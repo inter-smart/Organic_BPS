@@ -2,13 +2,14 @@
 @import "tw-animate-css";
 
 /* ------------------------------------------------------------------
-   Tailwind default breakpoints (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536 · 3xl 1920)
+   Tailwind default breakpoints (sm 640 · md 768 · lg 960 · xl 1280 · 2xl 1536 · 3xl 1920)
    and the default `container` utility. Spacing, type, radii and container
    widths are re-based to px so nothing depends on the root font-size.
 ------------------------------------------------------------------- */
 
 @theme {
   --spacing: 4px;
+  --breakpoint-lg: 960px;
   --breakpoint-3xl: 1920px;
 
   --text-xs: 12px;
@@ -48,7 +49,7 @@
     max-width: 720px;
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 960px) {
     max-width: 960px;
   }
 
@@ -160,9 +161,9 @@
    Figma-proportional scaling, stepped per tier. --u = 1 design px.
    3xl (>=1920) is the Figma frame: values are exact (1px). Smaller tiers use a
    fixed ratio, capped by 100svh/1080 so 1080-design-px full-height sections
-   still fit short laptop windows. Below lg (1024) the mobile layout is unscaled.
+   still fit short laptop windows. Below lg (960) the mobile layout is unscaled.
 ------------------------------------------------------------------- */
-@media (min-width: 1024px) {
+@media (min-width: 960px) {
   :root {
     --u: min(0.6px, calc(100svh / 1080));
     /* lg */
@@ -280,10 +281,12 @@ body {
     z-index: 1;
     padding: 2.5px;
     border-radius: inherit;
-    background: linear-gradient(to bottom right,
-        #da4d47 20%,
-        #2552aa 35%,
-        #2552aa 100%);
+    background: linear-gradient(
+      to bottom right,
+      #da4d47 20%,
+      #2552aa 35%,
+      #2552aa 100%
+    );
     content: "";
     pointer-events: none;
     -webkit-mask:
@@ -442,7 +445,6 @@ body {
 }
 
 @keyframes bob {
-
   0%,
   100% {
     transform: translateX(0);
@@ -480,8 +482,17 @@ body {
   pointer-events: auto !important;
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* Sticks under the header while it shows (reverse scroll), flush to the top while it is hidden. */
+.below-header-sticky {
+  position: sticky;
+  top: calc(var(--header-h, 5rem) - 1px);
+  transition: top 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-header-hidden] .below-header-sticky {
+  top: 0;
+}
 
+@media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {

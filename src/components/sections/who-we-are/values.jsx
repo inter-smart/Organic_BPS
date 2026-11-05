@@ -5,12 +5,21 @@ import ValueCards from "@/components/common/value-cards";
 
 export default function Values({ data }) {
   return (
-    <section id="values" aria-labelledby="values-title" className="relative overflow-hidden bg-basecolor7 py-16 text-white sm:py-20 lg:flex lg:h-[min(100svh,1080px)] lg:items-center lg:py-[calc(100*var(--u))]">
+    <section
+      id="values"
+      aria-labelledby="values-title"
+      className="relative overflow-hidden bg-basecolor7 py-16 text-white sm:py-20 lg:flex lg:h-[min(100svh,1080px)] lg:items-center lg:py-[calc(100*var(--u))]"
+    >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[740fr_781fr] lg:gap-0">
           <div>
             <Reveal variant="up">
-              <Heading as="h2" id="values-title" size="display" className="text-white">
+              <Heading
+                as="h2"
+                id="values-title"
+                size="display"
+                className="text-white"
+              >
                 <RichLines lines={data?.title} />
               </Heading>
             </Reveal>

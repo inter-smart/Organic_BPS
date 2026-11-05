@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,24 @@ import MenuSheet from "@/components/layout/menu-sheet";
 export default function Header({ data }) {
   const [stuck, setStuck] = useState(false);
   const [visible, setVisible] = useState(true);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    const sync = () =>
+      document.documentElement.style.setProperty(
+        "--header-h",
+        `${el.offsetHeight}px`,
+      );
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(el, { box: "border-box" });
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-header-hidden", !visible);
+  }, [visible]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY || document.documentElement.scrollTop || 0;
@@ -88,6 +106,7 @@ export default function Header({ data }) {
 
   return (
     <header
+      ref={ref}
       onFocusCapture={() => setVisible(true)}
       className={cn(
         "fixed inset-x-0 top-0 z-50 text-white header-smooth",

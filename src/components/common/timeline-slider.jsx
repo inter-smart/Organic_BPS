@@ -1,34 +1,27 @@
 "use client";
-
-import { useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /*
- * Year-by-year timeline.
- * The section pins while vertical scroll scrubs through the milestones.
- *
- * Behavior:
- * 1. Initially, milestones visible within the container/viewport activate one after another
- *    with a calm, deliberate scroll pace (no rushing or jumping fast).
- * 2. Once the highlight reaches the last visible on-screen milestone, subsequent items
- *    smoothly glide to the left into view and become active.
- * 3. The track never scrolls past its right edge (maxScroll = trackWidth - containerWidth),
- *    so the last item rests flush at the right edge without leaving excessive empty whitespace.
- * 4. Clicking any year or using arrow keys smoothly navigates to that milestone.
- * 5. With reduced motion, nothing pins and the row scrolls natively.
+ * lg and above: the section pins and vertical scroll scrubs the row sideways.
+ * Below lg: a plain row that autoplays; hover or focus pauses it.
  */
+
 export default function TimelineSlider({ items = [] }) {
   const [active, setActive] = useState(0);
   const wrap = useRef(null);
   const track = useRef(null);
+  const activeRef = useRef(0);
   const containerRef = useRef(null);
   const stRef = useRef(null);
-  const activeRef = useRef(0);
+  const paused = useRef(false);
+  const raf = useRef(0);
+  const gliding = useRef(false);
 
   useGSAP(
     () => {
@@ -38,91 +31,95 @@ export default function TimelineSlider({ items = [] }) {
         mm?.revert();
         mm = gsap.matchMedia();
 
-        mm.add("(prefers-reduced-motion: no-preference)", () => {
-          const section = wrap.current?.closest("section");
-          if (!section || !track.current || !containerRef.current) return;
+        mm.add(
+          "(min-width: 960px) and (prefers-reduced-motion: no-preference)",
+          () => {
+            const section = wrap.current?.closest("section");
+            if (!section || !track.current || !containerRef.current) return;
 
-          const itemEls = gsap.utils.toArray("li", track.current);
-          const count = itemEls.length;
-          if (count === 0) return;
+            const itemEls = gsap.utils.toArray("li", track.current);
+            const count = itemEls.length;
+            if (count === 0) return;
 
-          const pinSection =
-            window.innerWidth >= 1024 &&
-            section.offsetHeight <= window.innerHeight + 1;
-          if (pinSection) gsap.set(section, { minHeight: "100svh" });
+            const pinSection =
+              window.innerWidth >= 960 &&
+              section.offsetHeight <= window.innerHeight + 1;
+            if (pinSection) gsap.set(section, { minHeight: "100svh" });
 
-          const containerEl = containerRef.current;
-          const padLeft =
-            parseFloat(getComputedStyle(containerEl).paddingLeft) || 0;
-          const padRight =
-            parseFloat(getComputedStyle(containerEl).paddingRight) || 0;
-          const availWidth = containerEl.clientWidth - padLeft - padRight;
-          const trackWidth = track.current.scrollWidth;
-          const maxScroll = Math.max(0, trackWidth - availWidth);
+            const containerEl = containerRef.current;
+            const padLeft =
+              parseFloat(getComputedStyle(containerEl).paddingLeft) || 0;
+            const padRight =
+              parseFloat(getComputedStyle(containerEl).paddingRight) || 0;
+            const availWidth = containerEl.clientWidth - padLeft - padRight;
+            const trackWidth = track.current.scrollWidth;
+            const maxScroll = Math.max(0, trackWidth - availWidth);
 
-          // For each item, compute how far the track needs to translate left (targetX)
-          // so that the item is comfortably visible within the container.
-          // Items that fit on screen at x = 0 need targetX = 0.
-          // Subsequent items scroll left just enough so their right edge stays within the container,
-          // with the final item capped exactly at maxScroll.
-          const targetX = itemEls.map((el) => {
-            const itemRight = el.offsetLeft + el.offsetWidth;
-            if (itemRight <= availWidth + 2) return 0;
-            return Math.min(maxScroll, Math.max(0, itemRight - availWidth));
-          });
+            // For each item, compute how far the track needs to translate left (targetX)
+            // so that the item is comfortably visible within the container.
+            // Items that fit on screen at x = 0 need targetX = 0.
+            // Subsequent items scroll left just enough so their right edge stays within the container,
+            // with the final item capped exactly at maxScroll.
+            const targetX = itemEls.map((el) => {
+              const itemRight = el.offsetLeft + el.offsetWidth;
+              if (itemRight <= availWidth + 2) return 0;
+              return Math.min(maxScroll, Math.max(0, itemRight - availWidth));
+            });
 
-          // Pacing: allocate generous vertical scroll distance (~500px per milestone)
-          // so milestones don't switch too quickly on scroll.
-          const scrollDistance = Math.max(
-            maxScroll * 2,
-            Math.min(window.innerHeight, 1000) * (count * 0.55),
-          );
+            // Pacing: allocate generous vertical scroll distance (~500px per milestone)
+            // so milestones don't switch too quickly on scroll.
+            const scrollDistance = Math.max(
+              maxScroll * 2,
+              Math.min(window.innerHeight, 1000) * (count * 0.55),
+            );
 
-          const proxy = { p: 0 };
+            const proxy = { p: 0 };
 
-          const applyProgress = (p) => {
-            // Pick active milestone based on equal slices of scroll progress
-            const activeIdx = Math.min(count - 1, Math.floor(p * count));
-            if (activeRef.current !== activeIdx) {
-              activeRef.current = activeIdx;
-              setActive(activeIdx);
-            }
+            const applyProgress = (p) => {
+              // Pick active milestone based on equal slices of scroll progress
+              const activeIdx = Math.min(count - 1, Math.floor(p * count));
+              if (activeRef.current !== activeIdx) {
+                activeRef.current = activeIdx;
+                setActive(activeIdx);
+              }
 
-            // Piecewise smooth interpolation for track horizontal position
-            // Uses smoothstep (cubic Hermite) for organic gliding with zero sudden jerk
-            const u = Math.max(0, Math.min(count - 1, p * count - 0.5));
-            const baseIdx = Math.floor(u);
-            const rawFrac = u - baseIdx;
-            const smoothFrac = rawFrac * rawFrac * (3 - 2 * rawFrac);
-            const nextIdx = Math.min(count - 1, baseIdx + 1);
-            const currentX =
-              targetX[baseIdx] + smoothFrac * (targetX[nextIdx] - targetX[baseIdx]);
+              // Piecewise smooth interpolation for track horizontal position
+              // Uses smoothstep (cubic Hermite) for organic gliding with zero sudden jerk
+              const u = Math.max(0, Math.min(count - 1, p * count - 0.5));
+              const baseIdx = Math.floor(u);
+              const rawFrac = u - baseIdx;
+              const smoothFrac = rawFrac * rawFrac * (3 - 2 * rawFrac);
+              const nextIdx = Math.min(count - 1, baseIdx + 1);
+              const currentX =
+                targetX[baseIdx] +
+                smoothFrac * (targetX[nextIdx] - targetX[baseIdx]);
 
-            gsap.set(track.current, { x: -currentX });
-          };
+              gsap.set(track.current, { x: -currentX });
+            };
 
-          // The tween controls proxy.p with scrub easing so flicking or fast scrolling
-          // remains buttery smooth and buffered rather than jumping erratically.
-          const tween = gsap.to(proxy, {
-            p: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: pinSection ? section : wrap.current.parentElement,
-              pin: true,
-              start: pinSection ? "top top" : "center center",
-              end: () => `+=${scrollDistance}`,
-              scrub: 0.9,
-              invalidateOnRefresh: true,
-              onRefresh: (self) => {
-                proxy.p = self.progress;
-                applyProgress(self.progress);
+            // The tween controls proxy.p with scrub easing so flicking or fast scrolling
+            // remains buttery smooth and buffered rather than jumping erratically.
+            const tween = gsap.to(proxy, {
+              p: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: pinSection ? section : wrap.current.parentElement,
+                pin: true,
+                start: pinSection ? "top top" : "center center",
+                end: () => `+=${scrollDistance}`,
+                scrub: 0.9,
+                invalidateOnRefresh: true,
+                onRefresh: (self) => {
+                  proxy.p = self.progress;
+                  applyProgress(self.progress);
+                },
               },
-            },
-            onUpdate: () => applyProgress(proxy.p),
-          });
+              onUpdate: () => applyProgress(proxy.p),
+            });
 
-          stRef.current = tween.scrollTrigger;
-        });
+            stRef.current = tween.scrollTrigger;
+          },
+        );
       };
 
       build();
@@ -152,10 +149,87 @@ export default function TimelineSlider({ items = [] }) {
 
   const scrollToItem = (i) => {
     const st = stRef.current;
-    if (!st || !items?.length) return;
-    const targetP = (i + 0.5) / items.length;
-    const targetScroll = st.start + targetP * (st.end - st.start);
-    window.scrollTo({ top: targetScroll, behavior: "smooth" });
+    if (st && window.innerWidth >= 960 && items?.length) {
+      const targetP = (i + 0.5) / items.length;
+      window.scrollTo({
+        top: st.start + targetP * (st.end - st.start),
+        behavior: "smooth",
+      });
+      return;
+    }
+    const itemEl = track.current?.querySelectorAll("li")[i];
+    const box = wrap.current;
+    if (!itemEl || !box) return;
+
+    activeRef.current = i;
+    setActive(i);
+    const itemRect = itemEl.getBoundingClientRect();
+    const boxRect = box.getBoundingClientRect();
+    const from = box.scrollLeft;
+    const to =
+      from +
+      itemRect.left -
+      boxRect.left -
+      (box.clientWidth - itemRect.width) / 2;
+    cancelAnimationFrame(raf.current);
+    gliding.current = true;
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / 900);
+      box.scrollLeft = from + (to - from) * (t * t * (3 - 2 * t));
+      if (t < 1) raf.current = requestAnimationFrame(step);
+      else gliding.current = false;
+    };
+    raf.current = requestAnimationFrame(step);
+  };
+
+  useEffect(() => {
+    if (items.length < 2) return;
+    const mobile = window.matchMedia("(max-width: 959px)");
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const id = setInterval(() => {
+      if (!mobile.matches || still.matches || paused.current) return;
+      scrollToItem((activeRef.current + 1) % items.length);
+    }, 3000);
+    return () => {
+      clearInterval(id);
+      cancelAnimationFrame(raf.current);
+    };
+  }, [items.length]);
+
+  const onNativeScroll = () => {
+    if (
+      gliding.current ||
+      window.innerWidth >= 960 ||
+      !wrap.current ||
+      !track.current
+    )
+      return;
+
+    const itemEls = track.current.querySelectorAll("li");
+    if (!itemEls.length) return;
+
+    const wrapRect = wrap.current.getBoundingClientRect();
+    const wrapCenter = wrapRect.left + wrapRect.width / 2;
+    let nearestIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    itemEls.forEach((itemEl, i) => {
+      const itemRect = itemEl.getBoundingClientRect();
+      const distance = Math.abs(
+        wrapCenter - (itemRect.left + itemRect.width / 2),
+      );
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = i;
+      }
+    });
+
+    if (activeRef.current !== nearestIndex) {
+      activeRef.current = nearestIndex;
+      setActive(nearestIndex);
+    }
   };
 
   const onKeyDown = (e) => {
@@ -169,58 +243,64 @@ export default function TimelineSlider({ items = [] }) {
   };
 
   return (
-    <div
-      ref={wrap}
-      role="group"
-      aria-label="Organic BPS timeline"
-      tabIndex={0}
-      onKeyDown={onKeyDown}
-      className="relative w-full overflow-x-clip outline-none focus-visible:ring-2 focus-visible:ring-basecolor3 motion-reduce:overflow-x-auto"
-    >
-      {/* dashed guide line — fixed to the viewport so it fades out at both edges while the row moves */}
+    <div className="relative w-full">
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[calc(88*var(--u))] border-t border-dashed border-basecolor [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)] max-lg:top-11"
+        className="pointer-events-none absolute inset-x-0 top-[88px] lg:top-[calc(88*var(--u))] border-t border-dashed border-basecolor [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]"
       />
-      <div ref={containerRef} className="container mx-auto px-4">
-        <ol
-          ref={track}
-          aria-label="Organic BPS milestones"
-          className="relative flex w-max will-change-transform"
-        >
-          {items?.map((item, i) => (
-            <li
-              key={item?.id ?? i}
-              aria-current={active === i ? "step" : undefined}
-              onClick={() => scrollToItem(i)}
-              className="relative w-44 shrink-0 cursor-pointer select-none sm:w-52 lg:w-[calc(310*var(--u))]"
-            >
-              <div
-                data-year
-                className="relative flex h-22 w-fit items-center px-2 lg:h-[calc(120*var(--u))] lg:px-[calc(19*var(--u))]"
+      <div
+        ref={wrap}
+        role="group"
+        aria-label="Organic BPS timeline"
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        onScroll={onNativeScroll}
+        onMouseEnter={() => (paused.current = true)}
+        onMouseLeave={() => (paused.current = false)}
+        onFocus={() => (paused.current = true)}
+        onBlur={() => (paused.current = false)}
+        className="relative w-full overflow-x-auto outline-none lg:overflow-x-clip [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:ring-2 focus-visible:ring-basecolor3"
+      >
+        <div ref={containerRef} className="container mx-auto px-4">
+          <ol
+            ref={track}
+            aria-label="Organic BPS milestones"
+            className="relative flex w-max will-change-transform"
+          >
+            {items?.map((item, i) => (
+              <li
+                key={item?.id ?? i}
+                aria-current={active === i ? "step" : undefined}
+                onClick={() => scrollToItem(i)}
+                className="relative w-42.5 lg:w-[calc(310*var(--u))] shrink-0 cursor-pointer select-none"
               >
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "absolute top-1/2 left-1/2 size-22 -translate-1/2 rounded-full bg-basecolor transition-transform duration-700 ease-out lg:size-[calc(120*var(--u))]",
-                    active === i ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                <span
-                  className={cn(
-                    "relative text-xl/[1.2] font-medium transition-colors duration-500 lg:text-year",
-                    active === i ? "text-white" : "text-basecolor",
-                  )}
+                <div
+                  data-year
+                  className="relative flex h-[120px] lg:h-[calc(120*var(--u))] w-fit items-center px-[19px] lg:px-[calc(19*var(--u))]"
                 >
-                  {item?.year}
-                </span>
-              </div>
-              <p className="mt-3 max-w-36 pl-2 text-base/[1.4] font-medium text-basecolor2 lg:mt-[calc(8*var(--u))] lg:pl-[calc(19*var(--u))] lg:max-w-[calc(180*var(--u))] lg:text-label">
-                {item?.label}
-              </p>
-            </li>
-          ))}
-        </ol>
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "absolute top-1/2 left-1/2 -translate-1/2 rounded-full bg-basecolor transition-transform duration-700 ease-out size-[120px] lg:size-[calc(120*var(--u))]",
+                      active === i ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "relative text-xl/[1.2] font-medium md:text-2xl transition-colors duration-500 lg:text-year",
+                      active === i ? "text-white" : "text-basecolor",
+                    )}
+                  >
+                    {item?.year}
+                  </span>
+                </div>
+                <p className="mt-[8px] lg:mt-[calc(8*var(--u))] max-w-[180px] lg:max-w-[calc(180*var(--u))] pl-[19px] lg:pl-[calc(19*var(--u))] text-base/[1.4] font-medium text-basecolor2 md:text-lg lg:text-label">
+                  {item?.label}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </div>
   );

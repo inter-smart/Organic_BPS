@@ -9,16 +9,25 @@ export default function Recognition({ data }) {
     <section
       id="recognition"
       aria-labelledby="recognition-title"
-      className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-[calc(100*var(--u))]"
+      className="relative overflow-hidden bg-white py-[40px_20px] sm:py-20 lg:py-[calc(100*var(--u))]"
     >
       <div className="container mx-auto px-4">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-0">
           <div>
-            <Reveal as="p" variant="fade" className="text-xs font-medium tracking-[0.3em] text-basecolor uppercase lg:text-eyebrow">
+            <Reveal
+              as="p"
+              variant="fade"
+              className="text-xs font-medium tracking-[0.3em] text-basecolor uppercase lg:text-eyebrow"
+            >
               {data?.eyebrow}
             </Reveal>
             <Reveal variant="up" delay={0.1}>
-              <Heading as="h2" id="recognition-title" size="display" className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(40px,calc(80*var(--u)),80px)]">
+              <Heading
+                as="h2"
+                id="recognition-title"
+                size="display"
+                className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(40px,calc(80*var(--u)),80px)]"
+              >
                 <RichLines lines={data?.title} />
               </Heading>
             </Reveal>
@@ -26,7 +35,11 @@ export default function Recognition({ data }) {
           <div className="lg:pl-[calc(150*var(--u))]">
             <Reveal variant="up" delay={0.15}>
               <p className="text-figure font-bold tracking-[-0.02em] text-basecolor">
-                <NumberTicker value={data?.count?.value} suffix={data?.count?.suffix} duration={2.4} />
+                <NumberTicker
+                  value={data?.count?.value}
+                  suffix={data?.count?.suffix}
+                  duration={2.4}
+                />
               </p>
             </Reveal>
             <Reveal

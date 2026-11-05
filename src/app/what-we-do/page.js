@@ -7,10 +7,6 @@ export const metadata = {
     "Organic BPS brings together four specialist practices to help organisations discover what they stand for, express it with clarity and put it into action.",
 };
 
-/*
- * One object, one key per section — shaped like the future CMS response.
- * Rich copy uses segments: { t: text, accent?: red, ring?: swap the first "o" for the energy ring }.
- */
 const local_data = {
   hero: {
     slides: [
