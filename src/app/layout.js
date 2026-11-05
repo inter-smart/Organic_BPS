@@ -1,4 +1,4 @@
-import { Google_Sans, Inter } from "next/font/google";
+import { Google_Sans, Inter, Roboto } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Preloader from "@/components/common/preloader";
@@ -11,6 +11,13 @@ const googleSans = Google_Sans({
   subsets: ["latin"],
   variable: "--font-google-sans",
   weight: "variable",
+  display: "swap",
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  variable: "--font-roboto",
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
@@ -34,7 +41,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${googleSans.variable} ${inter.variable}`}>
+    <html lang="en" className={`${googleSans.variable} ${inter.variable} ${roboto.variable}`}>
       <head>
         <noscript>
           <style>{".preloader{display:none!important}"}</style>

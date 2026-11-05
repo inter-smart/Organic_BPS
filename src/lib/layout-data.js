@@ -3,7 +3,7 @@ export const layout_data = {
   header: {
     logo: { alt: "Organic BPS" },
     links: [
-      { id: 1, label: "Why Purpose", href: "/#why-purpose" },
+      { id: 1, label: "Why Purpose", href: "/why-purpose" },
       { id: 2, label: "What we do", href: "/what-we-do" },
       { id: 3, label: "How We Work", href: "/#how-we-work" },
       { id: 4, label: "Who we are", href: "/who-we-are" },
@@ -15,7 +15,7 @@ export const layout_data = {
     logo: { alt: "Organic BPS" },
     title: [[{ t: "Let’s" }], [{ t: "Connect" }, { t: ".", accent: true }]],
     legal: [
-      { id: 1, label: "Privacy", href: "#" },
+      { id: 1, label: "Privacy", href: "/privacy" },
       { id: 2, label: "Terms of use", href: "#" },
     ],
     text: "To founders building businesses, brands looking for change, and people ready to create it.",
