@@ -61,7 +61,7 @@
     max-width: 1375px;
   }
 
-  @media (min-width: 1920px) {
+  @media (min-width: 1771px) {
     max-width: 1720px;
   }
 }
