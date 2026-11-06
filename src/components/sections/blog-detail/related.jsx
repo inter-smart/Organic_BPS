@@ -30,15 +30,28 @@ export default function Related({ data, articles = [] }) {
   }, [embla]);
 
   return (
-    <section id="related" aria-labelledby="related-title" className="bg-basecolor15 py-16 sm:py-20 lg:pt-[calc(93*var(--u))] lg:pb-[calc(100*var(--u))]">
+    <section
+      id="related"
+      aria-labelledby="related-title"
+      className="bg-basecolor15 py-16 sm:py-20 lg:pt-[calc(93*var(--u))] lg:pb-[calc(100*var(--u))]"
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div className="lg:max-w-[962px]">
-            <Reveal as="p" variant="fade" className="text-xs font-bold tracking-[0.16em] text-basecolor14 uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]">
+            <Reveal
+              as="p"
+              variant="fade"
+              className="text-xs font-bold tracking-[0.16em] text-basecolor14 uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]"
+            >
               {data?.eyebrow}
             </Reveal>
             <Reveal variant="up" className="mt-3 lg:mt-[calc(35*var(--u))]">
-              <Heading as="h2" id="related-title" size="display" className="text-basecolor7 lg:leading-[1.06] lg:tracking-[-0.023em]">
+              <Heading
+                as="h2"
+                id="related-title"
+                size="display"
+                className="text-basecolor7 lg:leading-[1.06] lg:tracking-[-0.023em]"
+              >
                 {data?.title}
               </Heading>
             </Reveal>
@@ -48,8 +61,16 @@ export default function Related({ data, articles = [] }) {
           </Button>
         </div>
 
-        <div role="region" aria-roledescription="carousel" aria-label={data?.slider?.label} className="mt-10 lg:mt-[calc(66*var(--u))]">
-          <div ref={viewportRef} className="-mx-4 -my-12 overflow-hidden px-4 py-12">
+        <div
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={data?.slider?.label}
+          className="mt-10 lg:mt-[calc(66*var(--u))]"
+        >
+          <div
+            ref={viewportRef}
+            className="-mx-4 -my-12 overflow-hidden px-4 py-12"
+          >
             <div className="-ml-4 flex lg:-ml-[calc(32*var(--u))]">
               {articles.map((article, i) => (
                 <div
@@ -67,7 +88,12 @@ export default function Related({ data, articles = [] }) {
 
           {snaps > 1 ? (
             <div className="mt-6 flex items-center justify-center gap-3 lg:mt-[calc(30*var(--u))]">
-              <button type="button" aria-label={data?.slider?.prev} onClick={() => embla?.scrollPrev()} className={ctrl}>
+              <button
+                type="button"
+                aria-label={data?.slider?.prev}
+                onClick={() => embla?.scrollPrev()}
+                className={ctrl}
+              >
                 <ChevronLeft aria-hidden="true" className="size-5" />
               </button>
               <div className="flex items-center">
@@ -80,11 +106,23 @@ export default function Related({ data, articles = [] }) {
                     onClick={() => embla?.scrollTo(i)}
                     className="group flex size-6 min-h-[24px] min-w-[24px] items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-basecolor3"
                   >
-                    <span className={cn("block h-2 rounded-full transition-all duration-300 motion-reduce:transition-none", i === selected ? "w-6 bg-basecolor14" : "w-2 bg-basecolor16 group-hover:bg-basecolor9")} />
+                    <span
+                      className={cn(
+                        "block h-2 rounded-full transition-all duration-300 motion-reduce:transition-none",
+                        i === selected
+                          ? "w-6 bg-basecolor14"
+                          : "w-2 bg-basecolor16 group-hover:bg-basecolor9",
+                      )}
+                    />
                   </button>
                 ))}
               </div>
-              <button type="button" aria-label={data?.slider?.next} onClick={() => embla?.scrollNext()} className={ctrl}>
+              <button
+                type="button"
+                aria-label={data?.slider?.next}
+                onClick={() => embla?.scrollNext()}
+                className={ctrl}
+              >
                 <ChevronRight aria-hidden="true" className="size-5" />
               </button>
             </div>

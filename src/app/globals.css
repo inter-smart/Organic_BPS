@@ -9,7 +9,7 @@
 
 @theme {
   --spacing: 4px;
-  --breakpoint-lg: 960px;
+  --breakpoint-lg: 1024px;
   --breakpoint-3xl: 1920px;
 
   --text-xs: 12px;
@@ -49,7 +49,7 @@
     max-width: 720px;
   }
 
-  @media (min-width: 960px) {
+  @media (min-width: 1024px) {
     max-width: 960px;
   }
 
@@ -214,7 +214,7 @@
    fixed ratio, capped by 100svh/1080 so 1080-design-px full-height sections
    still fit short laptop windows. Below lg (960) the mobile layout is unscaled.
 ------------------------------------------------------------------- */
-@media (min-width: 960px) {
+@media (min-width: 1024px) {
   :root {
     --u: min(0.6px, calc(100svh / 1080));
     /* lg */

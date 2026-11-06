@@ -32,7 +32,7 @@ export default function TimelineSlider({ items = [] }) {
         mm = gsap.matchMedia();
 
         mm.add(
-          "(min-width: 960px) and (prefers-reduced-motion: no-preference)",
+          "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
           () => {
             const section = wrap.current?.closest("section");
             if (!section || !track.current || !containerRef.current) return;
@@ -42,7 +42,7 @@ export default function TimelineSlider({ items = [] }) {
             if (count === 0) return;
 
             const pinSection =
-              window.innerWidth >= 960 &&
+              window.innerWidth >= 1024 &&
               section.offsetHeight <= window.innerHeight + 1;
             if (pinSection) gsap.set(section, { minHeight: "100svh" });
 
@@ -149,7 +149,7 @@ export default function TimelineSlider({ items = [] }) {
 
   const scrollToItem = (i) => {
     const st = stRef.current;
-    if (st && window.innerWidth >= 960 && items?.length) {
+    if (st && window.innerWidth >= 1024 && items?.length) {
       const targetP = (i + 0.5) / items.length;
       window.scrollTo({
         top: st.start + targetP * (st.end - st.start),
@@ -201,7 +201,7 @@ export default function TimelineSlider({ items = [] }) {
   const onNativeScroll = () => {
     if (
       gliding.current ||
-      window.innerWidth >= 960 ||
+      window.innerWidth >= 1024 ||
       !wrap.current ||
       !track.current
     )

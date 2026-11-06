@@ -93,7 +93,7 @@ export default function AwardSlider({ items = [] }) {
                 src={item?.image}
                 alt={item?.alt ?? ""}
                 fill
-                sizes="(min-width: 960px) 36vw, 78vw"
+                sizes="(min-width: 1024px) 36vw, 78vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
             </div>

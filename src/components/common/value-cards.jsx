@@ -18,7 +18,7 @@ export default function ValueCards({ items = [] }) {
       const mm = gsap.matchMedia();
 
       mm.add(
-        "(min-width: 960px) and (prefers-reduced-motion: no-preference)",
+        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
         () => {
           gsap.set(section, { minHeight: "100svh" });
           ScrollTrigger.create({
@@ -40,7 +40,7 @@ export default function ValueCards({ items = [] }) {
       );
 
       mm.add(
-        "(max-width: 959px) and (prefers-reduced-motion: no-preference)",
+        "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
         () => {
           cards.forEach((card, i) => {
             ScrollTrigger.create({
