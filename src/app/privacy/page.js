@@ -29,7 +29,10 @@ const local_data = {
     contents: {
       title: "On this page",
       label: "Policy contents",
-      toggle: { open: "Expand policy contents", close: "Collapse policy contents" },
+      toggle: {
+        open: "Expand policy contents",
+        close: "Collapse policy contents",
+      },
       note: {
         title: "Need help?",
         text: "Email admin@organicbps.com with a privacy question or request.",

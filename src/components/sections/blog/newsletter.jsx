@@ -25,14 +25,15 @@ export default function Newsletter({ data }) {
               as="h2"
               id="newsletter-title"
               size="displayMd"
-              className="text-white lg:max-w-[686px] lg:text-wrap lg:text-[clamp(32px,calc(62*var(--u)),62px)]/[1.03] lg:tracking-[-0.02em]"
+              className="text-white lg:max-w-[686px] lg:text-wrap lg:text-[clamp(32px,calc(62*var(--u)),62px)]/[1.03] lg:tracking-[-0.02em] lg:text-[40px]! 2xl:text-[50px]! 3xl:text-[62px]!"
             >
               {data?.title}
             </Heading>
           </Reveal>
-
           <Reveal variant="up" delay={0.15} className="lg:max-w-[520px]">
-            <p className="text-base/[1.5] sm:text-lg/[1.5]">{data?.text}</p>
+            <p className="text-sm 2xl:text-base 3xl:text-lg">
+              {data?.text}
+            </p>
             {done ? (
               <p
                 role="status"
@@ -75,12 +76,12 @@ export default function Newsletter({ data }) {
                 </button>
               </form>
             )}
-            <p className="mt-5 text-sm/[1.4] text-white lg:mt-[calc(22*var(--u))] lg:text-[clamp(13px,calc(18*var(--u)),18px)]">
+            <p className="mt-5 text-sm/[1.4] text-white lg:mt-[calc(22*var(--u))] lg:text-[clamp(13px,calc(18*var(--u)),18px)]  3xl:text-lg opacity-70">
               {before}
               {after !== undefined ? (
                 <Link
                   href={data?.privacy?.href}
-                  className="underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   {data?.privacy?.label}
                 </Link>

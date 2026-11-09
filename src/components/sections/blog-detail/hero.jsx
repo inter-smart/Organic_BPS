@@ -33,7 +33,7 @@ export default function Hero({ data }) {
             as="h1"
             id="article-title"
             size="display"
-            className="text-white lg:max-w-[1402px] lg:leading-[1.12] lg:tracking-[-0.02em]"
+            className="text-white lg:max-w-[1402px] lg:leading-[1.12] lg:tracking-[-0.02em] 3xl:text-[100px]!"
           >
             {data?.title}
             {data?.accent ? (

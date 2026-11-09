@@ -64,7 +64,7 @@ export default function Listing({ data }) {
                 as="h2"
                 id="latest-title"
                 size="display"
-                className="text-basecolor7 lg:leading-[1.25] lg:tracking-[-0.025em]"
+                className="text-basecolor7 lg:leading-[1.25] lg:tracking-[-0.025em] 3xl:max-w-[900px]! 2xl:max-w-[700px] lg:max-w-[600px]"
               >
                 {data?.title}
               </Heading>
@@ -98,7 +98,7 @@ export default function Listing({ data }) {
                     pill,
                     on
                       ? "border-basecolor14 bg-basecolor14 text-white"
-                      : "border-basecolor16 bg-white text-basecolor7 hover:border-basecolor14",
+                      : "border-basecolor16 bg-white text-basecolor7 hover:border-basecolor14 3xl:text-lg",
                   )}
                 >
                   {item === "all" ? data?.filters?.all : item}
@@ -148,7 +148,6 @@ export default function Listing({ data }) {
             {data?.empty}
           </p>
         )}
-
         {filtered.length > limit ? (
           <div className="mt-12 flex justify-center lg:mt-[calc(58*var(--u))]">
             <Button onClick={() => setLimit(limit + pageSize)}>

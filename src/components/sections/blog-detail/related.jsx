@@ -50,7 +50,7 @@ export default function Related({ data, articles = [] }) {
                 as="h2"
                 id="related-title"
                 size="display"
-                className="text-basecolor7 lg:leading-[1.06] lg:tracking-[-0.023em]"
+                className="text-basecolor7 lg:leading-[1.06] lg:tracking-[-0.023em] 2xl:text-[80px]! 3xl:text-[100px]! 2xl:max-w-[700px]! 3xl:max-w-[900px]!"
               >
                 {data?.title}
               </Heading>
@@ -78,55 +78,13 @@ export default function Related({ data, articles = [] }) {
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${i + 1} / ${articles.length}`}
-                  className="min-w-0 flex-[0_0_100%] pl-4 sm:flex-[0_0_50%] lg:flex-[0_0_33.3333%] lg:pl-[calc(32*var(--u))]"
+                  className="min-w-0 flex-[0_0_100%] pl-4 sm:flex-[0_0_50%] lg:flex-[0_0_33.3333%]! lg:pl-[calc(32*var(--u))]"
                 >
                   <ArticleCard article={article} labels={data?.card} />
                 </div>
               ))}
             </div>
           </div>
-
-          {snaps > 1 ? (
-            <div className="mt-6 flex items-center justify-center gap-3 lg:mt-[calc(30*var(--u))]">
-              <button
-                type="button"
-                aria-label={data?.slider?.prev}
-                onClick={() => embla?.scrollPrev()}
-                className={ctrl}
-              >
-                <ChevronLeft aria-hidden="true" className="size-5" />
-              </button>
-              <div className="flex items-center">
-                {Array.from({ length: snaps }, (_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    aria-label={`${data?.slider?.goTo} ${i + 1}`}
-                    aria-current={i === selected ? "true" : undefined}
-                    onClick={() => embla?.scrollTo(i)}
-                    className="group flex size-6 min-h-[24px] min-w-[24px] items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-basecolor3"
-                  >
-                    <span
-                      className={cn(
-                        "block h-2 rounded-full transition-all duration-300 motion-reduce:transition-none",
-                        i === selected
-                          ? "w-6 bg-basecolor14"
-                          : "w-2 bg-basecolor16 group-hover:bg-basecolor9",
-                      )}
-                    />
-                  </button>
-                ))}
-              </div>
-              <button
-                type="button"
-                aria-label={data?.slider?.next}
-                onClick={() => embla?.scrollNext()}
-                className={ctrl}
-              >
-                <ChevronRight aria-hidden="true" className="size-5" />
-              </button>
-            </div>
-          ) : null}
         </div>
       </div>
     </section>

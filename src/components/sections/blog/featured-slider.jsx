@@ -1,13 +1,10 @@
 "use client";
-
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
-import useEmblaCarousel from "embla-carousel-react";
 import Fade from "embla-carousel-fade";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Button from "@/components/common/button";
 import { formatDate } from "@/lib/format-date";
-import { cn } from "@/lib/utils";
+import Button from "@/components/common/button";
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
 function rng(seed) {
   let a = Math.floor(seed * 4294967296);
@@ -96,7 +93,7 @@ export default function FeaturedSlider({ items = [], author, cta, labels }) {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex flex-col rounded-3xl bg-basecolor15 p-6 sm:p-8 lg:rounded-[calc(50*var(--u))] lg:pt-[calc(48*var(--u))] lg:pr-[calc(54*var(--u))] lg:pb-[calc(67*var(--u))] lg:pl-[calc(54*var(--u))]">
+                <div className="flex flex-col rounded-3xl bg-basecolor15 p-6 sm:p-8 lg:rounded-[calc(50*var(--u))] lg:pt-[calc(48*var(--u))] lg:pr-[calc(54*var(--u))] lg:pb-[calc(67*var(--u))] lg:pl-[calc(54*var(--u))] lg:p-[30px]! 2xl:p-[40px]! 3xl:p-[50px]!">
                   <p className="flex flex-wrap items-center gap-3">
                     <span className="text-xs font-bold tracking-[0.14em] text-basecolor14 uppercase">
                       {item.category}
@@ -118,7 +115,7 @@ export default function FeaturedSlider({ items = [], author, cta, labels }) {
                       <span className="text-basecolor">{item.accent}</span>
                     ) : null}
                   </h3>
-                  <p className="mt-4 text-base/[1.55] text-basecolor2 lg:mt-[calc(20*var(--u))] lg:text-[clamp(14px,calc(17*var(--u)),17px)]/[1.55] 3xl:text-[17px]!">
+                  <p className="mt-4 text-base/[1.55] text-basecolor2 lg:mt-[calc(20*var(--u))] lg:text-[clamp(14px,calc(17*var(--u)),17px)]/[1.55] 3xl:text-[17px]! lg:max-w-[80%]">
                     {item.summary}
                   </p>
                   <div className="mt-6 flex items-center gap-3 lg:mt-[calc(44*var(--u))]">
@@ -151,48 +148,6 @@ export default function FeaturedSlider({ items = [], author, cta, labels }) {
           ))}
         </div>
       </div>
-
-      {slides.length > 1 ? (
-        <div className="mt-8 flex items-center justify-center gap-3 lg:mt-[calc(40*var(--u))]">
-          <button
-            type="button"
-            aria-label={labels?.prev}
-            onClick={() => embla?.scrollPrev()}
-            className={ctrl}
-          >
-            <ChevronLeft aria-hidden="true" className="size-5" />
-          </button>
-          <div className="flex items-center">
-            {slides.map((item, i) => (
-              <button
-                key={item.id}
-                type="button"
-                aria-label={`${labels?.goTo} ${i + 1}`}
-                aria-current={i === selected ? "true" : undefined}
-                onClick={() => embla?.scrollTo(i)}
-                className="group flex size-6 min-h-[24px] min-w-[24px] items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-basecolor3"
-              >
-                <span
-                  className={cn(
-                    "block h-2 rounded-full transition-all duration-300 motion-reduce:transition-none",
-                    i === selected
-                      ? "w-6 bg-basecolor14"
-                      : "w-2 bg-basecolor16 group-hover:bg-basecolor9",
-                  )}
-                />
-              </button>
-            ))}
-          </div>
-          <button
-            type="button"
-            aria-label={labels?.next}
-            onClick={() => embla?.scrollNext()}
-            className={ctrl}
-          >
-            <ChevronRight aria-hidden="true" className="size-5" />
-          </button>
-        </div>
-      ) : null}
     </div>
   );
 }

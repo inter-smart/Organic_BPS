@@ -38,9 +38,6 @@ export default async function BlogDetailPage({ params }) {
     .filter(Boolean)
     .map((a) => ({ ...a, href: hrefFor(a) }));
 
-  /*
-   * Page copy in one object, shaped like the future CMS response. `detail.body` is rich text (h2 / p / blockquote / aside).
-   */
   const local_data = {
     hero: {
       date: article.date,

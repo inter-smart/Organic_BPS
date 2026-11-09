@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 const BlogFilterContext = createContext(null);
 
@@ -19,12 +27,16 @@ const topicFromHash = (hash) => {
 
 const scrollToList = () => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.getElementById("latest-thinking")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  document
+    .getElementById("latest-thinking")
+    ?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 };
 
 /** Shared topic + search state so the banner topics and the listing filters drive the same list. */
 export function BlogFilterProvider({ children }) {
-  const hashTopic = topicFromHash(useSyncExternalStore(subscribeHash, getHash, getServerHash));
+  const hashTopic = topicFromHash(
+    useSyncExternalStore(subscribeHash, getHash, getServerHash),
+  );
   const [picked, setPicked] = useState(null);
   const [query, setQuery] = useState("");
   const category = picked ?? hashTopic ?? "all";
@@ -41,8 +53,15 @@ export function BlogFilterProvider({ children }) {
     requestAnimationFrame(scrollToList);
   }, []);
 
-  const value = useMemo(() => ({ category, setCategory, query, setQuery, selectTopic }), [category, setCategory, query, selectTopic]);
-  return <BlogFilterContext.Provider value={value}>{children}</BlogFilterContext.Provider>;
+  const value = useMemo(
+    () => ({ category, setCategory, query, setQuery, selectTopic }),
+    [category, setCategory, query, selectTopic],
+  );
+  return (
+    <BlogFilterContext.Provider value={value}>
+      {children}
+    </BlogFilterContext.Provider>
+  );
 }
 
 export function useBlogFilter() {

@@ -2,15 +2,13 @@
 @import "tw-animate-css";
 
 /* ------------------------------------------------------------------
-   Tailwind default breakpoints (sm 640 · md 768 · lg 960 · xl 1280 · 2xl 1536 · 3xl 1920)
+   Tailwind default breakpoints (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536 · 3xl 1920)
    and the default `container` utility. Spacing, type, radii and container
    widths are re-based to px so nothing depends on the root font-size.
 ------------------------------------------------------------------- */
-
 @theme {
   --spacing: 4px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-3xl: 1920px;
+  --breakpoint-3xl: 1771px;
 
   --text-xs: 12px;
   --text-sm: 14px;
@@ -42,14 +40,14 @@
   padding-inline: 20px;
 
   @media (min-width: 640px) {
-    max-width: 100%;
+    max-width: 540px;
   }
 
   @media (min-width: 768px) {
     max-width: 720px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 992px) {
     max-width: 960px;
   }
 
@@ -67,59 +65,15 @@
 }
 
 :root {
-  --basecolor: #da4d47;
-  /* brand red */
-  --basecolor2: #222222;
-  /* ink */
-  --basecolor3: #2552aa;
-  /* brand blue (button outline) */
-  --basecolor4: #05060a;
-  /* near-black section background */
-  --basecolor5: #ededed;
-  /* light card grey */
-  --basecolor6: #565656;
-  /* muted heading grey */
-  --basecolor7: #161616;
-  /* dark section background */
-  --basecolor8: #e8645e;
-  /* brand red tint for small text on dark backgrounds (4.5:1) */
-  --basecolor9: #6f6f6f;
-  /* body copy grey */
-  --basecolor11: #e5e5e5;
-  /* hairline rules */
-  --basecolor12: #f7f7f5;
-  /* soft card background */
-  --basecolor13: #e7e4e1;
-  /* soft card border */
-  --basecolor14: color-mix(in srgb, var(--basecolor) 88%, black);
-  /* brand red for small text on light backgrounds (4.5:1) */
-  --basecolor15: #f6f3ef;
-  /* warm cream section background */
-  --basecolor16: #d9d6d1;
-  /* soft pill border */
-  --basecolor17: #f25b50;
-  /* Why Purpose accent red (headings, numbers) */
-  --basecolor18: #fff5f3;
-  /* Why Purpose pale red tile */
-  --basecolor19: #f8d6d1;
-  /* Why Purpose pale red tile border */
-  --basecolor20: #142329;
-  /* Why Purpose dark teal ink */
-  --basecolor21: #424849;
-  /* Why Purpose body grey */
-  --basecolor22: #f5f5f5;
-  /* Why Purpose article card */
-  --basecolor23: #dddfdf;
-  /* Why Purpose row divider */
-  --basecolor24: #f0f0f0;
-  /* Why Purpose vertical divider */
-  --basecolor25: #171717;
-  /* Why Purpose heading ink */
-  --basecolor26: #080909;
-  /* Why Purpose "Why does" heading ink */
+  --basecolor: #da4d47; /* brand red */
+  --basecolor2: #222222; /* ink */
+  --basecolor3: #2552aa; /* brand blue (button outline) */
+  --basecolor4: #05060a; /* near-black section background */
+  --basecolor5: #ededed; /* light card grey */
+  --basecolor6: #565656; /* muted heading grey */
 
   /* shadcn tokens mapped to the palette (see handbook ch.29) */
-  --background: white;
+  --background: #ffffff;
   --foreground: #171717;
   --popover: #ffffff;
   --popover-foreground: #171717;
@@ -138,25 +92,6 @@
   --color-basecolor4: var(--basecolor4);
   --color-basecolor5: var(--basecolor5);
   --color-basecolor6: var(--basecolor6);
-  --color-basecolor7: var(--basecolor7);
-  --color-basecolor8: var(--basecolor8);
-  --color-basecolor9: var(--basecolor9);
-  --color-basecolor11: var(--basecolor11);
-  --color-basecolor12: var(--basecolor12);
-  --color-basecolor13: var(--basecolor13);
-  --color-basecolor14: var(--basecolor14);
-  --color-basecolor15: var(--basecolor15);
-  --color-basecolor16: var(--basecolor16);
-  --color-basecolor17: var(--basecolor17);
-  --color-basecolor18: var(--basecolor18);
-  --color-basecolor19: var(--basecolor19);
-  --color-basecolor20: var(--basecolor20);
-  --color-basecolor21: var(--basecolor21);
-  --color-basecolor22: var(--basecolor22);
-  --color-basecolor23: var(--basecolor23);
-  --color-basecolor24: var(--basecolor24);
-  --color-basecolor25: var(--basecolor25);
-  --color-basecolor26: var(--basecolor26);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -170,137 +105,43 @@
   --color-ring: var(--ring);
 
   /* Design-scale type sizes — fluid px, exact at the 1920 Figma frame */
-  --text-display: clamp(40px, calc(100 * var(--u)), 100px);
-  /* 100px @1920 */
+  --text-display: clamp(40px, calc(100 * var(--u)), 100px); /* 100px @1920 */
   --text-display--line-height: 1.12;
-  --text-display-md: clamp(32px, calc(72 * var(--u)), 72px);
-  /* 72px @1920 */
+  --text-display-md: clamp(32px, calc(72 * var(--u)), 72px); /* 72px @1920 */
   --text-display-md--line-height: 1.15;
-  --text-title: clamp(20px, calc(40 * var(--u)), 40px);
-  /* 40px @1920 */
+  --text-title: clamp(20px, calc(40 * var(--u)), 40px); /* 40px @1920 */
   --text-title--line-height: 1.4;
-  --text-card: clamp(16px, calc(27 * var(--u)), 27px);
-  /* 27px @1920 */
+  --text-card: clamp(16px, calc(27 * var(--u)), 27px); /* 27px @1920 */
   --text-card--line-height: 1.48;
-  --text-lead: clamp(14px, calc(20 * var(--u)), 20px);
-  /* 20px @1920 */
+  --text-lead: clamp(14px, calc(20 * var(--u)), 20px); /* 20px @1920 */
   --text-stat: clamp(26px, calc(48.93 * var(--u)), 48.93px);
-  --text-intro: clamp(15px, calc(22 * var(--u)), 22px);
-  /* 22px @1920 */
-  --text-intro--line-height: 1.65;
-  --text-body: clamp(14px, calc(18 * var(--u)), 18px);
-  /* 18px @1920 */
-  --text-body--line-height: 1.67;
-  --text-eyebrow: clamp(12px, calc(16 * var(--u)), 16px);
-  /* 16px @1920 */
-  --text-eyebrow--line-height: 1.5;
-  --text-year: clamp(20px, calc(32 * var(--u)), 32px);
-  /* 32px @1920 */
-  --text-year--line-height: 1.2;
-  --text-label: clamp(15px, calc(24 * var(--u)), 24px);
-  /* 24px @1920 */
-  --text-label--line-height: 1.4;
-  --text-value: clamp(30px, calc(64 * var(--u)), 64px);
-  /* 64px @1920 */
-  --text-value--line-height: 1.15;
-  --text-figure: clamp(88px, calc(188 * var(--u)), 188px);
-  /* 188px @1920 */
-  --text-figure--line-height: 1;
 }
 
 /* ------------------------------------------------------------------
    Figma-proportional scaling, stepped per tier. --u = 1 design px.
    3xl (>=1920) is the Figma frame: values are exact (1px). Smaller tiers use a
    fixed ratio, capped by 100svh/1080 so 1080-design-px full-height sections
-   still fit short laptop windows. Below lg (960) the mobile layout is unscaled.
+   still fit short laptop windows. Below lg (1024) the mobile layout is unscaled.
 ------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   :root {
-    --u: min(0.6px, calc(100svh / 1080));
-    /* lg */
+    --u: min(0.6px, calc(100svh / 1080)); /* lg */
     --spacing: calc(var(--u) * 4);
   }
 }
-
 @media (min-width: 1280px) {
   :root {
-    --u: min(0.72px, calc(100svh / 1080));
-    /* xl */
+    --u: min(0.72px, calc(100svh / 1080)); /* xl */
   }
 }
-
 @media (min-width: 1536px) {
   :root {
-    --u: min(0.85px, calc(100svh / 1080));
-    /* 2xl */
+    --u: min(0.85px, calc(100svh / 1080)); /* 2xl */
   }
 }
-
 @media (min-width: 1920px) {
   :root {
-    --u: min(1px, calc(100svh / 1080));
-    /* 3xl: exact Figma at 1080 tall */
-  }
-}
-
-/* ------------------------------------------------------------------
-   Custom Scrollbar
-   Thumb: basecolor, Track: white (thin), Buttons: none
-------------------------------------------------------------------- */
-
-/* WebKit / Chromium browsers (Chrome, Edge, Safari, Opera) */
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-::-webkit-scrollbar {
-  width: 3px;
-  height: 6px;
-}
-
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track,
-::-webkit-scrollbar-track {
-  background: white;
-}
-
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-thumb {
-  background-color: var(--basecolor);
-  border-radius: 9999px;
-}
-
-html::-webkit-scrollbar-thumb:hover,
-body::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:hover {
-  background-color: color-mix(in srgb, var(--basecolor) 85%, black);
-}
-
-html::-webkit-scrollbar-button,
-body::-webkit-scrollbar-button,
-::-webkit-scrollbar-button,
-::-webkit-scrollbar-button:start,
-::-webkit-scrollbar-button:end,
-::-webkit-scrollbar-button:vertical:decrement,
-::-webkit-scrollbar-button:vertical:increment,
-::-webkit-scrollbar-button:horizontal:decrement,
-::-webkit-scrollbar-button:horizontal:increment {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-html::-webkit-scrollbar-corner,
-body::-webkit-scrollbar-corner,
-::-webkit-scrollbar-corner {
-  background: white;
-}
-
-/* Scoped for browsers that do not support ::-webkit-scrollbar (e.g. Firefox)
-   Keeping this inside @supports prevents Chrome 121+ from disabling ::-webkit-scrollbar */
-@supports not selector(::-webkit-scrollbar) {
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--basecolor) white;
+    --u: 1px; /* 3xl: exact Figma */
   }
 }
 
@@ -319,16 +160,12 @@ body {
 @utility font-inter {
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
-@utility font-roboto {
-  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
-}
 
 /* Editor / CMS content */
 @layer components {
   .button-gradient-border {
     isolation: isolate;
   }
-
   .button-gradient-border::before {
     position: absolute;
     inset: 0;
@@ -357,7 +194,6 @@ body {
     line-height: 1.7;
     color: var(--basecolor2);
   }
-
   .typography h1,
   .typography h2,
   .typography h3,
@@ -369,452 +205,97 @@ body {
     margin: 1.5em 0 0.6em;
     letter-spacing: -0.01em;
   }
-
   .typography h1 {
     font-size: 40px;
   }
-
   .typography h2 {
     font-size: 32px;
   }
-
   .typography h3 {
     font-size: 24px;
   }
-
   .typography h4 {
     font-size: 20px;
   }
-
   .typography h5 {
     font-size: 18px;
   }
-
   .typography h6 {
     font-size: 16px;
   }
-
   .typography p {
     margin: 0 0 1.1em;
   }
-
   .typography a {
     color: var(--basecolor3);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
-
   .typography ul {
     list-style: disc;
     padding-left: 1.5em;
     margin: 0 0 1.1em;
   }
-
   .typography ol {
     list-style: decimal;
     padding-left: 1.5em;
     margin: 0 0 1.1em;
   }
-
   .typography li {
     margin-bottom: 0.4em;
   }
-
   .typography blockquote {
     border-left: 3px solid var(--basecolor);
     padding-left: 1em;
     margin: 1.5em 0;
     font-style: italic;
   }
-
   .typography img {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
     margin: 1.5em 0;
   }
-
   .typography figure {
     margin: 1.5em 0;
   }
-
   .typography figcaption {
     font-size: 14px;
     color: var(--muted-foreground);
     margin-top: 0.5em;
   }
-
-  /* Privacy policy body: numbered h3 sections, hairline between them, numbers in a left gutter on desktop */
-  .typography.policy-copy {
-    counter-reset: policy;
-    color: var(--basecolor9);
-    line-height: 1.65;
-  }
-
-  .typography.policy-copy h3 {
-    counter-increment: policy;
-    position: relative;
-    scroll-margin-top: 7rem;
-    margin: 0;
-    padding-top: 32px;
-    border-top: 1px solid var(--basecolor11);
-    color: var(--basecolor7);
-    font-size: 24px;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-  }
-
-  .typography.policy-copy h3:not(:first-child) {
-    margin-top: 40px;
-  }
-
-  .typography.policy-copy h3::before {
-    content: counter(policy, decimal-leading-zero);
-    display: block;
-    margin-bottom: 12px;
-    color: var(--basecolor14);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    line-height: 1.2;
-  }
-
-  .typography.policy-copy p {
-    margin: 16px 0 0;
-    font-size: 16px;
-  }
-
-  .typography.policy-copy ul {
-    display: grid;
-    gap: 12px;
-    margin: 16px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .typography.policy-copy li {
-    position: relative;
-    margin: 0;
-    padding-left: 21px;
-    color: var(--basecolor7);
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.45;
-  }
-
-  .typography.policy-copy li::before {
-    content: "";
-    position: absolute;
-    top: 0.5em;
-    left: 0;
-    width: 7px;
-    height: 7px;
-    border-radius: 9999px;
-    background: var(--basecolor);
-  }
-
-  @media (min-width: 1024px) {
-    .typography.policy-copy > :not(h3) {
-      margin-left: 88px;
-    }
-
-    .typography.policy-copy h3 {
-      padding-top: calc(46 * var(--u));
-      padding-left: 88px;
-      font-size: clamp(22px, calc(34 * var(--u)), 34px);
-    }
-
-    .typography.policy-copy h3:not(:first-child) {
-      margin-top: calc(52 * var(--u));
-    }
-
-    .typography.policy-copy h3::before {
-      position: absolute;
-      top: calc(54 * var(--u));
-      left: 0;
-      margin: 0;
-    }
-
-    .typography.policy-copy p {
-      margin-top: calc(20 * var(--u));
-      font-size: clamp(14px, calc(18 * var(--u)), 18px);
-    }
-
-    .typography.policy-copy ul {
-      margin-top: calc(24 * var(--u));
-      gap: calc(12 * var(--u));
-    }
-
-    .typography.policy-copy li {
-      font-size: clamp(14px, calc(16 * var(--u)), 16px);
-    }
-  }
-
-  /* Blog article body: opening statement, numbered h2 sections, red pull quote and a leaders box */
-  .typography.article-copy {
-    counter-reset: article;
-    color: var(--basecolor2);
-    line-height: 1.68;
-  }
-
-  .typography.article-copy > * {
-    margin: 0;
-  }
-
-  .typography.article-copy p {
-    margin-top: 24px;
-    font-size: 16px;
-  }
-
-  .typography.article-copy p.lead {
-    margin-top: 0;
-    max-width: 1273px;
-    color: var(--basecolor7);
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.34;
-    letter-spacing: -0.012em;
-  }
-
-  .typography.article-copy p.lead em {
-    color: var(--basecolor);
-    font-style: normal;
-  }
-
-  .typography.article-copy h2 {
-    counter-increment: article;
-    display: flex;
-    gap: 16px;
-    margin: 48px 0 0;
-    color: var(--basecolor7);
-    font-size: 28px;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    scroll-margin-top: 7rem;
-  }
-
-  .typography.article-copy h2::before {
-    content: counter(article, decimal-leading-zero);
-    flex: none;
-    width: 28px;
-    padding-top: 0.4em;
-    color: var(--basecolor14);
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    line-height: 1;
-  }
-
-  .typography.article-copy h2 + p {
-    margin-top: 20px;
-  }
-
-  .typography.article-copy blockquote {
-    position: relative;
-    margin: 48px 0 0;
-    padding: 40px 28px;
-    border: 0;
-    border-radius: 28px;
-    background: var(--basecolor14);
-    color: white;
-    font-style: normal;
-  }
-
-  .typography.article-copy blockquote::before {
-    content: "“";
-    display: block;
-    height: 0.5em;
-    font-size: 64px;
-    font-weight: 700;
-    line-height: 0.65;
-    opacity: 0.5;
-  }
-
-  .typography.article-copy blockquote p {
-    margin-top: 20px;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.018em;
-  }
-
-  .typography.article-copy blockquote footer {
-    margin-top: 24px;
-    font-size: 16px;
-    font-weight: 600;
-    opacity: 1;
-  }
-
-  .typography.article-copy blockquote + h2 {
-    margin-top: 48px;
-  }
-
-  .typography.article-copy aside {
-    margin-top: 28px;
-    padding: 24px;
-    border: 1px solid var(--basecolor16);
-    border-radius: 20px;
-  }
-
-  .typography.article-copy aside p {
-    margin: 0;
-    color: var(--basecolor14);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    line-height: 1.2;
-    text-transform: uppercase;
-  }
-
-  .typography.article-copy aside ol {
-    display: grid;
-    gap: 16px;
-    margin: 20px 0 0;
-    padding: 0;
-    list-style: none;
-    counter-reset: question;
-  }
-
-  .typography.article-copy aside li {
-    counter-increment: question;
-    display: flex;
-    gap: 14px;
-    margin: 0;
-    color: var(--basecolor7);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  .typography.article-copy aside li::before {
-    content: counter(question, decimal-leading-zero);
-    flex: none;
-    width: 28px;
-    padding-top: 0.35em;
-    color: var(--basecolor14);
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  @media (min-width: 1024px) {
-    .typography.article-copy p {
-      margin-top: calc(30 * var(--u));
-      font-size: clamp(15px, calc(20 * var(--u)), 20px);
-    }
-
-    .typography.article-copy p.lead {
-      margin-top: 0;
-      font-size: clamp(22px, calc(37 * var(--u)), 37px);
-    }
-
-    .typography.article-copy p.lead + p {
-      margin-top: calc(32 * var(--u));
-    }
-
-    .typography.article-copy h2 {
-      gap: calc(22 * var(--u));
-      margin-top: calc(65 * var(--u));
-      font-size: clamp(26px, calc(43 * var(--u)), 43px);
-    }
-
-    .typography.article-copy h2::before {
-      width: calc(42 * var(--u));
-      font-size: clamp(12px, calc(15 * var(--u)), 15px);
-    }
-
-    .typography.article-copy h2 + p {
-      margin-top: calc(30 * var(--u));
-    }
-
-    .typography.article-copy blockquote {
-      margin-top: calc(57 * var(--u));
-      padding: calc(79.6 * var(--u)) calc(93.4 * var(--u));
-      border-radius: calc(43.9 * var(--u));
-    }
-
-    .typography.article-copy blockquote::before {
-      font-size: clamp(60px, calc(101.6 * var(--u)), 101.6px);
-    }
-
-    .typography.article-copy blockquote p {
-      margin-top: calc(32.9 * var(--u));
-      font-size: clamp(30px, calc(61.8 * var(--u)), 61.8px);
-    }
-
-    .typography.article-copy blockquote footer {
-      margin-top: calc(32.9 * var(--u));
-      font-size: clamp(14px, calc(19.2 * var(--u)), 19.2px);
-    }
-
-    .typography.article-copy blockquote + h2 {
-      margin-top: calc(81 * var(--u));
-    }
-
-    .typography.article-copy aside {
-      margin-top: calc(30 * var(--u));
-      padding: calc(34 * var(--u));
-      border-radius: calc(24 * var(--u));
-    }
-
-    .typography.article-copy aside p {
-      font-size: clamp(12px, calc(16 * var(--u)), 16px);
-    }
-
-    .typography.article-copy aside ol {
-      gap: calc(22 * var(--u));
-      margin-top: calc(22 * var(--u));
-    }
-
-    .typography.article-copy aside li {
-      gap: calc(18 * var(--u));
-      font-size: clamp(16px, calc(22 * var(--u)), 22px);
-    }
-
-    .typography.article-copy aside li::before {
-      width: calc(28 * var(--u));
-      font-size: clamp(11px, calc(13 * var(--u)), 13px);
-    }
-  }
-
   .typography table {
     width: 100%;
     border-collapse: collapse;
     margin: 1.5em 0;
   }
-
   .typography th,
   .typography td {
     border: 1px solid var(--border);
     padding: 0.6em 0.8em;
     text-align: left;
   }
-
   .typography th {
     background: var(--accent);
     font-weight: 600;
   }
-
   .typography hr {
     border: 0;
     border-top: 1px solid var(--border);
     margin: 2em 0;
   }
-
   .typography strong {
     font-weight: 700;
   }
-
   .typography em {
     font-style: italic;
   }
-
   .typography code {
     background: var(--accent);
     padding: 0.15em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
   }
-
   .typography pre {
     background: var(--basecolor4);
     color: #fff;
@@ -823,7 +304,6 @@ body {
     overflow-x: auto;
     margin: 1.5em 0;
   }
-
   .typography pre code {
     background: transparent;
     padding: 0;
@@ -835,47 +315,9 @@ body {
   100% {
     transform: translateX(0);
   }
-
   50% {
     transform: translateX(9.6px);
   }
-}
-
-@keyframes orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.header-smooth {
-  transform: translate3d(0, 0, 0);
-  translate: none !important;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  will-change: transform;
-  transition:
-    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.4s ease,
-    padding 0.4s ease,
-    backdrop-filter 0.4s ease;
-}
-.header-smooth.header-hidden {
-  transform: translate3d(0, -100%, 0) !important;
-  pointer-events: none !important;
-}
-.header-smooth.header-visible {
-  transform: translate3d(0, 0, 0) !important;
-  pointer-events: auto !important;
-}
-
-/* Sticks under the header while it shows (reverse scroll), flush to the top while it is hidden. */
-.below-header-sticky {
-  position: sticky;
-  top: calc(var(--header-h, 5rem) - 1px);
-  transition: top 0.48s cubic-bezier(0.22, 1, 0.36, 1);
-}
-html[data-header-hidden] .below-header-sticky {
-  top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -885,136 +327,5 @@ html[data-header-hidden] .below-header-sticky {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-  }
-}
-
-[data-reveal] {
-  transition:
-    opacity var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay),
-    transform var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay),
-    filter var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay),
-    clip-path var(--rv-dur) cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay);
-  opacity: 0;
-}
-[data-reveal="up"] {
-  transform: translateY(48px);
-}
-[data-reveal="down"] {
-  transform: translateY(-48px);
-}
-[data-reveal="left"] {
-  transform: translateX(-64px);
-}
-[data-reveal="right"] {
-  transform: translateX(64px);
-}
-[data-reveal="scale"] {
-  transform: scale(0.9);
-}
-[data-reveal="blur"] {
-  transform: translateY(24px);
-  filter: blur(10px);
-}
-[data-reveal="clip"] {
-  transform: scale(1.12);
-  clip-path: inset(100% 0% 0% 0%);
-}
-html[data-intro="done"] [data-reveal][data-in="1"],
-[data-reveal][data-immediate] {
-  opacity: 1;
-  transform: none;
-  filter: blur(0);
-}
-html[data-intro="done"] [data-reveal="clip"][data-in="1"] {
-  clip-path: inset(0% 0% 0% 0%);
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    clip-path: none;
-    transition: none;
-  }
-}
-/* Why Purpose diagram: pieces enter in sequence once the wrapper is revealed */
-.dg-axes,
-.dg-pop,
-.dg-line,
-.dg-dot,
-.dg-label {
-  opacity: 0;
-}
-.dg-pop {
-  transform: scale(0.55);
-}
-.dg-line {
-  transform: scale(0.75);
-}
-.dg-label {
-  transform: translateY(14px);
-}
-html[data-intro="done"] [data-diagram][data-in="1"] .dg-axes {
-  opacity: 1;
-  transition: opacity 0.9s ease-out 0.1s;
-}
-html[data-intro="done"] [data-diagram][data-in="1"] .dg-orbit {
-  animation: dg-spin 60s linear infinite;
-}
-html[data-intro="done"] [data-diagram][data-in="1"] .dg-pop {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.6s ease-out calc(0.35s + var(--dg-i, 0) * 0.16s),
-    transform 0.7s cubic-bezier(0.34, 1.4, 0.64, 1)
-      calc(0.35s + var(--dg-i, 0) * 0.16s);
-}
-html[data-intro="done"] [data-diagram][data-in="1"] .dg-line {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.7s ease-out 0.6s,
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
-}
-html[data-intro="done"] [data-diagram][data-in="1"] .dg-dot {
-  opacity: 1;
-  transition: opacity 0.4s ease-out calc(1s + var(--dg-i, 0) * 0.12s);
-  animation: dg-pulse 2.6s ease-out calc(1.4s + var(--dg-i, 0) * 0.3s) infinite;
-}
-html[data-intro="done"] [data-diagram][data-in="1"] .dg-label {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.6s ease-out calc(0.8s + var(--dg-i, 0) * 0.16s),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)
-      calc(0.8s + var(--dg-i, 0) * 0.16s);
-}
-@keyframes dg-spin {
-  to {
-    rotate: 360deg;
-  }
-}
-@keyframes dg-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgb(242 91 80 / 0.55);
-  }
-  70%,
-  100% {
-    box-shadow: 0 0 0 calc(10 * var(--u, 1px)) rgb(242 91 80 / 0);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .dg-axes,
-  .dg-pop,
-  .dg-line,
-  .dg-dot,
-  .dg-label {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .dg-orbit,
-  .dg-dot {
-    animation: none !important;
   }
 }
