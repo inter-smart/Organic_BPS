@@ -2,13 +2,18 @@
 @import "tw-animate-css";
 
 /* ------------------------------------------------------------------
-   Tailwind default breakpoints (sm 640 · md 768 · lg 960 · xl 1280 · 2xl 1536 · 3xl 1920)
-   and the default `container` utility. Spacing, type, radii and container
-   widths are re-based to px so nothing depends on the root font-size.
+  Tailwind breakpoints (sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536 · 3xl 1771)
+  and the default `container` utility. Spacing, type, radii and container
+  widths are re-based to px so nothing depends on the root font-size.
 ------------------------------------------------------------------- */
 
 @theme {
   --spacing: 4px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
   --breakpoint-3xl: 1771px;
 
   --text-xs: 12px;
@@ -48,7 +53,7 @@
     max-width: 720px;
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1024px) {
     max-width: 960px;
   }
 
