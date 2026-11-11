@@ -116,6 +116,12 @@
   /* Why Purpose heading ink */
   --basecolor26: #080909;
   /* Why Purpose "Why does" heading ink */
+  --basecolor27: #f6f6f6;
+  /* How We Work soft grey panel */
+  --basecolor28: #f3f3f3;
+  /* How We Work logo card */
+  --basecolor29: #414e58;
+  /* How We Work framework step copy */
 
   /* shadcn tokens mapped to the palette (see handbook ch.29) */
   --background: white;
@@ -156,6 +162,9 @@
   --color-basecolor24: var(--basecolor24);
   --color-basecolor25: var(--basecolor25);
   --color-basecolor26: var(--basecolor26);
+  --color-basecolor27: var(--basecolor27);
+  --color-basecolor28: var(--basecolor28);
+  --color-basecolor29: var(--basecolor29);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -948,7 +957,8 @@ html[data-intro="done"] [data-diagram][data-in="1"] .dg-axes {
   transition: opacity 0.9s ease-out 0.1s;
 }
 html[data-intro="done"] [data-diagram][data-in="1"] .dg-orbit {
-  animation: dg-spin 60s linear infinite;
+  animation: dg-spin var(--dg-t, 60s) linear infinite;
+  animation-direction: var(--dg-dir, normal);
 }
 html[data-intro="done"] [data-diagram][data-in="1"] .dg-pop {
   opacity: 1;
@@ -990,18 +1000,91 @@ html[data-intro="done"] [data-diagram][data-in="1"] .dg-label {
     box-shadow: 0 0 0 calc(10 * var(--u, 1px)) rgb(242 91 80 / 0);
   }
 }
+/* How We Work: fade-only pieces and slow drift for the purpose map */
+.dg-fade {
+  opacity: 0;
+}
+html[data-intro="done"] [data-diagram][data-in="1"] .dg-fade {
+  opacity: 1;
+  transition: opacity 0.9s ease-out calc(var(--dg-d, 0) * 1s);
+}
+html[data-intro="done"] [data-diagram][data-in="1"] .dg-float {
+  animation: dg-float 8s ease-in-out calc(var(--dg-d, 0) * 1s) infinite alternate;
+}
+@keyframes dg-float {
+  to {
+    translate: 0 calc(var(--dg-fy, 6) * 1px);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .dg-axes,
   .dg-pop,
   .dg-line,
   .dg-dot,
+  .dg-fade,
   .dg-label {
     opacity: 1;
     transform: none;
     transition: none;
   }
   .dg-orbit,
+  .dg-float,
   .dg-dot {
     animation: none !important;
+  }
+}
+
+/* Testimonial card: gradient border that travels around the card, with a soft glow behind it */
+@property --tc-angle {
+  syntax: "<angle>";
+  initial-value: -35deg;
+  inherits: false;
+}
+.tcard {
+  --tc-angle: -35deg;
+  border-radius: 20px;
+  background: #000;
+}
+.tcard::before,
+.tcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 2.5px;
+  background: conic-gradient(
+    from var(--tc-angle),
+    var(--basecolor) 0%,
+    var(--basecolor3) 32%,
+    var(--basecolor3) 58%,
+    color-mix(in srgb, var(--basecolor) 20%, transparent) 82%,
+    var(--basecolor) 100%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  animation: tc-spin 9s linear infinite;
+}
+.tcard::before {
+  z-index: 1;
+}
+.tcard::after {
+  padding: 6.5px;
+  filter: blur(12px);
+  opacity: 0.7;
+}
+@keyframes tc-spin {
+  to {
+    --tc-angle: 325deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tcard::before,
+  .tcard::after {
+    animation: none;
   }
 }

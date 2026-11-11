@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="429.872" height="409.563" viewBox="0 0 429.872 409.563" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Stakeholders circle" opacity="0.2">
+<use xlink:href="#stroke0_1877_249" fill="#8C8C8C"/>
+<mask id="stroke1_1877_249" fill="white">
+<use xlink:href="#stroke0_1877_249"/>
+</mask>
+<path d="M429.872 204.781C429.872 317.879 333.642 409.563 214.936 409.563C96.2301 409.563 0 317.879 0 204.781C0 91.6838 96.2301 0 214.936 0C333.642 0 429.872 91.6838 429.872 204.781Z" stroke-width="4.75556" stroke="#DA4D47" mask="url(#stroke1_1877_249)"/>
+</g>
+<defs>
+<path id="stroke0_1877_249" d="M429.872 204.781C429.872 317.879 333.642 409.563 214.936 409.563C96.2301 409.563 0 317.879 0 204.781C0 91.6838 96.2301 0 214.936 0C333.642 0 429.872 91.6838 429.872 204.781Z"/>
+</defs>
+</svg>

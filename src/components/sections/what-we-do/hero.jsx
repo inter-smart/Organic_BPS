@@ -8,7 +8,7 @@ import { RichLines } from "@/components/common/rich-text";
 
 export default function Hero({ data }) {
   return (
-    <section id="hero" aria-labelledby="what-we-do-hero-title" className="relative isolate flex h-svh min-h-150 flex-col justify-center overflow-hidden bg-basecolor4 text-white">
+    <section id="hero" aria-labelledby="what-we-do-hero-title" className="relative isolate flex min-h-150 flex-col justify-center overflow-hidden bg-basecolor4 text-white lg:min-h-[calc(885*var(--u))]">
       <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
         <HeroMedia slides={data?.slides} />
       </Parallax>
