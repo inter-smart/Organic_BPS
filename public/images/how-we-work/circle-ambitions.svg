@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="430.549" height="412.948" viewBox="0 0 430.549 412.948" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Ambitions circle" opacity="0.2">
+<use xlink:href="#stroke0_1877_83" fill="#DA4D47"/>
+<use xlink:href="#stroke0_1877_83" fill="black" fill-opacity="0.2"/>
+<mask id="stroke1_1877_83" fill="white">
+<use xlink:href="#stroke0_1877_83"/>
+</mask>
+<path d="M430.549 206.474C430.549 320.506 334.167 412.948 215.274 412.948C96.3816 412.948 0 320.506 0 206.474C0 92.4415 96.3816 0 215.274 0C334.167 0 430.549 92.4415 430.549 206.474Z" stroke-width="4.75556" stroke="#666464" mask="url(#stroke1_1877_83)"/>
+</g>
+<defs>
+<path id="stroke0_1877_83" d="M430.549 206.474C430.549 320.506 334.167 412.948 215.274 412.948C96.3816 412.948 0 320.506 0 206.474C0 92.4415 96.3816 0 215.274 0C334.167 0 430.549 92.4415 430.549 206.474Z"/>
+</defs>
+</svg>

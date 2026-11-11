@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="313.5" height="311.5" viewBox="0 0 313.5 311.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Framework">
+<path id="Vertical spokes" d="M152.25 1.25V310.25M164.25 1.25V310.25" stroke-width="2.5" stroke-linecap="round" stroke="#171717"/>
+<path id="Horizontal spokes" d="M1.25 147.25H312.25M1.25 159.25H312.25" stroke-width="2.5" stroke-linecap="round" stroke="#171717"/>
+<path id="Diagonal spokes" d="M44.25 51.25L98.25 105.25M52.25 43.25L106.25 97.25" stroke-width="2.5" stroke-linecap="round" stroke="#171717"/>
+<path id="Diagonal spokes_2" d="M210.25 97.25L264.25 43.25M218.25 105.25L272.25 51.25" stroke-width="2.5" stroke-linecap="round" stroke="#171717"/>
+<path id="Diagonal spokes_3" d="M41.25 255.25L96.25 204.25M49.25 263.25L104.25 212.25" stroke-width="2.5" stroke-linecap="round" stroke="#171717"/>
+<path id="Diagonal spokes_4" d="M210.25 212.25L265.25 263.25M218.25 204.25L273.25 255.25" stroke-width="2.5" stroke-linecap="round" stroke="#171717"/>
+</g>
+</svg>

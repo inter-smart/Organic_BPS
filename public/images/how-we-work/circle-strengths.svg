@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="425.81" height="406.855" viewBox="0 0 425.81 406.855" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Strengths circle" opacity="0.2">
+<use xlink:href="#stroke0_1877_108" fill="#8B8B8B"/>
+<mask id="stroke1_1877_108" fill="white">
+<use xlink:href="#stroke0_1877_108"/>
+</mask>
+<path d="M425.81 203.428C425.81 315.777 330.489 406.855 212.905 406.855C95.3208 406.855 0 315.777 0 203.428C0 91.0776 95.3208 0 212.905 0C330.489 0 425.81 91.0776 425.81 203.428Z" stroke-width="4.75556" stroke="#DA4D47" mask="url(#stroke1_1877_108)"/>
+</g>
+<defs>
+<path id="stroke0_1877_108" d="M425.81 203.428C425.81 315.777 330.489 406.855 212.905 406.855C95.3208 406.855 0 315.777 0 203.428C0 91.0776 95.3208 0 212.905 0C330.489 0 425.81 91.0776 425.81 203.428Z"/>
+</defs>
+</svg>
