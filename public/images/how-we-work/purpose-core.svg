@@ -1,3 +1,4 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="98" height="98" viewBox="0 0 98 98" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path id="Purpose core" d="M97.5 49C97.5 75.7858 75.7858 97.5 49 97.5C22.2142 97.5 0.5 75.7858 0.5 49C0.5 22.2142 22.2142 0.5 49 0.5C75.7858 0.5 97.5 22.2142 97.5 49Z" fill="#FCDFEA" stroke="#DA4D47"/>
+<svg width="98" height="98" viewBox="0 0 98 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="49" cy="49" r="48.5" fill="#FCDFEA" stroke="#DA4D47"/>
+<circle cx="14" cy="15" r="4" fill="#DA4D47"/>
 </svg>

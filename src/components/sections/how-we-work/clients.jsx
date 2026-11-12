@@ -5,15 +5,28 @@ import { RichLines } from "@/components/common/rich-text";
 
 export default function Clients({ data }) {
   return (
-    <section id="relationships" aria-labelledby="relationships-title" className="overflow-x-clip bg-white py-16 sm:py-20 lg:py-[calc(100*var(--u))]">
+    <section
+      id="relationships"
+      aria-labelledby="relationships-title"
+      className="overflow-x-clip bg-white py-16 sm:py-20 lg:py-[calc(100*var(--u))]"
+    >
       <div className="container mx-auto px-4">
         <div className="grid items-start gap-10 lg:grid-cols-[907fr_813fr] lg:gap-x-0">
           <div>
-            <Reveal as="p" variant="fade" className="text-sm font-bold tracking-[0.19em] text-basecolor14 uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]">
+            <Reveal
+              as="p"
+              variant="fade"
+              className="text-sm font-bold tracking-[0.19em] text-basecolor14 uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]"
+            >
               {data?.eyebrow}
             </Reveal>
             <Reveal variant="up" className="mt-4 lg:mt-[calc(17*var(--u))]">
-              <Heading as="h2" id="relationships-title" size="display" className="text-basecolor25">
+              <Heading
+                as="h2"
+                id="relationships-title"
+                size="display"
+                className="text-basecolor25"
+              >
                 <RichLines lines={data?.title} />
               </Heading>
             </Reveal>
@@ -25,7 +38,6 @@ export default function Clients({ data }) {
               ))}
             </div>
           </div>
-
           <PartnerLogoGrid logos={data?.logos} label={data?.logosLabel} bleed />
         </div>
       </div>

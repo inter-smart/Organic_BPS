@@ -34,7 +34,10 @@ const local_data = {
 
   approach: {
     eyebrow: "Our Approach",
-    title: [[{ t: "From the boardroom" }], [{ t: "to the " }, { t: "real world.", accent: true }]],
+    title: [
+      [{ t: "From the boardroom" }],
+      [{ t: "to the " }, { t: "real world.", accent: true }],
+    ],
     copy: "We begin by understanding the business, its people and its ambitions. We bring strategic thinking and creative execution together, so the direction set by leadership can take shape across the organisation and in the marketplace.",
     tagline: [
       [
@@ -71,10 +74,30 @@ const local_data = {
     steps: {
       label: "The four framework principles",
       items: [
-        { id: "purpose", number: "01", title: "Purpose", text: "Purpose defines the\ndirection." },
-        { id: "belief", number: "02", title: "Belief", text: "Belief creates\nconnection." },
-        { id: "behaviour", number: "03", title: "Behaviour", text: "Behaviour turns\nintention into action." },
-        { id: "growth", number: "04", title: "Sustainable Growth", text: "Sustainable growth\nmakes it enduring." },
+        {
+          id: "purpose",
+          number: "01",
+          title: "Purpose",
+          text: "Purpose defines the\ndirection.",
+        },
+        {
+          id: "belief",
+          number: "02",
+          title: "Belief",
+          text: "Belief creates\nconnection.",
+        },
+        {
+          id: "behaviour",
+          number: "03",
+          title: "Behaviour",
+          text: "Behaviour turns\nintention into action.",
+        },
+        {
+          id: "growth",
+          number: "04",
+          title: "Sustainable Growth",
+          text: "Sustainable growth\nmakes it enduring.",
+        },
       ],
     },
   },
@@ -85,8 +108,16 @@ const local_data = {
       items: [
         { id: "history", title: "History", text: "Where you come from" },
         { id: "strengths", title: "Strengths", text: "What you do best" },
-        { id: "stakeholders", title: "Stakeholders", text: "Who you create\nvalue for" },
-        { id: "ambitions", title: "Ambitions", text: "What you aspire\nto become" },
+        {
+          id: "stakeholders",
+          title: "Stakeholders",
+          text: "Who you create\nvalue for",
+        },
+        {
+          id: "ambitions",
+          title: "Ambitions",
+          text: "What you aspire\nto become",
+        },
       ],
     },
     title: [
@@ -99,7 +130,10 @@ const local_data = {
       { t: "Brand Farm explores an organisation’s " },
       { t: "history", className: "font-semibold text-basecolor14" },
       { t: ", ", className: "text-basecolor14" },
-      { t: "strengths, stakeholders", className: "font-semibold text-basecolor14" },
+      {
+        t: "strengths, stakeholders",
+        className: "font-semibold text-basecolor14",
+      },
       { t: " & " },
       { t: "ambitions", className: "font-semibold text-basecolor14" },
       { t: " to uncover a purpose it can act on." },
@@ -107,7 +141,10 @@ const local_data = {
   },
 
   microStimuli: {
-    image: { src: "/images/how-we-work/book-cover.jpg", alt: "The MicroStimuli book on a wooden table beside a small potted plant" },
+    image: {
+      src: "/images/how-we-work/book-cover.jpg",
+      alt: "The MicroStimuli book on a wooden table beside a small potted plant",
+    },
     number: "02",
     title: "MicroStimuli",
     text: "based on behavioural science thinking introduced by Biju Dominic, helps us identify where intention falls short of action and design cues and experiences that make the desired behaviour easier.",
@@ -116,28 +153,51 @@ const local_data = {
   testimonials: {
     eyebrow: "Testimonials",
     title: [{ t: "In our " }, { t: "clients", accent: true }, { t: "’ words" }],
-    slider: { label: "Client testimonials", prev: "Previous testimonial", next: "Next testimonial", goTo: "Go to testimonial" },
+    slider: {
+      label: "Client testimonials",
+      prev: "Previous testimonial",
+      next: "Next testimonial",
+      goTo: "Go to testimonial",
+    },
     items: [
       {
         id: "asset-homes",
-        quote: "The single-minded purpose-driven approach by Organic BPS has delivered amazing results for us on several fronts.",
+        quote:
+          "The single-minded purpose-driven approach by Organic BPS has delivered amazing results for us on several fronts.",
         name: "Sunil Kumar V",
         role: "Founder and Managing Director, Asset Homes",
-        logo: { src: "/images/how-we-work/logo-asset.png", alt: "Asset Homes", width: 300, height: 356, w: 15.4 },
+        logo: {
+          src: "/images/how-we-work/logo-asset.png",
+          alt: "Asset Homes",
+          width: 300,
+          height: 356,
+          w: 15.4,
+        },
       },
       {
         id: "muthoot",
-        quote: "The discovery and integration of Purpose by Organic BPS has brought about an inherent shift in the way we look at our business and work.",
+        quote:
+          "The discovery and integration of Purpose by Organic BPS has brought about an inherent shift in the way we look at our business and work.",
         name: "Thomas George Muthoot",
         role: "Director, Muthoot Pappachan Group",
-        logo: { src: "/images/how-we-work/logo-muthoot.png", alt: "Muthoot Pappachan Group", width: 379, height: 282, w: 16.5 },
+        logo: {
+          src: "/images/how-we-work/logo-muthoot.png",
+          alt: "Muthoot Pappachan Group",
+          width: 379,
+          height: 282,
+          w: 16.5,
+        },
       },
     ],
   },
 
   clients: {
     eyebrow: "Long-standing relationships",
-    title: [[{ t: "We grow with the" }], [{ t: "organisations" }], [{ t: "we work", accent: true }, { t: " with." }]],
+    title: [
+      [{ t: "We grow with the" }],
+      [{ t: "organisations" }],
+      [{ t: "we work", accent: true }, { t: " with." }],
+    ],
     copy: [
       "We believe the best work grows from a deep understanding of the organisation.",
       "Many of our client relationships have continued for years, with some extending beyond a decade. This continuity allows us to understand the business, its people, its culture and its changing ambitions.",
@@ -145,15 +205,78 @@ const local_data = {
     ],
     logosLabel: "Organisations we work with",
     logos: [
-      { id: "cial", src: "/images/how-we-work/logo-cial.png", alt: "Cochin International Airport Limited", width: 640, height: 219, w: 69 },
-      { id: "cosmoversity", src: "/images/how-we-work/logo-cosmoversity.png", alt: "Cosmoversity", width: 640, height: 115, w: 81 },
-      { id: "aster", src: "/images/logo-aster.png", alt: "Aster MIMS Hospital", width: 332, height: 134, w: 76 },
-      { id: "kma", src: "/images/logo-kma.png", alt: "Kerala Management Association", width: 464, height: 155, w: 69 },
-      { id: "scms", src: "/images/logo-scms.png", alt: "SCMS Group of Educational Institutions", width: 528, height: 186, w: 78 },
-      { id: "scms-2", src: "/images/logo-scms.png", alt: "SCMS Group of Educational Institutions", width: 528, height: 186, w: 78 },
-      { id: "agappe", src: "/images/logo-agappe.png", alt: "Agappe", width: 900, height: 188, w: 61 },
-      { id: "aster-2", src: "/images/logo-aster.png", alt: "Aster MIMS Hospital", width: 332, height: 134, w: 76 },
-      { id: "cosmoversity-2", src: "/images/how-we-work/logo-cosmoversity.png", alt: "Cosmoversity", width: 640, height: 115, w: 81 },
+      {
+        id: "cial",
+        src: "/images/how-we-work/logo-cial.png",
+        alt: "Cochin International Airport Limited",
+        width: 640,
+        height: 219,
+        w: 69,
+      },
+      {
+        id: "cosmoversity",
+        src: "/images/how-we-work/logo-cosmoversity.png",
+        alt: "Cosmoversity",
+        width: 640,
+        height: 115,
+        w: 81,
+      },
+      {
+        id: "aster",
+        src: "/images/logo-aster.png",
+        alt: "Aster MIMS Hospital",
+        width: 332,
+        height: 134,
+        w: 76,
+      },
+      {
+        id: "kma",
+        src: "/images/logo-kma.png",
+        alt: "Kerala Management Association",
+        width: 464,
+        height: 155,
+        w: 69,
+      },
+      {
+        id: "scms",
+        src: "/images/logo-scms.png",
+        alt: "SCMS Group of Educational Institutions",
+        width: 528,
+        height: 186,
+        w: 78,
+      },
+      {
+        id: "scms-2",
+        src: "/images/logo-scms.png",
+        alt: "SCMS Group of Educational Institutions",
+        width: 528,
+        height: 186,
+        w: 78,
+      },
+      {
+        id: "agappe",
+        src: "/images/logo-agappe.png",
+        alt: "Agappe",
+        width: 900,
+        height: 188,
+        w: 61,
+      },
+      {
+        id: "aster-2",
+        src: "/images/logo-aster.png",
+        alt: "Aster MIMS Hospital",
+        width: 332,
+        height: 134,
+        w: 76,
+      },
+      {
+        id: "cosmoversity-2",
+        src: "/images/how-we-work/logo-cosmoversity.png",
+        alt: "Cosmoversity",
+        width: 640,
+        height: 115,
+        w: 81,
+      },
     ],
   },
 
@@ -172,7 +295,7 @@ export default function HowWeWorkPage() {
       <Hero data={local_data.hero} />
       <Approach data={local_data.approach} />
       <div className="container mx-auto px-4 xl:px-0">
-        <div className="rounded-[24px] bg-basecolor27 lg:rounded-[calc(61*var(--u))]">
+        <div className="rounded-[60px] bg-[#F6F6F6] overflow-hidden">
           <Methodology data={local_data.methodology} />
           <Methods data={local_data.methods} />
           <MicroStimuli data={local_data.microStimuli} />
