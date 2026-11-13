@@ -34,7 +34,7 @@ export default function OurPurpose({ data }) {
           as="h2"
           lines={data?.lines}
           from="#4b4b4b"
-          cldassName="mx-auto mt-5 max-w-5xl text-3xl/[1.3] font-bold tracking-[-0.02em] sm:text-5xl/[1.3] lg:mt-[calc(36*var(--u))] lg:max-w-[1560px] lg:text-display-md/[1.3]"
+          className="mx-auto mt-5 max-w-5xl text-3xl/[1.3] font-bold tracking-[-0.02em] sm:text-5xl/[1.3] lg:mt-[calc(36*var(--u))] lg:max-w-[1560px] lg:text-display-md/[1.3]"
         />
       </div>
     </section>
