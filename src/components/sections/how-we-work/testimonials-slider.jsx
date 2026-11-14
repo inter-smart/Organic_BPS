@@ -31,18 +31,8 @@ export default function TestimonialsSlider({ items = [], labels }) {
   }, [embla]);
 
   return (
-    <Reveal
-      variant="up"
-      delay={0.1}
-      role="region"
-      aria-roledescription="carousel"
-      aria-label={labels?.label}
-      className="mt-6 lg:mt-0"
-    >
-      <div
-        ref={viewportRef}
-        className="-mx-4 -my-12 overflow-hidden px-4 py-12"
-      >
+    <Reveal variant="up" delay={0.1} role="region" aria-roledescription="carousel" aria-label={labels?.label} className="mt-6 lg:mt-[calc(40*var(--u))]">
+      <div ref={viewportRef} className="-mx-4 -my-12 overflow-hidden px-4 py-12">
         <div className="-ml-6 flex lg:-ml-[91px]">
           {items.map((item, i) => (
             <div

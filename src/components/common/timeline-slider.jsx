@@ -14,10 +14,9 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function TimelineSlider({ items = [] }) {
   const [active, setActive] = useState(0);
+  const activeRef = useRef(0);
   const wrap = useRef(null);
   const track = useRef(null);
-  const activeRef = useRef(0);
-  const containerRef = useRef(null);
   const stRef = useRef(null);
   const paused = useRef(false);
   const raf = useRef(0);
@@ -31,11 +30,9 @@ export default function TimelineSlider({ items = [] }) {
         mm?.revert();
         mm = gsap.matchMedia();
 
-        mm.add(
-          "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-          () => {
-            const section = wrap.current?.closest("section");
-            if (!section || !track.current || !containerRef.current) return;
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+          const section = wrap.current?.closest("section");
+          if (!section || !track.current) return;
 
             const itemEls = gsap.utils.toArray("li", track.current);
             const count = itemEls.length;
@@ -46,14 +43,9 @@ export default function TimelineSlider({ items = [] }) {
               section.offsetHeight <= window.innerHeight + 1;
             if (pinSection) gsap.set(section, { minHeight: "100svh" });
 
-            const containerEl = containerRef.current;
-            const padLeft =
-              parseFloat(getComputedStyle(containerEl).paddingLeft) || 0;
-            const padRight =
-              parseFloat(getComputedStyle(containerEl).paddingRight) || 0;
-            const availWidth = containerEl.clientWidth - padLeft - padRight;
-            const trackWidth = track.current.scrollWidth;
-            const maxScroll = Math.max(0, trackWidth - availWidth);
+          const availWidth = wrap.current.clientWidth;
+          const trackWidth = track.current.scrollWidth;
+          const maxScroll = Math.max(0, trackWidth - availWidth);
 
             // For each item, compute how far the track needs to translate left (targetX)
             // so that the item is comfortably visible within the container.
@@ -83,16 +75,16 @@ export default function TimelineSlider({ items = [] }) {
                 setActive(activeIdx);
               }
 
-              // Piecewise smooth interpolation for track horizontal position
-              // Uses smoothstep (cubic Hermite) for organic gliding with zero sudden jerk
-              const u = Math.max(0, Math.min(count - 1, p * count - 0.5));
-              const baseIdx = Math.floor(u);
-              const rawFrac = u - baseIdx;
-              const smoothFrac = rawFrac * rawFrac * (3 - 2 * rawFrac);
-              const nextIdx = Math.min(count - 1, baseIdx + 1);
-              const currentX =
-                targetX[baseIdx] +
-                smoothFrac * (targetX[nextIdx] - targetX[baseIdx]);
+            // Piecewise smooth interpolation for track horizontal position
+            // Uses smoothstep (cubic Hermite) for organic gliding with zero sudden jerk
+            const u = Math.max(0, Math.min(count - 1, p * count - 0.5));
+            const baseIdx = Math.floor(u);
+            const rawFrac = u - baseIdx;
+            const smoothFrac = rawFrac * rawFrac * (3 - 2 * rawFrac);
+            const nextIdx = Math.min(count - 1, baseIdx + 1);
+            const currentX =
+              targetX[baseIdx] +
+              smoothFrac * (targetX[nextIdx] - targetX[baseIdx]);
 
               gsap.set(track.current, { x: -currentX });
             };
@@ -130,7 +122,11 @@ export default function TimelineSlider({ items = [] }) {
         clearTimeout(timer);
         timer = setTimeout(() => {
           const next = [window.innerWidth, window.innerHeight];
-          if (next[0] === size[0] && Math.abs(next[1] - size[1]) < 120) return;
+          const touch = window.matchMedia("(pointer: coarse)").matches;
+          const heightMoved = touch
+            ? Math.abs(next[1] - size[1]) >= 120
+            : next[1] !== size[1];
+          if (next[0] === size[0] && !heightMoved) return;
           size = next;
           build();
         }, 300);
@@ -243,65 +239,57 @@ export default function TimelineSlider({ items = [] }) {
   };
 
   return (
-    <div className="relative w-full">
+    <div
+      ref={wrap}
+      role="group"
+      aria-label="Organic BPS timeline"
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+      className="relative ml-[calc(-1*var(--bleed))] w-[calc(100%+var(--bleed))] overflow-x-clip outline-none [--bleed:16px] lg:[--bleed:calc(27*var(--u))] focus-visible:ring-2 focus-visible:ring-basecolor3 motion-reduce:overflow-x-auto"
+    >
+      {/* dashed guide line — fixed to the viewport so it fades out at both edges while the row moves */}
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-[88px] lg:top-[calc(88*var(--u))] border-t border-dashed border-basecolor [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]"
       />
-      <div
-        ref={wrap}
-        role="group"
-        aria-label="Organic BPS timeline"
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        onScroll={onNativeScroll}
-        onMouseEnter={() => (paused.current = true)}
-        onMouseLeave={() => (paused.current = false)}
-        onFocus={() => (paused.current = true)}
-        onBlur={() => (paused.current = false)}
-        className="relative w-full overflow-x-auto outline-none lg:overflow-x-clip [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:ring-2 focus-visible:ring-basecolor3"
+      <ol
+        ref={track}
+        aria-label="Organic BPS milestones"
+        className="relative flex w-max will-change-transform"
       >
-        <div ref={containerRef} className="container mx-auto px-4">
-          <ol
-            ref={track}
-            aria-label="Organic BPS milestones"
-            className="relative flex w-max will-change-transform"
+        {items?.map((item, i) => (
+          <li
+            key={item?.id ?? i}
+            aria-current={active === i ? "step" : undefined}
+            onClick={() => scrollToItem(i)}
+            className="relative w-44 shrink-0 cursor-pointer select-none sm:w-52 lg:w-[calc(310*var(--u))]"
           >
-            {items?.map((item, i) => (
-              <li
-                key={item?.id ?? i}
-                aria-current={active === i ? "step" : undefined}
-                onClick={() => scrollToItem(i)}
-                className="relative w-42.5 lg:w-[calc(310*var(--u))] shrink-0 cursor-pointer select-none"
+            <div
+              data-year
+              className="relative flex h-22 w-fit items-center px-4 lg:h-[calc(120*var(--u))] lg:px-[calc(27*var(--u))]"
+            >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "absolute top-1/2 left-1/2 size-18 -translate-1/2 rounded-full bg-basecolor transition-transform duration-700 ease-out lg:size-[calc(120*var(--u))]",
+                  active === i ? "opacity-100" : "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "relative text-xl/[1.2] font-medium transition-colors duration-500 lg:text-year",
+                  active === i ? "text-white" : "text-basecolor",
+                )}
               >
-                <div
-                  data-year
-                  className="relative flex h-[120px] lg:h-[calc(120*var(--u))] w-fit items-center px-[19px] lg:px-[calc(19*var(--u))]"
-                >
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "absolute top-1/2 left-1/2 -translate-1/2 rounded-full bg-basecolor transition-transform duration-700 ease-out size-[120px] lg:size-[calc(120*var(--u))]",
-                      active === i ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "relative text-xl/[1.2] font-medium md:text-2xl transition-colors duration-500 lg:text-year",
-                      active === i ? "text-white" : "text-basecolor",
-                    )}
-                  >
-                    {item?.year}
-                  </span>
-                </div>
-                <p className="mt-[8px] lg:mt-[calc(8*var(--u))] max-w-[180px] lg:max-w-[calc(180*var(--u))] pl-[19px] lg:pl-[calc(19*var(--u))] text-base/[1.4] font-medium text-basecolor2 md:text-lg lg:text-label">
-                  {item?.label}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
+                {item?.year}
+              </span>
+            </div>
+            <p className="mt-3 max-w-36 pl-4 text-base/[1.4] font-medium text-basecolor2 lg:mt-[calc(8*var(--u))] lg:pl-[calc(27*var(--u))] lg:max-w-[calc(180*var(--u))] lg:text-label">
+              {item?.label}
+            </p>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
