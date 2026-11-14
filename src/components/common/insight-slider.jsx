@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
 import useScrubTrack from "@/components/common/use-scrub-track";
 import { cn } from "@/lib/utils";
 
@@ -11,11 +10,11 @@ import { cn } from "@/lib/utils";
  * rather than the min(width,height) scale, so the row always overflows the screen and there is something to scrub,
  * even on short laptop windows. The row starts inside a page container so the first card lines up with the section
  * heading, and the last card ends on the container's right edge.
- * Card highlight (blue → red gradient) follows hover/focus, otherwise the card nearest the screen centre.
+ * Card highlight (blue → red gradient) follows hover/focus, otherwise the card matching the scroll progress (first card at the start, last card at the end).
  */
 export default function InsightSlider({ items = [] }) {
   const [hover, setHover] = useState(null);
-  const [auto, setAuto] = useState(1);
+  const [auto, setAuto] = useState(0);
   const lit = hover ?? auto;
   const wrap = useRef(null);
   const track = useRef(null);
@@ -27,17 +26,7 @@ export default function InsightSlider({ items = [] }) {
       const content = box.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
       return Math.max(0, t.offsetWidth - content);
     },
-    onUpdate: () => {
-      const mid = window.innerWidth / 2;
-      let best = 0;
-      let bestDist = Infinity;
-      gsap.utils.toArray("li", track.current).forEach((c, i) => {
-        const r = c.getBoundingClientRect();
-        const d = Math.abs(r.left + r.width / 2 - mid);
-        if (d < bestDist) [best, bestDist] = [i, d];
-      });
-      setAuto(best);
-    },
+    onUpdate: (self) => setAuto(Math.round(self.progress * (items.length - 1))),
   });
 
   return (
