@@ -5,8 +5,9 @@ import HeroMedia from "@/components/common/hero-media";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
+import { link, text } from "@/lib/cms-text";
 
-export default function Hero({ data }) {
+export default function Hero({ banner, title, scroll }) {
   return (
     <section
       id="hero"
@@ -21,7 +22,20 @@ export default function Hero({ data }) {
         start="top top"
         end="bottom top"
       >
-        <HeroMedia slides={data?.slides} />
+        <HeroMedia
+          slides={
+            banner?.banner
+              ? [
+                  {
+                    id: banner.id,
+                    type: "image",
+                    src: banner.banner,
+                    alt: banner.banner_alt_text,
+                  },
+                ]
+              : []
+          }
+        />
       </Parallax>
 
       <div className="container mx-auto px-4">
@@ -34,7 +48,7 @@ export default function Hero({ data }) {
                 size="display"
                 className="text-white"
               >
-                <RichLines lines={data?.title} />
+                <RichLines lines={title} />
               </Heading>
             </Reveal>
             <Reveal
@@ -43,8 +57,8 @@ export default function Hero({ data }) {
               className="mt-8 lg:mt-[calc(50*var(--u))]"
               immediate
             >
-              <Button href={data?.cta?.href} variant="dark">
-                {data?.cta?.label}
+              <Button href={link(banner?.button_link)} variant="dark">
+                {banner?.button_name}
               </Button>
             </Reveal>
           </div>
@@ -57,13 +71,13 @@ export default function Hero({ data }) {
               className="text-base/[1.6] font-medium text-pretty text-white sm:text-lg/[1.6] lg:max-w-[674px] lg:text-intro/[1.52] 3xl:text-[25px]!"
               immediate
             >
-              {data?.paragraph}
+              {text(banner?.banner_description)}
             </Reveal>
           </div>
 
           <a
-            href={data?.scroll?.href}
-            aria-label={data?.scroll?.label}
+            href={scroll?.href}
+            aria-label={scroll?.label}
             className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
           >
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">

@@ -12,14 +12,6 @@ import {
 const inputClass =
   "w-full border-b border-[#e4e4e4] bg-transparent pb-3 text-base text-basecolor2 outline-none placeholder:text-[#a8a8a8] placeholder:font-normal focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-transparent lg:pb-[calc(15*var(--u))] 2xl:pb-[15px] 3xl:pb-[20px] text-[14px] 2xl:text-[16px] 3xl:text-[20px] font-normal";
 
-const topics = [
-  { value: "purpose", label: "Purpose strategy" },
-  { value: "brand", label: "Brand communication" },
-  { value: "behaviour", label: "Behaviour design" },
-  { value: "sustainability", label: "Sustainability" },
-  { value: "other", label: "Something else" },
-];
-
 function Field({ label, children }) {
   return (
     <label className="flex flex-col gap-2 lg:gap-6.25 2xl:gap-8.75">
@@ -31,7 +23,7 @@ function Field({ label, children }) {
   );
 }
 
-export default function ContactForm() {
+export default function ContactForm({ topics }) {
   const [submitted, setSubmitted] = useState(false);
 
   function handleSubmit(e) {
@@ -111,9 +103,9 @@ export default function ContactForm() {
               <SelectValue placeholder="Let's explore together" />
             </SelectTrigger>
             <SelectContent>
-              {topics.map((t) => (
-                <SelectItem key={t.value} value={t.value}>
-                  {t.label}
+              {topics?.map((t) => (
+                <SelectItem key={t.id} value={t.title}>
+                  {t.title}
                 </SelectItem>
               ))}
             </SelectContent>

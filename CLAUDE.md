@@ -114,3 +114,13 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Who We Are API (2026-11-16)
 - `/who-we-are` is read in `app/who-we-are/page.js` and each section reads the API fields itself (no mapper, no fallback copy; a missing block renders nothing, an API failure renders no sections). Section titles are static, kept in `local_data` in the page file (like home); `parseTitle` (`lib/utils.js`) is available for API titles. `timeline-slider`, `value-cards` and `award-slider` read the API field names directly (`year`/`description`, `title`/`description`).
+
+## Why Purpose API (2026-11-16)
+- `/why-purpose` reads `apiGet("why-purpose")` in `app/why-purpose/page.js` (wrapped in `Suspense` like home). Section titles are static in `local_data`; each section reads the API fields itself, no fallback copy. Icons from the CMS are remote SVGs, so their `<Image>`s use `unoptimized`.
+- Perspectives: heading comes from the API; the article cards and slider labels stay static in `local_data` (plus blog-data) until the API supplies them. The hero CTA has no link until the CMS sets `button_link`.
+
+## What We Do API (2026-11-16)
+- `/what-we-do` reads `apiGet("what-we-do")` (Suspense-wrapped). Titles, scroll link and per-practice logo size/alt (`local_data.practices.logos`, by practice order; `--logo-w` stays unitless) are static. Section anchors and tab links come from `slug(section_title)`; service icons are remote SVGs (`unoptimized`). The API still repeats the Purpose Consulting paragraph under Sustainability.
+
+## Contact API (2026-11-16)
+- `/contact` reads `apiGet("contact")` in `app/contact/page.js`. Title line breaks/accents and the map button label are static in `local_data`; everything else (banner, enquiry copy, email/phone, office list, explore options for the form select, careers email) comes from the API with no fallback copy. The form still has no submit endpoint. Hero uses `banner_top_image` as a single avatar.

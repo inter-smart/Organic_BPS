@@ -2,7 +2,7 @@ import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 
-export default function CareersCta({ data }) {
+export default function CareersCta({ data, title }) {
   return (
     <section
       id="careers"
@@ -18,12 +18,12 @@ export default function CareersCta({ data }) {
               size="display"
               className="text-white"
             >
-              <RichLines lines={data?.title} />
+              <RichLines lines={title} />
             </Heading>
           </Reveal>
           <Reveal variant="up" delay={0.15} className="sm:text-left">
             <p className="font-medium text-white text-sm lg:text-lead">
-              {data?.text}
+              {data?.subtitle}
             </p>
             <a
               href={`mailto:${data?.email}`}

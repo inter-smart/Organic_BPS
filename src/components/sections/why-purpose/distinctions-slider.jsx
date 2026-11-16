@@ -64,6 +64,7 @@ export default function DistinctionsSlider({ items = [], label }) {
                     alt=""
                     width={57}
                     height={57}
+                    unoptimized
                     className="size-full object-contain"
                   />
                 </div>
@@ -79,7 +80,7 @@ export default function DistinctionsSlider({ items = [], label }) {
                     "text-sm sm:text-base font-medium text-basecolor21 transition-colors duration-300 group-hover:text-basecolor14 lg:text-[clamp(14px,calc(25*var(--u)),25px)]",
                   )}
                 >
-                  {item.text}
+                  {item.description}
                 </p>
               </div>
             </Reveal>

@@ -30,6 +30,19 @@ export function paragraphs(html) {
   return blocks(html).map(text).filter(Boolean);
 }
 
+// "Behaviour Design & Activation" -> "behaviour-design-activation"
+export function slug(value) {
+  return text(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+// One plain string per <li>.
+export function listItems(html) {
+  return (html?.match(/<li[\s\S]*?<\/li>/g) ?? []).map(text).filter(Boolean);
+}
+
 // One segment list per <p>; <span class="text-basecolor"> becomes an accent.
 export function segmentParagraphs(html) {
   return blocks(html)
