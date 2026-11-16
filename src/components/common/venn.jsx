@@ -10,63 +10,24 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 /*
  * Business · People · Planet diagram. Circles grow in from their own centres, the labels follow, and the three
  * coloured dots then travel round their circles for as long as the diagram is on screen.
- * Coordinates are the Figma ones (1920 frame) shifted so the artwork starts at 0,0.
+ * Circles, labels and icons follow the CMS list (core_belief, by sort_order, up to three). Coordinates are the Figma ones (1920 frame) shifted so the artwork starts at 0,0.
  * With reduced motion the finished diagram is shown still.
  */
-const circles = [
-  { id: "people", cx: 428, cy: 214, r: 200, fill: "#fce0ea", stroke: "#da4d47", dot: { x: 250, y: 125, c: "#da4d47" } },
-  { id: "business", cx: 252, cy: 499, r: 222, fill: "#d1f2ff", stroke: "#1688da", dot: { x: 135, y: 688, c: "#1688da" } },
-  { id: "planet", cx: 602, cy: 497, r: 224, fill: "#dcf7e7", stroke: "#10a058", dot: { x: 824, y: 494, c: "#10a058" } },
+const slots = [
+  { cx: 428, cy: 214, r: 200, fill: "#fce0ea", stroke: "#da4d47", dot: { x: 250, y: 125 }, label: { x: 427, y: 244 }, icon: { x: 427, y: 171 }, spin: 16 },
+  { cx: 252, cy: 499, r: 222, fill: "#d1f2ff", stroke: "#1688da", dot: { x: 135, y: 688 }, label: { x: 252, y: 569 }, icon: { x: 250, y: 477 }, spin: 22, reverse: true },
+  { cx: 602, cy: 497, r: 224, fill: "#dcf7e7", stroke: "#10a058", dot: { x: 824, y: 494 }, label: { x: 608, y: 569 }, icon: { x: 605, y: 480 }, spin: 19 },
 ];
 
-const labels = [
-  { id: "people", x: 427, y: 244, text: "PEOPLE" },
-  { id: "business", x: 252, y: 569, text: "BUSINESS" },
-  { id: "planet", x: 608, y: 569, text: "PLANET" },
-];
+const iconSize = 76;
 
-const iconProps = { fill: "none", strokeWidth: 3, strokeLinecap: "round", strokeLinejoin: "round" };
-
-function PeopleIcon() {
-  return (
-    <g transform="translate(390 145)" stroke="#da4d47" {...iconProps}>
-      <circle cx="37" cy="14" r="10" />
-      <path d="M15 52v-6a22 22 0 0 1 44 0v6z" />
-      <circle cx="12" cy="24" r="7" />
-      <path d="M2 52v-4a10 10 0 0 1 8-9" />
-      <circle cx="62" cy="24" r="7" />
-      <path d="M72 52v-4a10 10 0 0 0-8-9" />
-    </g>
-  );
-}
-
-function BusinessIcon() {
-  return (
-    <g transform="translate(219 445)" stroke="#1688da" {...iconProps}>
-      <path d="M2 64h62" />
-      <path d="M8 64V38h10v26M26 64V28h10v36M44 64V42h10v22" strokeWidth="3" />
-      <path d="M8 26l16-12 14 8 18-14" />
-      <circle cx="8" cy="26" r="4" fill="#fff" />
-      <circle cx="24" cy="14" r="4" fill="#fff" />
-      <circle cx="38" cy="22" r="4" fill="#fff" />
-      <circle cx="56" cy="8" r="4" fill="#fff" />
-    </g>
-  );
-}
-
-function PlanetIcon() {
-  return (
-    <g transform="translate(570 450)" stroke="#10a058" {...iconProps}>
-      <circle cx="30" cy="30" r="28" />
-      <path d="M12 14c6 2 8 6 6 10s-8 4-6 10 8 4 8 12M34 4c-2 6 4 8 8 8M44 22c-4 2-4 6 0 8" />
-      <path d="M44 56c0-10 8-16 24-14 0 14-10 20-24 14z" fill="#dcf7e7" />
-      <path d="M46 54c6-4 12-8 18-10" />
-    </g>
-  );
-}
-
-export default function Venn({ label = "Business, People and Planet" }) {
+export default function Venn({ core_belief }) {
   const root = useRef(null);
+  const items = (Array.isArray(core_belief) ? core_belief : [])
+    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+    .slice(0, slots.length)
+    .map((item, i) => ({ ...item, slot: slots[i] }));
+  const label = items.map((item) => item.title).join(", ");
 
   useGSAP(
     () => {
@@ -90,30 +51,35 @@ export default function Venn({ label = "Business, People and Planet" }) {
   return (
     <svg ref={root} viewBox="0 0 860 750" role="img" aria-label={label} className="h-auto w-full overflow-visible">
       <circle data-backdrop cx="427" cy="433" r="294" fill="#f2f2f2" />
-      {circles.map((c) => (
-        <circle key={c.id} data-disc data-origin={`${c.cx} ${c.cy}`} cx={c.cx} cy={c.cy} r={c.r} fill={c.fill} fillOpacity="0.85" stroke={c.stroke} strokeWidth="1.2" />
+      {items.map(({ id, slot: c }) => (
+        <circle key={id} data-disc data-origin={`${c.cx} ${c.cy}`} cx={c.cx} cy={c.cy} r={c.r} fill={c.fill} fillOpacity="0.85" stroke={c.stroke} strokeWidth="1.2" />
       ))}
-      <g data-icon>
-        <PeopleIcon />
-      </g>
-      <g data-icon>
-        <BusinessIcon />
-      </g>
-      <g data-icon>
-        <PlanetIcon />
-      </g>
-      {labels.map((l) => (
-        <text key={l.id} data-label x={l.x} y={l.y} textAnchor="middle" fill="#171717" fontSize="31" fontWeight="700" letterSpacing="9">
-          {l.text}
+      {items.map((item) =>
+        item.icon ? (
+          <image
+            key={item.id}
+            data-icon
+            href={item.icon}
+            x={item.slot.icon.x - iconSize / 2}
+            y={item.slot.icon.y - iconSize / 2}
+            width={iconSize}
+            height={iconSize}
+            aria-hidden="true"
+          />
+        ) : null,
+      )}
+      {items.map((item) => (
+        <text key={item.id} data-label x={item.slot.label.x} y={item.slot.label.y} textAnchor="middle" fill="#171717" fontSize="31" fontWeight="700" letterSpacing="9">
+          {item.title}
         </text>
       ))}
-      {circles.map((c, i) => (
-        <g key={c.id} data-orbit aria-hidden="true">
+      {items.map(({ id, slot: c }) => (
+        <g key={id} data-orbit aria-hidden="true">
           <g
             className="motion-safe:animate-[orbit_linear_infinite]"
-            style={{ transformOrigin: `${c.cx}px ${c.cy}px`, animationDuration: `${[16, 22, 19][i]}s`, animationDirection: i === 1 ? "reverse" : "normal" }}
+            style={{ transformOrigin: `${c.cx}px ${c.cy}px`, animationDuration: `${c.spin}s`, animationDirection: c.reverse ? "reverse" : "normal" }}
           >
-            <circle cx={c.dot.x} cy={c.dot.y} r="8.5" fill={c.dot.c} />
+            <circle cx={c.dot.x} cy={c.dot.y} r="8.5" fill={c.stroke} />
           </g>
         </g>
       ))}

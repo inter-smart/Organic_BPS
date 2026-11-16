@@ -90,10 +90,10 @@ export default function ValueCards({ items = [] }) {
             </span>
             <div>
               <p className="text-base/[1.4] font-medium text-white lg:text-label">
-                {item?.kicker}
+                {item?.title}
               </p>
               <h3 className="text-2xl/[1.15] font-bold text-white sm:text-4xl/[1.15] lg:text-value">
-                {item?.title}
+                {item?.description}
               </h3>
             </div>
           </div>

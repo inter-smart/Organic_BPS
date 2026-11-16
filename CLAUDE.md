@@ -111,3 +111,6 @@ Follow these in new builds; they replace the older behaviour described above whe
 ## Home data (2026-11-16)
 - `src/app/page.js` holds only the static section titles (`titles`: ring, accents, line breaks). Everything else comes from the API (`apiGet("home")`), shaped inline with the `lib/cms-text.js` helpers. There is no `home-data.js` and no fallback copy: a missing section/field renders nothing, and an API failure renders no sections.
 - The ring replaces the "o" in titles only, never in descriptions; `RichText` renders it only for segments with `ring: true`.
+
+## Who We Are API (2026-11-16)
+- `/who-we-are` is read in `app/who-we-are/page.js` and each section reads the API fields itself (no mapper, no fallback copy; a missing block renders nothing, an API failure renders no sections). Section titles are static, kept in `local_data` in the page file (like home); `parseTitle` (`lib/utils.js`) is available for API titles. `timeline-slider`, `value-cards` and `award-slider` read the API field names directly (`year`/`description`, `title`/`description`).

@@ -5,8 +5,17 @@ import NumberTicker from "@/components/common/number-ticker";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
+import { figure } from "@/lib/cms-text";
 
-export default function Hero({ data }) {
+const scroll = { label: "Scroll to the next section", href: "#our-story" };
+
+export default function Hero({ banner, title }) {
+  const stats = [
+    { id: 1, ...figure(banner?.founded), label: "Founded" },
+    { id: 2, text: banner?.our_locations, label: "Our locations" },
+    { id: 3, ...figure(banner?.awards), label: "Awards" },
+  ];
+
   return (
     <section
       id="hero"
@@ -21,7 +30,20 @@ export default function Hero({ data }) {
         start="top top"
         end="bottom top"
       >
-        <HeroMedia slides={data?.slides} />
+        <HeroMedia
+          slides={
+            banner?.banner
+              ? [
+                  {
+                    id: banner.id,
+                    type: "image",
+                    src: banner.banner,
+                    alt: banner.banner_alt_text,
+                  },
+                ]
+              : []
+          }
+        />
       </Parallax>
       <div className="container mx-auto px-4">
         <div className="relative grid grid-cols-[minmax(0,1fr)] gap-10 pt-28 pb-24 lg:grid-cols-2 lg:items-center lg:gap-0 lg:pt-30 lg:pb-[calc(100*var(--u))]">
@@ -32,26 +54,11 @@ export default function Hero({ data }) {
               size="display"
               className="text-white"
             >
-              <RichLines lines={data?.title} />
+              <RichLines lines={title} />
             </Heading>
           </Reveal>
 
           <div className="lg:pl-[calc(9*var(--u))]">
-            <div className="space-y-6 text-base/[1.6] font-medium text-white sm:text-lg/[1.6] lg:space-y-[calc(36*var(--u))] lg:text-intro 3xl:text-[25px]">
-              {data?.paragraphs?.map((p, i) => (
-                <Reveal
-                  as="p"
-                  key={i}
-                  variant="up"
-                  delay={0.2 + 0.15 * i}
-                  className="text-pretty lg:max-w-[660px]"
-                  immediate
-                >
-                  {p}
-                </Reveal>
-              ))}
-            </div>
-
             <Reveal
               variant="up"
               delay={0.55}
@@ -59,7 +66,7 @@ export default function Hero({ data }) {
               immediate
             >
               <dl className="flex w-full divide-x divide-white/30 border border-white/40 bg-black/10 py-4 backdrop-blur-[2px] lg:max-w-[659px] lg:py-[calc(33*var(--u))]">
-                {data?.stats?.map((s) => (
+                {stats.map((s) => (
                   <div
                     key={s?.id}
                     className="flex flex-col-reverse px-3 first:pl-4 max-sm:flex-1 sm:px-5 lg:px-[calc(36*var(--u))] lg:first:pl-[calc(24*var(--u))]"
@@ -85,8 +92,8 @@ export default function Hero({ data }) {
           </div>
 
           <a
-            href={data?.scroll?.href}
-            aria-label={data?.scroll?.label}
+            href={scroll.href}
+            aria-label={scroll.label}
             className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
           >
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">

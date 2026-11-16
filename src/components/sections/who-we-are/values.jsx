@@ -2,8 +2,9 @@ import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
 import ValueCards from "@/components/common/value-cards";
+import { text } from "@/lib/cms-text";
 
-export default function Values({ data }) {
+export default function Values({ data, items, title }) {
   return (
     <section
       id="values"
@@ -20,7 +21,7 @@ export default function Values({ data }) {
                 size="display"
                 className="text-white"
               >
-                <RichLines lines={data?.title} />
+                <RichLines lines={title} />
               </Heading>
             </Reveal>
             <Reveal
@@ -29,11 +30,11 @@ export default function Values({ data }) {
               delay={0.15}
               className="mt-5 text-base/[1.7] font-medium text-white sm:text-lg/[1.7] lg:mt-[calc(50*var(--u))] lg:max-w-[360px] lg:text-body"
             >
-              {data?.text}
+              {text(data?.description)}
             </Reveal>
           </div>
           <div>
-            <ValueCards items={data?.items} />
+            <ValueCards items={items} />
           </div>
         </div>
       </div>

@@ -2,9 +2,13 @@ import AwardSlider from "@/components/common/award-slider";
 import Heading from "@/components/common/heading";
 import NumberTicker from "@/components/common/number-ticker";
 import Reveal from "@/components/common/reveal";
-import { RichLines, RichText } from "@/components/common/rich-text";
+import { RichLines } from "@/components/common/rich-text";
+import { figure } from "@/lib/cms-text";
+import { parseTitle } from "@/lib/utils";
 
-export default function Recognition({ data }) {
+export default function Recognition({ data, awards, title }) {
+  const count = figure(data?.count);
+
   return (
     <section
       id="recognition"
@@ -19,7 +23,7 @@ export default function Recognition({ data }) {
               variant="fade"
               className="text-xs font-medium tracking-[0.3em] text-basecolor uppercase lg:text-eyebrow"
             >
-              {data?.eyebrow}
+              {data?.title}
             </Reveal>
             <Reveal variant="up" delay={0.1}>
               <Heading
@@ -28,7 +32,7 @@ export default function Recognition({ data }) {
                 size="display"
                 className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(40px,calc(80*var(--u)),80px)]"
               >
-                <RichLines lines={data?.title} />
+                <RichLines lines={title} />
               </Heading>
             </Reveal>
           </div>
@@ -36,8 +40,8 @@ export default function Recognition({ data }) {
             <Reveal variant="up" delay={0.15}>
               <p className="text-figure font-bold tracking-[-0.02em] text-basecolor">
                 <NumberTicker
-                  value={data?.count?.value}
-                  suffix={data?.count?.suffix}
+                  value={count.value}
+                  suffix={count.suffix}
                   duration={2.4}
                 />
               </p>
@@ -48,14 +52,14 @@ export default function Recognition({ data }) {
               delay={0.25}
               className="mt-4 text-base/[1.7] font-medium text-basecolor2 sm:text-lg/[1.7] lg:mt-[calc(30*var(--u))] lg:max-w-[510px] lg:text-body"
             >
-              <RichText segments={data?.text} />
+              <RichLines lines={parseTitle(data?.description)} />
             </Reveal>
           </div>
         </div>
       </div>
 
       <div className="mt-10 lg:mt-[calc(60*var(--u))]">
-        <AwardSlider items={data?.items} />
+        <AwardSlider items={awards} />
       </div>
     </section>
   );

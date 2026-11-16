@@ -2,8 +2,9 @@ import Reveal from "@/components/common/reveal";
 import Heading from "@/components/common/heading";
 import TimelineSlider from "@/components/common/timeline-slider";
 import { RichLines, RichText } from "@/components/common/rich-text";
+import { segmentParagraphs } from "@/lib/cms-text";
 
-export default function OurStory({ data }) {
+export default function OurStory({ data, history, title }) {
   return (
     <section
       id="our-story"
@@ -19,7 +20,7 @@ export default function OurStory({ data }) {
               size="display"
               className="text-basecolor2 lg:max-w-[900px] lg:text-[clamp(40px,calc(88*var(--u)),88px)]"
             >
-              <RichLines lines={data?.title} />
+              <RichLines lines={title} />
             </Heading>
           </Reveal>
           <div className="lg:pt-[calc(8*var(--u))] lg:pl-[calc(72*var(--u))]">
@@ -28,10 +29,10 @@ export default function OurStory({ data }) {
               variant="fade"
               className="text-xs font-medium tracking-[0.3em] text-basecolor uppercase lg:text-eyebrow"
             >
-              {data?.eyebrow}
+              {data?.title_two}
             </Reveal>
             <div className="mt-4 space-y-5 text-base/[1.7] font-medium text-basecolor2 sm:text-lg/[1.7] lg:mt-[calc(34*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-body">
-              {data?.paragraphs?.map((segments, i) => (
+              {segmentParagraphs(data?.description).map((segments, i) => (
                 <Reveal
                   as="p"
                   key={i}
@@ -52,7 +53,7 @@ export default function OurStory({ data }) {
           delay={0.2}
           className="mt-10 lg:mt-[calc(60*var(--u))]"
         >
-          <TimelineSlider items={data?.timeline} />
+          <TimelineSlider items={history} />
         </Reveal>
       </div>
     </section>
