@@ -9,12 +9,17 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - Stack: Next.js 16 (App Router, JS/JSX, no TypeScript), React 19, Tailwind v4, GSAP (+`@gsap/react`), Lenis smooth scroll, Three.js (globe), framer-motion, Radix (`ui/sheet`), lucide-react. Don't add dependencies without need.
 - Alias `@/` = `src/`.
 
+## Commands
+- `npm run dev` (use `npx next dev -p 3100`, port 3000 is taken), `npm run build`, `npm start`, `npm run lint`. There is no test runner; verification is lint + clean build + the checks under "Verification".
+- `.env` needs `NEXT_PUBLIC_API_URL` and `API_SECRET_TOKEN` for the API helpers (`src/lib/api.js`).
+
 ## Structure
 - `src/app/` — `layout.js` (renders Header, Footer, Preloader, SmoothScroll), `page.js` (page + `local_data`), `globals.css` (tokens, scale, `.typography`).
 - `src/components/common/` — reusable pieces (Button, Heading, RichText, Reveal, TextReveal, Parallax, NumberTicker, Ring, carousels, globe/hero media).
 - `src/components/layout/` — Header, Footer, MenuSheet. `src/components/ui/` — shadcn-style primitives.
 - `src/components/sections/<page>/` — one file per page section (e.g. `sections/home/hero.jsx`), kebab-case filenames.
 - `src/lib/` — `layout-data` (header/footer/menu data), `cn`, `globe/` (Three.js engine).
+- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer `API_SECRET_TOKEN` is added server-side only, so browser forms should post through a route handler. No caching options.
 - `public/images`, `public/videos` — assets, kebab-case names.
 
 ## Page standards (apply to EVERY page/build — keep all pages identical in approach)
