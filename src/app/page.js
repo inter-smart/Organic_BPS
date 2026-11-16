@@ -13,6 +13,7 @@ import {
   cta,
   figure,
   link,
+  noteLines,
   paragraphs,
   revealLines,
   segmentParagraphs,
@@ -216,10 +217,6 @@ const local_data = {
     paragraphs: [
       "In 1999, long before organic became a fashionable word, I chose it as our name for growth that is natural, rooted and life-giving. That belief still guides us in creating a beautiful world where business, people and planet thrive in harmony.",
       "We live it through Righteousness, Excellence and Results, and relationships built over decades. Because how we grow matters as much as how much we grow.",
-    ],
-    tagline: [
-      [{ t: "Growth for all." }],
-      [{ t: "Growth for good.", accent: true }],
     ],
     cta: { label: "Connect with the founder", href: "#contact" },
     photoAlt: "Dileep Narayanan, founder of Organic BPS",
@@ -455,7 +452,7 @@ async function HomeContent() {
             title: local_data.founder.title,
             role: section_six.designation,
             paragraphs: paragraphs(section_six.message),
-            tagline: local_data.founder.tagline,
+            tagline: noteLines(section_six.note),
             photo: section_six.image,
             photoAlt: text(section_six.title),
             cta: cta(section_six),

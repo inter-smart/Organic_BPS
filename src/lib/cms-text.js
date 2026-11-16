@@ -83,6 +83,17 @@ export function revealLines(html) {
   return lines;
 }
 
+// Two-line sign-off: the text before the <span> stays plain, the <span> text
+// becomes the accent line.
+export function noteLines(html) {
+  if (!html) return [];
+  return html
+    .split(/(<span[^>]*>[\s\S]*?<\/span>)/i)
+    .map((part) => ({ t: text(part), accent: /^<span/i.test(part) }))
+    .filter((s) => s.t)
+    .map((s) => [s.accent ? s : { t: s.t }]);
+}
+
 // Links that only point back at the CMS site are ignored.
 export function link(url) {
   if (!url) return undefined;
