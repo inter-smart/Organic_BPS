@@ -24,7 +24,7 @@ export default function TeamGallery({ data }) {
         <div className="flex flex-wrap items-start justify-between gap-6">
           <div>
             <Reveal variant="up">
-              <Heading as="h2" id="people-title" size="display" className="text-basecolor">
+              <Heading as="h2" id="people-title" size="display" className="text-black">
                 <RichLines lines={data?.title} />
               </Heading>
             </Reveal>

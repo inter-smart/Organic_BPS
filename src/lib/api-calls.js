@@ -1,9 +1,9 @@
 import { request } from "@/lib/api";
 
-export function apiGet(path, { params, signal } = {}) {
-  return request(path, { method: "GET", params, signal });
+export function apiGet(path, { params } = {}) {
+  return request(path, { method: "GET", params });
 }
 
-export function apiPost(path, body = {}, { signal } = {}) {
-  return request(path, { method: "POST", body, signal });
+export function apiPost(path, body = {}) {
+  return request(path, { method: "POST", body });
 }

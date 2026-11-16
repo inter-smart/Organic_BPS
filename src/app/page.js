@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Clients from "@/components/sections/home/client-logos";
 import Greenstorm from "@/components/sections/home/greenstorm";
 import Hero from "@/components/sections/home/hero";
@@ -7,6 +8,15 @@ import GlobeImpact from "@/components/sections/home/globe-impact";
 import TeamGallery from "@/components/sections/home/team-gallery";
 import PurposeInsights from "@/components/sections/home/purpose-insights";
 import PurposeActivation from "@/components/sections/home/purpose-activation";
+import { apiGet } from "@/lib/api-calls";
+import {
+  cta,
+  figure,
+  link,
+  paragraphs,
+  segmentParagraphs,
+  text,
+} from "@/lib/cms-text";
 
 const local_data = {
   hero: {
@@ -245,10 +255,7 @@ const local_data = {
   },
 
   people: {
-    title: [
-      [{ t: "Good work", className: "text-black" }],
-      [{ t: "finds good people." }],
-    ],
+    title: [[{ t: "Good work" }], [{ t: "finds good people.", accent: true }]],
     subtitle: "Thankfully, they keep finding us.",
     cta: { label: "View all", href: "#contact" },
     images: [
@@ -328,18 +335,199 @@ const local_data = {
   },
 };
 
-export default function page() {
+const pinIcons = { patagonia: "mountain", natura: "leaf" };
+
+// One counter reads { title: "Photographers", value: "50K+" }, but the last
+// one arrives swapped ({ title: "17", value: "Impactful Years" }).
+function counter(c, id) {
+  const swapped = !/^\d/.test(c.value ?? "");
+  const [number, label] = swapped ? [c.title, c.value] : [c.value, c.title];
+  return { id, ...figure(number), label };
+}
+
+async function HomeContent() {
+  const { data } = await apiGet("home");
+  if (!data) return null;
+
+  const {
+    sliders,
+    home_cms: cms,
+    map_details,
+    loyalty_status,
+    partners,
+    gallery,
+    blogs,
+  } = data;
+  const {
+    section_one,
+    section_two,
+    section_three,
+    section_four,
+    section_five,
+    section_six,
+    section_seven,
+    section_eight,
+  } = cms ?? {};
+  const counters = [
+    section_five?.counter_one,
+    section_five?.counter_two,
+    section_five?.counter_three,
+    section_five?.counter_four,
+  ];
+  const labels = (section_three?.description ?? "")
+    .split(",")
+    .map((l) => l.trim())
+    .filter(Boolean);
+
   return (
     <main>
-      <Hero data={local_data.hero} />
-      <WhatWeDo data={local_data.whatWeDo} />
-      <GlobeImpact data={local_data.globe} />
-      <PurposeActivation data={local_data.purposeActivation} />
-      <Clients data={local_data.clients} />
-      <Greenstorm data={local_data.greenstorm} />
-      <Founder data={local_data.founder} />
-      <TeamGallery data={local_data.people} />
-      <PurposeInsights data={local_data.insights} />
+      {sliders && (
+        <Hero
+          data={{
+            title: local_data.hero.title,
+            slides: sliders.video
+              ? [
+                  {
+                    id: sliders.id,
+                    type: "video",
+                    src: sliders.video,
+                    poster: sliders.video_thumbnail_image,
+                  },
+                ]
+              : undefined,
+            button_title: sliders.button_title,
+            button_url: link(sliders.button_url),
+          }}
+        />
+      )}
+      {section_one && (
+        <WhatWeDo
+          data={{
+            title: local_data.whatWeDo.title,
+            media: { video: section_one.video },
+            paragraphs: segmentParagraphs(section_one.description),
+            cta: cta(section_one),
+          }}
+        />
+      )}
+      {section_two && (
+        <GlobeImpact
+          data={{
+            title: local_data.globe.title,
+            text: text(section_two.description),
+            cta: cta(section_two),
+            pins: map_details?.map((p) => ({
+              id: p.id,
+              title: p.title,
+              subtitle: p.description,
+              lat: Number(p.latitude),
+              lng: Number(p.longitude),
+              icon: pinIcons[p.title?.toLowerCase()],
+            })),
+            stats: loyalty_status?.map((stat) => ({
+              id: stat.id,
+              ...figure(stat.value),
+              label: stat.title,
+              icon: { src: stat.icon },
+            })),
+          }}
+        />
+      )}
+      {section_three && (
+        <PurposeActivation
+          data={{
+            lines: local_data.purposeActivation.lines,
+            links: labels.map((label, i) => ({
+              id: i + 1,
+              label,
+            })),
+          }}
+        />
+      )}
+      {section_four && (
+        <Clients
+          data={{
+            title: local_data.clients.title,
+            text: text(section_four.description),
+            items: partners?.map((p) => ({
+              id: p.id,
+              name: p.image_alt_tag,
+              logo: p.image,
+            })),
+          }}
+        />
+      )}
+      {section_five && (
+        <Greenstorm
+          data={{
+            title: local_data.greenstorm.title,
+            paragraphs: paragraphs(section_five.description),
+            photos: [
+              section_five.image_one,
+              section_five.image_two,
+              section_five.image_three,
+              section_five.image_four,
+            ].map((src, i) => ({ id: i + 1, src })),
+            partners: {
+              logo: section_five.logo_one,
+              mark: section_five.logo_two,
+            },
+            stats: counters.filter(Boolean).map((c, i) => counter(c, i + 1)),
+            cta: cta(section_five),
+          }}
+        />
+      )}
+      {section_six && (
+        <Founder
+          data={{
+            title: local_data.founder.title,
+            role: section_six.designation,
+            paragraphs: paragraphs(section_six.message),
+            tagline: local_data.founder.tagline,
+            photo: section_six.image,
+            photoAlt: text(section_six.title),
+            cta: cta(section_six),
+          }}
+        />
+      )}
+      {section_seven && (
+        <TeamGallery
+          data={{
+            title: local_data.people.title,
+            subtitle: text(section_seven.description),
+            cta: cta(section_seven),
+            images: gallery?.map((g) => ({
+              id: g.id,
+              src: g.image,
+              alt: g.image_alt_tag,
+            })),
+          }}
+        />
+      )}
+      {section_eight && (
+        <PurposeInsights
+          data={{
+            title: local_data.insights.title,
+            text: text(section_eight.description),
+            cta: cta(section_eight),
+            items: blogs?.map((item) => ({
+              id: item?.id,
+              title: item?.title,
+              text: item?.small_description,
+              image: item?.image,
+              alt: item?.title,
+            })),
+          }}
+        />
+      )}
     </main>
+  );
+}
+
+export default function page() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
   );
 }

@@ -107,3 +107,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Breakpoint (2026-11-05)
 - Tailwind `lg` is 960px (`--breakpoint-lg` in globals.css), matching the container step; JS matchMedia/scale thresholds use 960 too. Between 960 and 1023 the desktop (`lg:`) styles apply, not sm/md.
+
+## Home data (2026-11-16)
+- `src/app/page.js` holds only the static section titles (`titles`: ring, accents, line breaks). Everything else comes from the API (`apiGet("home")`), shaped inline with the `lib/cms-text.js` helpers. There is no `home-data.js` and no fallback copy: a missing section/field renders nothing, and an API failure renders no sections.
+- The ring replaces the "o" in titles only, never in descriptions; `RichText` renders it only for segments with `ring: true`.

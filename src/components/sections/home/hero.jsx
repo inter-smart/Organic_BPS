@@ -38,13 +38,13 @@ export default function Hero({ data }) {
             </Heading>
           </Reveal>
           <Reveal variant="up" delay={0.35} className="mt-8 lg:mt-13.5">
-            <Button href={data?.cta?.href} variant="dark">
-              {data?.cta?.label}
+            <Button href={data?.button_url ?? ""} variant="dark">
+              {data?.button_title}
             </Button>
           </Reveal>
           <Link
-            href={data?.scroll?.href}
-            aria-label={data?.scroll?.label}
+            href={data?.button_url ?? ""}
+            aria-label={data?.button_title}
             className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
           >
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">

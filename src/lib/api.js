@@ -1,7 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Every call returns { data, error } and never throws.
-export async function request(path, { method = "GET", params, body, signal }) {
+export async function request(path, { method = "GET", params, body }) {
   let url = `${BASE_URL}/${path}`;
   if (params) url += `?${new URLSearchParams(params)}`;
 
@@ -21,7 +21,7 @@ export async function request(path, { method = "GET", params, body, signal }) {
   }
 
   try {
-    const res = await fetch(url, { method, headers, body: payload, signal });
+    const res = await fetch(url, { method, headers, body: payload });
     const json = await res.json().catch(() => null);
 
     if (!res.ok) {
@@ -35,7 +35,7 @@ export async function request(path, { method = "GET", params, body, signal }) {
       };
     }
 
-    return { data: json, error: null };
+    return { data: json.data, error: null };
   } catch {
     return {
       data: null,

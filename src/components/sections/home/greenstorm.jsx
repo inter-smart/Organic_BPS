@@ -15,13 +15,15 @@ export default function Greenstorm({ data }) {
       className={`group relative overflow-hidden rounded-[20px] ${extra}`}
     >
       <Parallax className="absolute inset-0" from={-6} to={6}>
-        <Image
-          src={p?.src}
-          alt={p?.alt ?? ""}
-          fill
-          sizes="(min-width: 1280px) 33vw, 50vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
+        {p?.src ? (
+          <Image
+            src={p.src}
+            alt={p?.alt ?? ""}
+            fill
+            sizes="(min-width: 1280px) 33vw, 50vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        ) : null}
       </Parallax>
     </Reveal>
   );
@@ -74,22 +76,26 @@ export default function Greenstorm({ data }) {
               className="flex items-center justify-between gap-6 lg:-mt-5"
             >
               <div className="relative h-10 w-60 sm:h-12 sm:w-72 lg:h-18 lg:w-102.5">
-                <Image
-                  src="/images/logo-unccd-g20.png"
-                  alt={data?.partners?.alt}
-                  fill
-                  sizes="410px"
-                  className="object-contain object-left mix-blend-darken"
-                />
+                {data?.partners?.logo ? (
+                  <Image
+                    src={data.partners.logo}
+                    alt={data?.partners?.alt}
+                    fill
+                    sizes="410px"
+                    className="object-contain object-left mix-blend-darken"
+                  />
+                ) : null}
               </div>
               <div className="relative h-12 w-14 lg:h-20.75 lg:w-23.25">
-                <Image
-                  src="/images/logo-greenstorm.png"
-                  alt={data?.partners?.markAlt}
-                  fill
-                  sizes="93px"
-                  className="object-contain"
-                />
+                {data?.partners?.mark ? (
+                  <Image
+                    src={data.partners.mark}
+                    alt={data?.partners?.markAlt}
+                    fill
+                    sizes="93px"
+                    className="object-contain"
+                  />
+                ) : null}
               </div>
             </Reveal>
             <dl className="relative mt-8 grid grid-cols-2 lg:mt-0 lg:w-[calc(392*var(--u))] before:absolute before:left-0 before:right-0 before:top-1/2 before:h-px before:bg-[linear-gradient(90deg,transparent,#d4d4d4_50%,#d4d4d4_50%,transparent)] after:absolute after:left-1/2 after:top-0 after:bottom-0 after:w-px after:bg-[linear-gradient(180deg,transparent,#d4d4d4_50%,#d4d4d4_50%,transparent)]">

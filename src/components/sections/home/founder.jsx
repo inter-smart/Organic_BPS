@@ -75,14 +75,16 @@ export default function Founder({ data }) {
           scale={1}
           end="center center"
         >
-          <Image
-            src="/images/founder-portrait.png"
-            alt={data?.photoAlt}
-            fill
-            sizes="(min-width: 1280px) 57vw, 100vw"
-            className="object-contain object-bottom"
-          />
-        </Parallax>
+          {data?.photo ? (
+            <Image
+              src={data.photo}
+              alt={data?.photoAlt}
+              fill
+              sizes="(min-width: 1280px) 57vw, 100vw"
+              className="object-contain object-bottom"
+            />
+          ) : null}
+    </Parallax>
       </Reveal>
     </section>
   );
