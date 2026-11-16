@@ -51,6 +51,38 @@ export function segmentParagraphs(html) {
     .filter((p) => p.length);
 }
 
+// Scroll-reveal headline: one line per sentence, <span> words in the accent
+// colour, "purpose" with the ring, sentence-ending full stops in the accent.
+export function revealLines(html) {
+  if (!html) return [];
+  const words = html.split(/(<span[^>]*>[\s\S]*?<\/span>)/i).flatMap((part) => {
+    const accent = /^<span/i.test(part);
+    return text(part)
+      .split(" ")
+      .filter(Boolean)
+      .map((t) => ({ t, accent }));
+  });
+  const lines = [];
+  let line = [];
+  for (const { t, accent } of words) {
+    const end = /[.!?]$/.test(t);
+    const word = end ? t.slice(0, -1) : t;
+    const ring = word.toLowerCase() === "purpose";
+    line.push({
+      t: word,
+      c: accent ? "#da4d47" : ring ? "#222222" : "#333333",
+      ...(ring && { ring }),
+    });
+    if (end) {
+      line.push({ t: t.slice(-1), c: "#da4d47", attach: true });
+      lines.push(line);
+      line = [];
+    }
+  }
+  if (line.length) lines.push(line);
+  return lines;
+}
+
 // Links that only point back at the CMS site are ignored.
 export function link(url) {
   if (!url) return undefined;

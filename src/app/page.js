@@ -14,6 +14,7 @@ import {
   figure,
   link,
   paragraphs,
+  revealLines,
   segmentParagraphs,
   text,
 } from "@/lib/cms-text";
@@ -130,36 +131,6 @@ const local_data = {
         label: "of executives prioritise societal value",
         icon: { src: "/images/stat-value.svg", w: 43, h: 38 },
       },
-    ],
-  },
-
-  purposeActivation: {
-    // c = final colour of each word; the scroll animation fills the words in from pale grey
-    lines: [
-      [
-        { t: "We discover", c: "#da4d47" },
-        { t: "purpose", c: "#222222", ring: true },
-        { t: ".", c: "#da4d47", attach: true },
-      ],
-      [
-        { t: "We", c: "#333333" },
-        { t: "build", c: "#333333" },
-        { t: "belief", c: "#333333" },
-        { t: "around", c: "#333333" },
-        { t: "it", c: "#333333" },
-        { t: ".", c: "#da4d47", attach: true },
-      ],
-      [
-        { t: "We", c: "#333333" },
-        { t: "drive", c: "#333333" },
-        { t: "action", c: "#333333" },
-        { t: ".", c: "#da4d47", attach: true },
-      ],
-    ],
-    links: [
-      { id: 1, label: "Purpose strategy", href: "#contact" },
-      { id: 2, label: "Brand communication", href: "#contact" },
-      { id: 3, label: "Purpose activation", href: "#contact" },
     ],
   },
 
@@ -374,8 +345,9 @@ async function HomeContent() {
     section_five?.counter_three,
     section_five?.counter_four,
   ];
-  const labels = (section_three?.description ?? "")
-    .split(",")
+  const labels = []
+    .concat(section_three?.description ?? [])
+    .flatMap((l) => l.split(","))
     .map((l) => l.trim())
     .filter(Boolean);
 
@@ -436,7 +408,7 @@ async function HomeContent() {
       {section_three && (
         <PurposeActivation
           data={{
-            lines: local_data.purposeActivation.lines,
+            lines: revealLines(section_three.title),
             links: labels.map((label, i) => ({
               id: i + 1,
               label,
