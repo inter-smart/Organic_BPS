@@ -124,3 +124,4 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Contact API (2026-11-16)
 - `/contact` reads `apiGet("contact")` in `app/contact/page.js`. Title line breaks/accents and the map button label are static in `local_data`; everything else (banner, enquiry copy, email/phone, office list, explore options for the form select, careers email) comes from the API with no fallback copy. The form still has no submit endpoint. Hero uses `banner_top_image` as a single avatar.
+- Titles (2026-11-16): hero, enquiry, locations and careers headings come from the API (`banner_title`, `section_one.subtitle`, `section_two.title`, `section_three.title`) through `parseTitle` (`<span>` = accent, `<br>`/`</br>` = line break). The static title arrays in `local_data` are commented out.

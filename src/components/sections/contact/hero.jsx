@@ -57,17 +57,25 @@ export default function Hero({ banner, title, scroll }) {
             delay={0.25}
             className="flex items-center gap-3 lg:mt-0"
           >
-            {banner?.banner_top_image ? (
-              <div className="relative size-9 overflow-hidden rounded-full lg:size-[calc(38*var(--u))]">
-                <Image
-                  src={banner.banner_top_image}
-                  alt=""
-                  fill
-                  sizes="38px"
-                  className="object-cover"
-                />
-              </div>
-            ) : null}
+            <div className="flex -space-x-2">
+              {[banner?.banner_top_image]
+                .flat()
+                .filter(Boolean)
+                .map((src) => (
+                  <div
+                    key={src}
+                    className="relative size-9 overflow-hidden rounded-full ring-2 ring-basecolor4 lg:size-[calc(38*var(--u))]"
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="38px"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+            </div>
             <p className="text-xs text-white/90 lg:text-sm">
               {banner?.image_text}
             </p>
