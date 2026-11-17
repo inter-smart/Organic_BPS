@@ -23,7 +23,7 @@ export default async function page() {
       <MetaTags html={data.banner?.other_meta_tags} />
       {banner && <Hero banner={banner} />}
       {practices?.length > 0 && (
-        <Practices eyebrow={cms?.title_one} practices={practices} />
+        <Practices data={cms} practices={practices} />
       )}
     </main>
   );

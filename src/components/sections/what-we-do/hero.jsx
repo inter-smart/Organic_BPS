@@ -53,7 +53,7 @@ export default function Hero({ banner }) {
                 className="text-white"
               >
                 {/* <RichLines lines={title} /> */}
-                {renderTitle(title)}
+                {renderTitle(banner?.banner_title)}
               </Heading>
             </Reveal>
             <Reveal

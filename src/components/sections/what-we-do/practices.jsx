@@ -16,7 +16,7 @@ const logos = [
   { alt: "Green House", width: 249, height: 114 },
 ];
 
-export default function Practices({ eyebrow, practices = [] }) {
+export default function Practices({ data, practices = [] }) {
   const tabs = practices.map((p) => ({
     id: p.id,
     label: p.title,
@@ -35,7 +35,7 @@ export default function Practices({ eyebrow, practices = [] }) {
           variant="fade"
           className="text-center text-xs font-bold tracking-[0.2em] text-basecolor uppercase lg:text-[clamp(14px,calc(21.589*var(--u)),21.589px)]"
         >
-          {eyebrow}
+          {data?.title_one}
         </Reveal>
         <Reveal variant="up" delay={0.1}>
           <Heading
@@ -44,7 +44,7 @@ export default function Practices({ eyebrow, practices = [] }) {
             className="mt-3 text-center text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(32px,calc(86.357*var(--u)),86.357px)]"
           >
             {/* <RichLines lines={title} /> */}
-            {renderTitle(title)}
+            {renderTitle(data?.title_two)}
           </Heading>
         </Reveal>
         <div className="below-header-sticky z-20 mt-3.75 sm:mt-8 bg-white 2xl:mt-5 border-b border-[#D2D2D2]">

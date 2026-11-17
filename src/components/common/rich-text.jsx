@@ -18,8 +18,23 @@ export function RichText({ segments = [] }) {
   });
 }
 
+// A full stop outside a highlighted span takes the accent colour too.
+function withStops(t, accent) {
+  return t
+    .split(/(\.(?=\s|$))/)
+    .map((chunk, i) =>
+      chunk === "." ? (
+        <span key={i} className={accent}>
+          .
+        </span>
+      ) : (
+        chunk
+      ),
+    );
+}
+
 // Plain text between tags; text() trims, so the edge spaces are put back.
-function plain(part, cls, key) {
+function plain(part, cls, key, accent) {
   const body = text(part);
   const t = body
     ? (/^\s/.test(part) ? " " : "") + body + (/\s$/.test(part) ? " " : "")
@@ -27,6 +42,7 @@ function plain(part, cls, key) {
       ? " "
       : "";
   if (!t) return null;
+  if (!cls && accent) return <span key={key}>{withStops(t, accent)}</span>;
   return cls ? (
     <span key={key} className={cls}>
       {t}
@@ -38,9 +54,9 @@ function plain(part, cls, key) {
 
 // <b>o</b> becomes the ring image (the letter stays for screen readers). The
 // word around it is kept on one line.
-function ringParts(html, cls) {
+function ringParts(html, cls, accent) {
   return html.split(/(\S*<b[^>]*>[\s\S]*?<\/b>\S*)/i).map((chunk, i) => {
-    if (!/<b/i.test(chunk)) return plain(chunk, cls, i);
+    if (!/<b/i.test(chunk)) return plain(chunk, cls, i, accent);
     return (
       <span key={i} className="whitespace-nowrap">
         {chunk.split(/(<b[^>]*>[\s\S]*?<\/b>)/i).map((part, j) =>
@@ -50,7 +66,7 @@ function ringParts(html, cls) {
               <Ring />
             </span>
           ) : (
-            plain(part, cls, j)
+            plain(part, cls, j, accent)
           ),
         )}
       </span>
@@ -78,7 +94,7 @@ export function renderTitle(title, accent = "text-basecolor") {
           ? part.replace(/^<span[^>]*>|<\/span>$/gi, "")
           : part;
         const cls = isSpan ? spanColor(part, accent) : undefined;
-        return <span key={j}>{ringParts(inner, cls)}</span>;
+        return <span key={j}>{ringParts(inner, cls, accent)}</span>;
       })}
     </span>
   ));

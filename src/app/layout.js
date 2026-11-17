@@ -29,13 +29,6 @@ const inter = Inter({
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default:
-      "Organic BPS — Purpose is the journey that powers every other journey",
-    template: "%s — Organic BPS",
-  },
-  description:
-    "Organic BPS is a Brand Purpose Consultancy with more than 26 years of experience in brand strategy and communication.",
   robots: allowIndexing
     ? { index: true, follow: true }
     : {
