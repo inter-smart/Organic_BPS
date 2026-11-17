@@ -8,25 +8,15 @@ export const layout_data = {
       { id: 3, label: "How We Work", href: "/how-we-work" },
       { id: 4, label: "Who we are", href: "/who-we-are" },
     ],
-    cta: { label: "Let’s Connect", href: "/contact" },
   },
 
   footer: {
     logo: { alt: "Organic BPS" },
-    title: [[{ t: "Let’s" }], [{ t: "Connect" }, { t: ".", accent: true }]],
     legal: [
       { id: 1, label: "Privacy", href: "/privacy" },
       { id: 2, label: "Terms of use", href: "#" },
     ],
-    text: "To founders building businesses, brands looking for change, and people ready to create it.",
-    welcome: "Welcome.",
-    cta: { label: "Contact", href: "/contact" },
     copyright: "© Copyright 2026, Organic BPS Pvt ltd, All rights reserved",
-    social: [
-      { id: 1, label: "Facebook", href: "#", icon: "/images/social-facebook.svg" },
-      { id: 2, label: "Instagram", href: "#", icon: "/images/social-instagram.svg" },
-      { id: 3, label: "WhatsApp", href: "#", icon: "/images/social-whatsapp.svg" },
-    ],
     credit: { label: "Designed & Developed By:", name: "Intersmart", href: "https://intersmart.in" },
   },
 };

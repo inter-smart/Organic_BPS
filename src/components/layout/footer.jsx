@@ -47,9 +47,11 @@ export default function Footer({ data }) {
               <Reveal as="p" variant="up" delay={0.1} className="text-3xl font-semibold text-basecolor lg:mt-17.5 lg:text-title">
                 {data?.welcome}
               </Reveal>
-              <Reveal variant="up" delay={0.2} className="lg:mt-23">
-                <Button href={data?.cta?.href}>{data?.cta?.label}</Button>
-              </Reveal>
+              {data?.cta ? (
+                <Reveal variant="up" delay={0.2} className="lg:mt-23">
+                  <Button href={data.cta.href}>{data.cta.label}</Button>
+                </Reveal>
+              ) : null}
             </div>
           </div>
         </div>
@@ -64,10 +66,12 @@ export default function Footer({ data }) {
                 <li key={s?.id}>
                   <a
                     href={s?.href ?? "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={s?.label}
                     className="relative block size-9 transition-transform duration-300 hover:-translate-y-1 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:size-10"
                   >
-                    <Image src={s?.icon} alt="" fill className="object-contain" />
+                    <Image src={s?.icon} alt="" fill unoptimized className="object-contain" />
                   </a>
                 </li>
               ))}

@@ -129,3 +129,6 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Privacy API (2026-11-16)
 - `/privacy` reads `apiGet("policy/privacy-policy")` (`data.policy`) in `app/privacy/page.js`, Suspense-wrapped. Hero, section heading, help note, CTA and the 12 policy sections come from the API; the scroll link and contents-card labels are static. Section ids are `slug(title)`; each `contents[].description` HTML goes straight into `.policy-copy`. Intro paragraphs are taken as plain text (the API HTML carries its own Tailwind classes, which would not be generated). Only the desktop `banner` image is used.
+
+## Layout API (2026-11-17)
+- Header and footer are rendered by `components/layout/site-chrome.jsx` (async, Suspense-wrapped in `app/layout.js`). It reads `apiGet("site-settings")` (header/footer button label+link, footer title/text/welcome) and `apiGet("social-links")` (sorted by `sort_order`, remote SVG icons, `unoptimized`, open in a new tab). A `null` button link falls back to `/contact`; a missing button name hides the button. Logo, nav links, legal links, copyright and credit stay static in `lib/layout-data.js`. Email, phone and `map_link` from site-settings are not used.
