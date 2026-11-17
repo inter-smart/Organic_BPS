@@ -29,23 +29,14 @@ const local_data = {
       goTo: "Go to perspective",
     },
   },
-  insights: {
-    count: "Showing {shown} of {total} perspectives",
-    empty:
-      "No perspectives match your search yet. Try another topic or clear the search.",
-    error: "We couldn’t load the perspectives. Please try again.",
-    loading: "Loading perspectives",
-    filters: { label: "Filter by topic" },
-    search: {
-      label: "Search perspectives",
-      placeholder: "Search perspectives",
-    },
-    card: { readTime: "{n} min read", link: "Read More" },
-    loadMore: "View More",
-  },
   newsletter: {
     form: newsletter.form,
     privacy: newsletter.privacy,
+    errors: {
+      captcha: "We couldn’t verify you are human. Please try again.",
+      generic: "Something went wrong. Please try again.",
+      network: "Network error. Please try again.",
+    },
   },
 };
 
@@ -87,10 +78,9 @@ async function BlogContent() {
             items: (data.featured_blogs ?? []).map(mapBlog),
           }}
           listing={{
-            ...local_data.insights,
             eyebrow: text(cms?.section_two?.title),
             title: text(cms?.section_two?.subtitle),
-            filters: { ...local_data.insights.filters, items: categories },
+            filters: { items: categories },
             // the plain list leaves the featured blog out; the filter list has every blog
             initial: mapPage(all ?? data.blogs),
           }}

@@ -1,3 +1,5 @@
+import { apiGet } from "@/lib/api-calls";
+
 const MONTHS = [
   "jan",
   "feb",
@@ -55,4 +57,14 @@ export function mapPage(paginator) {
     lastPage: paginator?.last_page ?? 1,
     total: paginator?.total ?? 0,
   };
+}
+
+// One page of the filter endpoint; null when the request fails.
+export async function fetchBlogPage({ category, search, page, signal }) {
+  const params = {};
+  if (category) params.category = category;
+  if (search) params.search = search;
+  if (page > 1) params.page = page;
+  const { data, error } = await apiGet("blogs/filter", { params, signal });
+  return error ? null : mapPage(data);
 }

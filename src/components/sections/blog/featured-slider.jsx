@@ -1,16 +1,13 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Fade from "embla-carousel-fade";
-import { formatDate } from "@/lib/format-date";
-import Button from "@/components/common/button";
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
-
-const ctrl =
-  "flex size-10 items-center justify-center rounded-full border border-basecolor16 bg-white text-basecolor7 transition-colors duration-300 hover:border-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none";
+import Button from "@/components/common/button";
+import { formatDate } from "@/lib/format-date";
 
 export default function FeaturedSlider({ items = [], cta, labels }) {
-  const slides = items;
   const [selected, setSelected] = useState(0);
   const [viewportRef, embla] = useEmblaCarousel(
     {
@@ -24,11 +21,12 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
   useEffect(() => {
     if (!embla) return;
     const sync = () => setSelected(embla.selectedScrollSnap());
+    // the slide set can change after mount, so re-measure before syncing
     embla.reInit();
     sync();
     embla.on("select", sync).on("reInit", sync);
     return () => embla.off("select", sync).off("reInit", sync);
-  }, [embla, slides]);
+  }, [embla, items]);
 
   return (
     <div
@@ -39,12 +37,12 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
     >
       <div ref={viewportRef} className="overflow-hidden">
         <div className="flex">
-          {slides.map((item, i) => (
+          {items.map((item, i) => (
             <div
               key={item.id}
               role="group"
               aria-roledescription="slide"
-              aria-label={`${i + 1} / ${slides.length}`}
+              aria-label={`${i + 1} / ${items.length}`}
               inert={i !== selected}
               className="min-w-0 flex-[0_0_100%]"
             >
@@ -76,9 +74,6 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
                   </p>
                   <h3 className="mt-4 text-3xl/[1.08] font-bold tracking-[-0.02em] text-balance text-basecolor7 lg:mt-[calc(20*var(--u))] lg:text-[clamp(26px,calc(44*var(--u)),44px)]/[1.08] 3xl:text-[44px]!">
                     {item.title}
-                    {item.accent ? (
-                      <span className="text-basecolor">{item.accent}</span>
-                    ) : null}
                   </h3>
                   <p className="mt-4 text-base/[1.55] text-basecolor2 lg:mt-[calc(20*var(--u))] lg:text-[clamp(14px,calc(17*var(--u)),17px)]/[1.55] 3xl:text-[17px]! lg:max-w-[80%]">
                     {item.summary}
@@ -105,10 +100,7 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
                   <div className="mt-6 lg:mt-[calc(46*var(--u))]">
                     <Button href={item.href}>
                       {cta?.label}
-                      <span className="sr-only">
-                        : {item.title}
-                        {item.accent}
-                      </span>
+                      <span className="sr-only">: {item.title}</span>
                     </Button>
                   </div>
                 </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
@@ -8,87 +7,33 @@ import Reveal from "@/components/common/reveal";
 import Spinner from "@/components/common/spinner";
 import ArticleCard from "@/components/sections/blog/article-card";
 import { useBlogFilter } from "@/components/sections/blog/blog-filter";
-import { apiGet } from "@/lib/api-calls";
-import { mapPage } from "@/lib/blog-api";
+import useBlogList from "@/components/sections/blog/use-blog-list";
 import { cn } from "@/lib/utils";
 
 const pill =
   "rounded-full border px-5 py-3 text-sm font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none lg:border-[1.3px] lg:px-[calc(22.7*var(--u))] lg:py-[calc(14.7*var(--u))] lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]";
 
-const SEARCH_DELAY = 500;
-
-async function fetchPage(category, search, page, signal) {
-  const params = {};
-  if (category) params.category = category;
-  if (search) params.search = search;
-  if (page > 1) params.page = page;
-  const { data, error } = await apiGet("blogs/filter", { params, signal });
-  return error ? null : mapPage(data);
-}
+const cardLabels = { readTime: "{n} min read", link: "Read More" };
+const errorText = "We couldn’t load the perspectives. Please try again.";
+const emptyText =
+  "No perspectives match your search yet. Try another topic or clear the search.";
 
 /** "Latest thinking": topic filters, search and paged article grid, all served by the API. */
 export default function Listing({ data }) {
   const { category, setCategory, query, setQuery } = useBlogFilter();
-  const [list, setList] = useState(data?.initial);
-  const [status, setStatus] = useState("idle");
-  const loadedKey = useRef("all|");
-  const request = useRef(null);
+  const { list, status, loadMore } = useBlogList({
+    initial: data.initial,
+    category,
+    search: query.trim(),
+  });
 
-  const search = query.trim();
-  const filterKey = `${category}|${search}`;
-
-  // a new topic or search starts again from the first page; typing waits for the pause
-  useEffect(() => {
-    if (filterKey === loadedKey.current) return;
-    const timer = setTimeout(
-      async () => {
-        const ctrl = new AbortController();
-        request.current = ctrl;
-        setStatus("loading");
-        const res = await fetchPage(category, search, 1, ctrl.signal);
-        if (ctrl.signal.aborted) return;
-        if (!res) {
-          setStatus("error");
-          return;
-        }
-        loadedKey.current = filterKey;
-        setList(res);
-        setStatus("idle");
-      },
-      search ? SEARCH_DELAY : 0,
-    );
-    return () => {
-      clearTimeout(timer);
-      request.current?.abort();
-    };
-  }, [filterKey, category, search]);
-
-  async function loadMore() {
-    request.current?.abort();
-    const ctrl = new AbortController();
-    request.current = ctrl;
-    setStatus("more");
-    const res = await fetchPage(category, search, list.page + 1, ctrl.signal);
-    if (ctrl.signal.aborted) return;
-    if (!res) {
-      setStatus("error");
-      return;
-    }
-    setList((prev) => ({
-      ...res,
-      articles: [
-        ...prev.articles,
-        ...res.articles.filter(
-          (a) => !prev.articles.some((p) => p.id === a.id),
-        ),
-      ],
-    }));
-    setStatus("idle");
-  }
-
-  const shown = list?.articles ?? [];
-  const hasMore = (list?.page ?? 1) < (list?.lastPage ?? 1);
+  const shown = list.articles;
+  const hasMore = list.page < list.lastPage;
   const loading = status === "loading";
+  const failed = status === "error";
+  const countLabel = loading
+    ? "Loading perspectives"
+    : `Showing ${shown.length} of ${list.total} perspectives`;
 
   return (
     <section
@@ -104,7 +49,7 @@ export default function Listing({ data }) {
               variant="fade"
               className="text-xs font-bold tracking-[0.18em] text-basecolor14 uppercase lg:text-[clamp(12px,calc(17.4*var(--u)),17.4px)]"
             >
-              {data?.eyebrow}
+              {data.eyebrow}
             </Reveal>
             <Reveal variant="up" className="mt-3 lg:mt-[calc(16*var(--u))]">
               <Heading
@@ -113,7 +58,7 @@ export default function Listing({ data }) {
                 size="display"
                 className="text-basecolor7 lg:leading-[1.25] lg:tracking-[-0.025em] 3xl:max-w-[900px]! 2xl:max-w-[700px] lg:max-w-[600px]"
               >
-                {data?.title}
+                {data.title}
               </Heading>
             </Reveal>
           </div>
@@ -121,21 +66,17 @@ export default function Listing({ data }) {
             role="status"
             className="text-sm text-basecolor9 lg:text-[clamp(13px,calc(18.7*var(--u)),18.7px)]"
           >
-            {loading
-              ? data?.loading
-              : data?.count
-                  ?.replace("{shown}", shown.length)
-                  .replace("{total}", list?.total ?? shown.length)}
+            {countLabel}
           </p>
         </div>
 
         <div className="mt-8 flex flex-col gap-4 lg:mt-[calc(58*var(--u))] lg:flex-row lg:items-center lg:justify-between">
           <div
             role="group"
-            aria-label={data?.filters?.label}
+            aria-label="Filter by topic"
             className="flex flex-wrap gap-2.5 lg:gap-[calc(13.4*var(--u))]"
           >
-            {(data?.filters?.items ?? []).map((item) => {
+            {data.filters.items.map((item) => {
               const on = category === item.slug;
               return (
                 <button
@@ -169,14 +110,14 @@ export default function Listing({ data }) {
               className="size-5 shrink-0 lg:size-[calc(22.7*var(--u))]"
             />
             <label htmlFor="blog-search" className="sr-only">
-              {data?.search?.label}
+              Search perspectives
             </label>
             <input
               id="blog-search"
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={data?.search?.placeholder}
+              placeholder="Search perspectives"
               className="min-w-0 flex-1 bg-transparent text-sm text-basecolor7 outline-none placeholder:text-basecolor9 lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]"
             />
           </form>
@@ -192,24 +133,24 @@ export default function Listing({ data }) {
               <ArticleCard
                 key={article.id}
                 article={article}
-                labels={data?.card}
+                labels={cardLabels}
               />
             ))}
           </div>
         ) : (
           <p
-            role={status === "error" ? "alert" : undefined}
+            role={failed ? "alert" : undefined}
             className="mt-12 text-center text-lg text-basecolor9 lg:mt-[calc(80*var(--u))]"
           >
-            {status === "error" ? data?.error : data?.empty}
+            {failed ? errorText : emptyText}
           </p>
         )}
-        {status === "error" && shown.length ? (
+        {failed && shown.length ? (
           <p
             role="alert"
             className="mt-8 text-center text-base text-basecolor9"
           >
-            {data?.error}
+            {errorText}
           </p>
         ) : null}
         {hasMore && !loading ? (
@@ -219,7 +160,7 @@ export default function Listing({ data }) {
                 <Spinner />
               </div>
             ) : (
-              <Button onClick={loadMore}>{data?.loadMore}</Button>
+              <Button onClick={loadMore}>View More</Button>
             )}
           </div>
         ) : null}

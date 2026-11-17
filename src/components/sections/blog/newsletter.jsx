@@ -13,6 +13,19 @@ import { apiPost } from "@/lib/api-calls";
 import { fieldErrors } from "@/lib/contact-schema";
 import { newsletterSchema } from "@/lib/newsletter-schema";
 
+// field error first, then the API message, then the generic fallback
+function apiMessage(apiError, fallback) {
+  const field = apiError.errors?.email;
+  return (
+    (Array.isArray(field) ? field[0] : field) || apiError.message || fallback
+  );
+}
+
+// the note carries the privacy link label; split it so the label can be a link
+function splitNote(note = "", label) {
+  return label ? note.split(label) : [note];
+}
+
 export default function Newsletter({ data }) {
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -34,7 +47,7 @@ export default function Newsletter({ data }) {
     try {
       const token = await getRecaptchaToken("newsletter");
       if (RECAPTCHA_SITE_KEY && !token) {
-        setError("We couldn't verify you are human. Please try again.");
+        setError(data?.errors?.captcha);
         return;
       }
       const body = { email: parsed.data.email };
@@ -45,22 +58,15 @@ export default function Newsletter({ data }) {
         setDone(true);
         return;
       }
-      const fieldError = apiError.errors?.email;
-      setError(
-        (Array.isArray(fieldError) ? fieldError[0] : fieldError) ||
-          apiError.message ||
-          "Something went wrong. Please try again.",
-      );
+      setError(apiMessage(apiError, data?.errors?.generic));
     } catch {
-      setError("Network error. Please try again.");
+      setError(data?.errors?.network);
     } finally {
       setSubmitting(false);
     }
   }
 
-  const [before, after] = (data?.note ?? "").split(
-    data?.privacy?.label ?? "\u0000",
-  );
+  const [before, after] = splitNote(data?.note, data?.privacy?.label);
 
   return (
     <section
@@ -111,7 +117,7 @@ export default function Newsletter({ data }) {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex shrink-0 items-center gap-2.5 rounded-full disabled:opacity-70 bg-basecolor7 px-5 py-3 text-xs font-semibold text-white transition-colors duration-300 hover:bg-basecolor2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none lg:px-[calc(20*var(--u))] lg:py-[calc(13*var(--u))] lg:text-[clamp(12px,calc(13*var(--u)),13px)]"
+                  className="flex shrink-0 items-center gap-2.5 rounded-full bg-basecolor7 px-5 py-3 text-xs font-semibold text-white transition-colors duration-300 hover:bg-basecolor2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 disabled:opacity-70 motion-reduce:transition-none lg:px-[calc(20*var(--u))] lg:py-[calc(13*var(--u))] lg:text-[clamp(12px,calc(13*var(--u)),13px)]"
                 >
                   {data?.form?.submit}
                   <Image
@@ -134,7 +140,7 @@ export default function Newsletter({ data }) {
               </p>
             ) : null}
             <Recaptcha className="mt-4 text-xs text-white opacity-70 2xl:text-sm" />
-            <p className="mt-5 text-sm/[1.4] text-white lg:mt-[calc(22*var(--u))] lg:text-[clamp(13px,calc(18*var(--u)),18px)]  3xl:text-lg opacity-70">
+            <p className="mt-5 text-sm/[1.4] text-white lg:mt-[calc(22*var(--u))] lg:text-[clamp(13px,calc(18*var(--u)),18px)] 3xl:text-lg opacity-70">
               {before}
               {after !== undefined ? (
                 <Link
