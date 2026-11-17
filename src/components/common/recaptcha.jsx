@@ -26,7 +26,9 @@ export async function getRecaptchaToken(action) {
   }
 }
 
-export default function Recaptcha() {
+export default function Recaptcha({
+  className = "text-xs text-basecolor9 2xl:text-sm",
+}) {
   if (!RECAPTCHA_SITE_KEY) return null;
   return (
     <>
@@ -34,7 +36,7 @@ export default function Recaptcha() {
         src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
         strategy="lazyOnload"
       />
-      <p className="text-xs text-basecolor9 2xl:text-sm">
+      <p className={className}>
         This site is protected by reCAPTCHA and the Google{" "}
         <a
           href="https://policies.google.com/privacy"
