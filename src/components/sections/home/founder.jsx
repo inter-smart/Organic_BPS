@@ -4,8 +4,11 @@ import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import { RichLines } from "@/components/common/rich-text";
+import { cta, noteLines, paragraphs, text } from "@/lib/cms-text";
 
-export default function Founder({ data }) {
+export default function Founder({ data, title }) {
+  const button = cta(data);
+
   return (
     <section
       id="who-we-are"
@@ -23,7 +26,7 @@ export default function Founder({ data }) {
                   size="display"
                   className="text-white"
                 >
-                  <RichLines lines={data?.title} />
+                  <RichLines lines={title} />
                 </Heading>
               </Reveal>
               <Reveal
@@ -32,10 +35,10 @@ export default function Founder({ data }) {
                 delay={0.1}
                 className="mt-3 text-sm font-medium tracking-[0.14em] text-basecolor uppercase lg:mt-6 lg:text-lead lg:tracking-[0.14em]"
               >
-                {data?.role}
+                {data.designation}
               </Reveal>
               <div className="mt-4 space-y-5 text-base/[1.8] font-medium text-white sm:text-lg/[1.8] lg:mt-6 lg:space-y-8 lg:text-lead/[2]">
-                {data?.paragraphs?.map((p, i) => (
+                {paragraphs(data.message).map((p, i) => (
                   <Reveal
                     as="p"
                     key={i}
@@ -49,12 +52,12 @@ export default function Founder({ data }) {
               </div>
               <Reveal variant="up" delay={0.3} className="mt-7 lg:mt-8">
                 <p className="text-2xl/[1.4] font-bold sm:text-3xl/[1.4] lg:text-title/[1.4]">
-                  <RichLines lines={data?.tagline} />
+                  <RichLines lines={noteLines(data.note)} />
                 </p>
               </Reveal>
               <Reveal variant="up" delay={0.4} className="mt-7 lg:mt-11">
-                <Button href={data?.cta?.href} variant="dark">
-                  {data?.cta?.label}
+                <Button href={button.href} variant="dark">
+                  {button.label}
                 </Button>
               </Reveal>
             </div>
@@ -75,16 +78,16 @@ export default function Founder({ data }) {
           scale={1}
           end="center center"
         >
-          {data?.photo ? (
+          {data.image ? (
             <Image
-              src={data.photo}
-              alt={data?.photoAlt}
+              src={data.image}
+              alt={text(data.title)}
               fill
               sizes="(min-width: 1280px) 57vw, 100vw"
               className="object-contain object-bottom"
             />
           ) : null}
-    </Parallax>
+        </Parallax>
       </Reveal>
     </section>
   );

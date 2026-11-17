@@ -109,6 +109,7 @@ export function noteLines(html) {
 
 // Links that only point back at the CMS site are ignored.
 export function link(url) {
+  console.log("url", url)
   if (!url) return undefined;
   try {
     return new URL(url).host === API_HOST ? undefined : url;
