@@ -1073,3 +1073,7 @@ html[data-intro="done"] [data-diagram][data-in="1"] .dg-float {
     animation: none;
   }
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

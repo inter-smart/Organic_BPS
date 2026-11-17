@@ -11,7 +11,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 
 ## Commands
 - `npm run dev` (use `npx next dev -p 3100`, port 3000 is taken), `npm run build`, `npm start`, `npm run lint`. There is no test runner; verification is lint + clean build + the checks under "Verification".
-- `.env` needs `NEXT_PUBLIC_API_URL` and `API_SECRET_TOKEN` for the API helpers (`src/lib/api.js`).
+- `.env` needs `NEXT_PUBLIC_API_URL` and `API_SECRET_TOKEN` for the API helpers (`src/lib/api.js`). `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (reCAPTCHA v3, contact form) is optional: when empty the form skips the captcha.
 
 ## Structure
 - `src/app/` — `layout.js` (renders Header, Footer, Preloader, SmoothScroll), `page.js` (page + `local_data`), `globals.css` (tokens, scale, `.typography`).
@@ -124,6 +124,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Contact API (2026-11-16)
 - `/contact` reads `apiGet("contact")` in `app/contact/page.js`. Title line breaks/accents and the map button label are static in `local_data`; everything else (banner, enquiry copy, email/phone, office list, explore options for the form select, careers email) comes from the API with no fallback copy. The form still has no submit endpoint. Hero uses `banner_top_image` as a single avatar.
+- Form submit (2026-11-17): reCAPTCHA v3 token (`g-recaptcha-response`, from `common/recaptcha`) is added to the payload and verified by the backend; the badge is hidden in CSS and the Google notice sits above the button. `contact-form` posts JSON to the route handler `app/api/contact-enquiry/route.js`, which calls `apiPost("contact-enquiry")` (Bearer added server-side). Validation is the shared zod schema `lib/contact-schema.js` (client submit + route handler); rules follow the QA matrix (name letters only, phone optional but 7-15 digits when given, message 2-2000 with no markup/code). Field map: `organisation`→`organization`, `phone`→`phone_number`, `topic`→`explore_together`.
 - Titles (2026-11-16): hero, enquiry, locations and careers headings come from the API (`banner_title`, `section_one.subtitle`, `section_two.title`, `section_three.title`) through `parseTitle` (`<span>` = accent, `<br>`/`</br>` = line break). The static title arrays in `local_data` are commented out.
 
 ## Privacy API (2026-11-16)
