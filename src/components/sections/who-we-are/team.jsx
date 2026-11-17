@@ -2,7 +2,7 @@ import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { paragraphs } from "@/lib/cms-text";
 
 function Photo({ image, sizes, className, delay = 0 }) {
@@ -44,7 +44,8 @@ export default function Team({ data, title }) {
                 size="display"
                 className="text-white lg:text-[clamp(40px,calc(88*var(--u)),88px)]"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Photo

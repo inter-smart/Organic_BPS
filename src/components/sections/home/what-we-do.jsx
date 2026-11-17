@@ -3,7 +3,7 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import HiMedia from "@/components/common/hi-media";
 import Reveal from "@/components/common/reveal";
-import { RichLines, RichText } from "@/components/common/rich-text";
+import { RichText, renderTitle } from "@/components/common/rich-text";
 import { cta, segmentParagraphs } from "@/lib/cms-text";
 
 export default function WhatWeDo({ data, title }) {
@@ -31,7 +31,8 @@ export default function WhatWeDo({ data, title }) {
                 size="display"
                 className="text-basecolor2"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <div className="mt-6 space-y-5 text-base/[1.6] font-medium text-basecolor2 sm:text-lg/[1.6] lg:mt-8 lg:space-y-7 lg:text-lead/[1.5]">

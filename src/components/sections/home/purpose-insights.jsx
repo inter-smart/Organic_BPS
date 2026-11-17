@@ -2,7 +2,7 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import InsightSlider from "@/components/common/insight-slider";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { cta, text } from "@/lib/cms-text";
 
 export default function PurposeInsights({ data, blogs, title }) {
@@ -23,7 +23,8 @@ export default function PurposeInsights({ data, blogs, title }) {
               size="display"
               className="text-white"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <div className="lg:pt-4 lg:pl-[calc(132.8*var(--u))]">

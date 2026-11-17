@@ -3,7 +3,7 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { cta, text } from "@/lib/cms-text";
 
 // Figma mosaic slots (xl+): left / top / width / height in Tailwind spacing units (1 = 4px)
@@ -37,7 +37,8 @@ export default function TeamGallery({ data, gallery, title }) {
                 size="display"
                 className="text-black"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Reveal

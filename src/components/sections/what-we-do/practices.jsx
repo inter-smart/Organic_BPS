@@ -2,7 +2,7 @@ import Image from "next/image";
 import Reveal from "@/components/common/reveal";
 import Heading from "@/components/common/heading";
 import PracticeTabs from "@/components/common/practice-tabs";
-import { RichLines, RichText } from "@/components/common/rich-text";
+import { RichText, renderTitle } from "@/components/common/rich-text";
 import { slug, text } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
@@ -38,7 +38,8 @@ export default function Practices({
             size="display"
             className="mt-3 text-center text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(32px,calc(86.357*var(--u)),86.357px)]"
           >
-            <RichLines lines={title} />
+            {/* <RichLines lines={title} /> */}
+            {renderTitle(title)}
           </Heading>
         </Reveal>
         <div className="below-header-sticky z-20 mt-3.75 sm:mt-8 bg-white 2xl:mt-5 border-b border-[#D2D2D2]">

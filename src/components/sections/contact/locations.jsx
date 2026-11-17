@@ -2,7 +2,7 @@ import { Mail, Phone } from "lucide-react";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Locations({ data, title, offices, map }) {
   return (
@@ -21,7 +21,8 @@ export default function Locations({ data, title, offices, map }) {
                 size="display"
                 className="text-white 3xl:text-[100px]!"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Reveal

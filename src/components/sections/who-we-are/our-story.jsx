@@ -1,7 +1,7 @@
 import Reveal from "@/components/common/reveal";
 import Heading from "@/components/common/heading";
 import TimelineSlider from "@/components/common/timeline-slider";
-import { RichLines, RichText } from "@/components/common/rich-text";
+import { RichText, renderTitle } from "@/components/common/rich-text";
 import { segmentParagraphs } from "@/lib/cms-text";
 
 export default function OurStory({ data, history, title }) {
@@ -20,7 +20,8 @@ export default function OurStory({ data, history, title }) {
               size="display"
               className="text-basecolor2 lg:max-w-[900px] lg:text-[clamp(40px,calc(88*var(--u)),88px)]"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <div className="lg:pt-[calc(8*var(--u))] lg:pl-[calc(72*var(--u))]">

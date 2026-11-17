@@ -37,41 +37,16 @@ const moreArticles = [
 
 const local_data = {
   hero: {
-    title: [
-      [{ t: "Purpose", ring: true }, { t: " gives" }],
-      [{ t: "growth direction." }],
-    ],
     scroll: {
       label: "Scroll to what is corporate purpose",
       href: "#what-is-purpose",
     },
   },
   definition: {
-    title: [
-      [{ t: "What is" }],
-      [{ t: "corporate" }],
-      [{ t: "purpose?", accent: true }],
-    ],
     distinctionsLabel: "Vision, mission, values and purpose",
   },
   importance: {
-    title: [[{ t: "Why does" }], [{ t: "purpose matter?", accent: true }]],
     diagramLabel: "What a shared direction does",
-  },
-  growth: {
-    title: [
-      { t: "How can purpose " },
-      { t: "help you grow?", className: "text-basecolor17" },
-    ],
-  },
-  moments: {
-    title: [
-      [{ t: "When does" }],
-      [{ t: "purpose" }],
-      [{ t: "become" }],
-      [{ t: "especially", className: "text-basecolor17" }],
-      [{ t: "valuable?", className: "text-basecolor17" }],
-    ],
   },
   authentic: {
     image: {
@@ -79,11 +54,6 @@ const local_data = {
       width: 1100,
       height: 734,
     },
-    title: [
-      [{ t: "Purpose" }],
-      [{ t: "must be" }],
-      [{ t: "authentic.", className: "text-basecolor17" }],
-    ],
     equationLabel: "Words plus actions lead to authenticity",
   },
   perspectives: {
@@ -136,9 +106,6 @@ const local_data = {
       ...moreArticles,
     ],
   },
-  cta: {
-    title: [[{ t: "Ready to put" }], [{ t: "purpose to work?" }]],
-  },
 };
 
 export default async function WhyPurposePage() {
@@ -161,7 +128,7 @@ export default async function WhyPurposePage() {
       {banner && (
         <Hero
           banner={banner}
-          title={local_data.hero.title}
+          title={banner.banner_title}
           scroll={local_data.hero.scroll}
         />
       )}
@@ -169,7 +136,7 @@ export default async function WhyPurposePage() {
         <Definition
           data={cms.section_one}
           statements={corporate_statements}
-          title={local_data.definition.title}
+          title={cms.section_one.title}
           label={local_data.definition.distinctionsLabel}
         />
       )}
@@ -177,7 +144,7 @@ export default async function WhyPurposePage() {
         <Importance
           data={cms.section_two}
           benefits={why_purpose}
-          title={local_data.importance.title}
+          title={cms.section_two.title}
           label={local_data.importance.diagramLabel}
         />
       )}
@@ -185,18 +152,22 @@ export default async function WhyPurposePage() {
         <Growth
           data={cms.section_three}
           items={how_purpose}
-          title={local_data.growth.title}
+          title={cms.section_three.title}
         />
       )}
       {cms?.section_four && (
         <Moments
           data={cms.section_four}
           items={when_purpose}
-          title={local_data.moments.title}
+          title={cms.section_four.title}
         />
       )}
       {cms?.section_five && (
-        <Authentic data={cms.section_five} {...local_data.authentic} />
+        <Authentic
+          data={cms.section_five}
+          title={cms.section_five.title}
+          {...local_data.authentic}
+        />
       )}
       {cms?.section_six && (
         <Perspectives
@@ -206,7 +177,7 @@ export default async function WhyPurposePage() {
         />
       )}
       {cms?.section_seven && (
-        <Cta data={cms.section_seven} title={local_data.cta.title} />
+        <Cta data={cms.section_seven} title={cms.section_seven.title} />
       )}
     </main>
   );

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { paragraphs } from "@/lib/cms-text";
 import { cn } from "@/lib/utils";
 
@@ -64,7 +64,7 @@ export default function Authentic({ data, image, title, equationLabel }) {
                 size="display"
                 className="text-basecolor20 tracking-normal lg:leading-[1.03]"
               >
-                <RichLines lines={title} />
+                {renderTitle(title, "text-basecolor17")}
               </Heading>
             </Reveal>
             <div className="mt-6 space-y-4 lg:mt-[calc(37*var(--u))] lg:space-y-[calc(22*var(--u))]">

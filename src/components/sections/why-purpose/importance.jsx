@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { listItems, paragraphs, text } from "@/lib/cms-text";
 
 const places = {
@@ -55,7 +55,7 @@ export default function Importance({ data, benefits = [], title, label }) {
                 size="display"
                 className="text-basecolor26 tracking-normal lg:max-w-[calc(543*var(--u))] lg:leading-[0.98]"
               >
-                <RichLines lines={title} />
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Reveal

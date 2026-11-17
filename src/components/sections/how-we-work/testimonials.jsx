@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import TestimonialsSlider from "@/components/sections/how-we-work/testimonials-slider";
 
 export default function Testimonials({ data }) {
@@ -25,7 +25,8 @@ export default function Testimonials({ data }) {
             size="display"
             className="text-white"
           >
-            <RichText segments={data?.title} />
+            {/* <RichText segments={data?.title} /> */}
+            {renderTitle(data?.title)}
           </Heading>
         </Reveal>
         <TestimonialsSlider items={data?.items} labels={data?.slider} />

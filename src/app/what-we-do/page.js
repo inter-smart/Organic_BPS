@@ -14,16 +14,18 @@ export async function generateMetadata() {
 
 const local_data = {
   hero: {
-    title: [
-      [{ t: "From " }, { t: "purpose", ring: true }],
-      [{ t: "to action." }],
-      [{ t: "From strategy" }],
-      [{ t: "to " }, { t: "execution.", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "From " }, { t: "purpose", ring: true }],
+    //   [{ t: "to action." }],
+    //   [{ t: "From strategy" }],
+    //   [{ t: "to " }, { t: "execution.", accent: true }],
+    // ],
+    title: "From purp<b>o</b>se<br>to action.<br>From strategy<br>to <span>execution.</span>",
     scroll: { label: "Scroll to the next section", href: "#practices" },
   },
   practices: {
-    title: [[{ t: "Four specialist practices" }, { t: ".", accent: true }]],
+    // title: [[{ t: "Four specialist practices" }, { t: ".", accent: true }]],
+    title: "Four specialist practices<span>.</span>",
     // the API sends the logo image only; size and alt follow the practice order
     logos: [
       { alt: "BRANDFARM", width: 348, height: 205 },

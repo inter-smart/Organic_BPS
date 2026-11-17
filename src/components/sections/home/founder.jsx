@@ -3,7 +3,7 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { RichLines, renderTitle } from "@/components/common/rich-text";
 import { cta, noteLines, paragraphs, text } from "@/lib/cms-text";
 
 export default function Founder({ data, title }) {
@@ -26,7 +26,8 @@ export default function Founder({ data, title }) {
                   size="display"
                   className="text-white"
                 >
-                  <RichLines lines={title} />
+                  {/* <RichLines lines={title} /> */}
+                  {renderTitle(title)}
                 </Heading>
               </Reveal>
               <Reveal

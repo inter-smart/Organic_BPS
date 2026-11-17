@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { text } from "@/lib/cms-text";
 
 export default function Growth({ data, items = [], title }) {
@@ -21,7 +21,7 @@ export default function Growth({ data, items = [], title }) {
                 size="display"
                 className="text-basecolor25 tracking-normal lg:max-w-[calc(789*var(--u))] lg:leading-[1.03]"
               >
-                <RichText segments={title} />
+                {renderTitle(title, "text-basecolor17")}
               </Heading>
             </Reveal>
             <Reveal

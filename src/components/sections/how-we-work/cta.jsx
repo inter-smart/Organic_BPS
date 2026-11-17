@@ -2,7 +2,7 @@ import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Cta({ data }) {
   return (
@@ -19,7 +19,8 @@ export default function Cta({ data }) {
       </Reveal>
       <Reveal variant="up" className="mt-3 lg:mt-[calc(10*var(--u))]">
         <Heading as="h2" id="how-we-work-cta-title" size="display" className="text-white lg:leading-[1.2]">
-          <RichLines lines={data?.title} />
+          {/* <RichLines lines={data?.title} /> */}
+          {renderTitle(data?.title)}
         </Heading>
       </Reveal>
       <Reveal as="p" variant="up" delay={0.1} className="mt-5 max-w-[765px] text-base/[1.6] text-pretty lg:mt-[calc(44*var(--u))] lg:text-[clamp(16px,calc(26*var(--u)),26px)]/[1.54]">

@@ -9,7 +9,6 @@ import { mapBlog, mapPage } from "@/lib/blog-api";
 import { newsletter } from "@/lib/blog-data";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { text } from "@/lib/cms-text";
-import { parseTitle } from "@/lib/utils";
 
 const getBlogs = cache(() => apiGet("blogs"));
 
@@ -62,7 +61,7 @@ export default async function BlogPage() {
           <Hero
             data={{
               image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
-              title: parseTitle(banner.banner_title),
+              title: banner.banner_title,
               scroll: local_data.hero.scroll,
               topics: { label: local_data.hero.topicsLabel, items: topics },
             }}
@@ -72,7 +71,7 @@ export default async function BlogPage() {
           featured={{
             ...local_data.featured,
             eyebrow: text(cms?.section_one?.title),
-            title: parseTitle(cms?.section_one?.subtitle),
+            title: cms?.section_one?.subtitle,
             text: text(cms?.section_one?.description),
             items: (data.featured_blogs ?? []).map(mapBlog),
           }}

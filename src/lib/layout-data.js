@@ -7,6 +7,8 @@ export const layout_data = {
       { id: 2, label: "What we do", href: "/what-we-do" },
       { id: 3, label: "How We Work", href: "/how-we-work" },
       { id: 4, label: "Who we are", href: "/who-we-are" },
+      { id: 4, label: "Blogs", href: "/blog" },
+      { id: 4, label: "Contact", href: "/contact" },
     ],
   },
 

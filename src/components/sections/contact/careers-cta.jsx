@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function CareersCta({ data, title }) {
   return (
@@ -18,7 +18,8 @@ export default function CareersCta({ data, title }) {
               size="display"
               className="text-white"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <Reveal variant="up" delay={0.15} className="sm:text-left">

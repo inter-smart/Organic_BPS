@@ -6,7 +6,7 @@ import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { paragraphs, slug, text } from "@/lib/cms-text";
-import { parseTitle } from "@/lib/utils";
+import { titleLines } from "@/lib/utils";
 
 const getPrivacy = cache(() => apiGet("policies/privacy-policy"));
 
@@ -54,9 +54,7 @@ async function PrivacyContent() {
           data={{
             image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
             // one line per segment, the accent word sits on its own line
-            title: parseTitle(banner.banner_title)
-              .flat()
-              .map((seg) => [{ ...seg, t: seg.t.trim() }]),
+            title: titleLines(banner.banner_title),
             paragraph: text(banner.banner_description),
             scroll: local_data.hero.scroll,
           }}

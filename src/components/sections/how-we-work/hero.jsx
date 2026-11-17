@@ -3,7 +3,7 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Hero({ data }) {
   return (
@@ -22,7 +22,8 @@ export default function Hero({ data }) {
           <div>
             <Reveal variant="blur" duration={1.1} immediate>
               <Heading as="h1" id="how-we-work-title" size="display" className="max-w-[7.63em] text-white">
-                <RichText segments={data?.title} />
+                {/* <RichText segments={data?.title} /> */}
+                {renderTitle(data?.title)}
               </Heading>
             </Reveal>
             <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-[calc(51*var(--u))]" immediate>

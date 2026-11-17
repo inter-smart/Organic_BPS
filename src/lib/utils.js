@@ -22,3 +22,14 @@ export function parseTitle(html) {
     )
     .filter((line) => line.length);
 }
+
+// CMS title html -> one line per <span> / plain run: "Our <span>story</span>"
+// becomes "Our<br><span>story</span>".
+export function titleLines(html) {
+  if (!html) return "";
+  return html
+    .split(/(<span[^>]*>[\s\S]*?<\/span>)/i)
+    .map((part) => part.trim())
+    .filter((part) => plainText(part).trim())
+    .join("<br>");
+}

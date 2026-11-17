@@ -5,9 +5,9 @@ import Heading from "@/components/common/heading";
 import HeroMedia from "@/components/common/hero-media";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
-export default function Hero({ data, title }) {
+export default function Hero({ data }) {
   const slides = data.video
     ? [
         {
@@ -44,7 +44,8 @@ export default function Hero({ data, title }) {
               size="display"
               className="max-w-190 text-white"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(data?.title)}
             </Heading>
           </Reveal>
           <Reveal variant="up" delay={0.35} className="mt-8 lg:mt-13.5">

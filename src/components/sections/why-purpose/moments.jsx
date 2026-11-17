@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { text } from "@/lib/cms-text";
 
 export default function Moments({ data, items = [], title }) {
@@ -37,7 +37,7 @@ export default function Moments({ data, items = [], title }) {
                 size="display"
                 className="text-white tracking-normal lg:leading-none"
               >
-                <RichLines lines={title} />
+                {renderTitle(title, "text-basecolor17")}
               </Heading>
             </Reveal>
             <Reveal

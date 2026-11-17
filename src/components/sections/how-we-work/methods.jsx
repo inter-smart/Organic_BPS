@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines, RichText } from "@/components/common/rich-text";
+import { RichText, renderTitle } from "@/components/common/rich-text";
 import PurposeMap from "@/components/sections/how-we-work/purpose-map";
 
 export default function Methods({ data }) {
@@ -12,7 +12,8 @@ export default function Methods({ data }) {
         <div className="lg:pt-[calc(95*var(--u))]">
           <Reveal variant="up">
             <Heading as="h2" id="methods-title" size="display" className="text-basecolor2 lg:leading-[1.05]">
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={data?.title} /> */}
+              {renderTitle(data?.title)}
             </Heading>
           </Reveal>
           <hr className="mt-6 w-[283px] border-t border-basecolor16 lg:mt-[calc(8*var(--u))]" />

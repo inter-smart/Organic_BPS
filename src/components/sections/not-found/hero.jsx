@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Hero({ data }) {
   return (
@@ -19,7 +19,8 @@ export default function Hero({ data }) {
           <div>
             <Reveal variant="blur" duration={1.1} immediate>
               <Heading as="h1" id="not-found-title" size="display" className="text-white lg:leading-[0.98] lg:tracking-[-0.03em]">
-                <RichLines lines={data?.title} />
+                {/* <RichLines lines={data?.title} /> */}
+                {renderTitle(data?.title)}
               </Heading>
             </Reveal>
             <Reveal as="p" variant="up" delay={0.2} immediate className="mt-6 max-w-[542px] text-base/[1.5] font-medium text-pretty sm:text-lg/[1.5] lg:mt-[calc(30*var(--u))] lg:text-lead/[1.5]">

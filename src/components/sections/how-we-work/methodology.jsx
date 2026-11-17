@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import FrameworkMechanism from "@/components/sections/how-we-work/framework-mechanism";
 import FrameworkSteps from "@/components/sections/how-we-work/framework-steps";
 
@@ -28,7 +28,8 @@ export default function Methodology({ data }) {
           size="display"
           className="mx-auto max-w-[9.81em] text-wrap text-basecolor25"
         >
-          <RichText segments={data?.title} />
+          {/* <RichText segments={data?.title} /> */}
+          {renderTitle(data?.title)}
         </Heading>
       </Reveal>
       <Reveal

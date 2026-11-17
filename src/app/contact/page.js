@@ -7,7 +7,6 @@ import { link } from "@/lib/cms-text";
 import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
-import { parseTitle } from "@/lib/utils";
 
 const getContact = cache(() => apiGet("contact"));
 
@@ -53,14 +52,14 @@ export default async function page() {
       {banner && (
         <Hero
           banner={banner}
-          title={parseTitle(banner.banner_title)}
+          title={banner.banner_title}
           scroll={local_data.hero.scroll}
         />
       )}
       {cms?.section_one && (
         <Enquiry
           data={cms.section_one}
-          title={parseTitle(cms.section_one.subtitle)}
+          title={cms.section_one.subtitle}
           email={email}
           phone={phone_number}
           topics={explore_options}
@@ -69,13 +68,13 @@ export default async function page() {
       {cms?.section_two && (
         <Locations
           data={cms.section_two}
-          title={parseTitle(cms.section_two.title)}
+          title={cms.section_two.title}
           offices={office_locations}
           map={{ label: local_data.locations.mapLabel, href: link(map_link) }}
         />
       )}
       {cms?.section_three && (
-        <CareersCta data={cms.section_three} title={parseTitle(cms.section_three.title)} />
+        <CareersCta data={cms.section_three} title={cms.section_three.title} />
       )}
     </main>
   );

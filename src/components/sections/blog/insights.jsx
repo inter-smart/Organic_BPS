@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import FeaturedSlider from "@/components/sections/blog/featured-slider";
 import Listing from "@/components/sections/blog/listing";
 
@@ -29,7 +29,8 @@ export default function Insights({ featured, listing }) {
                 size="display"
                 className="text-basecolor7 lg:leading-[1.12] lg:tracking-[-0.02em] 3xl:text-[100px]!"
               >
-                <RichLines lines={featured?.title} />
+                {/* <RichLines lines={featured?.title} /> */}
+                {renderTitle(featured?.title)}
               </Heading>
             </Reveal>
             <Reveal

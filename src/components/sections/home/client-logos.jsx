@@ -1,7 +1,7 @@
 import ClientCarousel from "@/components/common/client-carousel";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { text } from "@/lib/cms-text";
 
 export default function ClientLogos({ data, partners, title }) {
@@ -20,7 +20,8 @@ export default function ClientLogos({ data, partners, title }) {
               size="displayMd"
               className="mx-auto max-w-5xl text-[#171717]"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <Reveal

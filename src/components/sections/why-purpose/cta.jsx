@@ -2,7 +2,7 @@ import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { cta, text } from "@/lib/cms-text";
 
 export default function Cta({ data, title }) {
@@ -28,7 +28,7 @@ export default function Cta({ data, title }) {
           size="display"
           className="text-white lg:leading-[1.08]"
         >
-          <RichLines lines={title} />
+          {renderTitle(title)}
         </Heading>
       </Reveal>
       <Reveal

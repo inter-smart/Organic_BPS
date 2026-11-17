@@ -119,7 +119,7 @@ export function link(url) {
 }
 
 export function cta(section) {
-  return { label: section?.button_name, href: link(section?.button_link) };
+  return { label: section?.button_name, href: section?.button_link };
 }
 
 // "76 %" -> { value: 76, suffix: "%" }

@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import ContactForm from "./contact-form";
 
 export default function Enquiry({ data, title, email, phone, topics }) {
@@ -27,7 +27,8 @@ export default function Enquiry({ data, title, email, phone, topics }) {
                 size="display"
                 className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] text-[40px] sm:text-[58px]! lg:text-[67px]! 2xl:text-[80px]! 3xl:text-[100px]!"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Reveal

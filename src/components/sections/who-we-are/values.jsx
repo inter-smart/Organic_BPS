@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import ValueCards from "@/components/common/value-cards";
 import { text } from "@/lib/cms-text";
 
@@ -21,7 +21,8 @@ export default function Values({ data, items, title }) {
                 size="display"
                 className="text-white"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Reveal

@@ -20,12 +20,13 @@ export const metadata = {
 const local_data = {
   hero: {
     image: { src: "/images/how-we-work/hero.jpg", alt: "" },
-    title: [
-      { t: "Purpose", ring: true },
-      { t: " Works When " },
-      { t: "Strategy & Execution ", accent: true },
-      { t: "Work Together" },
-    ],
+    // title: [
+    //   { t: "Purpose", ring: true },
+    //   { t: " Works When " },
+    //   { t: "Strategy & Execution ", accent: true },
+    //   { t: "Work Together" },
+    // ],
+    title: "Purp<b>o</b>se Works When <span>Strategy & Execution </span>Work Together",
     paragraph:
       "We combine the depth of a strategy consultancy with the creative capability of a brand communication agency. This helps organisations move from a clear sense of purpose to communication, experiences and actions people can see and feel.",
     cta: { label: "Explore Our Approach", href: "#our-approach" },
@@ -34,10 +35,11 @@ const local_data = {
 
   approach: {
     eyebrow: "Our Approach",
-    title: [
-      [{ t: "From the boardroom" }],
-      [{ t: "to the " }, { t: "real world.", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "From the boardroom" }],
+    //   [{ t: "to the " }, { t: "real world.", accent: true }],
+    // ],
+    title: "From the boardroom<br>to the <span>real world.</span>",
     copy: "We begin by understanding the business, its people and its ambitions. We bring strategic thinking and creative execution together, so the direction set by leadership can take shape across the organisation and in the marketplace.",
     tagline: [
       [
@@ -60,7 +62,8 @@ const local_data = {
 
   methodology: {
     eyebrow: "Our Methodology",
-    title: [{ t: "Connecting purpose to " }, { t: "action.", accent: true }],
+    // title: [{ t: "Connecting purpose to " }, { t: "action.", accent: true }],
+    title: "Connecting purpose to <span>action.</span>",
     copy: "Our BPS — Brand Purpose Solutions framework connects four elements: purpose, belief, behaviour and sustainable growth. Purpose sets the direction. Belief builds connection. Behaviour turns intent into action. Sustained action helps create lasting value.",
     mechanism: {
       label:
@@ -120,12 +123,13 @@ const local_data = {
         },
       ],
     },
-    title: [
-      [{ t: "We draw on" }],
-      [{ t: "specific methods" }],
-      [{ t: "where they can" }],
-      [{ t: "make a difference:", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "We draw on" }],
+    //   [{ t: "specific methods" }],
+    //   [{ t: "where they can" }],
+    //   [{ t: "make a difference:", accent: true }],
+    // ],
+    title: "We draw on<br>specific methods<br>where they can<br><span>make a difference:</span>",
     copy: [
       { t: "Brand Farm explores an organisation’s " },
       { t: "history", className: "font-semibold text-basecolor14" },
@@ -152,7 +156,8 @@ const local_data = {
 
   testimonials: {
     eyebrow: "Testimonials",
-    title: [{ t: "In our " }, { t: "clients", accent: true }, { t: "’ words" }],
+    // title: [{ t: "In our " }, { t: "clients", accent: true }, { t: "’ words" }],
+    title: "In our <span>clients</span>’ words",
     slider: {
       label: "Client testimonials",
       prev: "Previous testimonial",
@@ -193,11 +198,12 @@ const local_data = {
 
   clients: {
     eyebrow: "Long-standing relationships",
-    title: [
-      [{ t: "We grow with the" }],
-      [{ t: "organisations" }],
-      [{ t: "we work", accent: true }, { t: " with." }],
-    ],
+    // title: [
+    //   [{ t: "We grow with the" }],
+    //   [{ t: "organisations" }],
+    //   [{ t: "we work", accent: true }, { t: " with." }],
+    // ],
+    title: "We grow with the<br>organisations<br><span>we work</span> with.",
     copy: [
       "We believe the best work grows from a deep understanding of the organisation.",
       "Many of our client relationships have continued for years, with some extending beyond a decade. This continuity allows us to understand the business, its people, its culture and its changing ambitions.",
@@ -283,7 +289,8 @@ const local_data = {
   cta: {
     image: { src: "/images/how-we-work/cta.jpg", alt: "" },
     eyebrow: "Let’s talk",
-    title: [[{ t: "What are you" }], [{ t: "working towards?", accent: true }]],
+    // title: [[{ t: "What are you" }], [{ t: "working towards?", accent: true }]],
+    title: "What are you<br><span>working towards?</span>",
     text: "Tell us about your challenge. Let’s explore how we can help you move forward.",
     cta: { label: "Let’s talk", href: "/contact" },
   },

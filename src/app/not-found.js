@@ -13,7 +13,8 @@ export const metadata = {
 const local_data = {
   hero: {
     image: { src: "/images/privacy/hero.jpg", alt: "" },
-    title: [[{ t: "Page not" }], [{ t: "found.", accent: true }]],
+    // title: [[{ t: "Page not" }], [{ t: "found.", accent: true }]],
+    title: "Page not<br><span>found.</span>",
     text: "The page you’re looking for doesn’t exist or may have moved. Start fresh with one of the routes below, or return to the homepage to continue exploring.",
     cards: [
       {

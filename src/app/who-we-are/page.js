@@ -20,40 +20,46 @@ export async function generateMetadata() {
 
 const local_data = {
   hero: {
-    title: [
-      [{ t: "Purpose", ring: true }],
-      [{ t: "has shaped" }],
-      [{ t: "our " }, { t: "journey.", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "Purpose", ring: true }],
+    //   [{ t: "has shaped" }],
+    //   [{ t: "our " }, { t: "journey.", accent: true }],
+    // ],
+    title: "Purp<b>o</b>se<br>has shaped<br>our <span>journey.</span>",
   },
   story: {
-    title: [
-      [{ t: "Born in brand communication." }],
-      [{ t: "Evolved through purpose.", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "Born in brand communication." }],
+    //   [{ t: "Evolved through purpose.", accent: true }],
+    // ],
+    title: "Born in brand communication.<br><span>Evolved through purpose.</span>",
   },
   belief: {
-    title: [
-      [{ t: "Growth for All." }],
-      [{ t: "Growth for Good.", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "Growth for All." }],
+    //   [{ t: "Growth for Good.", accent: true }],
+    // ],
+    title: "Growth for All.<br><span>Growth for Good.</span>",
   },
   values: {
-    title: [[{ t: "What" }], [{ t: "guides us?", accent: true }]],
+    // title: [[{ t: "What" }], [{ t: "guides us?", accent: true }]],
+    title: "What<br><span>guides us?</span>",
   },
   team: {
-    title: [
-      [{ t: "Strategic minds." }],
-      [{ t: "Creative hands.", accent: true }],
-      [{ t: "Shared commitment." }],
-    ],
+    // title: [
+    //   [{ t: "Strategic minds." }],
+    //   [{ t: "Creative hands.", accent: true }],
+    //   [{ t: "Shared commitment." }],
+    // ],
+    title: "Strategic minds.<br><span>Creative hands.</span><br>Shared commitment.",
   },
   recognition: {
-    title: [
-      [{ t: "Recognised for" }],
-      [{ t: "strategic & creative" }],
-      [{ t: "excellence", accent: true }],
-    ],
+    // title: [
+    //   [{ t: "Recognised for" }],
+    //   [{ t: "strategic & creative" }],
+    //   [{ t: "excellence", accent: true }],
+    // ],
+    title: "Recognised for<br>strategic & creative<br><span>excellence</span>",
   },
 };
 

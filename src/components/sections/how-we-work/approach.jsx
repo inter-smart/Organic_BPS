@@ -1,6 +1,6 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import TextReveal from "@/components/common/text-reveal";
 
 export default function Approach({ data }) {
@@ -12,7 +12,8 @@ export default function Approach({ data }) {
         </Reveal>
         <Reveal variant="up" className="mt-5 lg:mt-[calc(60*var(--u))]">
           <Heading as="h2" id="approach-title" size="display" className="text-basecolor25">
-            <RichLines lines={data?.title} />
+            {/* <RichLines lines={data?.title} /> */}
+            {renderTitle(data?.title)}
           </Heading>
         </Reveal>
         <Reveal as="p" variant="up" delay={0.1} className="mx-auto mt-6 max-w-[1130px] text-base/[1.65] font-medium text-pretty text-basecolor2 lg:text-lead/[1.5]">

@@ -2,7 +2,7 @@ import AwardSlider from "@/components/common/award-slider";
 import Heading from "@/components/common/heading";
 import NumberTicker from "@/components/common/number-ticker";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { RichLines, renderTitle } from "@/components/common/rich-text";
 import { figure } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
@@ -32,7 +32,8 @@ export default function Recognition({ data, awards, title }) {
                 size="display"
                 className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(40px,calc(80*var(--u)),80px)]"
               >
-                <RichLines lines={title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
           </div>

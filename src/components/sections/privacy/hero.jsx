@@ -2,7 +2,7 @@ import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Hero({ data }) {
   return (
@@ -38,7 +38,8 @@ export default function Hero({ data }) {
               size="display"
               className="text-white lg:leading-[0.98] lg:tracking-[-0.03em] 3xl:text-[100px]!"
             >
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={data?.title} /> */}
+              {renderTitle(data?.title)}
             </Heading>
           </Reveal>
           <Reveal

@@ -1,8 +1,7 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import PerspectivesSlider from "@/components/sections/why-purpose/perspectives-slider";
-import { parseTitle } from "@/lib/utils";
 import { text } from "@/lib/cms-text";
 
 export default function Perspectives({ data, slider, items }) {
@@ -28,7 +27,7 @@ export default function Perspectives({ data, slider, items }) {
               size="display"
               className="font-roboto text-basecolor25 tracking-normal lg:max-w-[calc(1229*var(--u))] lg:leading-[1.18]"
             >
-              <RichText segments={parseTitle(data?.description)[0]} />
+              {renderTitle(data?.description)}
             </Heading>
           </Reveal>
         </div>

@@ -4,7 +4,7 @@ import Heading from "@/components/common/heading";
 import NumberTicker from "@/components/common/number-ticker";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { cta, figure, paragraphs } from "@/lib/cms-text";
 
 // One counter reads { title: "Photographers", value: "50K+" }, but the last
@@ -66,7 +66,8 @@ export default function Greenstorm({ data, title }) {
               size="display"
               className="text-black lg:max-w-208"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <Reveal

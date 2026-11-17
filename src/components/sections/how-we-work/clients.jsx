@@ -1,7 +1,7 @@
 import Heading from "@/components/common/heading";
 import PartnerLogoGrid from "@/components/common/partner-logo-grid";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Clients({ data }) {
   return (
@@ -27,7 +27,8 @@ export default function Clients({ data }) {
                 size="display"
                 className="text-basecolor25"
               >
-                <RichLines lines={data?.title} />
+                {/* <RichLines lines={data?.title} /> */}
+                {renderTitle(data?.title)}
               </Heading>
             </Reveal>
             <div className="mt-8 max-w-[680px] space-y-5 text-base/[1.65] font-medium text-pretty text-basecolor2 lg:mt-[calc(42*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-lead/[1.5]">

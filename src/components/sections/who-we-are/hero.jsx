@@ -4,7 +4,7 @@ import HeroMedia from "@/components/common/hero-media";
 import NumberTicker from "@/components/common/number-ticker";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import { figure } from "@/lib/cms-text";
 
 const scroll = { label: "Scroll to the next section", href: "#our-story" };
@@ -54,7 +54,8 @@ export default function Hero({ banner, title }) {
               size="display"
               className="text-white"
             >
-              <RichLines lines={title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
 
