@@ -1,18 +1,22 @@
+import { cache } from "react";
 import Hero from "@/components/sections/blog/hero";
 import Insights from "@/components/sections/blog/insights";
 import Newsletter from "@/components/sections/blog/newsletter";
 import { BlogFilterProvider } from "@/components/sections/blog/blog-filter";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
 import { mapBlog, mapPage } from "@/lib/blog-api";
 import { newsletter } from "@/lib/blog-data";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { text } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
-export const metadata = {
-  title: "Blog — Organic BPS",
-  description:
-    "Perspectives on brand strategy, purpose, culture, change and leadership from the team at Organic BPS.",
-};
+const getBlogs = cache(() => apiGet("blogs"));
+
+export async function generateMetadata() {
+  const { data } = await getBlogs();
+  return buildMetadata(cmsMeta(data?.banner), "/blog");
+}
 
 const local_data = {
   hero: {
@@ -36,7 +40,7 @@ const local_data = {
 
 export default async function BlogPage() {
   const [{ data }, { data: all }] = await Promise.all([
-    apiGet("blogs"),
+    getBlogs(),
     apiGet("blogs/filter"),
   ]);
   if (!data) return null;
@@ -52,6 +56,7 @@ export default async function BlogPage() {
 
   return (
     <main>
+      <MetaTags html={banner?.other_meta_tags} />
       <BlogFilterProvider categories={categories}>
         {banner && (
           <Hero

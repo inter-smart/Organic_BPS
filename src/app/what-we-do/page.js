@@ -1,13 +1,16 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import Hero from "@/components/sections/what-we-do/hero";
 import Practices from "@/components/sections/what-we-do/practices";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-export const metadata = {
-  title: "What We Do — Organic BPS",
-  description:
-    "Organic BPS brings together four specialist practices to help organisations discover what they stand for, express it with clarity and put it into action.",
-};
+const getWhatWeDo = cache(() => apiGet("what-we-do"));
+
+export async function generateMetadata() {
+  const { data } = await getWhatWeDo();
+  return buildMetadata(cmsMeta(data?.banner), "/what-we-do");
+}
 
 const local_data = {
   hero: {
@@ -32,13 +35,14 @@ const local_data = {
 };
 
 export default async function page() {
-  const { data } = await apiGet("what-we-do");
+  const { data } = await getWhatWeDo();
   if (!data) return null;
 
   const { page_cms: cms, banner, practices } = data;
 
   return (
     <main>
+      <MetaTags html={data.banner?.other_meta_tags} />
       {banner && (
         <Hero
           banner={banner}

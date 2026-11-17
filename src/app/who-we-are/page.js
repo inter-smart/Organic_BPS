@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import CoreBelief from "@/components/sections/who-we-are/core-belief";
 import FounderBio from "@/components/sections/who-we-are/founder-bio";
 import Hero from "@/components/sections/who-we-are/hero";
@@ -7,13 +7,16 @@ import OurStory from "@/components/sections/who-we-are/our-story";
 import Recognition from "@/components/sections/who-we-are/recognition";
 import Team from "@/components/sections/who-we-are/team";
 import Values from "@/components/sections/who-we-are/values";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-export const metadata = {
-  title: "Who We Are — Organic BPS",
-  description:
-    "Organic BPS began in Kochi in 1999 as an advertising agency and grew into a Brand Purpose Consultancy with more than 26 years of experience.",
-};
+const getWhoWeAre = cache(() => apiGet("who-we-are"));
+
+export async function generateMetadata() {
+  const { data } = await getWhoWeAre();
+  return buildMetadata(cmsMeta(data?.banner), "/who-we-are");
+}
 
 const local_data = {
   hero: {
@@ -57,13 +60,14 @@ const local_data = {
 
 
 export default async function page() {
-  const { data } = await apiGet("who-we-are");
+  const { data } = await getWhoWeAre();
   if (!data) return null;
 
   const { page_cms: cms, banner, history,core_belief, our_values, awards } = data;
 
   return (
     <div>
+      <MetaTags html={data.banner?.other_meta_tags} />
       {banner && <Hero banner={banner} title={local_data.hero.title} />}
       {cms?.section_one && (
         <OurStory

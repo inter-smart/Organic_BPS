@@ -2,7 +2,7 @@ import Hero from "@/components/sections/not-found/hero";
 import QuickLinks from "@/components/sections/not-found/quick-links";
 
 export const metadata = {
-  title: "Page not found — Organic BPS",
+  title: "Page not found",
   description: "The page you are looking for does not exist or may have moved.",
 };
 

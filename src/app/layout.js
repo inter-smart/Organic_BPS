@@ -5,6 +5,7 @@ import "./globals.css";
 import Preloader from "@/components/common/preloader";
 import SmoothScroll from "@/components/common/smooth-scroll";
 import SiteLayout from "@/components/layout/site-layout";
+import { allowIndexing, siteUrl } from "@/data/seo";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],
@@ -27,16 +28,25 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Organic BPS — Purpose is the journey that powers every other journey",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default:
+      "Organic BPS — Purpose is the journey that powers every other journey",
+    template: "%s — Organic BPS",
+  },
   description:
     "Organic BPS is a Brand Purpose Consultancy with more than 26 years of experience in brand strategy and communication.",
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: { index: false, follow: false, noarchive: true },
-  },
+  robots: allowIndexing
+    ? { index: true, follow: true }
+    : {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: { index: false, follow: false, noarchive: true },
+      },
 };
+
+export const viewport = { themeColor: "#161616" };
 
 export default function RootLayout({ children }) {
   return (

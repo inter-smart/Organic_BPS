@@ -4,7 +4,7 @@ import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { formatDate } from "@/lib/format-date";
 
-export default function Hero({ data }) {
+export default function Hero({ data, categories }) {
   return (
     <section
       id="article-hero"
@@ -110,13 +110,13 @@ export default function Hero({ data }) {
             aria-label="Topics"
             className="flex flex-wrap gap-2.5 lg:gap-[calc(12.9*var(--u))]"
           >
-            {data?.topics?.map((topic) => (
-              <li key={topic}>
+            {categories?.map((item) => (
+              <li key={item}>
                 <Link
-                  href={`/blog#topic=${encodeURIComponent(topic)}`}
+                  href={`/blog?category=${item?.slug}`}
                   className="group flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-medium transition-colors duration-300 hover:border-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none lg:gap-[calc(9*var(--u))] lg:px-[calc(18.1*var(--u))] lg:py-[calc(12.9*var(--u))] lg:text-[clamp(13px,calc(15.5*var(--u)),15.5px)]"
                 >
-                  {topic}
+                  {item?.name}
                   <Image
                     src="/images/blog/arrow-up-right.svg"
                     alt=""

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import Clients from "@/components/sections/home/client-logos";
 import Greenstorm from "@/components/sections/home/greenstorm";
 import Hero from "@/components/sections/home/hero";
@@ -8,7 +8,16 @@ import GlobeImpact from "@/components/sections/home/globe-impact";
 import TeamGallery from "@/components/sections/home/team-gallery";
 import PurposeInsights from "@/components/sections/home/purpose-insights";
 import PurposeActivation from "@/components/sections/home/purpose-activation";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
+
+const getHome = cache(() => apiGet("home"));
+
+export async function generateMetadata() {
+  const { data } = await getHome();
+  return buildMetadata(cmsMeta(data?.banner), "/");
+}
 
 const local_data = {
   hero: {
@@ -72,7 +81,7 @@ const local_data = {
 };
 
 async function HomeContent() {
-  const { data } = await apiGet("home");
+  const { data } = await getHome();
   if (!data) return null;
 
   const {
@@ -100,6 +109,7 @@ async function HomeContent() {
 
   return (
     <main>
+      <MetaTags html={data.banner?.other_meta_tags} />
       {sliders && <Hero data={sliders} title={local_data.hero.title} />}
       {section_one && (
         <WhatWeDo data={section_one} title={local_data.whatWeDo.title} />

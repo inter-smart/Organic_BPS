@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { cache } from "react";
+import MetaTags from "@/components/common/meta-tags";
 import Newsletter from "@/components/sections/blog/newsletter";
 import Close from "@/components/sections/blog-detail/close";
 import Hero from "@/components/sections/blog-detail/hero";
@@ -8,31 +10,40 @@ import { apiGet } from "@/lib/api-calls";
 import { mapDetail } from "@/lib/blog-api";
 import { newsletter } from "@/lib/blog-data";
 import { text } from "@/lib/cms-text";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
+
+const getBlog = cache((slug) => apiGet(`blogs/${slug}`));
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const { data } = await apiGet(`blogs/${slug}`);
+  const { data } = await getBlog(slug);
   const blog = data?.blog;
   if (!blog) return {};
-  return {
-    title: `${blog.meta_title || blog.title} — Organic BPS`,
-    description: blog.meta_description || blog.small_description,
-  };
+  const meta = cmsMeta(blog);
+  return buildMetadata(
+    {
+      ...meta,
+      title: meta.title || blog.title,
+      description: meta.description || blog.small_description,
+    },
+    `/blog/${blog.slug ?? slug}`,
+  );
 }
 
 export default async function BlogDetailPage({ params }) {
   const { slug } = await params;
-  const { data } = await apiGet(`blogs/${slug}`);
+  const { data } = await getBlog(slug);
   if (!data?.blog) notFound();
 
-  const { page_cms: cms, blog, related_blogs: relatedBlogs } = data;
-  const article = mapDetail(blog, relatedBlogs);
+  const { page_cms: cms, blog, related_blogs: relatedBlogs, categories } = data;
+  const article = mapDetail(blog, relatedBlogs ?? []);
   const sub = cms.subscription_section;
   const relatedCms = cms.related_blog_section;
 
   return (
     <main>
-      <Hero data={article.hero} />
+      <MetaTags html={blog.other_meta_tags} />
+      <Hero data={article.hero} categories={categories} />
       <article
         id="article"
         className="scroll-mt-20 bg-white py-12 lg:pt-[calc(80*var(--u))] lg:pb-[calc(100*var(--u))]"

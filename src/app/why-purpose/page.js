@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import Authentic from "@/components/sections/why-purpose/authentic";
 import Cta from "@/components/sections/why-purpose/cta";
 import Definition from "@/components/sections/why-purpose/definition";
@@ -7,14 +7,17 @@ import Hero from "@/components/sections/why-purpose/hero";
 import Importance from "@/components/sections/why-purpose/importance";
 import Moments from "@/components/sections/why-purpose/moments";
 import Perspectives from "@/components/sections/why-purpose/perspectives";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { allArticles } from "@/lib/blog-data";
 
-export const metadata = {
-  title: "Why Purpose — Organic BPS",
-  description:
-    "Purpose clarifies why your organisation exists, the value it seeks to create and the choices that will take it forward.",
-};
+const getWhyPurpose = cache(() => apiGet("why-purpose"));
+
+export async function generateMetadata() {
+  const { data } = await getWhyPurpose();
+  return buildMetadata(cmsMeta(data?.banner), "/why-purpose");
+}
 
 // the design shows three cards; these extend the slider from the blog list
 const moreArticles = [
@@ -139,7 +142,7 @@ const local_data = {
 };
 
 export default async function WhyPurposePage() {
-  const { data } = await apiGet("why-purpose");
+  const { data } = await getWhyPurpose();
   if (!data) return null;
 
   const {
@@ -154,6 +157,7 @@ export default async function WhyPurposePage() {
 
   return (
     <main>
+      <MetaTags html={data.banner?.other_meta_tags} />
       {banner && (
         <Hero
           banner={banner}

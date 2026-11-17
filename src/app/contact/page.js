@@ -1,17 +1,20 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import CareersCta from "@/components/sections/contact/careers-cta";
 import Enquiry from "@/components/sections/contact/enquiry";
 import Hero from "@/components/sections/contact/hero";
 import Locations from "@/components/sections/contact/locations";
 import { link } from "@/lib/cms-text";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { parseTitle } from "@/lib/utils";
 
-export const metadata = {
-  title: "Contact — Organic BPS",
-  description:
-    "Every meaningful relationship begins with a conversation. Tell us what you're working towards.",
-};
+const getContact = cache(() => apiGet("contact"));
+
+export async function generateMetadata() {
+  const { data } = await getContact();
+  return buildMetadata(cmsMeta(data?.banner), "/contact");
+}
 
 const local_data = {
   hero: {
@@ -31,7 +34,7 @@ const local_data = {
 };
 
 export default async function page() {
-  const { data } = await apiGet("contact");
+  const { data } = await getContact();
   if (!data) return null;
 
   const {
@@ -46,6 +49,7 @@ export default async function page() {
 
   return (
     <main>
+      <MetaTags html={data.banner?.other_meta_tags} />
       {banner && (
         <Hero
           banner={banner}

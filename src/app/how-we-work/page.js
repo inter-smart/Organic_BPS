@@ -8,7 +8,7 @@ import MicroStimuli from "@/components/sections/how-we-work/micro-stimuli";
 import Testimonials from "@/components/sections/how-we-work/testimonials";
 
 export const metadata = {
-  title: "How We Work — Organic BPS",
+  title: "How We Work",
   description:
     "We combine the depth of a strategy consultancy with the creative capability of a brand communication agency, so purpose becomes communication, experiences and actions people can see and feel.",
 };

@@ -1,16 +1,19 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import Cta from "@/components/sections/privacy/cta";
 import Hero from "@/components/sections/privacy/hero";
 import Policy from "@/components/sections/privacy/policy";
+import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { paragraphs, slug, text } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
-export const metadata = {
-  title: "Privacy — Organic BPS",
-  description:
-    "This policy explains what personal information Organic BPS collects, why we use it, and the choices available to you.",
-};
+const getTerms = cache(() => apiGet("policies/terms-and-conditions"));
+
+export async function generateMetadata() {
+  const { data } = await getTerms();
+  return buildMetadata(cmsMeta(data?.policy), "/terms-and-conditions");
+}
 
 const local_data = {
   hero: {
@@ -27,7 +30,7 @@ const local_data = {
 };
 
 async function PrivacyContent() {
-  const { data } = await apiGet("policies/terms-and-conditions");
+  const { data } = await getTerms();
   const policy = data?.policy;
   if (!policy) return null;
 
@@ -45,6 +48,7 @@ async function PrivacyContent() {
 
   return (
     <main>
+      <MetaTags html={data.policy?.other_meta_tags} />
       {banner && (
         <Hero
           data={{

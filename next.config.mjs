@@ -3,6 +3,17 @@ const nextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  async headers() {
+    if (process.env.NEXT_PUBLIC_APP_ENV === "production") return [];
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
