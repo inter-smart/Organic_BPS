@@ -149,6 +149,7 @@ export default async function WhyPurposePage() {
     why_purpose,
     how_purpose,
     when_purpose,
+    latest_blogs
   } = data;
 
   return (
@@ -197,7 +198,7 @@ export default async function WhyPurposePage() {
         <Perspectives
           data={cms.section_six}
           slider={local_data.perspectives.slider}
-          items={local_data.perspectives.items}
+          items={latest_blogs}
         />
       )}
       {cms?.section_seven && (

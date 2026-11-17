@@ -52,10 +52,10 @@ export default function PerspectivesSlider({ items = [], labels }) {
               <article className="group/card flex h-full flex-col overflow-hidden rounded-[10px] bg-basecolor22 transition-[translate,box-shadow] duration-500 ease-out hover:-translate-y-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:min-h-[calc(512*var(--u))] lg:rounded-[calc(10*var(--u))]">
                 <div className="aspect-360/198 overflow-hidden rounded-lg">
                   <Image
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    width={item.image.width}
-                    height={item.image.height}
+                    src={item.image}
+                    alt={item.image_alt_text}
+                    width={750}
+                    height={500}
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     className="size-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105 motion-reduce:transition-none motion-reduce:group-hover/card:scale-100"
                   />
@@ -65,13 +65,13 @@ export default function PerspectivesSlider({ items = [], labels }) {
                     {item.title}
                   </h3>
                   <p className="mt-4 text-base/[1.35] text-basecolor21 lg:mt-[calc(23*var(--u))] lg:text-[clamp(14px,calc(20*var(--u)),20px)]">
-                    {item.summary}
+                    {item.small_description}
                   </p>
                   <a
-                    href={item.cta.href}
+                    href={`/blog/${item.slug}`}
                     className="group mt-6 flex w-fit items-center gap-4 text-base font-semibold text-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 lg:mt-auto lg:pt-[calc(24*var(--u))] lg:text-[clamp(14px,calc(18*var(--u)),18px)]"
                   >
-                    {item.cta.label}
+                    Read the article
                     <span className="sr-only">: {item.title}</span>
                     <Image
                       src="/images/why-purpose/arrow-right-red.svg"
