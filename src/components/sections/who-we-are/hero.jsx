@@ -9,7 +9,10 @@ import { figure } from "@/lib/cms-text";
 
 const scroll = { label: "Scroll to the next section", href: "#our-story" };
 
-export default function Hero({ banner, title }) {
+const title =
+  "Purp<b>o</b>se<br>has shaped<br>our <span>journey.</span>";
+
+export default function Hero({ banner }) {
   const stats = [
     { id: 1, ...figure(banner?.founded), label: "Founded" },
     { id: 2, text: banner?.our_locations, label: "Our locations" },

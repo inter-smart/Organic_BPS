@@ -11,7 +11,14 @@ import Recaptcha, {
 import Reveal from "@/components/common/reveal";
 import { apiPost } from "@/lib/api-calls";
 import { fieldErrors } from "@/lib/contact-schema";
+import { newsletter } from "@/lib/blog-data";
 import { newsletterSchema } from "@/lib/newsletter-schema";
+
+const errors = {
+  captcha: "We couldn’t verify you are human. Please try again.",
+  generic: "Something went wrong. Please try again.",
+  network: "Network error. Please try again.",
+};
 
 // field error first, then the API message, then the generic fallback
 function apiMessage(apiError, fallback) {
@@ -47,7 +54,7 @@ export default function Newsletter({ data }) {
     try {
       const token = await getRecaptchaToken("newsletter");
       if (RECAPTCHA_SITE_KEY && !token) {
-        setError(data?.errors?.captcha);
+        setError(errors.captcha);
         return;
       }
       const body = { email: parsed.data.email };
@@ -58,15 +65,15 @@ export default function Newsletter({ data }) {
         setDone(true);
         return;
       }
-      setError(apiMessage(apiError, data?.errors?.generic));
+      setError(apiMessage(apiError, errors.generic));
     } catch {
-      setError(data?.errors?.network);
+      setError(errors.network);
     } finally {
       setSubmitting(false);
     }
   }
 
-  const [before, after] = splitNote(data?.note, data?.privacy?.label);
+  const [before, after] = splitNote(data?.note, newsletter.privacy.label);
 
   return (
     <section
@@ -93,7 +100,7 @@ export default function Newsletter({ data }) {
                 role="status"
                 className="mt-6 text-lg font-semibold lg:mt-[calc(22*var(--u))]"
               >
-                {data?.form?.done}
+                {newsletter.form.done}
               </p>
             ) : (
               <form
@@ -102,7 +109,7 @@ export default function Newsletter({ data }) {
                 className="mt-6 flex items-center gap-2 rounded-full bg-white p-2 pl-5 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-white lg:mt-[calc(22*var(--u))] lg:pl-[calc(22*var(--u))]"
               >
                 <label htmlFor="newsletter-email" className="sr-only">
-                  {data?.form?.label}
+                  {newsletter.form.label}
                 </label>
                 <input
                   id="newsletter-email"
@@ -111,7 +118,7 @@ export default function Newsletter({ data }) {
                   autoComplete="email"
                   aria-invalid={error ? true : undefined}
                   aria-describedby={error ? "newsletter-error" : undefined}
-                  placeholder={data?.form?.placeholder}
+                  placeholder={newsletter.form.placeholder}
                   className="min-w-0 flex-1 bg-transparent text-base text-basecolor7 outline-none placeholder:text-basecolor9 lg:text-[clamp(14px,calc(18*var(--u)),18px)]"
                 />
                 <button
@@ -119,7 +126,7 @@ export default function Newsletter({ data }) {
                   disabled={submitting}
                   className="flex shrink-0 items-center gap-2.5 rounded-full bg-basecolor7 px-5 py-3 text-xs font-semibold text-white transition-colors duration-300 hover:bg-basecolor2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 disabled:opacity-70 motion-reduce:transition-none lg:px-[calc(20*var(--u))] lg:py-[calc(13*var(--u))] lg:text-[clamp(12px,calc(13*var(--u)),13px)]"
                 >
-                  {data?.form?.submit}
+                  {newsletter.form.submit}
                   <Image
                     src="/images/blog/subscribe-arrow.svg"
                     alt=""
@@ -144,10 +151,10 @@ export default function Newsletter({ data }) {
               {before}
               {after !== undefined ? (
                 <Link
-                  href={data?.privacy?.href}
+                  href={newsletter.privacy.href}
                   className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  {data?.privacy?.label}
+                  {newsletter.privacy.label}
                 </Link>
               ) : null}
               {after}

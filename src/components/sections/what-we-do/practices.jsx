@@ -6,12 +6,17 @@ import { RichText, renderTitle } from "@/components/common/rich-text";
 import { slug, text } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
-export default function Practices({
-  eyebrow,
-  title,
-  practices = [],
-  logos = [],
-}) {
+const title = "Four specialist practices<span>.</span>";
+
+// the API sends the logo image only; size and alt follow the practice order
+const logos = [
+  { alt: "BRANDFARM", width: 348, height: 205 },
+  { alt: "Brand Bloom", width: 171, height: 109 },
+  { alt: "brandize", width: 188, height: 38 },
+  { alt: "Green House", width: 249, height: 114 },
+];
+
+export default function Practices({ eyebrow, practices = [] }) {
   const tabs = practices.map((p) => ({
     id: p.id,
     label: p.title,

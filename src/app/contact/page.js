@@ -15,23 +15,6 @@ export async function generateMetadata() {
   return buildMetadata(cmsMeta(data?.banner), "/contact");
 }
 
-const local_data = {
-  hero: {
-    // title: [[{ t: "Let’s start a " }], [{ t: "conversation.", accent: true }]],
-    scroll: { label: "Scroll to the next section", href: "#enquiry" },
-  },
-  enquiry: {
-    // title: [[{ t: "What’s your" }], [{ t: "next chapter?" }]],
-  },
-  locations: {
-    // title: [[{ t: "Where to" }], [{ t: "find us", accent: true }]],
-    mapLabel: "Location Map",
-  },
-  careers: {
-    // title: [[{ t: "Want to grow" }], [{ t: "with us?" }]],
-  },
-};
-
 export default async function page() {
   const { data } = await getContact();
   if (!data) return null;
@@ -53,7 +36,6 @@ export default async function page() {
         <Hero
           banner={banner}
           title={banner.banner_title}
-          scroll={local_data.hero.scroll}
         />
       )}
       {cms?.section_one && (
@@ -70,7 +52,7 @@ export default async function page() {
           data={cms.section_two}
           title={cms.section_two.title}
           offices={office_locations}
-          map={{ label: local_data.locations.mapLabel, href: link(map_link) }}
+          mapHref={link(map_link)}
         />
       )}
       {cms?.section_three && (

@@ -19,75 +19,6 @@ export async function generateMetadata() {
   return buildMetadata(cmsMeta(data?.banner), "/");
 }
 
-const local_data = {
-  hero: {
-    // title: [
-    //   [{ t: "Purpose", ring: true }, { t: " is the" }],
-    //   [
-    //     { t: "journey", accent: true },
-    //     { t: " that powers every other " },
-    //     { t: "journey.", accent: true },
-    //   ],
-    // ],
-    title: "Purp<b>o</b>se is the<br><span>journey</span> that powers every other <span>journey.</span>",
-  },
-  whatWeDo: {
-    // title: [
-    //   [{ t: "We do", accent: true }],
-    //   [{ t: "purpose", ring: true }, { t: " on" }],
-    //   [{ t: "purpose" }, { t: ".", accent: true }],
-    // ],
-    title: "<span>We do</span><br>purp<b>o</b>se on<br>purpose<span>.</span>",
-  },
-  globe: {
-    // title: [
-    //   [{ t: "Good for business." }],
-    //   [{ t: "better for the world.", accent: true }],
-    // ],
-    title: "Good for business.<br><span>better for the world.</span>",
-  },
-  clients: {
-    // title: [
-    //   [{ t: "Good intentions deserve" }],
-    //   [{ t: "great experience.", accent: true }],
-    //   [{ t: "That’s where we come in" }, { t: ".", accent: true }],
-    // ],
-    title: "Good intentions deserve<br><span>great experience.</span><br>That’s where we come in<span>.</span>",
-  },
-  greenstorm: {
-    // title: [
-    //   [
-    //     { t: "When " },
-    //     { t: "purpose", ring: true, accent: true },
-    //     { t: " crosses borders" },
-    //     { t: ".", accent: true },
-    //   ],
-    // ],
-    title: "When <span>purp<b>o</b>se</span> crosses borders<span>.</span>",
-  },
-  founder: {
-    // title: [
-    //   [{ t: "Hi, I'm " }],
-    //   [{ t: "Dileep Narayanan" }, { t: ".", accent: true }],
-    // ],
-    title: "Hi, I'm <br>Dileep Narayanan<span>.</span>",
-  },
-  people: {
-    // title: [[{ t: "Good work" }], [{ t: "finds good people.", accent: true }]],
-    title: "Good work<br><span>finds good people.</span>",
-  },
-  insights: {
-    // title: [
-    //   [{ t: "The pursuit of" }],
-    //   [
-    //     { t: "purpose", ring: true, accent: true },
-    //     { t: ".", accent: true },
-    //   ],
-    // ],
-    title: "The pursuit of<br><span>purp<b>o</b>se.</span>",
-  },
-};
-
 async function HomeContent() {
   const { data } = await getHome();
   if (!data) return null;
@@ -102,7 +33,6 @@ async function HomeContent() {
     blogs,
   } = data;
 
-  
   const {
     section_one,
     section_two,
@@ -113,7 +43,6 @@ async function HomeContent() {
     section_seven,
     section_eight,
   } = home_cms ?? {};
-
 
   return (
     <main>

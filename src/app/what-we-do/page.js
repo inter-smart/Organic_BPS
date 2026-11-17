@@ -12,30 +12,6 @@ export async function generateMetadata() {
   return buildMetadata(cmsMeta(data?.banner), "/what-we-do");
 }
 
-const local_data = {
-  hero: {
-    // title: [
-    //   [{ t: "From " }, { t: "purpose", ring: true }],
-    //   [{ t: "to action." }],
-    //   [{ t: "From strategy" }],
-    //   [{ t: "to " }, { t: "execution.", accent: true }],
-    // ],
-    title: "From purp<b>o</b>se<br>to action.<br>From strategy<br>to <span>execution.</span>",
-    scroll: { label: "Scroll to the next section", href: "#practices" },
-  },
-  practices: {
-    // title: [[{ t: "Four specialist practices" }, { t: ".", accent: true }]],
-    title: "Four specialist practices<span>.</span>",
-    // the API sends the logo image only; size and alt follow the practice order
-    logos: [
-      { alt: "BRANDFARM", width: 348, height: 205 },
-      { alt: "Brand Bloom", width: 171, height: 109 },
-      { alt: "brandize", width: 188, height: 38 },
-      { alt: "Green House", width: 249, height: 114 },
-    ],
-  },
-};
-
 export default async function page() {
   const { data } = await getWhatWeDo();
   if (!data) return null;
@@ -45,22 +21,10 @@ export default async function page() {
   return (
     <main>
       <MetaTags html={data.banner?.other_meta_tags} />
-      {banner && (
-        <Hero
-          banner={banner}
-          title={local_data.hero.title}
-          scroll={local_data.hero.scroll}
-        />
-      )}
+      {banner && <Hero banner={banner} />}
       {practices?.length > 0 && (
-        <Practices
-          eyebrow={cms?.title_one}
-          title={local_data.practices.title}
-          practices={practices}
-          logos={local_data.practices.logos}
-        />
+        <Practices eyebrow={cms?.title_one} practices={practices} />
       )}
     </main>
   );
 }
-

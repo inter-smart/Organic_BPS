@@ -6,7 +6,12 @@ import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
 import { link, text } from "@/lib/cms-text";
 
-export default function Hero({ banner, title, scroll }) {
+const scroll = {
+  label: "Scroll to what is corporate purpose",
+  href: "#what-is-purpose",
+};
+
+export default function Hero({ banner, title }) {
   return (
     <section
       id="hero"

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 /** "On this page" card; the highlighted entry follows the policy section currently in view. */
 export default function Contents({ data, items = [] }) {
+  const name = data?.name;
   const [active, setActive] = useState(items?.[0]?.id);
   const [open, setOpen] = useState(false);
 
@@ -39,13 +40,13 @@ export default function Contents({ data, items = [] }) {
     <div className="rounded-3xl border border-basecolor13 bg-basecolor12 p-6 shadow-[0_17px_52px_rgba(0,0,0,0.08)] sm:p-8 lg:rounded-[calc(26*var(--u))] lg:px-[calc(40.4*var(--u))] lg:pt-[calc(40.4*var(--u))] lg:pb-[calc(43.3*var(--u))]">
       <div className="flex items-center justify-between pb-5 lg:pb-[calc(28.9*var(--u))]">
         <p className="text-sm font-bold tracking-[0.14em] text-basecolor7 uppercase lg:text-[clamp(14px,calc(20.2*var(--u)),20.2px)]">
-          {data?.title}
+          On this page
         </p>
         <button
           type="button"
           aria-expanded={open}
           aria-controls="policy-contents-list"
-          aria-label={open ? data?.toggle?.close : data?.toggle?.open}
+          aria-label={`${open ? "Collapse" : "Expand"} ${name.toLowerCase()} contents`}
           onClick={() => setOpen((v) => !v)}
           className="flex items-center rounded-full p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 min-[992px]:hidden"
         >
@@ -54,7 +55,7 @@ export default function Contents({ data, items = [] }) {
         <Image src="/images/icon-list.svg" alt="" width={26} height={26} className="hidden min-[992px]:block lg:size-[calc(26*var(--u))]" />
       </div>
 
-      <nav id="policy-contents-list" aria-label={data?.label} className={cn(!open && "max-[992px]:hidden")}>
+      <nav id="policy-contents-list" aria-label={`${name} contents`} className={cn(!open && "max-[992px]:hidden")}>
         <ol>
           {items.map((s, i) => {
             const on = active === s.id;

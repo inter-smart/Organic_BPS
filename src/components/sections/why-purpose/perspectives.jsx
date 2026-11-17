@@ -4,7 +4,14 @@ import { renderTitle } from "@/components/common/rich-text";
 import PerspectivesSlider from "@/components/sections/why-purpose/perspectives-slider";
 import { text } from "@/lib/cms-text";
 
-export default function Perspectives({ data, slider, items }) {
+const slider = {
+  label: "Purpose perspectives",
+  prev: "Previous articles",
+  next: "Next articles",
+  goTo: "Go to articles",
+};
+
+export default function Perspectives({ data, items }) {
   return (
     <section
       id="perspectives"

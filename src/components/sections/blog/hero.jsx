@@ -5,6 +5,11 @@ import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
 import TopicRail from "@/components/sections/blog/topic-rail";
 
+const scroll = {
+  label: "Scroll to featured perspectives",
+  href: "#featured",
+};
+
 export default function Hero({ data }) {
   return (
     <section
@@ -53,8 +58,8 @@ export default function Hero({ data }) {
         <div className="container mx-auto px-4">
           <div className="hidden justify-end pb-6 sm:flex lg:pb-[calc(54*var(--u))]">
             <a
-              href={data?.scroll?.href}
-              aria-label={data?.scroll?.label}
+              href={scroll.href}
+              aria-label={scroll.label}
               className="flex size-12 items-center justify-center"
             >
               <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
@@ -67,7 +72,7 @@ export default function Hero({ data }) {
               </span>
             </a>
           </div>
-          <TopicRail data={data?.topics} />
+          <TopicRail data={{ label: "Explore the thinking", items: data?.topics }} />
         </div>
       </div>
     </section>

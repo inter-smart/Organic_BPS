@@ -6,7 +6,6 @@ import { BlogFilterProvider } from "@/components/sections/blog/blog-filter";
 import MetaTags from "@/components/common/meta-tags";
 import { apiGet } from "@/lib/api-calls";
 import { mapBlog, mapPage } from "@/lib/blog-api";
-import { newsletter } from "@/lib/blog-data";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { text } from "@/lib/cms-text";
 
@@ -16,26 +15,6 @@ export async function generateMetadata() {
   const { data } = await getBlogs();
   return buildMetadata(cmsMeta(data?.banner), "/blog");
 }
-
-const local_data = {
-  hero: {
-    scroll: { label: "Scroll to featured perspectives", href: "#featured" },
-    topicsLabel: "Explore the thinking",
-  },
-  featured: {
-    cta: { label: "Read more" },
-    slider: { label: "Featured perspectives" },
-  },
-  newsletter: {
-    form: newsletter.form,
-    privacy: newsletter.privacy,
-    errors: {
-      captcha: "We couldn’t verify you are human. Please try again.",
-      generic: "Something went wrong. Please try again.",
-      network: "Network error. Please try again.",
-    },
-  },
-};
 
 export default async function BlogPage() {
   const [{ data }, { data: all }] = await Promise.all([
@@ -62,14 +41,12 @@ export default async function BlogPage() {
             data={{
               image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
               title: banner.banner_title,
-              scroll: local_data.hero.scroll,
-              topics: { label: local_data.hero.topicsLabel, items: topics },
+                            topics,
             }}
           />
         )}
         <Insights
           featured={{
-            ...local_data.featured,
             eyebrow: text(cms?.section_one?.title),
             title: cms?.section_one?.subtitle,
             text: text(cms?.section_one?.description),
@@ -87,7 +64,6 @@ export default async function BlogPage() {
       {sub && (
         <Newsletter
           data={{
-            ...local_data.newsletter,
             title: text(sub.title),
             text: text(sub.description_one),
             note: text(sub.description_two),

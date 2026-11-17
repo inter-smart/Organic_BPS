@@ -6,7 +6,7 @@ import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
 import { text } from "@/lib/cms-text";
 
-export default function Hero({ banner, title, scroll }) {
+export default function Hero({ banner, title }) {
   return (
     <section
       id="hero"
@@ -94,8 +94,8 @@ export default function Hero({ banner, title, scroll }) {
           </div>
 
           <a
-            href={scroll?.href}
-            aria-label={scroll?.label}
+            href={'#enquiry'}
+            aria-label={"Scroll to the next section"}
             className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
           >
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">

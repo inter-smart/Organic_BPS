@@ -4,7 +4,9 @@ import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
 
-export default function Locations({ data, title, offices, map }) {
+const mapLabel = "Location Map";
+
+export default function Locations({ data, title, offices, mapHref }) {
   return (
     <section
       id="locations"
@@ -33,19 +35,19 @@ export default function Locations({ data, title, offices, map }) {
             >
               {data?.description}
             </Reveal>
-            {map?.href ? (
+            {mapHref ? (
               <Reveal
                 variant="up"
                 delay={0.2}
                 className="mt-8 lg:mt-[calc(40*var(--u))]"
               >
                 <Button
-                  href={map.href}
+                  href={mapHref}
                   variant="dark"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {map.label}
+                  {mapLabel}
                 </Button>
               </Reveal>
             ) : null}

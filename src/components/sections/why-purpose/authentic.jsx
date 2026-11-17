@@ -33,7 +33,9 @@ function Tile({ item, result, delay }) {
   );
 }
 
-export default function Authentic({ data, image, title, equationLabel }) {
+const equationLabel = "Words plus actions lead to authenticity";
+
+export default function Authentic({ data, title }) {
   return (
     <section
       id="authentic"
@@ -48,9 +50,9 @@ export default function Authentic({ data, image, title, equationLabel }) {
           >
             <Image
               src={data?.image}
-              alt={image?.alt ?? ""}
-              width={image?.width}
-              height={image?.height}
+              alt="Aerial view of a small blue boat on bright green water"
+              width={1100}
+              height={734}
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="aspect-[866/651] w-full object-cover"
             />

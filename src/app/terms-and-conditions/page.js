@@ -15,20 +15,6 @@ export async function generateMetadata() {
   return buildMetadata(cmsMeta(data?.policy), "/terms-and-conditions");
 }
 
-const local_data = {
-  hero: {
-    scroll: { label: "Scroll to the policy", href: "#policy" },
-  },
-  contents: {
-    title: "On this page",
-    label: "Terms and conditions contents",
-    toggle: {
-      open: "Expand terms and conditions contents",
-      close: "Collapse terms and conditions contents",
-    },
-  },
-};
-
 async function PrivacyContent() {
   const { data } = await getTerms();
   const policy = data?.policy;
@@ -56,7 +42,6 @@ async function PrivacyContent() {
             // one line per segment, the accent word sits on its own line
             title: titleLines(banner.banner_title),
             paragraph: text(banner.banner_description),
-            scroll: local_data.hero.scroll,
           }}
         />
       )}
@@ -67,7 +52,7 @@ async function PrivacyContent() {
           lead,
           copy,
           contents: {
-            ...local_data.contents,
+            name: "Terms and conditions",
             note: {
               title: text(policy.help_setion_title),
               text: text(policy.help_setion_description),

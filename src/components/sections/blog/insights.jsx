@@ -4,6 +4,9 @@ import { renderTitle } from "@/components/common/rich-text";
 import FeaturedSlider from "@/components/sections/blog/featured-slider";
 import Listing from "@/components/sections/blog/listing";
 
+const cta = { label: "Read more" };
+const slider = { label: "Featured perspectives" };
+
 /** Featured slider followed by the filterable listing. */
 export default function Insights({ featured, listing }) {
   return (
@@ -45,8 +48,8 @@ export default function Insights({ featured, listing }) {
           <div className="mt-10 lg:mt-[calc(152*var(--u))] 3xl:mt-37.5">
             <FeaturedSlider
               items={featured?.items}
-              cta={featured?.cta}
-              labels={featured?.slider}
+              cta={cta}
+              labels={slider}
             />
           </div>
         </div>

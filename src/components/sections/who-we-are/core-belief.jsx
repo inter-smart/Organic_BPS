@@ -4,7 +4,10 @@ import { renderTitle } from "@/components/common/rich-text";
 import Venn from "@/components/common/venn";
 import { paragraphs } from "@/lib/cms-text";
 
-export default function CoreBelief({ data, title, core_belief }) {
+const title =
+  "Growth for All.<br><span>Growth for Good.</span>";
+
+export default function CoreBelief({ data, core_belief }) {
   return (
     <section
       id="core-belief"

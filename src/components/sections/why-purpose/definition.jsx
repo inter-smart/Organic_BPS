@@ -5,7 +5,9 @@ import { renderTitle } from "@/components/common/rich-text";
 import { paragraphs } from "@/lib/cms-text";
 import DistinctionsSlider from "@/components/sections/why-purpose/distinctions-slider";
 
-export default function Definition({ data, statements, title, label }) {
+const label = "Vision, mission, values and purpose";
+
+export default function Definition({ data, statements, title }) {
   return (
     <section
       id="what-is-purpose"

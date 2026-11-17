@@ -27,7 +27,10 @@ function Photo({ image, sizes, className, delay = 0 }) {
   );
 }
 
-export default function Team({ data, title }) {
+const title =
+  "Strategic minds.<br><span>Creative hands.</span><br>Shared commitment.";
+
+export default function Team({ data }) {
   return (
     <section
       id="team"

@@ -34,7 +34,8 @@ const dots = [
   "lg:top-[calc(387*var(--u))] lg:left-[calc(507*var(--u))]",
 ];
 
-export default function Importance({ data, benefits = [], title, label }) {
+
+export default function Importance({ data, benefits = [], title }) {
   const [intro] = paragraphs(data?.note);
   const core = benefits.find((b) => b.position === "center");
   const around = benefits.filter((b) => b.position !== "center");
@@ -96,7 +97,7 @@ export default function Importance({ data, benefits = [], title, label }) {
           >
             <div
               role="group"
-              aria-label={label}
+              aria-label={"What a shared direction does"}
               className="relative mx-auto max-w-[420px] lg:mx-0 lg:h-[calc(620*var(--u))] lg:w-[calc(840*var(--u))] lg:max-w-none"
             >
               <div aria-hidden="true" className="hidden lg:block">
