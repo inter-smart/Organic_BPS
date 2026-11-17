@@ -4,100 +4,66 @@ import Close from "@/components/sections/blog-detail/close";
 import Hero from "@/components/sections/blog-detail/hero";
 import Related from "@/components/sections/blog-detail/related";
 import Share from "@/components/sections/blog-detail/share";
-import {
-  allArticles,
-  author,
-  getArticle,
-  hrefFor,
-  newsletter,
-} from "@/lib/blog-data";
-
-export function generateStaticParams() {
-  return allArticles.filter((a) => a.detail).map((a) => ({ slug: a.id }));
-}
+import { apiGet } from "@/lib/api-calls";
+import { mapDetail } from "@/lib/blog-api";
+import { newsletter } from "@/lib/blog-data";
+import { text } from "@/lib/cms-text";
 
 export async function generateMetadata({ params }) {
-  const article = getArticle((await params).slug);
-  if (!article) return {};
+  const { slug } = await params;
+  const { data } = await apiGet(`blogs/${slug}`);
+  const blog = data?.blog;
+  if (!blog) return {};
   return {
-    title: `${article.title}${article.accent ?? ""} — Organic BPS`.replace(
-      /\s+/g,
-      " ",
-    ),
-    description: article.summary,
+    title: `${blog.meta_title || blog.title} — Organic BPS`,
+    description: blog.meta_description || blog.small_description,
   };
 }
 
 export default async function BlogDetailPage({ params }) {
-  const article = getArticle((await params).slug);
-  if (!article) notFound();
+  const { slug } = await params;
+  const { data } = await apiGet(`blogs/${slug}`);
+  if (!data?.blog) notFound();
 
-  const { detail } = article;
-  const related = detail.related
-    .map((id) => allArticles.find((a) => a.id === id))
-    .filter(Boolean)
-    .map((a) => ({ ...a, href: hrefFor(a) }));
-
-  const local_data = {
-    hero: {
-      date: article.date,
-      readTime: article.readTime,
-      title: article.title,
-      accent: article.accent,
-      summary: article.summary,
-      image: article.image,
-      badge: detail.badge,
-      caption: detail.caption,
-      scroll: "Scroll to the article",
-      author,
-      topics: detail.topics,
-      topicsLabel: "Topics",
-    },
-    share: {
-      label: "Share",
-      linkedin: "LinkedIn",
-      copy: "Copy link",
-      copied: "Link copied",
-    },
-    body: detail.body,
-    close: {
-      next: { label: "Next perspective", href: "/blog" },
-      bio: { eyebrow: "About the author" },
-      author,
-    },
-    related: {
-      eyebrow: "Related thinking",
-      title: "Keep putting purpose to work.",
-      cta: { label: "View More", href: "/blog" },
-      slider: {
-        label: "Related perspectives",
-        prev: "Previous perspectives",
-        next: "Next perspectives",
-        goTo: "Go to perspective",
-      },
-      card: { readTime: "{n} min read", link: "Read More" },
-    },
-    newsletter,
-  };
+  const { page_cms: cms, blog, related_blogs: relatedBlogs } = data;
+  const article = mapDetail(blog, relatedBlogs);
+  const sub = cms.subscription_section;
+  const relatedCms = cms.related_blog_section;
 
   return (
     <main>
-      <Hero data={local_data.hero} />
+      <Hero data={article.hero} />
       <article
         id="article"
         className="scroll-mt-20 bg-white py-12 lg:pt-[calc(80*var(--u))] lg:pb-[calc(100*var(--u))]"
       >
         <div className="container mx-auto px-4">
-          <Share data={local_data.share} />
+          <Share />
           <div
             className="typography article-copy mt-8 lg:mt-[calc(32*var(--u))]"
-            dangerouslySetInnerHTML={{ __html: local_data.body }}
+            dangerouslySetInnerHTML={{ __html: article.body }}
           />
-          <Close data={local_data.close} />
+          <Close data={{ author: article.author }} />
         </div>
       </article>
-      <Related data={local_data.related} articles={related} />
-      <Newsletter data={local_data.newsletter} />
+      {article.related.length > 0 && (
+        <Related
+          data={{
+            eyebrow: text(relatedCms.title),
+            title: text(relatedCms.subtitle),
+          }}
+          articles={article.related}
+        />
+      )}
+      <Newsletter
+        data={{
+          form: newsletter.form,
+          privacy: newsletter.privacy,
+          title: text(sub.title),
+          text: text(sub.description_one),
+          note: text(sub.description_two),
+        }}
+      />
     </main>
   );
 }

@@ -16,7 +16,7 @@ const MONTHS = [
 ];
 
 // "13 Nov 2026" -> "2026-11-13"
-function isoDate(value) {
+export function isoDate(value) {
   const m = /^(\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+(\d{4})$/.exec(value ?? "");
   const month = m ? MONTHS.indexOf(m[2].toLowerCase()) + 1 : 0;
   if (!month) return "";
@@ -67,4 +67,51 @@ export async function fetchBlogPage({ category, search, page, signal }) {
   if (page > 1) params.page = page;
   const { data, error } = await apiGet("blogs/filter", { params, signal });
   return error ? null : mapPage(data);
+}
+
+const escapeHtml = (value) =>
+  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// Lead line, first half, the author's pull quote, second half, then the boxed questions.
+function articleBody(blog) {
+  const quote = blog.author_message
+    ? `<blockquote><p>${escapeHtml(blog.author_message)}</p><footer>${escapeHtml(
+        [blog.author, blog.author_designation].filter(Boolean).join(" · "),
+      )}</footer></blockquote>`
+    : "";
+  return [
+    blog.main_title && `<p class="lead">${escapeHtml(blog.main_title)}</p>`,
+    blog.content,
+    quote,
+    blog.content2,
+    blog.box_content && `<aside>${blog.box_content}</aside>`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+// The detail response in the shape the blog-detail sections read.
+export function mapDetail(blog, related) {
+  const author = {
+    name: blog.author,
+    role: blog.author_designation,
+    bio: blog.about_author,
+    imageLarge: { src: blog.author_image, alt: "" },
+  };
+  return {
+    hero: {
+      date: isoDate(blog.published_on),
+      readTime: parseInt(blog.duration, 10),
+      title: blog.title,
+      summary: blog.small_description,
+      image: { src: blog.detail_page_image, alt: blog.image_alt_text ?? "" },
+      badge: blog.category_name,
+      caption: blog.author_message,
+      topics: [blog.category_name],
+      author,
+    },
+    body: articleBody(blog),
+    author,
+    related: related.map(mapBlog),
+  };
 }

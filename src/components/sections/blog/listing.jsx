@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 const pill =
   "rounded-full border px-5 py-3 text-sm font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none lg:border-[1.3px] lg:px-[calc(22.7*var(--u))] lg:py-[calc(14.7*var(--u))] lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]";
 
-const cardLabels = { readTime: "{n} min read", link: "Read More" };
 const errorText = "We couldn’t load the perspectives. Please try again.";
 const emptyText =
   "No perspectives match your search yet. Try another topic or clear the search.";
@@ -130,11 +129,7 @@ export default function Listing({ data }) {
         ) : shown.length ? (
           <div className="mt-8 grid items-start gap-6 sm:grid-cols-2 lg:mt-[calc(59*var(--u))] lg:grid-cols-3! lg:gap-x-[calc(32*var(--u))] lg:gap-y-[calc(98*var(--u))]">
             {shown.map((article) => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                labels={cardLabels}
-              />
+              <ArticleCard key={article.id} article={article} />
             ))}
           </div>
         ) : (

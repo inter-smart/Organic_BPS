@@ -3,7 +3,7 @@ import Link from "next/link";
 import { formatDate } from "@/lib/format-date";
 
 /** One article tile in the listing grid. */
-export default function ArticleCard({ article, labels }) {
+export default function ArticleCard({ article }) {
   return (
     <article className="group/card flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_13px_40px_rgba(0,0,0,0.08)] transition-[translate,box-shadow] duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_24px_56px_rgba(0,0,0,0.16)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:rounded-[calc(32*var(--u))]">
       <div className="relative aspect-[552/336.6] shrink-0 overflow-hidden">
@@ -16,7 +16,7 @@ export default function ArticleCard({ article, labels }) {
           className="size-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105 motion-reduce:transition-none motion-reduce:group-hover/card:scale-100"
         />
         <span className="absolute bottom-4 left-4 rounded-full bg-basecolor7/80 px-3.5 py-2 text-sm font-semibold text-white lg:bottom-[calc(24*var(--u))] lg:left-[calc(24*var(--u))] lg:px-[calc(14.7*var(--u))] lg:py-[calc(9.4*var(--u))] lg:text-[clamp(11px,calc(14.7*var(--u)),14.7px)]">
-          {labels?.readTime?.replace("{n}", article?.readTime)}
+          {`${article?.readTime} min read`}
         </span>
       </div>
 
@@ -46,7 +46,7 @@ export default function ArticleCard({ article, labels }) {
           href={article?.href}
           className="group mt-auto flex w-fit items-center gap-3 text-sm font-bold text-basecolor7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]"
         >
-          {labels?.link}
+          Read More
           <span className="sr-only">: {article?.title}</span>
           <Image
             src="/images/arrow-right-red.svg"

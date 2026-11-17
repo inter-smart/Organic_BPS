@@ -74,7 +74,7 @@ export default function Hero({ data }) {
             </p>
             <a
               href="#article"
-              aria-label={data?.scroll}
+              aria-label="Scroll to the article"
               className="flex size-12 shrink-0 items-center justify-center rounded-full bg-basecolor14 transition-transform duration-300 hover:translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none lg:size-[calc(70.4*var(--u))]"
             >
               <Image
@@ -107,7 +107,7 @@ export default function Hero({ data }) {
             </div>
           </div>
           <ul
-            aria-label={data?.topicsLabel}
+            aria-label="Topics"
             className="flex flex-wrap gap-2.5 lg:gap-[calc(12.9*var(--u))]"
           >
             {data?.topics?.map((topic) => (

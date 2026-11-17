@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Hero from "@/components/sections/blog/hero";
 import Insights from "@/components/sections/blog/insights";
 import Newsletter from "@/components/sections/blog/newsletter";
@@ -22,12 +21,7 @@ const local_data = {
   },
   featured: {
     cta: { label: "Read more" },
-    slider: {
-      label: "Featured perspectives",
-      prev: "Previous perspective",
-      next: "Next perspective",
-      goTo: "Go to perspective",
-    },
+    slider: { label: "Featured perspectives" },
   },
   newsletter: {
     form: newsletter.form,
@@ -40,7 +34,7 @@ const local_data = {
   },
 };
 
-async function BlogContent() {
+export default async function BlogPage() {
   const [{ data }, { data: all }] = await Promise.all([
     apiGet("blogs"),
     apiGet("blogs/filter"),
@@ -97,13 +91,5 @@ async function BlogContent() {
         />
       )}
     </main>
-  );
-}
-
-export default function BlogPage() {
-  return (
-    <Suspense fallback={null}>
-      <BlogContent />
-    </Suspense>
   );
 }
