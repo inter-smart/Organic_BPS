@@ -1,14 +1,13 @@
+import { Suspense } from "react";
 import Hero from "@/components/sections/blog/hero";
 import Insights from "@/components/sections/blog/insights";
 import Newsletter from "@/components/sections/blog/newsletter";
 import { BlogFilterProvider } from "@/components/sections/blog/blog-filter";
-import {
-  allArticles,
-  articles,
-  author,
-  hrefFor,
-  newsletter,
-} from "@/lib/blog-data";
+import { apiGet } from "@/lib/api-calls";
+import { mapBlog, mapPage } from "@/lib/blog-api";
+import { newsletter } from "@/lib/blog-data";
+import { text } from "@/lib/cms-text";
+import { parseTitle } from "@/lib/utils";
 
 export const metadata = {
   title: "Blog — Organic BPS",
@@ -18,23 +17,10 @@ export const metadata = {
 
 const local_data = {
   hero: {
-    image: { src: "/images/blog/hero.jpg", alt: "" },
-    title: [
-      [{ t: "Thinking for" }],
-      [{ t: "brands with" }],
-      [{ t: "purpose.", accent: true }],
-    ],
     scroll: { label: "Scroll to featured perspectives", href: "#featured" },
-    topics: {
-      label: "Explore the thinking",
-      items: ["Brand strategy", "Purpose", "Culture", "Change", "Leadership"],
-    },
+    topicsLabel: "Explore the thinking",
   },
-
   featured: {
-    eyebrow: "Put purpose to work",
-    title: [[{ t: "A point of view" }], [{ t: "worth pausing for." }]],
-    text: "A clearer purpose. A stronger brand. A change in behaviour. Let’s explore how we can help you move forward.",
     cta: { label: "Read more" },
     slider: {
       label: "Featured perspectives",
@@ -42,51 +28,92 @@ const local_data = {
       next: "Next perspective",
       goTo: "Go to perspective",
     },
-    author,
-    items: [
-      { ...allArticles[0], href: hrefFor(allArticles[0]) },
-      { id: "distinctive-beats-different" },
-      { id: "culture-is-the-strategy" },
-      { id: "making-change-feel-possible" },
-      { id: "leader-as-meaning-maker" },
-    ],
   },
-
   insights: {
-    eyebrow: "Latest thinking",
-    title: "Ideas for putting purpose to work.",
     count: "Showing {shown} of {total} perspectives",
     empty:
       "No perspectives match your search yet. Try another topic or clear the search.",
-    filters: {
-      label: "Filter by topic",
-      all: "All",
-      items: ["Brand strategy", "Purpose", "Culture", "Change", "Leadership"],
-    },
+    error: "We couldn’t load the perspectives. Please try again.",
+    loading: "Loading perspectives",
+    filters: { label: "Filter by topic" },
     search: {
       label: "Search perspectives",
       placeholder: "Search perspectives",
     },
     card: { readTime: "{n} min read", link: "Read More" },
     loadMore: "View More",
-    pageSize: 9,
-    articles: articles.map((a) => ({ ...a, href: hrefFor(a) })),
   },
-
-  newsletter,
+  newsletter: {
+    form: newsletter.form,
+    privacy: newsletter.privacy,
+  },
 };
+
+async function BlogContent() {
+  const [{ data }, { data: all }] = await Promise.all([
+    apiGet("blogs"),
+    apiGet("blogs/filter"),
+  ]);
+  if (!data) return null;
+
+  const { page_cms: cms, banner } = data;
+  // the API lists "All" first; the banner rail only shows real topics
+  const categories = (data.categories ?? []).map((c) => ({
+    name: c.name,
+    slug: c.slug,
+  }));
+  const topics = categories.filter((c) => c.slug !== "all");
+  const sub = cms?.subscription_section;
+
+  return (
+    <main>
+      <BlogFilterProvider categories={categories}>
+        {banner && (
+          <Hero
+            data={{
+              image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
+              title: parseTitle(banner.banner_title),
+              scroll: local_data.hero.scroll,
+              topics: { label: local_data.hero.topicsLabel, items: topics },
+            }}
+          />
+        )}
+        <Insights
+          featured={{
+            ...local_data.featured,
+            eyebrow: text(cms?.section_one?.title),
+            title: parseTitle(cms?.section_one?.subtitle),
+            text: text(cms?.section_one?.description),
+            items: (data.featured_blogs ?? []).map(mapBlog),
+          }}
+          listing={{
+            ...local_data.insights,
+            eyebrow: text(cms?.section_two?.title),
+            title: text(cms?.section_two?.subtitle),
+            filters: { ...local_data.insights.filters, items: categories },
+            // the plain list leaves the featured blog out; the filter list has every blog
+            initial: mapPage(all ?? data.blogs),
+          }}
+        />
+      </BlogFilterProvider>
+      {sub && (
+        <Newsletter
+          data={{
+            ...local_data.newsletter,
+            title: text(sub.title),
+            text: text(sub.description_one),
+            note: text(sub.description_two),
+          }}
+        />
+      )}
+    </main>
+  );
+}
 
 export default function BlogPage() {
   return (
-    <main>
-      <BlogFilterProvider>
-        <Hero data={local_data.hero} />
-        <Insights
-          featured={local_data.featured}
-          listing={local_data.insights}
-        />
-      </BlogFilterProvider>
-      <Newsletter data={local_data.newsletter} />
-    </main>
+    <Suspense fallback={null}>
+      <BlogContent />
+    </Suspense>
   );
 }

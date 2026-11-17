@@ -4,15 +4,8 @@ import { RichLines } from "@/components/common/rich-text";
 import FeaturedSlider from "@/components/sections/blog/featured-slider";
 import Listing from "@/components/sections/blog/listing";
 
-/** Featured slider (random category picks) followed by the filterable listing. */
+/** Featured slider followed by the filterable listing. */
 export default function Insights({ featured, listing }) {
-  const byId = Object.fromEntries(
-    (listing?.articles ?? []).map((a) => [a.id, a]),
-  );
-  const items = (featured?.items ?? [])
-    .map((item) => (item.title ? item : byId[item.id]))
-    .filter(Boolean);
-
   return (
     <>
       <section
@@ -50,11 +43,9 @@ export default function Insights({ featured, listing }) {
           </div>
           <div className="mt-10 lg:mt-[calc(152*var(--u))] 3xl:mt-37.5">
             <FeaturedSlider
-              items={items}
-              author={featured?.author}
+              items={featured?.items}
               cta={featured?.cta}
               labels={featured?.slider}
-              categories={listing?.filters?.items}
             />
           </div>
         </div>

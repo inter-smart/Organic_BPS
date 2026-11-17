@@ -59,6 +59,16 @@ export default function Hero({ banner, title }) {
           </Reveal>
 
           <div className="lg:pl-[calc(9*var(--u))]">
+            {banner?.banner_description ? (
+              <Reveal
+                variant="up"
+                delay={0.2}
+                className="text-base/[1.6] font-medium text-pretty text-white sm:text-lg/[1.6] lg:text-intro 3xl:text-[25px] lg:max-w-[660px] [&>p+p]:mt-6 lg:[&>p+p]:mt-[calc(36*var(--u))]"
+                immediate
+                dangerouslySetInnerHTML={{ __html: banner.banner_description }}
+              />
+            ) : null}
+
             <Reveal
               variant="up"
               delay={0.55}

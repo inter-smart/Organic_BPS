@@ -4,48 +4,13 @@ import Fade from "embla-carousel-fade";
 import { formatDate } from "@/lib/format-date";
 import Button from "@/components/common/button";
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
-
-function rng(seed) {
-  let a = Math.floor(seed * 4294967296);
-  return () => {
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function pickRandom(items, seed) {
-  const random = rng(seed);
-  const groups = new Map();
-  items.forEach((item) =>
-    groups.set(item.category, [...(groups.get(item.category) ?? []), item]),
-  );
-  const picks = [...groups.values()].map(
-    (g) => g[Math.floor(random() * g.length)],
-  );
-  for (let i = picks.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [picks[i], picks[j]] = [picks[j], picks[i]];
-  }
-  return picks;
-}
-
-let clientSeed;
-const subscribe = () => () => {};
-const getClientSeed = () => (clientSeed ??= Math.random());
-const getServerSeed = () => 0;
+import { useEffect, useState } from "react";
 
 const ctrl =
   "flex size-10 items-center justify-center rounded-full border border-basecolor16 bg-white text-basecolor7 transition-colors duration-300 hover:border-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none";
 
-export default function FeaturedSlider({ items = [], author, cta, labels }) {
-  const seed = useSyncExternalStore(subscribe, getClientSeed, getServerSeed);
-  const slides = useMemo(
-    () => (seed ? pickRandom(items, seed) : items),
-    [items, seed],
-  );
+export default function FeaturedSlider({ items = [], cta, labels }) {
+  const slides = items;
   const [selected, setSelected] = useState(0);
   const [viewportRef, embla] = useEmblaCarousel(
     {
@@ -119,18 +84,22 @@ export default function FeaturedSlider({ items = [], author, cta, labels }) {
                     {item.summary}
                   </p>
                   <div className="mt-6 flex items-center gap-3 lg:mt-[calc(44*var(--u))]">
-                    <Image
-                      src={author?.image?.src}
-                      alt={author?.image?.alt ?? ""}
-                      width={42}
-                      height={42}
-                      className="size-[42px] rounded-full object-cover"
-                    />
+                    {item.author?.image?.src ? (
+                      <Image
+                        src={item.author.image.src}
+                        alt={item.author.image.alt ?? ""}
+                        width={42}
+                        height={42}
+                        className="size-[42px] rounded-full object-cover"
+                      />
+                    ) : null}
                     <div>
                       <p className="text-sm font-semibold text-basecolor7">
-                        {author?.name}
+                        {item.author?.name}
                       </p>
-                      <p className="text-xs text-basecolor9">{author?.role}</p>
+                      <p className="text-xs text-basecolor9">
+                        {item.author?.role}
+                      </p>
                     </div>
                   </div>
                   <div className="mt-6 lg:mt-[calc(46*var(--u))]">

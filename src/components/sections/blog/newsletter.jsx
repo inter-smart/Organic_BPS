@@ -9,6 +9,7 @@ import Recaptcha, {
   getRecaptchaToken,
 } from "@/components/common/recaptcha";
 import Reveal from "@/components/common/reveal";
+import { apiPost } from "@/lib/api-calls";
 import { fieldErrors } from "@/lib/contact-schema";
 import { newsletterSchema } from "@/lib/newsletter-schema";
 
@@ -39,20 +40,15 @@ export default function Newsletter({ data }) {
       const body = { email: parsed.data.email };
       if (token) body["g-recaptcha-response"] = token;
 
-      const res = await fetch("/api/email-subscription", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (res.ok) {
+      const { error: apiError } = await apiPost("email-subscription", body);
+      if (!apiError) {
         setDone(true);
         return;
       }
-      const json = await res.json().catch(() => null);
-      const fieldError = json?.errors?.email;
+      const fieldError = apiError.errors?.email;
       setError(
         (Array.isArray(fieldError) ? fieldError[0] : fieldError) ||
-          json?.message ||
+          apiError.message ||
           "Something went wrong. Please try again.",
       );
     } catch {
@@ -85,9 +81,7 @@ export default function Newsletter({ data }) {
             </Heading>
           </Reveal>
           <Reveal variant="up" delay={0.15} className="lg:max-w-[520px]">
-            <p className="text-sm 2xl:text-base 3xl:text-lg">
-              {data?.text}
-            </p>
+            <p className="text-sm 2xl:text-base 3xl:text-lg">{data?.text}</p>
             {done ? (
               <p
                 role="status"

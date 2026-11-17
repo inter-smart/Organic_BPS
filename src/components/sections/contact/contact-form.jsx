@@ -5,6 +5,7 @@ import Recaptcha, {
   RECAPTCHA_SITE_KEY,
   getRecaptchaToken,
 } from "@/components/common/recaptcha";
+import { apiPost } from "@/lib/api-calls";
 import { contactSchema, fieldErrors } from "@/lib/contact-schema";
 import {
   Select,
@@ -102,24 +103,25 @@ export default function ContactForm({ topics }) {
       }
       if (token) payload["g-recaptcha-response"] = token;
 
-      const res = await fetch("/api/contact-enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) {
+      const body = Object.fromEntries(
+        Object.entries({
+          ...parsed.data,
+          "g-recaptcha-response": payload["g-recaptcha-response"],
+        }).filter(([, value]) => value),
+      );
+      const { error: apiError } = await apiPost("contact-enquiry", body);
+      if (!apiError) {
         setSubmitted(true);
         return;
       }
-      const json = await res.json().catch(() => null);
-      if (json?.errors && typeof json.errors === "object") {
+      if (apiError.errors && typeof apiError.errors === "object") {
         const mapped = {};
-        for (const [key, value] of Object.entries(json.errors)) {
+        for (const [key, value] of Object.entries(apiError.errors)) {
           mapped[key] = Array.isArray(value) ? value[0] : String(value);
         }
         setErrors(mapped);
       }
-      setError(json?.message || "Something went wrong. Please try again.");
+      setError(apiError.message || "Something went wrong. Please try again.");
     } catch {
       setError("Network error. Please try again.");
     } finally {

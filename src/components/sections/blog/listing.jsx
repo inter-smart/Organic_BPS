@@ -1,47 +1,94 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
+import Spinner from "@/components/common/spinner";
 import ArticleCard from "@/components/sections/blog/article-card";
 import { useBlogFilter } from "@/components/sections/blog/blog-filter";
+import { apiGet } from "@/lib/api-calls";
+import { mapPage } from "@/lib/blog-api";
 import { cn } from "@/lib/utils";
 
 const pill =
   "rounded-full border px-5 py-3 text-sm font-semibold whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none lg:border-[1.3px] lg:px-[calc(22.7*var(--u))] lg:py-[calc(14.7*var(--u))] lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]";
 
-/** "Latest thinking": topic filters, search and paged article grid. */
+const SEARCH_DELAY = 500;
+
+async function fetchPage(category, search, page, signal) {
+  const params = {};
+  if (category) params.category = category;
+  if (search) params.search = search;
+  if (page > 1) params.page = page;
+  const { data, error } = await apiGet("blogs/filter", { params, signal });
+  return error ? null : mapPage(data);
+}
+
+/** "Latest thinking": topic filters, search and paged article grid, all served by the API. */
 export default function Listing({ data }) {
-  const { category: picked, setCategory, query, setQuery } = useBlogFilter();
-  // an unknown topic in a shared link falls back to All
-  const category =
-    picked === "all" || data?.filters?.items?.includes(picked) ? picked : "all";
-  const pageSize = data?.pageSize ?? 9;
-  // any filter or search change starts again from the first page (state adjusted during render, no effect needed)
-  const filterKey = `${category}|${query}`;
-  const [limit, setLimit] = useState(pageSize);
-  const [seenKey, setSeenKey] = useState(filterKey);
-  if (seenKey !== filterKey) {
-    setSeenKey(filterKey);
-    setLimit(pageSize);
+  const { category, setCategory, query, setQuery } = useBlogFilter();
+  const [list, setList] = useState(data?.initial);
+  const [status, setStatus] = useState("idle");
+  const loadedKey = useRef("all|");
+  const request = useRef(null);
+
+  const search = query.trim();
+  const filterKey = `${category}|${search}`;
+
+  // a new topic or search starts again from the first page; typing waits for the pause
+  useEffect(() => {
+    if (filterKey === loadedKey.current) return;
+    const timer = setTimeout(
+      async () => {
+        const ctrl = new AbortController();
+        request.current = ctrl;
+        setStatus("loading");
+        const res = await fetchPage(category, search, 1, ctrl.signal);
+        if (ctrl.signal.aborted) return;
+        if (!res) {
+          setStatus("error");
+          return;
+        }
+        loadedKey.current = filterKey;
+        setList(res);
+        setStatus("idle");
+      },
+      search ? SEARCH_DELAY : 0,
+    );
+    return () => {
+      clearTimeout(timer);
+      request.current?.abort();
+    };
+  }, [filterKey, category, search]);
+
+  async function loadMore() {
+    request.current?.abort();
+    const ctrl = new AbortController();
+    request.current = ctrl;
+    setStatus("more");
+    const res = await fetchPage(category, search, list.page + 1, ctrl.signal);
+    if (ctrl.signal.aborted) return;
+    if (!res) {
+      setStatus("error");
+      return;
+    }
+    setList((prev) => ({
+      ...res,
+      articles: [
+        ...prev.articles,
+        ...res.articles.filter(
+          (a) => !prev.articles.some((p) => p.id === a.id),
+        ),
+      ],
+    }));
+    setStatus("idle");
   }
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return (data?.articles ?? []).filter((a) => {
-      if (category !== "all" && a.category !== category) return false;
-      return (
-        !q ||
-        [a.title, a.summary, a.category].some((t) =>
-          t.toLowerCase().includes(q),
-        )
-      );
-    });
-  }, [data?.articles, category, query]);
-
-  const shown = filtered.slice(0, limit);
+  const shown = list?.articles ?? [];
+  const hasMore = (list?.page ?? 1) < (list?.lastPage ?? 1);
+  const loading = status === "loading";
 
   return (
     <section
@@ -74,9 +121,11 @@ export default function Listing({ data }) {
             role="status"
             className="text-sm text-basecolor9 lg:text-[clamp(13px,calc(18.7*var(--u)),18.7px)]"
           >
-            {data?.count
-              ?.replace("{shown}", shown.length)
-              .replace("{total}", filtered.length)}
+            {loading
+              ? data?.loading
+              : data?.count
+                  ?.replace("{shown}", shown.length)
+                  .replace("{total}", list?.total ?? shown.length)}
           </p>
         </div>
 
@@ -86,14 +135,14 @@ export default function Listing({ data }) {
             aria-label={data?.filters?.label}
             className="flex flex-wrap gap-2.5 lg:gap-[calc(13.4*var(--u))]"
           >
-            {["all", ...(data?.filters?.items ?? [])].map((item) => {
-              const on = category === item;
+            {(data?.filters?.items ?? []).map((item) => {
+              const on = category === item.slug;
               return (
                 <button
-                  key={item}
+                  key={item.slug}
                   type="button"
                   aria-pressed={on}
-                  onClick={() => setCategory(item)}
+                  onClick={() => setCategory(item.slug)}
                   className={cn(
                     pill,
                     on
@@ -101,7 +150,7 @@ export default function Listing({ data }) {
                       : "border-basecolor16 bg-white text-basecolor7 hover:border-basecolor14 3xl:text-lg",
                   )}
                 >
-                  {item === "all" ? data?.filters?.all : item}
+                  {item.name}
                 </button>
               );
             })}
@@ -133,7 +182,11 @@ export default function Listing({ data }) {
           </form>
         </div>
 
-        {shown.length ? (
+        {loading ? (
+          <div className="mt-8 flex min-h-[320px] items-center justify-center lg:mt-[calc(59*var(--u))]">
+            <Spinner />
+          </div>
+        ) : shown.length ? (
           <div className="mt-8 grid items-start gap-6 sm:grid-cols-2 lg:mt-[calc(59*var(--u))] lg:grid-cols-3! lg:gap-x-[calc(32*var(--u))] lg:gap-y-[calc(98*var(--u))]">
             {shown.map((article) => (
               <ArticleCard
@@ -144,15 +197,30 @@ export default function Listing({ data }) {
             ))}
           </div>
         ) : (
-          <p className="mt-12 text-center text-lg text-basecolor9 lg:mt-[calc(80*var(--u))]">
-            {data?.empty}
+          <p
+            role={status === "error" ? "alert" : undefined}
+            className="mt-12 text-center text-lg text-basecolor9 lg:mt-[calc(80*var(--u))]"
+          >
+            {status === "error" ? data?.error : data?.empty}
           </p>
         )}
-        {filtered.length > limit ? (
+        {status === "error" && shown.length ? (
+          <p
+            role="alert"
+            className="mt-8 text-center text-base text-basecolor9"
+          >
+            {data?.error}
+          </p>
+        ) : null}
+        {hasMore && !loading ? (
           <div className="mt-12 flex justify-center lg:mt-[calc(58*var(--u))]">
-            <Button onClick={() => setLimit(limit + pageSize)}>
-              {data?.loadMore}
-            </Button>
+            {status === "more" ? (
+              <div className="flex h-12 items-center sm:h-14 lg:h-[calc(84*var(--u))]">
+                <Spinner />
+              </div>
+            ) : (
+              <Button onClick={loadMore}>{data?.loadMore}</Button>
+            )}
           </div>
         ) : null}
       </div>
