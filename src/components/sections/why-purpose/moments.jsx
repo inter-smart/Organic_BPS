@@ -13,7 +13,8 @@ export default function Moments({ data, items = [], title }) {
     >
       <Image
         src={data?.image}
-        alt=""
+        alt="Purpose moments"
+        title="Purpose moments"
         fill
         sizes="100vw"
         className="-z-10 object-cover"

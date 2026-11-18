@@ -12,7 +12,7 @@ export default function MenuSheet({ links = [], cta }) {
         aria-label="Open menu"
         className="relative block aspect-[34/23.4] w-7 shrink-0 cursor-pointer transition-transform duration-300 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white sm:w-8 lg:w-8.5"
       >
-        <Image src="/images/menu-icon.svg" alt="" fill className="object-contain" />
+        <Image src="/images/menu-icon.svg" alt="Menu" title="Menu" fill className="object-contain" />
       </SheetTrigger>
       <SheetContent side="right" className="w-full border-0 bg-basecolor4 p-0 text-white sm:max-w-md [&>button]:text-white">
         <SheetTitle className="sr-only">Site menu</SheetTitle>

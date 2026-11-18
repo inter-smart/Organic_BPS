@@ -141,6 +141,7 @@ export default function ClientCarousel({
                     <Image
                       src={item?.image}
                       alt={copy ? "" : (item?.image_alt_tag ?? "")}
+                      title={copy ? "" : (item?.image_alt_tag ?? "")}
                       fill
                       sizes="(min-width: 1200px) 18vw, 50vw"
                       className="object-contain"

@@ -48,25 +48,30 @@ export default function Hero({ data }) {
               {renderTitle(data?.title)}
             </Heading>
           </Reveal>
-          <Reveal variant="up" delay={0.35} className="mt-8 lg:mt-13.5">
-            <Button href={data.button_url} variant="dark">
-              {data.button_title}
-            </Button>
-          </Reveal>
-          <Link
-            href={data.button_url}
-            aria-label={data.button_title}
-            className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
-          >
-            <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
-              <Image
-                src="/images/arrow-down.svg"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </span>
-          </Link>
+          {data.button_url ? (
+            <Reveal variant="up" delay={0.35} className="mt-8 lg:mt-13.5">
+              <Button href={data.button_url} variant="dark">
+                {data.button_title}
+              </Button>
+            </Reveal>
+          ) : null}
+          {data?.button_url && (
+            <Link
+              href={data.button_url}
+              aria-label={data.button_title}
+              className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
+            >
+              <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
+                <Image
+                  src="/images/arrow-down.svg"
+                  alt="Scroll down"
+                  title="Scroll down"
+                  fill
+                  className="object-contain"
+                />
+              </span>
+            </Link>
+          )}
         </div>
       </div>
     </section>

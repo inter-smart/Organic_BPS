@@ -50,9 +50,9 @@ export default function Contents({ data, items = [] }) {
           onClick={() => setOpen((v) => !v)}
           className="flex items-center rounded-full p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 min-[992px]:hidden"
         >
-          <Image src="/images/icon-list.svg" alt="" width={26} height={26} className="size-5" />
+          <Image src="/images/icon-list.svg" alt="Contents list" title="Contents list" width={26} height={26} className="size-5" />
         </button>
-        <Image src="/images/icon-list.svg" alt="" width={26} height={26} className="hidden min-[992px]:block lg:size-[calc(26*var(--u))]" />
+        <Image src="/images/icon-list.svg" alt="Contents list" title="Contents list" width={26} height={26} className="hidden min-[992px]:block lg:size-[calc(26*var(--u))]" />
       </div>
 
       <nav id="policy-contents-list" aria-label={`${name} contents`} className={cn(!open && "max-[992px]:hidden")}>

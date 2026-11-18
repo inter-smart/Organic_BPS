@@ -46,6 +46,9 @@ export default function About({ data = local_data }) {
                 alt={
                   item.media?.alt ||
                   "Designer working at a desk with two monitors"
+                } title={
+                  item.media?.alt ||
+                  "Designer working at a desk with two monitors"
                 }
                 width={100}
                 height={100}

@@ -14,7 +14,8 @@ export default function Cta({ data, title }) {
     >
       <Image
         src={data?.image}
-        alt=""
+        alt="Purpose in action"
+        title="Purpose in action"
         fill
         sizes="100vw"
         className="-z-10 object-cover"
@@ -39,15 +40,17 @@ export default function Cta({ data, title }) {
       >
         {text(data?.description)}
       </Reveal>
-      <Reveal
-        variant="up"
-        delay={0.2}
-        className="mt-8 lg:mt-[calc(40*var(--u))]"
-      >
-        <Button href={cta(data).href} variant="dark">
-          {cta(data).label}
-        </Button>
-      </Reveal>
+      {cta(data).href ? (
+        <Reveal
+          variant="up"
+          delay={0.2}
+          className="mt-8 lg:mt-[calc(40*var(--u))]"
+        >
+          <Button href={cta(data).href} variant="dark">
+            {cta(data).label}
+          </Button>
+        </Reveal>
+      ) : null}
     </section>
   );
 }

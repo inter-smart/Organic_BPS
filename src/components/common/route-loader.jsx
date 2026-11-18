@@ -11,6 +11,7 @@ export default function RouteLoader() {
         <Image
           src="/images/organic-bps-logo.png"
           alt="Organic BPS"
+          title="Organic BPS"
           fill
           loading="eager"
           sizes="350px"

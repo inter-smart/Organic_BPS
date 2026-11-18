@@ -48,9 +48,11 @@ export default function WhatWeDo({ data, title }) {
                 </Reveal>
               ))}
             </div>
-            <Reveal variant="up" delay={0.45} className="mt-8 lg:mt-11">
-              <Button href={button.href}>{button.label}</Button>
-            </Reveal>
+            {button.href ? (
+              <Reveal variant="up" delay={0.45} className="mt-8 lg:mt-11">
+                <Button href={button.href}>{button.label}</Button>
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>

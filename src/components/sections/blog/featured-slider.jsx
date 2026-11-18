@@ -51,6 +51,7 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
                   <Image
                     src={item.image?.src}
                     alt={item.image?.alt ?? ""}
+                    title={item.image?.alt ?? ""}
                     fill
                     sizes="(min-width: 1024px) 62vw, 100vw"
                     className="object-cover"
@@ -83,6 +84,7 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
                       <Image
                         src={item.author.image.src}
                         alt={item.author.image.alt ?? ""}
+                        title={item.author.image.alt ?? ""}
                         width={42}
                         height={42}
                         className="size-[42px] rounded-full object-cover"
@@ -97,12 +99,14 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-6 lg:mt-[calc(46*var(--u))]">
-                    <Button href={item.href}>
-                      {cta?.label}
-                      <span className="sr-only">: {item.title}</span>
-                    </Button>
-                  </div>
+                  {item.href ? (
+                    <div className="mt-6 lg:mt-[calc(46*var(--u))]">
+                      <Button href={item.href}>
+                        {cta?.label}
+                        <span className="sr-only">: {item.title}</span>
+                      </Button>
+                    </div>
+                  ) : null}
                 </div>
               </article>
             </div>

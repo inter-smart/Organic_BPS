@@ -92,12 +92,17 @@ export function emphasisSegments(html) {
 }
 
 // Scroll-reveal headline: one line per sentence, <span> words in the accent
-// colour, "purpose" with the ring, sentence-ending full stops in the accent.
+// colour, the first "o" inside <em> with the ring, sentence-ending full stops in the
+// accent.
 export function revealLines(html) {
   if (!html) return [];
+  const mark = (part) =>
+    part.replace(/<em[^>]*>([\s\S]*?)<\/em>/gi, (_, inner) =>
+      inner.replace(/o/i, "\u0001$&\u0002"),
+    );
   const words = html.split(/(<span[^>]*>[\s\S]*?<\/span>)/i).flatMap((part) => {
     const accent = /^<span/i.test(part);
-    return text(part)
+    return text(mark(part))
       .split(" ")
       .filter(Boolean)
       .map((t) => ({ t, accent }));
@@ -106,12 +111,13 @@ export function revealLines(html) {
   let line = [];
   for (const { t, accent } of words) {
     const end = /[.!?]$/.test(t);
-    const word = end ? t.slice(0, -1) : t;
-    const ring = word.toLowerCase() === "purpose";
+    const raw = end ? t.slice(0, -1) : t;
+    const at = raw.indexOf("\u0001");
+    const word = raw.replace(/[\u0001\u0002]/g, "");
     line.push({
       t: word,
-      c: accent ? "#da4d47" : ring ? "#222222" : "#333333",
-      ...(ring && { ring }),
+      c: accent ? "#da4d47" : at >= 0 ? "#222222" : "#333333",
+      ...(at >= 0 && { ring: at }),
     });
     if (end) {
       line.push({ t: t.slice(-1), c: "#da4d47", attach: true });
@@ -136,7 +142,6 @@ export function noteLines(html) {
 
 // Links that only point back at the CMS site are ignored.
 export function link(url) {
-  console.log("url", url)
   if (!url) return undefined;
   try {
     return new URL(url).host === API_HOST ? undefined : url;

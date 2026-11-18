@@ -103,7 +103,8 @@ export default function Listing({ data }) {
           >
             <Image
               src="/images/blog/search.svg"
-              alt=""
+              alt="Search"
+              title="Search"
               width={23}
               height={23}
               className="size-5 shrink-0 lg:size-[calc(22.7*var(--u))]"

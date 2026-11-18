@@ -36,6 +36,7 @@ export default function FounderBio({ data }) {
                 <Image
                   src={data.image}
                   alt={data?.name ?? ""}
+                  title={data?.name ?? ""}
                   fill
                   sizes="(min-width: 1280px) 45vw, 90vw"
                   className="object-contain object-bottom"

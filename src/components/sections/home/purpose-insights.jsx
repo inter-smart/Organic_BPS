@@ -36,11 +36,13 @@ export default function PurposeInsights({ data, blogs, title }) {
             >
               {text(data.description)}
             </Reveal>
-            <Reveal variant="up" delay={0.3} className="mt-6 lg:mt-4">
-              <Button href={button.href} variant="dark">
-                {button.label}
-              </Button>
-            </Reveal>
+            {button.href ? (
+              <Reveal variant="up" delay={0.3} className="mt-6 lg:mt-4">
+                <Button href={button.href} variant="dark">
+                  {button.label}
+                </Button>
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>

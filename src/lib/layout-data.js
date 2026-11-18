@@ -16,7 +16,7 @@ export const layout_data = {
     logo: { alt: "Organic BPS" },
     legal: [
       { id: 1, label: "Privacy", href: "/privacy" },
-      { id: 2, label: "Terms of use", href: "#" },
+      { id: 2, label: "Terms of use", href: "/terms-and-conditions" },
     ],
     copyright: "© Copyright 2026, Organic BPS Pvt ltd, All rights reserved",
     credit: { label: "Designed & Developed By:", name: "Intersmart", href: "https://www.intersmartsolution.com" },

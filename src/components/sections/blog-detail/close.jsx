@@ -15,7 +15,8 @@ export default function Close({ data, nextBlog }) {
               Next perspective
               <Image
                 src="/images/arrow-right-red.svg"
-                alt=""
+                alt="Arrow right"
+                title="Arrow right"
                 width={18}
                 height={18}
                 className="size-[18px] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
@@ -30,6 +31,7 @@ export default function Close({ data, nextBlog }) {
         <Image
           src={data?.author?.imageLarge?.src}
           alt={data?.author?.imageLarge?.alt ?? ""}
+          title={data?.author?.imageLarge?.alt ?? ""}
           width={112}
           height={112}
           className="size-20 shrink-0 rounded-full object-cover lg:size-[calc(112*var(--u))]"

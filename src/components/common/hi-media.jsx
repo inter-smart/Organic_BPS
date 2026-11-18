@@ -64,6 +64,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
           <Image
             src={poster}
             alt="Poster"
+            title="Poster"
             fill
             sizes="(min-width: 1200px) 45vw, 100vw"
             className="object-cover"

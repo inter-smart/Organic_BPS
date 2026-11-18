@@ -23,7 +23,8 @@ export default function TopicRail({ data }) {
           {topic.name}
           <Image
             src="/images/blog/arrow-up-right.svg"
-            alt=""
+            alt="Arrow up right"
+            title="Arrow up right"
             width={14}
             height={14}
             className="size-3.5 3xl:size-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"

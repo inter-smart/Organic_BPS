@@ -16,7 +16,7 @@ export default function QuickLinks({ data }) {
                 href={item.href}
                 className="flex items-center gap-3 rounded-[20px] border border-basecolor7/20 bg-white/5 px-6 py-5 text-base font-medium text-basecolor7 transition-[translate,border-color] duration-300 hover:-translate-y-1 hover:border-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:rounded-[calc(20*var(--u))] lg:px-[calc(24*var(--u))] lg:py-[calc(20*var(--u))] lg:text-[clamp(14px,calc(18*var(--u)),18px)]"
               >
-                <Image src={item.icon} alt="" width={20} height={20} className="size-5 shrink-0" />
+                <Image src={item.icon} alt={item.label} title={item.label} width={20} height={20} className="size-5 shrink-0" />
                 {item.label}
               </Link>
             </li>

@@ -85,7 +85,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               >
                 <Image
                   src={src(file)}
-                  alt=""
+                  alt={`Purpose map ${file}`}
+                  title={`Purpose map ${file}`}
                   width={Math.round(w)}
                   height={Math.round(h)}
                   className="size-full max-w-none"
@@ -98,7 +99,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
             <Image
               key={file}
               src={src(file)}
-              alt=""
+              alt={`Purpose map ${file}`}
+              title={`Purpose map ${file}`}
               width={Math.round(w)}
               height={Math.round(h)}
               style={{ ...at(x, y, w, h), "--dg-d": 0.9 }}
@@ -108,7 +110,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
 
           <Image
             src={src("brandfarm-core")}
-            alt=""
+            alt="Brandfarm core"
+            title="Brandfarm core"
             width={304}
             height={306}
             style={{ ...at(209.6, 195.2, 303.93, 305.7), "--dg-i": 4 }}
@@ -117,7 +120,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
           {logo && (
             <Image
               src={logo}
-              alt=""
+              alt="Brand logo"
+              title="Brand logo"
               width={178}
               height={89}
               unoptimized
@@ -133,7 +137,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
                 <Image
                   key={item.key}
                   src={src(file)}
-                  alt=""
+                  alt={`Purpose map ${file}`}
+                  title={`Purpose map ${file}`}
                   width={Math.round(w)}
                   height={Math.round(h)}
                   style={{ ...at(x, y, w, h), "--dg-i": i + 5 }}
@@ -144,7 +149,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               <Image
                 key={item.key}
                 src={item.icon}
-                alt=""
+                alt={item.key}
+                title={item.key}
                 width={Math.round(w)}
                 height={Math.round(h)}
                 unoptimized
@@ -156,7 +162,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
           {items.find((item) => item.key === "ambitions") && (
             <Image
               src={items.find((item) => item.key === "ambitions").icon}
-              alt=""
+              alt="Ambitions"
+              title="Ambitions"
               width={70}
               height={47}
               unoptimized

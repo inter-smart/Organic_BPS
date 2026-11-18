@@ -54,16 +54,18 @@ export default function Hero({ banner }) {
                 {renderTitle(banner?.banner_title)}
               </Heading>
             </Reveal>
-            <Reveal
-              variant="up"
-              delay={0.3}
-              className="mt-8 lg:mt-[calc(50*var(--u))]"
-              immediate
-            >
-              <Button href={link(banner?.button_link)} variant="dark">
-                {banner?.button_name}
-              </Button>
-            </Reveal>
+            {link(banner?.button_link) ? (
+              <Reveal
+                variant="up"
+                delay={0.3}
+                className="mt-8 lg:mt-[calc(50*var(--u))]"
+                immediate
+              >
+                <Button href={link(banner?.button_link)} variant="dark">
+                  {banner?.button_name}
+                </Button>
+              </Reveal>
+            ) : null}
           </div>
 
           <div className="lg:pl-[calc(9*var(--u))]">
@@ -86,7 +88,8 @@ export default function Hero({ banner }) {
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
               <Image
                 src="/images/arrow-down.svg"
-                alt=""
+                alt="Scroll down"
+                title="Scroll down"
                 fill
                 className="object-contain"
               />

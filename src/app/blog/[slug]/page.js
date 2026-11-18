@@ -37,9 +37,7 @@ export default async function BlogDetailPage({ params }) {
 
   const { page_cms: cms, blog, related_blogs: relatedBlogs, categories } = data;
   const article = mapDetail(blog, relatedBlogs ?? []);
-  const topics = (categories ?? []).filter(
-    (c) => c.name === blog.category_name,
-  );
+  const topics = (categories ?? [])
   const sub = cms.subscription_section;
   const relatedCms = cms.related_blog_section;
 

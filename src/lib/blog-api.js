@@ -65,7 +65,11 @@ export async function fetchBlogPage({ category, search, page, signal }) {
   if (category) params.category = category;
   if (search) params.search = search;
   if (page > 1) params.page = page;
-  const { data, error } = await apiGet("blogs/filter", { params, signal });
+  const { data, error } = await apiGet("blogs/filter", {
+    params,
+    signal,
+    cache: false,
+  });
   return error ? null : mapPage(data);
 }
 

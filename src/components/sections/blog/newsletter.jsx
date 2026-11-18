@@ -129,7 +129,8 @@ export default function Newsletter({ data }) {
                   {newsletter.form.submit}
                   <Image
                     src="/images/blog/subscribe-arrow.svg"
-                    alt=""
+                    alt="Subscribe"
+                    title="Subscribe"
                     width={15}
                     height={15}
                     className="size-[15px]"

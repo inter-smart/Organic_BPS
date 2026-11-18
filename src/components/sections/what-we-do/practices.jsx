@@ -99,6 +99,7 @@ export default function Practices({ data, practices = [] }) {
                       <Image
                         src={item.icon}
                         alt={logos[i].alt}
+                        title={logos[i].alt}
                         width={logos[i].width}
                         height={logos[i].height}
                         className="size-full object-contain"
@@ -125,7 +126,8 @@ export default function Practices({ data, practices = [] }) {
                         {s?.icon ? (
                           <Image
                             src={s.icon}
-                            alt=""
+                            alt={s.title ?? "Service icon"}
+                            title={s.title ?? "Service icon"}
                             width={40}
                             height={40}
                             unoptimized

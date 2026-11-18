@@ -23,7 +23,8 @@ export default function OurPurpose({ data }) {
         {data?.image ? (
           <Image
             src={data?.image}
-            alt=""
+            alt="Our purpose"
+            title="Our purpose"
             fill
             sizes="100vw"
             className="object-cover"

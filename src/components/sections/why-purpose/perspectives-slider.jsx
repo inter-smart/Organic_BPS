@@ -54,6 +54,7 @@ export default function PerspectivesSlider({ items = [], labels }) {
                   <Image
                     src={item.image}
                     alt={item.image_alt_text}
+                    title={item.image_alt_text}
                     width={750}
                     height={500}
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
@@ -75,7 +76,8 @@ export default function PerspectivesSlider({ items = [], labels }) {
                     <span className="sr-only">: {item.title}</span>
                     <Image
                       src="/images/why-purpose/arrow-right-red.svg"
-                      alt=""
+                      alt="Arrow right"
+                      title="Arrow right"
                       width={20}
                       height={20}
                       className="size-5 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"

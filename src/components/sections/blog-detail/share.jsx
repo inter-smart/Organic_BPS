@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 const pill =
-  "flex items-center gap-2 rounded-full border border-basecolor16 px-3.5 py-2.5 text-xs font-semibold text-basecolor7 transition-colors duration-300 hover:border-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none lg:px-[calc(14*var(--u))] lg:py-[calc(10*var(--u))] lg:text-[clamp(12px,calc(13*var(--u)),13px)]";
+  "flex items-center gap-2 cursor-pointer rounded-full border border-basecolor16 px-3.5 py-2.5 text-xs font-semibold text-basecolor7 transition-colors duration-300 hover:border-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none lg:px-[calc(14*var(--u))] lg:py-[calc(10*var(--u))] lg:text-[clamp(12px,calc(13*var(--u)),13px)]";
 
 /** Share row: opens LinkedIn's share dialog or copies the page address. */
 export default function Share() {
@@ -37,7 +37,8 @@ export default function Share() {
       <button type="button" onClick={shareLinkedIn} className={pill}>
         <Image
           src="/images/blog/linkedin.svg"
-          alt=""
+          alt="Share on LinkedIn"
+          title="Share on LinkedIn"
           width={15}
           height={15}
           className="size-[15px]"
@@ -47,7 +48,8 @@ export default function Share() {
       <button type="button" onClick={copyLink} className={pill}>
         <Image
           src="/images/blog/link.svg"
-          alt=""
+          alt="Copy link"
+          title="Copy link"
           width={15}
           height={15}
           className="size-[15px]"

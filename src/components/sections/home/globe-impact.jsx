@@ -51,11 +51,13 @@ export default function GlobeImpact({ data, pins, stats, title }) {
               >
                 {text(data.description)}
               </Reveal>
-              <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-11">
-                <Button href={button.href} variant="dark">
-                  {button.label}
-                </Button>
-              </Reveal>
+              {button.href ? (
+                <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-11">
+                  <Button href={button.href} variant="dark">
+                    {button.label}
+                  </Button>
+                </Reveal>
+              ) : null}
             </div>
           </div>
         </div>
@@ -80,7 +82,8 @@ export default function GlobeImpact({ data, pins, stats, title }) {
                     <div className="relative h-12 lg:h-16.25">
                       <Image
                         src={stat.icon}
-                        alt=""
+                        alt={stat.label ?? "Impact icon"}
+                        title={stat.label ?? "Impact icon"}
                         fill
                         className="object-contain object-left"
                       />

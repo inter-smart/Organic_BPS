@@ -55,6 +55,7 @@ export default function Hero({ data, categories }) {
           <Image
             src={data?.image?.src}
             alt={data?.image?.alt ?? ""}
+            title={data?.image?.alt ?? ""}
             fill
             priority
             sizes="(min-width: 1024px) 90vw, 100vw"
@@ -79,7 +80,8 @@ export default function Hero({ data, categories }) {
             >
               <Image
                 src="/images/blog/scroll-down.svg"
-                alt=""
+                alt="Scroll down"
+                title="Scroll down"
                 width={27}
                 height={27}
                 className="size-5 lg:size-[calc(27*var(--u))]"
@@ -93,6 +95,7 @@ export default function Hero({ data, categories }) {
             <Image
               src={data?.author?.imageLarge?.src}
               alt={data?.author?.imageLarge?.alt ?? ""}
+              title={data?.author?.imageLarge?.alt ?? ""}
               width={60}
               height={60}
               className="size-12 rounded-full object-cover lg:size-[calc(59.5*var(--u))]"
@@ -119,7 +122,8 @@ export default function Hero({ data, categories }) {
                   {item?.name}
                   <Image
                     src="/images/blog/arrow-up-right.svg"
-                    alt=""
+                    alt="Arrow up right"
+                    title="Arrow up right"
                     width={15}
                     height={15}
                     className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"

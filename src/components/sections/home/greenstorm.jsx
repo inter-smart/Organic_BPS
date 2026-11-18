@@ -41,7 +41,8 @@ export default function Greenstorm({ data, title }) {
         {src ? (
           <Image
             src={src}
-            alt=""
+            alt="Greenstorm"
+            title="Greenstorm"
             fill
             sizes="(min-width: 1280px) 33vw, 50vw"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -103,7 +104,8 @@ export default function Greenstorm({ data, title }) {
                 {data.logo_one ? (
                   <Image
                     src={data.logo_one}
-                    alt=""
+                    alt="Greenstorm logo"
+                    title="Greenstorm logo"
                     fill
                     sizes="410px"
                     className="object-contain object-left mix-blend-darken"
@@ -114,7 +116,8 @@ export default function Greenstorm({ data, title }) {
                 {data.logo_two ? (
                   <Image
                     src={data.logo_two}
-                    alt=""
+                    alt="Greenstorm partner logo"
+                    title="Greenstorm partner logo"
                     fill
                     sizes="93px"
                     className="object-contain"
@@ -139,9 +142,11 @@ export default function Greenstorm({ data, title }) {
                 </Reveal>
               ))}
             </dl>
-            <Reveal variant="up" delay={0.2} className="mt-8 lg:mt-0">
-              <Button href={button.href}>{button.label}</Button>
-            </Reveal>
+            {button.href ? (
+              <Reveal variant="up" delay={0.2} className="mt-8 lg:mt-0">
+                <Button href={button.href}>{button.label}</Button>
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>

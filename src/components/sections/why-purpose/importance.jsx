@@ -103,21 +103,24 @@ export default function Importance({ data, benefits = [], title }) {
               <div aria-hidden="true" className="hidden lg:block">
                 <Image
                   src="/images/why-purpose/cross-axes.png"
-                  alt=""
+                  alt="Cross axes"
+                  title="Cross axes"
                   width={396}
                   height={396}
                   className="dg-axes absolute top-[calc(88*var(--u))] left-[calc(214*var(--u))] size-[calc(396*var(--u))] max-w-none"
                 />
                 <Image
                   src="/images/why-purpose/orbit.png"
-                  alt=""
+                  alt="Orbit"
+                  title="Orbit"
                   width={396}
                   height={396}
                   className="dg-axes dg-orbit absolute top-[calc(88*var(--u))] left-[calc(214*var(--u))] size-[calc(396*var(--u))] max-w-none"
                 />
                 <Image
                   src="/images/why-purpose/connections.svg"
-                  alt=""
+                  alt="Connections"
+                  title="Connections"
                   width={516}
                   height={382}
                   className="dg-line absolute top-[calc(100*var(--u))] left-[calc(156.5*var(--u))] h-[calc(382.4*var(--u))] w-[calc(515.5*var(--u))] max-w-none"
@@ -138,7 +141,8 @@ export default function Importance({ data, benefits = [], title }) {
               >
                 <Image
                   src={core?.icon}
-                  alt=""
+                  alt="Purpose core"
+                  title="Purpose core"
                   width={72}
                   height={72}
                   unoptimized
@@ -157,7 +161,8 @@ export default function Importance({ data, benefits = [], title }) {
                   >
                     <Image
                       src={b.icon}
-                      alt=""
+                      alt={b.title ?? "Purpose icon"}
+                      title={b.title ?? "Purpose icon"}
                       width={114}
                       height={114}
                       unoptimized

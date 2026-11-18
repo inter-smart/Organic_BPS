@@ -31,6 +31,7 @@ export default function PartnerLogoGrid({
           <Image
             src={logo.src}
             alt={logo.alt}
+            title={logo.alt}
             width={logo.width}
             height={logo.height}
             sizes="(min-width: 1024px) 18vw, 40vw"

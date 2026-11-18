@@ -16,7 +16,8 @@ function Photo({ image, sizes, className, delay = 0 }) {
         {image ? (
           <Image
             src={image}
-            alt=""
+            alt="The Organic BPS team"
+            title="The Organic BPS team"
             fill
             sizes={sizes}
             className="object-cover"

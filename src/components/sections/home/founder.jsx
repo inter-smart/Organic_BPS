@@ -56,11 +56,13 @@ export default function Founder({ data, title }) {
                   <RichLines lines={noteLines(data.note)} />
                 </p>
               </Reveal>
-              <Reveal variant="up" delay={0.4} className="mt-7 lg:mt-11">
-                <Button href={button.href} variant="dark">
-                  {button.label}
-                </Button>
-              </Reveal>
+              {button.href ? (
+                <Reveal variant="up" delay={0.4} className="mt-7 lg:mt-11">
+                  <Button href={button.href} variant="dark">
+                    {button.label}
+                  </Button>
+                </Reveal>
+              ) : null}
             </div>
           </div>
         </div>
@@ -83,6 +85,7 @@ export default function Founder({ data, title }) {
             <Image
               src={data.image}
               alt={text(data.title)}
+              title={text(data.title)}
               fill
               sizes="(min-width: 1280px) 57vw, 100vw"
               className="object-contain object-bottom"

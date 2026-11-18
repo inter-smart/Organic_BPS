@@ -10,6 +10,7 @@ export default function ArticleCard({ article }) {
         <Image
           src={article?.image?.src}
           alt={article?.image?.alt ?? ""}
+          title={article?.image?.alt ?? ""}
           width={article?.image?.width}
           height={article?.image?.height}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -50,7 +51,8 @@ export default function ArticleCard({ article }) {
           <span className="sr-only">: {article?.title}</span>
           <Image
             src="/images/arrow-right-red.svg"
-            alt=""
+            alt="Arrow right"
+            title="Arrow right"
             width={20}
             height={20}
             className="size-5 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"

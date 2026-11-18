@@ -50,9 +50,11 @@ export default function TeamGallery({ data, gallery, title }) {
               {text(data.description)}
             </Reveal>
           </div>
-          <Reveal variant="left" delay={0.2} className="lg:mt-9">
-            <Button href={button.href}>{button.label}</Button>
-          </Reveal>
+          {button.href ? (
+            <Reveal variant="left" delay={0.2} className="lg:mt-9">
+              <Button href={button.href}>{button.label}</Button>
+            </Reveal>
+          ) : null}
         </div>
 
         {/* mobile / tablet: simple grid · xl+: the exact Figma collage */}
@@ -68,6 +70,7 @@ export default function TeamGallery({ data, gallery, title }) {
                 <Image
                   src={img.image}
                   alt={img.image_alt_tag}
+                  title={img.image_alt_tag}
                   fill
                   sizes="(min-width: 1280px) 30vw, 50vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

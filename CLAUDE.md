@@ -19,7 +19,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - `src/components/layout/` — Header, Footer, MenuSheet. `src/components/ui/` — shadcn-style primitives.
 - `src/components/sections/<page>/` — one file per page section (e.g. `sections/home/hero.jsx`), kebab-case filenames.
 - `src/lib/` — `layout-data` (header/footer/menu data), `cn`, `globe/` (Three.js engine).
-- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer token is `NEXT_PUBLIC_API_TOKEN` for server and browser calls (exposed by design; there are no proxy route handlers). No caching options.
+- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer token is `NEXT_PUBLIC_API_TOKEN` for server and browser calls (exposed by design; there are no proxy route handlers). `apiGet` takes `cache` (2026-11-18): default `true` = server fetch revalidates every 300 s, `false` = no-store (used for `blogs/filter`); POST is never cached.
 - `public/images`, `public/videos` — assets, kebab-case names.
 
 ## Page standards (apply to EVERY page/build — keep all pages identical in approach)

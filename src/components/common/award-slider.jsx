@@ -44,7 +44,8 @@ export default function AwardSlider({ items = [] }) {
               <div className="group relative aspect-552/368 overflow-hidden rounded-[30px]">
                 <Image
                   src={item?.image}
-                  alt=""
+                  alt={item?.title ?? "Award"}
+                  title={item?.title ?? "Award"}
                   fill
                   sizes="(min-width: 1024px) 36vw, 78vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

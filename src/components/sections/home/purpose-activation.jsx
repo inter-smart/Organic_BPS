@@ -12,14 +12,16 @@ function RadioIcon() {
     >
       <Image
         src="/images/radio-outer.svg"
-        alt=""
+        alt="Outer radio ring"
+        title="Outer radio ring"
         fill
         className="object-contain"
       />
       <span className="absolute inset-[28%]">
         <Image
           src="/images/radio-inner.svg"
-          alt=""
+          alt="Inner radio ring"
+          title="Inner radio ring"
           fill
           className="object-contain"
         />

@@ -29,6 +29,7 @@ export default function Hero({ banner, title }) {
         <Image
           src={banner?.banner}
           alt={banner?.banner_alt_text ?? ""}
+          title={banner?.banner_alt_text ?? ""}
           fill
           priority
           sizes="100vw"
@@ -50,16 +51,18 @@ export default function Hero({ banner, title }) {
                 {renderTitle(title)}
               </Heading>
             </Reveal>
-            <Reveal
-              variant="up"
-              delay={0.3}
-              className="mt-8 lg:mt-[calc(51*var(--u))]"
-              immediate
-            >
-              <Button href={link(banner?.button_link)} variant="dark">
-                {banner?.button_name}
-              </Button>
-            </Reveal>
+            {link(banner?.button_link) ? (
+              <Reveal
+                variant="up"
+                delay={0.3}
+                className="mt-8 lg:mt-[calc(51*var(--u))]"
+                immediate
+              >
+                <Button href={link(banner?.button_link)} variant="dark">
+                  {banner?.button_name}
+                </Button>
+              </Reveal>
+            ) : null}
           </div>
           <Reveal
             as="p"
@@ -81,7 +84,8 @@ export default function Hero({ banner, title }) {
         <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
           <Image
             src="/images/arrow-down.svg"
-            alt=""
+            alt="Scroll down"
+            title="Scroll down"
             fill
             className="object-contain"
           />

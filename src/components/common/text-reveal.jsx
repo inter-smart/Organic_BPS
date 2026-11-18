@@ -44,7 +44,11 @@ export default function TextReveal({ as: Tag = "h2", lines = [], from = "#dcdcdc
             <span key={wi}>
               {wi > 0 && !w?.attach ? " " : null}
               <span data-word data-color={w?.c} style={{ color: from }}>
-                {w?.ring ? <PurposeWord word={w?.t} /> : w?.t}
+                {w?.ring !== undefined ? (
+                  <PurposeWord word={w?.t} at={w.ring} />
+                ) : (
+                  w?.t
+                )}
               </span>
             </span>
           ))}

@@ -110,7 +110,8 @@ export default function Hero({ banner }) {
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
               <Image
                 src="/images/arrow-down.svg"
-                alt=""
+                alt="Scroll down"
+                title="Scroll down"
                 fill
                 className="object-contain"
               />

@@ -37,7 +37,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
         <div aria-hidden="true">
           <Image
             src={src("drive-belt")}
-            alt=""
+            alt="Drive belt"
+            title="Drive belt"
             width={554}
             height={364}
             style={at(255.4, 51.4, 554.2, 364.2)}
@@ -65,7 +66,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
             >
               <Image
                 src={src(file)}
-                alt=""
+                alt={`Framework ${file}`}
+                title={`Framework ${file}`}
                 width={size}
                 height={size}
                 style={{
@@ -79,7 +81,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
 
           <Image
             src={src("growth-wheel")}
-            alt=""
+            alt="Growth wheel"
+            title="Growth wheel"
             width={384}
             height={384}
             style={{ ...at(658, 47, 384, 384), "--dg-i": 1 }}
@@ -87,7 +90,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
           />
           <Image
             src={src("wheel-rim")}
-            alt=""
+            alt="Wheel rim"
+            title="Wheel rim"
             width={324}
             height={324}
             style={{ ...at(689, 76, 324, 324), "--dg-i": 2 }}
@@ -95,7 +99,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
           />
           <Image
             src={src("inner-rim")}
-            alt=""
+            alt="Inner rim"
+            title="Inner rim"
             width={312}
             height={312}
             style={{ ...at(695, 82, 312, 312), "--dg-i": 3 }}
@@ -107,7 +112,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
           >
             <Image
               src={src("spokes")}
-              alt=""
+              alt="Spokes"
+              title="Spokes"
               width={313}
               height={311}
               style={{ "--dg-t": "20s", "--dg-dir": "reverse" }}
@@ -116,7 +122,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
           </span>
           <Image
             src={src("growth-core")}
-            alt=""
+            alt="Growth core"
+            title="Growth core"
             width={160}
             height={160}
             style={{ ...at(770, 159, 160, 160), "--dg-i": 4 }}

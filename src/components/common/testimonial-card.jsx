@@ -28,7 +28,8 @@ export default function TestimonialCard({
     >
       <Image
         src="/images/how-we-work/quote-left.svg"
-        alt=""
+        alt="Quote mark"
+        title="Quote mark"
         width={82}
         height={53}
         className="absolute top-8 left-6 h-auto w-14 lg:top-[calc(50*var(--u))] lg:left-[calc(108*var(--u))] lg:w-[calc(82*var(--u))]"
@@ -49,6 +50,7 @@ export default function TestimonialCard({
         <Image
           src={logo}
           alt={name}
+          title={name}
           width={300}
           height={356}
           sizes="(min-width: 1024px) 14vw, 80px"

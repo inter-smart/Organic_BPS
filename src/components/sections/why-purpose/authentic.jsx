@@ -22,7 +22,8 @@ function Tile({ item, result, delay }) {
     >
       <Image
         src={item?.icon}
-        alt=""
+        alt={item?.title ?? "Authentic purpose icon"}
+        title={item?.title ?? "Authentic purpose icon"}
         width={42}
         height={42}
         unoptimized
@@ -51,6 +52,7 @@ export default function Authentic({ data, title }) {
             <Image
               src={data?.image}
               alt="Aerial view of a small blue boat on bright green water"
+              title="Aerial view of a small blue boat on bright green water"
               width={1100}
               height={734}
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -102,7 +104,8 @@ export default function Authentic({ data, title }) {
               <Reveal variant="left" delay={0.7} aria-hidden="true">
                 <Image
                   src="/images/why-purpose/arrow-right.svg"
-                  alt=""
+                  alt="Arrow right"
+                  title="Arrow right"
                   width={85}
                   height={52}
                   className="h-auto w-5 sm:w-12 lg:w-[calc(85*var(--u))]"
