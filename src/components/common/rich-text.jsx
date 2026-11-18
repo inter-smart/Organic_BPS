@@ -52,15 +52,15 @@ function plain(part, cls, key, accent) {
   );
 }
 
-// <b>o</b> becomes the ring image (the letter stays for screen readers). The
+// <em>o</em> becomes the ring image (the letter stays for screen readers). The
 // word around it is kept on one line.
 function ringParts(html, cls, accent) {
-  return html.split(/(\S*<b[^>]*>[\s\S]*?<\/b>\S*)/i).map((chunk, i) => {
-    if (!/<b/i.test(chunk)) return plain(chunk, cls, i, accent);
+  return html.split(/(\S*<em[^>]*>[\s\S]*?<\/em>\S*)/i).map((chunk, i) => {
+    if (!/<em/i.test(chunk)) return plain(chunk, cls, i, accent);
     return (
       <span key={i} className="whitespace-nowrap">
-        {chunk.split(/(<b[^>]*>[\s\S]*?<\/b>)/i).map((part, j) =>
-          /^<b/i.test(part) ? (
+        {chunk.split(/(<em[^>]*>[\s\S]*?<\/em>)/i).map((part, j) =>
+          /^<em/i.test(part) ? (
             <span key={j} className={cls}>
               <span className="sr-only">{text(part)}</span>
               <Ring />
