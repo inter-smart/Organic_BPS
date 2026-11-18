@@ -91,6 +91,13 @@ export function BlogFilterProvider({ categories = [], children }) {
     if (hashTopic) scrollToList();
   }, [hashTopic]);
 
+  // arriving from an article's topic link (/blog?category=…) opens on the list
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("category")) {
+      requestAnimationFrame(scrollToList);
+    }
+  }, []);
+
   const setCategory = useCallback(
     (value) => writeUrl({ category: value }, "push"),
     [],

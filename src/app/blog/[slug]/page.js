@@ -37,13 +37,16 @@ export default async function BlogDetailPage({ params }) {
 
   const { page_cms: cms, blog, related_blogs: relatedBlogs, categories } = data;
   const article = mapDetail(blog, relatedBlogs ?? []);
+  const topics = (categories ?? []).filter(
+    (c) => c.name === blog.category_name,
+  );
   const sub = cms.subscription_section;
   const relatedCms = cms.related_blog_section;
 
   return (
     <main>
       <MetaTags html={blog.other_meta_tags} />
-      <Hero data={article.hero} categories={categories} />
+      <Hero data={article.hero} categories={topics} />
       <article
         id="article"
         className="scroll-mt-20 bg-white py-12 lg:pt-[calc(80*var(--u))] lg:pb-[calc(100*var(--u))]"
