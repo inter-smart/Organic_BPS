@@ -6,7 +6,6 @@ import { RichText, renderTitle } from "@/components/common/rich-text";
 import { slug, text } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
-const title = "Four specialist practices<span>.</span>";
 
 // the API sends the logo image only; size and alt follow the practice order
 const logos = [

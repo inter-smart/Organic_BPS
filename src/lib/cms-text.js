@@ -64,6 +64,33 @@ export function segmentParagraphs(html) {
     .filter((p) => p.length);
 }
 
+// Body copy with inline emphasis: one segment per <span>, keeping only the
+// classes we generate ourselves.
+const emphasis = ["font-semibold", "text-basecolor14"];
+
+export function emphasisSegments(html) {
+  const first = blocks(html)[0];
+  if (!first) return [];
+  const segs = [...first.matchAll(/<span([^>]*)>([\s\S]*?)<\/span>/g)]
+    .map(([, attrs, inner]) => {
+      const t = inner
+        .replace(/<[^>]*>/g, "")
+        .replace(/&[a-z#0-9]+;/gi, (m) => entities[m] ?? m)
+        .replace(/\s+/g, " ");
+      const classes = (/class="([^"]*)"/.exec(attrs)?.[1] ?? "")
+        .split(/\s+/)
+        .filter((c) => emphasis.includes(c))
+        .join(" ");
+      return classes ? { t, className: classes } : { t };
+    })
+    .filter((seg) => seg.t);
+  if (segs.length) {
+    segs[0].t = segs[0].t.trimStart();
+    segs[segs.length - 1].t = segs[segs.length - 1].t.trimEnd();
+  }
+  return segs;
+}
+
 // Scroll-reveal headline: one line per sentence, <span> words in the accent
 // colour, "purpose" with the ring, sentence-ending full stops in the accent.
 export function revealLines(html) {
@@ -127,3 +154,27 @@ export function figure(raw) {
   const m = /^(\d+(?:\.\d+)?)\s*(.*)$/.exec((raw ?? "").trim());
   return { value: m ? Number(m[1]) : 0, suffix: m?.[2] ?? "" };
 }
+
+
+// One line per block span; word colours come from the editor's data-color.
+export const lineFrom = (html) => {
+  if (!html) return [];
+  const blocks = html.split(/<span[^>]*class="[^"]*\bblock\b[^"]*"[^>]*>/i);
+  const parts = blocks.length > 1 ? blocks.slice(1) : [html];
+  return parts
+    .map((block) => {
+      const words = [
+        ...block.matchAll(
+          /<span[^>]*data-color="([^"]*)"[^>]*>([\s\S]*?)<\/span>/gi,
+        ),
+      ]
+        .map(([, c, inner]) => ({ t: text(inner), c }))
+        .filter((w) => w.t);
+      if (words.length) return words;
+      return text(block)
+        .split(" ")
+        .filter(Boolean)
+        .map((t) => ({ t, c: "#da4d47" }));
+    })
+    .filter((line) => line.length);
+};

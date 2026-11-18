@@ -7,8 +7,6 @@ import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
 import { link, text } from "@/lib/cms-text";
 
-const title =
-  "From purp<b>o</b>se<br>to action.<br>From strategy<br>to <span>execution.</span>";
 const scroll = { label: "Scroll to the next section", href: "#practices" };
 
 export default function Hero({ banner }) {

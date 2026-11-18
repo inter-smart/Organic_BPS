@@ -3,7 +3,7 @@ import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
 import TestimonialsSlider from "@/components/sections/how-we-work/testimonials-slider";
 
-export default function Testimonials({ data }) {
+export default function Testimonials({ section_five, testimonials, data }) {
   return (
     <section
       id="testimonials"
@@ -16,7 +16,7 @@ export default function Testimonials({ data }) {
           variant="fade"
           className="text-sm font-bold tracking-[0.19em] text-basecolor uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]"
         >
-          {data?.eyebrow}
+          {section_five?.title}
         </Reveal>
         <Reveal variant="up" className="my-4 lg:my-[calc(40*var(--u))]">
           <Heading
@@ -26,10 +26,10 @@ export default function Testimonials({ data }) {
             className="text-white"
           >
             {/* <RichText segments={data?.title} /> */}
-            {renderTitle(data?.title)}
+            {renderTitle(section_five?.description)}
           </Heading>
         </Reveal>
-        <TestimonialsSlider items={data?.items} labels={data?.slider} />
+        <TestimonialsSlider items={testimonials} labels={data?.slider} />
       </div>
     </section>
   );

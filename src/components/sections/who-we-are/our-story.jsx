@@ -4,8 +4,6 @@ import TimelineSlider from "@/components/common/timeline-slider";
 import { RichText, renderTitle } from "@/components/common/rich-text";
 import { segmentParagraphs } from "@/lib/cms-text";
 
-const title =
-  "Born in brand communication.<br><span>Evolved through purpose.</span>";
 
 export default function OurStory({ data, history }) {
   return (

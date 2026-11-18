@@ -4,8 +4,6 @@ import { renderTitle } from "@/components/common/rich-text";
 import ValueCards from "@/components/common/value-cards";
 import { text } from "@/lib/cms-text";
 
-const title =
-  "What<br><span>guides us?</span>";
 
 export default function Values({ data, items }) {
   return (

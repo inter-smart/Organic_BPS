@@ -27,8 +27,6 @@ function Photo({ image, sizes, className, delay = 0 }) {
   );
 }
 
-const title =
-  "Strategic minds.<br><span>Creative hands.</span><br>Shared commitment.";
 
 export default function Team({ data }) {
   return (

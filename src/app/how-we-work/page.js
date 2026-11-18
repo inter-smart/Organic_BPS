@@ -6,6 +6,7 @@ import Methodology from "@/components/sections/how-we-work/methodology";
 import Methods from "@/components/sections/how-we-work/methods";
 import MicroStimuli from "@/components/sections/how-we-work/micro-stimuli";
 import Testimonials from "@/components/sections/how-we-work/testimonials";
+import { apiGet } from "@/lib/api-calls";
 
 export const metadata = {
   title: "How We Work",
@@ -19,129 +20,22 @@ export const metadata = {
  */
 const local_data = {
   hero: {
-    image: { src: "/images/how-we-work/hero.jpg", alt: "" },
-    // title: [
-    //   { t: "Purpose", ring: true },
-    //   { t: " Works When " },
-    //   { t: "Strategy & Execution ", accent: true },
-    //   { t: "Work Together" },
-    // ],
-    title: "Purp<b>o</b>se Works When <span>Strategy & Execution </span>Work Together",
-    paragraph:
-      "We combine the depth of a strategy consultancy with the creative capability of a brand communication agency. This helps organisations move from a clear sense of purpose to communication, experiences and actions people can see and feel.",
-    cta: { label: "Explore Our Approach", href: "#our-approach" },
     scroll: { label: "Scroll to our approach", href: "#our-approach" },
   },
 
-  approach: {
-    eyebrow: "Our Approach",
-    // title: [
-    //   [{ t: "From the boardroom" }],
-    //   [{ t: "to the " }, { t: "real world.", accent: true }],
-    // ],
-    title: "From the boardroom<br>to the <span>real world.</span>",
-    copy: "We begin by understanding the business, its people and its ambitions. We bring strategic thinking and creative execution together, so the direction set by leadership can take shape across the organisation and in the marketplace.",
-    tagline: [
-      [
-        { t: "Strategy", c: "#da4d47" },
-        { t: "gives", c: "#da4d47" },
-        { t: "the", c: "#da4d47" },
-        { t: "work", c: "#da4d47" },
-        { t: "direction.", c: "#da4d47" },
-      ],
-      [
-        { t: "Creativity", c: "#da4d47" },
-        { t: "makes", c: "#da4d47" },
-        { t: "it", c: "#da4d47" },
-        { t: "visible", c: "#da4d47" },
-        { t: "and", c: "#da4d47" },
-        { t: "meaningful.", c: "#da4d47" },
-      ],
-    ],
-  },
-
   methodology: {
-    eyebrow: "Our Methodology",
-    // title: [{ t: "Connecting purpose to " }, { t: "action.", accent: true }],
-    title: "Connecting purpose to <span>action.</span>",
-    copy: "Our BPS — Brand Purpose Solutions framework connects four elements: purpose, belief, behaviour and sustainable growth. Purpose sets the direction. Belief builds connection. Behaviour turns intent into action. Sustained action helps create lasting value.",
     mechanism: {
       label:
         "The BPS framework as a mechanism: purpose at the core, wrapped by belief and behaviour, drives the wheel of sustainable growth.",
       scrollLabel: "Framework diagram, scrollable",
-      growth: ["SUSTAINABLE", "GROWTH"],
-      behaviour: "BEHAVIOUR",
-      belief: "BELIEF",
-      purpose: "PURPOSE",
     },
-    steps: {
-      label: "The four framework principles",
-      items: [
-        {
-          id: "purpose",
-          number: "01",
-          title: "Purpose",
-          text: "Purpose defines the\ndirection.",
-        },
-        {
-          id: "belief",
-          number: "02",
-          title: "Belief",
-          text: "Belief creates\nconnection.",
-        },
-        {
-          id: "behaviour",
-          number: "03",
-          title: "Behaviour",
-          text: "Behaviour turns\nintention into action.",
-        },
-        {
-          id: "growth",
-          number: "04",
-          title: "Sustainable Growth",
-          text: "Sustainable growth\nmakes it enduring.",
-        },
-      ],
-    },
+    steps: { label: "The four framework principles" },
   },
 
   methods: {
     map: {
       label: "Brand Farm explores four dimensions of an organisation",
-      items: [
-        { id: "history", title: "History", text: "Where you come from" },
-        { id: "strengths", title: "Strengths", text: "What you do best" },
-        {
-          id: "stakeholders",
-          title: "Stakeholders",
-          text: "Who you create\nvalue for",
-        },
-        {
-          id: "ambitions",
-          title: "Ambitions",
-          text: "What you aspire\nto become",
-        },
-      ],
     },
-    // title: [
-    //   [{ t: "We draw on" }],
-    //   [{ t: "specific methods" }],
-    //   [{ t: "where they can" }],
-    //   [{ t: "make a difference:", accent: true }],
-    // ],
-    title: "We draw on<br>specific methods<br>where they can<br><span>make a difference:</span>",
-    copy: [
-      { t: "Brand Farm explores an organisation’s " },
-      { t: "history", className: "font-semibold text-basecolor14" },
-      { t: ", ", className: "text-basecolor14" },
-      {
-        t: "strengths, stakeholders",
-        className: "font-semibold text-basecolor14",
-      },
-      { t: " & " },
-      { t: "ambitions", className: "font-semibold text-basecolor14" },
-      { t: " to uncover a purpose it can act on." },
-    ],
   },
 
   microStimuli: {
@@ -155,45 +49,12 @@ const local_data = {
   },
 
   testimonials: {
-    eyebrow: "Testimonials",
-    // title: [{ t: "In our " }, { t: "clients", accent: true }, { t: "’ words" }],
-    title: "In our <span>clients</span>’ words",
     slider: {
       label: "Client testimonials",
       prev: "Previous testimonial",
       next: "Next testimonial",
       goTo: "Go to testimonial",
     },
-    items: [
-      {
-        id: "asset-homes",
-        quote:
-          "The single-minded purpose-driven approach by Organic BPS has delivered amazing results for us on several fronts.",
-        name: "Sunil Kumar V",
-        role: "Founder and Managing Director, Asset Homes",
-        logo: {
-          src: "/images/how-we-work/logo-asset.png",
-          alt: "Asset Homes",
-          width: 300,
-          height: 356,
-          w: 15.4,
-        },
-      },
-      {
-        id: "muthoot",
-        quote:
-          "The discovery and integration of Purpose by Organic BPS has brought about an inherent shift in the way we look at our business and work.",
-        name: "Thomas George Muthoot",
-        role: "Director, Muthoot Pappachan Group",
-        logo: {
-          src: "/images/how-we-work/logo-muthoot.png",
-          alt: "Muthoot Pappachan Group",
-          width: 379,
-          height: 282,
-          w: 16.5,
-        },
-      },
-    ],
   },
 
   clients: {
@@ -286,31 +147,43 @@ const local_data = {
     ],
   },
 
-  cta: {
-    image: { src: "/images/how-we-work/cta.jpg", alt: "" },
-    eyebrow: "Let’s talk",
-    // title: [[{ t: "What are you" }], [{ t: "working towards?", accent: true }]],
-    title: "What are you<br><span>working towards?</span>",
-    text: "Tell us about your challenge. Let’s explore how we can help you move forward.",
-    cta: { label: "Let’s talk", href: "/contact" },
-  },
 };
 
-export default function HowWeWorkPage() {
+export default async function HowWeWorkPage() {
+  const { data, error } = await apiGet("how-its-works");
+  const {
+    page_cms,
+    banner,
+    methodologies,
+    testimonials,
+    brand_pillers,
+    partners,
+  } = data;
+
+  const { section_one, section_two, section_three, section_four, section_five, section_six, section_seven } = page_cms;
+
   return (
     <main>
-      <Hero data={local_data.hero} />
-      <Approach data={local_data.approach} />
+      <Hero data={local_data.hero} banner={banner} />
+      <Approach section_one={section_one} />
       <div className="container mx-auto px-4 xl:px-0">
         <div className="rounded-[60px] bg-[#F6F6F6] overflow-hidden">
-          <Methodology data={local_data.methodology} />
-          <Methods data={local_data.methods} />
+          <Methodology
+            section_two={section_two}
+            data={local_data.methodology}
+            methodologies={methodologies}
+          />
+          <Methods
+            section_three={section_three}
+            brand_pillers={brand_pillers}
+            data={local_data.methods}
+          />
           <MicroStimuli data={local_data.microStimuli} />
         </div>
       </div>
-      <Testimonials data={local_data.testimonials} />
+      <Testimonials section_five={section_five} testimonials={testimonials} data={local_data.testimonials} />
       <Clients data={local_data.clients} />
-      <Cta data={local_data.cta} />
+      <Cta section_seven={section_seven}/>
     </main>
   );
 }

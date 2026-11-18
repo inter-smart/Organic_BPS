@@ -6,8 +6,6 @@ import { RichLines, renderTitle } from "@/components/common/rich-text";
 import { figure } from "@/lib/cms-text";
 import { parseTitle } from "@/lib/utils";
 
-const title =
-  "Recognised for<br>strategic & creative<br><span>excellence</span>";
 
 export default function Recognition({ data, awards }) {
   const count = figure(data?.count);
