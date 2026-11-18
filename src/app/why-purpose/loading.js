@@ -1,5 +1,5 @@
-import WhyPurposeSkeleton from "@/components/skeletons/why-purpose";
+import RouteLoader from "@/components/common/route-loader";
 
 export default function Loading() {
-  return <WhyPurposeSkeleton />;
+  return <RouteLoader />;
 }

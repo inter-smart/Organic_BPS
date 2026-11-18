@@ -1,5 +1,5 @@
-import BlogDetailSkeleton from "@/components/skeletons/blog-detail";
+import RouteLoader from "@/components/common/route-loader";
 
 export default function Loading() {
-  return <BlogDetailSkeleton />;
+  return <RouteLoader />;
 }

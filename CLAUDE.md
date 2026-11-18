@@ -148,4 +148,4 @@ Follow these in new builds; they replace the older behaviour described above whe
 - (2026-11-17) Same for home, who-we-are, what-we-do, contact, privacy, terms and blog: no `local_data` in the page files. Static section titles, scroll links and aria labels are constants in the section files (so earlier notes saying titles are "static in `local_data`" no longer apply). how-we-work, about and 404 still use `local_data` (no API).
 
 ## Loaders (2026-11-18)
-- Every page with a `loading.js` or page-level `Suspense` fallback uses a skeleton from `components/skeletons/<page>.jsx` (built from `common/page-skeleton`). `common/route-loader` (logo + sliding bar) is only the `app/layout.js` fallback and the root `app/loading.js`. New pages must ship a skeleton; never `fallback={null}`.
+- Every loading state (`loading.js`, page-level `Suspense` fallback, `app/layout.js`) renders `common/route-loader` (logo + rotating ring loader). No skeletons; never `fallback={null}`.

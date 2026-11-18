@@ -1,5 +1,5 @@
-import ContactSkeleton from "@/components/skeletons/contact";
+import RouteLoader from "@/components/common/route-loader";
 
 export default function Loading() {
-  return <ContactSkeleton />;
+  return <RouteLoader />;
 }

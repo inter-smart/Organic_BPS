@@ -1,5 +1,5 @@
-import WhoWeAreSkeleton from "@/components/skeletons/who-we-are";
+import RouteLoader from "@/components/common/route-loader";
 
 export default function Loading() {
-  return <WhoWeAreSkeleton />;
+  return <RouteLoader />;
 }

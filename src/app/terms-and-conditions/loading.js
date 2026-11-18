@@ -1,5 +1,5 @@
-import PolicySkeleton from "@/components/skeletons/policy";
+import RouteLoader from "@/components/common/route-loader";
 
 export default function Loading() {
-  return <PolicySkeleton />;
+  return <RouteLoader />;
 }

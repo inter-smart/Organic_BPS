@@ -1,4 +1,4 @@
-import PolicySkeleton from "@/components/skeletons/policy";
+import RouteLoader from "@/components/common/route-loader";
 import { Suspense, cache } from "react";
 import Cta from "@/components/sections/privacy/cta";
 import Hero from "@/components/sections/privacy/hero";
@@ -75,7 +75,7 @@ async function PrivacyContent() {
 
 export default function PrivacyPage() {
   return (
-    <Suspense fallback={<PolicySkeleton />}>
+    <Suspense fallback={<RouteLoader />}>
       <PrivacyContent />
     </Suspense>
   );

@@ -1,4 +1,4 @@
-import HomeSkeleton from "@/components/skeletons/home";
+import RouteLoader from "@/components/common/route-loader";
 import { Suspense, cache } from "react";
 import Clients from "@/components/sections/home/client-logos";
 import Greenstorm from "@/components/sections/home/greenstorm";
@@ -94,7 +94,7 @@ async function HomeContent() {
 
 export default function page() {
   return (
-    <Suspense fallback={<HomeSkeleton />}>
+    <Suspense fallback={<RouteLoader />}>
       <HomeContent />
     </Suspense>
   );

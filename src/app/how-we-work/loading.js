@@ -1,5 +1,5 @@
-import HowWeWorkSkeleton from "@/components/skeletons/how-we-work";
+import RouteLoader from "@/components/common/route-loader";
 
 export default function Loading() {
-  return <HowWeWorkSkeleton />;
+  return <RouteLoader />;
 }
