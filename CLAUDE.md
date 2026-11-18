@@ -147,6 +147,5 @@ Follow these in new builds; they replace the older behaviour described above whe
 - `local_data` is gone from `app/why-purpose/page.js`; the static aria labels, hero scroll link, authentic image alt and slider labels are constants inside their section files.
 - (2026-11-17) Same for home, who-we-are, what-we-do, contact, privacy, terms and blog: no `local_data` in the page files. Static section titles, scroll links and aria labels are constants in the section files (so earlier notes saying titles are "static in `local_data`" no longer apply). how-we-work, about and 404 still use `local_data` (no API).
 
-## Route loader (2026-11-18)
-- While API data loads, `common/route-loader` (logo on brand black + sliding bar, same look as the intro preloader) is the `Suspense` fallback in `app/layout.js` and the home/privacy/terms pages, and `app/loading.js` covers every other route. New API pages must not use `fallback={null}`.
-- (2026-11-18) Each API page also has a skeleton (`components/skeletons/<page>.jsx`, built from `common/page-skeleton`) used by its `loading.js` or page-level `Suspense` fallback. `RouteLoader` stays only for the layout fetch and the root `app/loading.js`. New API pages need a skeleton too.
+## Loaders (2026-11-18)
+- Every page with a `loading.js` or page-level `Suspense` fallback uses a skeleton from `components/skeletons/<page>.jsx` (built from `common/page-skeleton`). `common/route-loader` (logo + sliding bar) is only the `app/layout.js` fallback and the root `app/loading.js`. New pages must ship a skeleton; never `fallback={null}`.
