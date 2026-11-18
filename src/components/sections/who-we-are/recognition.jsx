@@ -36,7 +36,7 @@ export default function Recognition({ data, awards }) {
                 className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(40px,calc(80*var(--u)),80px)]"
               >
                 {/* <RichLines lines={title} /> */}
-                {renderTitle(title)}
+                {renderTitle(data?.subtitle)}
               </Heading>
             </Reveal>
           </div>

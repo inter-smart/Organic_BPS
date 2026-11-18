@@ -2,25 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 /** End of the article: next link and author bio. */
-export default function Close({ data }) {
+export default function Close({ data, nextBlog }) {
   return (
     <div className="mt-12 lg:mt-[calc(61*var(--u))]">
-      <div className="h-px bg-basecolor16" />
-      <div className="flex justify-end py-6 lg:py-[calc(33*var(--u))]">
-        <Link
-          href="/blog"
-          className="group flex items-center gap-2.5 text-base font-semibold text-basecolor7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 lg:text-[clamp(14px,calc(18*var(--u)),18px)]"
-        >
-          Next perspective
-          <Image
-            src="/images/arrow-right-red.svg"
-            alt=""
-            width={18}
-            height={18}
-            className="size-[18px] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
-          />
-        </Link>
-      </div>
+        <div className="h-px bg-basecolor16" />
+        <div className="flex justify-end py-6 lg:py-[calc(33*var(--u))]">
+          {nextBlog && (
+            <Link
+              href={`/blog/${nextBlog}`}
+              className="group flex items-center gap-2.5 text-base font-semibold text-basecolor7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 lg:text-[clamp(14px,calc(18*var(--u)),18px)]"
+            >
+              Next perspective
+              <Image
+                src="/images/arrow-right-red.svg"
+                alt=""
+                width={18}
+                height={18}
+                className="size-[18px] transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+              />
+            </Link>
+          )}
+        </div>
       <section
         aria-label="About the author"
         className="flex flex-col items-start gap-5 rounded-3xl bg-basecolor15 p-6 sm:flex-row sm:items-center sm:gap-7 sm:p-8 lg:rounded-[calc(24*var(--u))] lg:gap-[calc(28*var(--u))] lg:p-[calc(32*var(--u))]"

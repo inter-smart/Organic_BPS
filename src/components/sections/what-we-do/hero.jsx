@@ -50,7 +50,7 @@ export default function Hero({ banner }) {
                 as="h1"
                 id="what-we-do-hero-title"
                 size="display"
-                className="text-white"
+                className="text-white "
               >
                 {/* <RichLines lines={title} /> */}
                 {renderTitle(banner?.banner_title)}

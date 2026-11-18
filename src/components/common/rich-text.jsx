@@ -42,7 +42,7 @@ function plain(part, cls, key, accent) {
       ? " "
       : "";
   if (!t) return null;
-  if (!cls && accent) return <span key={key}>{withStops(t, accent)}</span>;
+  // if (!cls && accent) return <span key={key}>{withStops(t, accent)}</span>;
   return cls ? (
     <span key={key} className={cls}>
       {t}

@@ -54,7 +54,7 @@ export default async function BlogDetailPage({ params }) {
             className="typography article-copy mt-8 lg:mt-[calc(32*var(--u))]"
             dangerouslySetInnerHTML={{ __html: article.body }}
           />
-          <Close data={{ author: article.author }} />
+          <Close nextBlog={data?.next_slug} data={{ author: article.author }} />
         </div>
       </article>
       {article.related.length > 0 && (

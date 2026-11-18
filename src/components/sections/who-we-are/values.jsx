@@ -25,7 +25,7 @@ export default function Values({ data, items }) {
                 className="text-white"
               >
                 {/* <RichLines lines={title} /> */}
-                {renderTitle(title)}
+                {renderTitle(data?.title)}
               </Heading>
             </Reveal>
             <Reveal

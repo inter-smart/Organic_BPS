@@ -48,7 +48,7 @@ export default function Team({ data }) {
                 className="text-white lg:text-[clamp(40px,calc(88*var(--u)),88px)]"
               >
                 {/* <RichLines lines={title} /> */}
-                {renderTitle(title)}
+                {renderTitle(data?.title)}
               </Heading>
             </Reveal>
             <Photo

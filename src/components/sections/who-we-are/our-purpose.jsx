@@ -2,11 +2,15 @@ import Image from "next/image";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
 import TextReveal from "@/components/common/text-reveal";
+import { renderTitle } from "@/components/common/rich-text";
+import { text } from "@/lib/cms-text";
 
 const lineFrom = (description) =>
-  description
-    ? [description.split(/\s+/).map((t) => ({ t, c: "#DA4D47" }))]
-    : [];
+  (description ?? "")
+    .split(/<\/?br\s*\/?>/i)
+    .map(text)
+    .filter(Boolean)
+    .map((line) => line.split(" ").map((t) => ({ t, c: "#DA4D47" })));
 
 export default function OurPurpose({ data }) {
   return (
@@ -34,13 +38,13 @@ export default function OurPurpose({ data }) {
           id="our-purpose-eyebrow"
           className="text-xs font-medium tracking-[0.3em] text-basecolor uppercase lg:text-eyebrow"
         >
-          {data?.title}
+          {renderTitle(data?.title)}
         </Reveal>
         <TextReveal
           as="h2"
           lines={lineFrom(data?.description)}
           from="#4b4b4b"
-          className="mx-auto mt-5 max-w-5xl text-3xl/[1.3] font-bold tracking-[-0.02em] sm:text-5xl/[1.3] lg:mt-[calc(36*var(--u))] lg:max-w-[1560px] lg:text-display-md/[1.3]"
+          className="mx-auto mt-5 max-w-3xl text-3xl/[1.3] font-bold tracking-[-0.02em] sm:text-5xl/[1.3] lg:mt-[calc(36*var(--u))] lg:max-w-[1560px] lg:text-display-md/[1.3]"
         />
       </div>
     </section>

@@ -32,7 +32,7 @@ export default function CoreBelief({ data, core_belief }) {
                 className="mt-3 text-basecolor2 lg:mt-[calc(14*var(--u))] lg:text-[clamp(40px,calc(88*var(--u)),88px)]"
               >
                 {/* <RichLines lines={title} /> */}
-                {renderTitle(title)}
+                {renderTitle(data?.subtitle)}
               </Heading>
             </Reveal>
             <div className="mt-6 space-y-5 text-base/[1.7] font-medium text-basecolor2 sm:text-lg/[1.7] lg:mt-[calc(60*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-body">

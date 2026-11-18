@@ -41,7 +41,7 @@ export default async function BlogPage() {
             data={{
               image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
               title: banner.banner_title,
-                            topics,
+              topics,
             }}
           />
         )}
