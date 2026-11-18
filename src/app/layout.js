@@ -1,3 +1,4 @@
+import RouteLoader from "@/components/common/route-loader";
 import { Google_Sans, Inter, Roboto } from "next/font/google";
 import { Suspense } from "react";
 import "lenis/dist/lenis.css";
@@ -52,7 +53,7 @@ export default function RootLayout({ children }) {
       <body>
         <Preloader />
         <SmoothScroll />
-        <Suspense fallback={null}>
+        <Suspense fallback={<RouteLoader />}>
           <SiteLayout>{children}</SiteLayout>
         </Suspense>
       </body>

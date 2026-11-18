@@ -19,6 +19,6 @@ export const layout_data = {
       { id: 2, label: "Terms of use", href: "#" },
     ],
     copyright: "© Copyright 2026, Organic BPS Pvt ltd, All rights reserved",
-    credit: { label: "Designed & Developed By:", name: "Intersmart", href: "https://intersmart.in" },
+    credit: { label: "Designed & Developed By:", name: "Intersmart", href: "https://www.intersmartsolution.com" },
   },
 };

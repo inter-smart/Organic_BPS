@@ -1077,3 +1077,39 @@ html[data-intro="done"] [data-diagram][data-in="1"] .dg-float {
 .grecaptcha-badge {
   visibility: hidden;
 } */
+
+@keyframes route-loader-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+.route-loader-bar {
+  animation: route-loader-slide 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-loader-bar {
+    animation: none;
+    width: 100%;
+  }
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.skeleton {
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
