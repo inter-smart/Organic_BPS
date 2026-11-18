@@ -1,4 +1,4 @@
-import { Suspense, cache } from "react";
+import { cache } from "react";
 import CareersCta from "@/components/sections/contact/careers-cta";
 import Enquiry from "@/components/sections/contact/enquiry";
 import Hero from "@/components/sections/contact/hero";

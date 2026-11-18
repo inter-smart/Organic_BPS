@@ -7,12 +7,17 @@ import Methods from "@/components/sections/how-we-work/methods";
 import MicroStimuli from "@/components/sections/how-we-work/micro-stimuli";
 import Testimonials from "@/components/sections/how-we-work/testimonials";
 import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
+import { cache } from "react";
 
-export const metadata = {
-  title: "How We Work",
-  description:
-    "We combine the depth of a strategy consultancy with the creative capability of a brand communication agency, so purpose becomes communication, experiences and actions people can see and feel.",
-};
+
+const getHowWeWorks = cache(() => apiGet("how-its-works"));
+
+export async function generateMetadata() {
+  const { data } = await getHowWeWorks();
+  return buildMetadata(cmsMeta(data?.banner), "/how-its-works");
+}
+
 
 /*
  * One object, one key per section — shaped like the future CMS response.
