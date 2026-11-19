@@ -30,6 +30,7 @@ export default function TestimonialsSlider({ items = [], labels }) {
     return () => embla.off("select", sync).off("reInit", sync);
   }, [embla]);
 
+
   return (
     <Reveal
       variant="up"
@@ -53,9 +54,9 @@ export default function TestimonialsSlider({ items = [], labels }) {
               className="min-w-0 flex-[0_0_100%] pl-6 lg:flex-[0_0_50%] lg:pl-[50px] 2xl:pl-[91px]"
             >
               <TestimonialCard
-                quote={item.quote}
+                quote={item.message}
                 name={item.name}
-                role={item.role}
+                role={item.designation}
                 logo={item.logo}
               />
             </div>

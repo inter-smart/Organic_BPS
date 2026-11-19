@@ -2,6 +2,7 @@ import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
+import { paragraphs } from "@/lib/cms-text";
 
 export default function FounderBio({ data }) {
   return (
@@ -13,7 +14,7 @@ export default function FounderBio({ data }) {
       {/* oversized brand word running up the left edge */}
       <span
         aria-hidden="true"
-        data-text={data?.watermark}
+        data-text="Organic BPS"
         className="pointer-events-none absolute bottom-0 left-[calc(26*var(--u))] -z-10 hidden rotate-180 text-[calc(135*var(--u))]/[1] font-bold tracking-[-0.02em] whitespace-nowrap text-basecolor/20 select-none before:content-[attr(data-text)] [writing-mode:vertical-rl] lg:block"
       ></span>
 
@@ -31,13 +32,16 @@ export default function FounderBio({ data }) {
               scale={1}
               end="center center"
             >
-              <Image
-                src={data?.image?.src}
-                alt={data?.image?.alt ?? ""}
-                fill
-                sizes="(min-width: 1280px) 45vw, 90vw"
-                className="object-contain object-bottom"
-              />
+              {data?.image ? (
+                <Image
+                  src={data.image}
+                  alt={data?.name ?? ""}
+                  title={data?.name ?? ""}
+                  fill
+                  sizes="(min-width: 1280px) 45vw, 90vw"
+                  className="object-contain object-bottom"
+                />
+              ) : null}
             </Parallax>
           </Reveal>
 
@@ -58,10 +62,10 @@ export default function FounderBio({ data }) {
               delay={0.1}
               className="mt-3 text-xs font-medium tracking-[0.3em] text-basecolor uppercase lg:mt-[calc(14*var(--u))] lg:text-eyebrow"
             >
-              {data?.role}
+              {data?.designation}
             </Reveal>
             <div className="mt-5 space-y-5 text-base/[1.7] font-medium text-basecolor2 sm:text-lg/[1.7] lg:mt-[calc(40*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-body">
-              {data?.paragraphs?.map((p, i) => (
+              {paragraphs(data?.message).map((p, i) => (
                 <Reveal
                   as="p"
                   key={i}

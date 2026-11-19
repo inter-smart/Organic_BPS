@@ -9,12 +9,17 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - Stack: Next.js 16 (App Router, JS/JSX, no TypeScript), React 19, Tailwind v4, GSAP (+`@gsap/react`), Lenis smooth scroll, Three.js (globe), framer-motion, Radix (`ui/sheet`), lucide-react. Don't add dependencies without need.
 - Alias `@/` = `src/`.
 
+## Commands
+- `npm run dev` (use `npx next dev -p 3100`, port 3000 is taken), `npm run build`, `npm start`, `npm run lint`. There is no test runner; verification is lint + clean build + the checks under "Verification".
+- `.env` needs `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_API_TOKEN` for the API helpers (`src/lib/api.js`). `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (reCAPTCHA v3, contact form) is optional: when empty the form skips the captcha.
+
 ## Structure
 - `src/app/` — `layout.js` (renders Header, Footer, Preloader, SmoothScroll), `page.js` (page + `local_data`), `globals.css` (tokens, scale, `.typography`).
 - `src/components/common/` — reusable pieces (Button, Heading, RichText, Reveal, TextReveal, Parallax, NumberTicker, Ring, carousels, globe/hero media).
 - `src/components/layout/` — Header, Footer, MenuSheet. `src/components/ui/` — shadcn-style primitives.
 - `src/components/sections/<page>/` — one file per page section (e.g. `sections/home/hero.jsx`), kebab-case filenames.
 - `src/lib/` — `layout-data` (header/footer/menu data), `cn`, `globe/` (Three.js engine).
+- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer token is `NEXT_PUBLIC_API_TOKEN` for server and browser calls (exposed by design; there are no proxy route handlers). `apiGet` takes `cache` (2026-11-18): default `true` = server fetch revalidates every 300 s, `false` = no-store (used for `blogs/filter`); POST is never cached.
 - `public/images`, `public/videos` — assets, kebab-case names.
 
 ## Page standards (apply to EVERY page/build — keep all pages identical in approach)
@@ -53,7 +58,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - Contrast rule (2026-11-04): white text on the brand red `#da4d47` is 4.09:1 and fails AA for small text. Red bands with white copy use `bg-basecolor14` (privacy CTA, blog newsletter). Small red text on light backgrounds uses `text-basecolor14`; active filter pills use `bg-basecolor14`. Tokens added: `basecolor15` #f6f3ef cream section, `basecolor16` #d9d6d1 pill border.
 - Spacing scale gotcha: Tailwind `size-6`/`p-2.5` etc. are multiplied by `--u` (spacing is `calc(var(--u)*4)`), so they shrink below lg. Controls that must stay 24px+ (target size) need `min-h-[24px] min-w-[24px]`.
 
-- `/blog/[slug]` detail (`src/app/blog/[slug]/page.js`, sections in `sections/blog-detail/`) — 2026-11-04. Figma frame `1572:3860`. Article data lives in `src/lib/blog-data.js` (shared by the list and the detail page; `getArticle`, `hrefFor`, `newsletter`). An article only gets a page when it has a `detail` object; right now that is `purpose-makes-possible` (the Figma article), so every other article `href` is still `#`. The body is one HTML string (`detail.body`: `p.lead`, `h2` + `p`, `blockquote`, `aside > p + ol`) rendered with `dangerouslySetInnerHTML` inside `.typography.article-copy`; section numbers, the red quote card and the leaders box come from CSS in `globals.css`. Related thinking is an Embla slider (3 across on lg, loop, prev/next/dots). Topic pills link to `/blog#topic=<Label>`; `blog-filter` reads that hash (no `useSearchParams`, so the page stays static) and scrolls to the list. With `cacheComponents` on, do not export `dynamicParams` from a route.
+- `/blog/[slug]` detail (`src/app/blog/[slug]/page.js`, sections in `sections/blog-detail/`) reads `apiGet("blogs/<slug>")` (no Suspense wrapper; a missing blog calls `notFound()`). `mapDetail` in `lib/blog-api.js` shapes hero, author, related and the body HTML (`p.lead` from `main_title`, `content`, `aside` from `box_content`, `content2`), which goes into `.typography.article-copy` (numbers, quote card and the questions box come from CSS in `globals.css`). Related thinking only renders when the API returns related blogs. Topic pill links to `/blog#topic=<Label>`. With `cacheComponents` on, do not export `dynamicParams` from a route.
 
 - `/why-purpose` (`src/app/why-purpose/page.js`, sections in `sections/why-purpose/`) — 2026-11-04. Figma frame `1577:5007` (fileKey `IKGeO6YQC8ihDdaLyO0xq3`); the header/footer inside the frame are the shared ones. Header "Why Purpose" link now points to `/why-purpose` (was `/#why-purpose`). The "Shared direction" diagram is positioned in design px scaled with `--u` at lg (840 x 620) and becomes a stacked list below lg; labels use `
 ` line breaks from data. Design colours and fonts are exact (user request): tokens `basecolor17`–`26` hold the design greys/reds, Roboto is loaded in `layout.js` (`font-roboto`) for the growth paragraph, Shared direction label, equation tiles and the perspectives block, Inter (`font-inter`) for the authentic paragraphs. Only small text on light backgrounds stays on `basecolor14` (card links, eyebrow, Purpose tile, Authenticity tile) because the design red fails AA there. The diagram animates via `.dg-*` classes in `globals.css` (staged entrance once `[data-diagram]` is revealed, orbit spin, dot pulse; reduced motion = static). Equation tiles reveal one by one. Perspectives is an Embla slider (`perspectives-slider.jsx`); the design has 3 cards, so 3 more come from the blog list to make it slide. Figma's `users-round` export carried a stray frame outline, so the Values card reuses the clean `users-round-2.svg`. The three perspective cards link to `/blog` until real articles exist; the CTA button reads "Let’s talk" (the design has the typo "Lets Talk").
@@ -103,5 +108,47 @@ Follow these in new builds; they replace the older behaviour described above whe
 ## Breakpoint (2026-11-05)
 - Tailwind `lg` is 960px (`--breakpoint-lg` in globals.css), matching the container step; JS matchMedia/scale thresholds use 960 too. Between 960 and 1023 the desktop (`lg:`) styles apply, not sm/md.
 
-## Header navigation breakpoint (2026-11-16)
-- Desktop header and nav show from `xl`: nav is `hidden xl:flex`, padding is `xl:pt-11` / `xl:py-4`, logo is `xl:w-63.5`, registered mark is `xl:w-3`, and menu icon is `xl:w-8.5`. Below `xl`, all mobile header sizing and styling apply.
+## Home data (2026-11-16)
+- `src/app/page.js` holds only the static section titles (`local_data`: ring, accents, line breaks) and passes each section its raw API object (`sliders`, `section_one`…`section_eight`) plus the related list (`map_details`, `loyalty_status`, `partners`, `gallery`, `blogs`) and its title. Sections read the API field names themselves and call the `lib/cms-text.js` helpers (same as Who We Are). `ClientCarousel` and `InsightSlider` read `image`/`image_alt_tag` and `title`/`small_description` directly. There is no `home-data.js` and no fallback copy: a missing section renders nothing, an API failure renders no sections.
+- The ring replaces the "o" in titles only, never in descriptions; `RichText` renders it only for segments with `ring: true`.
+
+## Who We Are API (2026-11-16)
+- `/who-we-are` is read in `app/who-we-are/page.js` and each section reads the API fields itself (no mapper, no fallback copy; a missing block renders nothing, an API failure renders no sections). Section titles are static, kept in `local_data` in the page file (like home); `parseTitle` (`lib/utils.js`) is available for API titles. `timeline-slider`, `value-cards` and `award-slider` read the API field names directly (`year`/`description`, `title`/`description`).
+
+## Why Purpose API (2026-11-16)
+- `/why-purpose` reads `apiGet("why-purpose")` in `app/why-purpose/page.js` (wrapped in `Suspense` like home). Section titles are static in `local_data`; each section reads the API fields itself, no fallback copy. Icons from the CMS are remote SVGs, so their `<Image>`s use `unoptimized`.
+- Perspectives: heading comes from the API; the article cards and slider labels stay static in `local_data` (plus blog-data) until the API supplies them. The hero CTA has no link until the CMS sets `button_link`.
+
+## What We Do API (2026-11-16)
+- `/what-we-do` reads `apiGet("what-we-do")` (Suspense-wrapped). Titles, scroll link and per-practice logo size/alt (`local_data.practices.logos`, by practice order; `--logo-w` stays unitless) are static. Section anchors and tab links come from `slug(section_title)`; service icons are remote SVGs (`unoptimized`). The API still repeats the Purpose Consulting paragraph under Sustainability.
+
+## Contact API (2026-11-16)
+- `/contact` reads `apiGet("contact")` in `app/contact/page.js`. Title line breaks/accents and the map button label are static in `local_data`; everything else (banner, enquiry copy, email/phone, office list, explore options for the form select, careers email) comes from the API with no fallback copy. The form still has no submit endpoint. Hero uses `banner_top_image` as a single avatar.
+- Form submit (2026-11-17): reCAPTCHA v3 token (`g-recaptcha-response`, from `common/recaptcha`) is added to the payload and verified by the backend; the badge is hidden in CSS and the Google notice sits above the button. `contact-form` calls `apiPost("contact-enquiry")` straight from the browser (no route handler). Validation is the shared zod schema `lib/contact-schema.js` (client submit); rules follow the QA matrix (name letters only, phone optional but 7-15 digits when given, message 2-2000 with no markup/code). Field map: `organisation`→`organization`, `phone`→`phone_number`, `topic`→`explore_together`.
+- Titles (2026-11-16): hero, enquiry, locations and careers headings come from the API (`banner_title`, `section_one.subtitle`, `section_two.title`, `section_three.title`) through `parseTitle` (`<span>` = accent, `<br>`/`</br>` = line break). The static title arrays in `local_data` are commented out.
+
+## Privacy API (2026-11-16)
+- `/privacy` reads `apiGet("policy/privacy-policy")` (`data.policy`) in `app/privacy/page.js`, Suspense-wrapped. Hero, section heading, help note, CTA and the 12 policy sections come from the API; the scroll link and contents-card labels are static. Section ids are `slug(title)`; each `contents[].description` HTML goes straight into `.policy-copy`. Intro paragraphs are taken as plain text (the API HTML carries its own Tailwind classes, which would not be generated). Only the desktop `banner` image is used.
+
+## Layout API (2026-11-17)
+- Header and footer are rendered by `components/layout/site-chrome.jsx` (async, Suspense-wrapped in `app/layout.js`). It reads `apiGet("site-settings")` (header/footer button label+link, footer title/text/welcome) and `apiGet("social-links")` (sorted by `sort_order`, remote SVG icons, `unoptimized`, open in a new tab). A `null` button link falls back to `/contact`; a missing button name hides the button. Logo, nav links, legal links, copyright and credit stay static in `lib/layout-data.js`. Email, phone and `map_link` from site-settings are not used.
+
+## Blog API (2026-11-17)
+- `/blog` reads `apiGet("blogs")` in `app/blog/page.js` (no Suspense wrapper); `lib/blog-api.js` maps API blogs to the card shape. Banner, titles, categories (slug), featured blogs, first page of articles and newsletter copy come from the API; labels are static; the listing labels are written directly in `listing.jsx`.
+- Topic, search (500 ms debounce, `use-blog-list`) and "View More" call `blogs/filter` straight from the browser (`listing.jsx`, no proxy route; the Bearer token is `NEXT_PUBLIC_API_TOKEN`). `/blogs` leaves the featured blog out of the list, `/blogs/filter` includes it.
+- Cards link to `/blog/<slug>`; the detail page still only knows the static article.
+
+## Metadata (2026-11-17)
+- Every API page exports `generateMetadata` → `buildMetadata(cmsMeta(source), "/route")` (`lib/seo.js`) and renders `<MetaTags html={source.other_meta_tags} />` (`components/common/meta-tags`). Source is `data.banner` (home, why-purpose, what-we-do, who-we-are, contact, blog), `data.policy` (privacy, terms) or `data.blog` (blog detail). The page fetch is wrapped in `cache()` so metadata and page share one request. How We Work, About and 404 have no CMS meta.
+- `lib/meta-tags.js` parses the CMS `other_meta_tags` string (pure, allowlisted): title/description/keywords/robots/canonical and unsafe http-equiv are ignored; og/twitter/hreflang/name tags go through Next Metadata, the rest through `<MetaTags>`.
+- Env: `NEXT_PUBLIC_SITE_URL` (required, `data/seo.js`) and `NEXT_PUBLIC_APP_ENV=production` on live only. Anything else stays noindex three ways: layout robots meta, `app/robots.js`, `X-Robots-Tag` header in `next.config.mjs`. `app/sitemap.js` lists static routes plus blog slugs.
+
+## Security headers (2026-11-19)
+- `next.config.mjs` `headers()` sends `Strict-Transport-Security: max-age=31536000; includeSubDomains` on every route in every environment; `X-Robots-Tag` noindex is still added only when `NEXT_PUBLIC_APP_ENV` is not `production`. If a reverse proxy (Nginx/Apache/Cloudflare) fronts the app, it must pass the header through or set it too, and HTTP must redirect to HTTPS.
+
+## Why Purpose labels (2026-11-17)
+- `local_data` is gone from `app/why-purpose/page.js`; the static aria labels, hero scroll link, authentic image alt and slider labels are constants inside their section files.
+- (2026-11-17) Same for home, who-we-are, what-we-do, contact, privacy, terms and blog: no `local_data` in the page files. Static section titles, scroll links and aria labels are constants in the section files (so earlier notes saying titles are "static in `local_data`" no longer apply). how-we-work, about and 404 still use `local_data` (no API).
+
+## Loaders (2026-11-18)
+- Every loading state (`loading.js`, page-level `Suspense` fallback, `app/layout.js`) renders `common/route-loader` (logo + rotating ring loader). No skeletons; never `fallback={null}`.

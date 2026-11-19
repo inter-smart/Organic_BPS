@@ -3,9 +3,10 @@ import Heading from "@/components/common/heading";
 import HeroMedia from "@/components/common/hero-media";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
+import { text } from "@/lib/cms-text";
 
-export default function Hero({ data }) {
+export default function Hero({ banner, title }) {
   return (
     <section
       id="hero"
@@ -20,7 +21,20 @@ export default function Hero({ data }) {
         start="top top"
         end="bottom top"
       >
-        <HeroMedia slides={data?.slides} />
+        <HeroMedia
+          slides={
+            banner?.banner
+              ? [
+                  {
+                    id: banner.id,
+                    type: "image",
+                    src: banner.banner,
+                    alt: banner.banner_alt_text,
+                  },
+                ]
+              : []
+          }
+        />
       </Parallax>
 
       <div className="container mx-auto px-4">
@@ -33,7 +47,8 @@ export default function Hero({ data }) {
                 size="display"
                 className="text-white"
               >
-                <RichLines lines={data?.title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
           </div>
@@ -44,23 +59,27 @@ export default function Hero({ data }) {
             className="flex items-center gap-3 lg:mt-0"
           >
             <div className="flex -space-x-2">
-              {data?.avatars?.map((a, i) => (
-                <div
-                  key={a?.id ?? i}
-                  className="relative size-9 overflow-hidden rounded-full ring-2 ring-basecolor4 lg:size-[calc(38*var(--u))]"
-                >
-                  <Image
-                    src={a?.src}
-                    alt={a?.alt ?? ""}
-                    fill
-                    sizes="38px"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
+              {[banner?.banner_top_image]
+                .flat()
+                .filter(Boolean)
+                .map((src) => (
+                  <div
+                    key={src}
+                    className="relative size-9 overflow-hidden rounded-full ring-2 ring-basecolor4 lg:size-[calc(38*var(--u))]"
+                  >
+                    <Image
+                      src={src}
+                      alt="Organic BPS team member"
+                      title="Organic BPS team member"
+                      fill
+                      sizes="38px"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
             </div>
             <p className="text-xs text-white/90 lg:text-sm">
-              {data?.avatarsCaption}
+              {banner?.image_text}
             </p>
           </Reveal>
 
@@ -71,19 +90,20 @@ export default function Hero({ data }) {
               delay={0.2}
               className="text-base/[1.6] font-medium text-pretty text-white sm:text-lg/[1.6] lg:max-w-[calc(674*var(--u))] lg:text-intro/[1.52]"
             >
-              {data?.paragraph}
+              {text(banner?.banner_description)}
             </Reveal>
           </div>
 
           <a
-            href={data?.scroll?.href}
-            aria-label={data?.scroll?.label}
+            href={'#enquiry'}
+            aria-label={"Scroll to the next section"}
             className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
           >
             <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
               <Image
                 src="/images/arrow-down.svg"
-                alt=""
+                alt="Scroll down"
+                title="Scroll down"
                 fill
                 className="object-contain"
               />

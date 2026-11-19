@@ -2,7 +2,9 @@ import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
+
+const scroll = { label: "Scroll to the policy", href: "#policy" };
 
 export default function Hero({ data }) {
   return (
@@ -22,6 +24,7 @@ export default function Hero({ data }) {
         <Image
           src={data?.image?.src}
           alt={data?.image?.alt ?? ""}
+          title={data?.image?.alt ?? ""}
           fill
           priority
           sizes="100vw"
@@ -38,7 +41,8 @@ export default function Hero({ data }) {
               size="display"
               className="text-white lg:leading-[0.98] lg:tracking-[-0.03em] 3xl:text-[100px]!"
             >
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={data?.title} /> */}
+              {renderTitle(data?.title)}
             </Heading>
           </Reveal>
           <Reveal
@@ -57,14 +61,15 @@ export default function Hero({ data }) {
         <div className="container mx-auto px-4">
           <div className="flex justify-end">
             <a
-              href={data?.scroll?.href}
-              aria-label={data?.scroll?.label}
+              href={scroll.href}
+              aria-label={scroll.label}
               className="flex size-12 items-center justify-center"
             >
               <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
                 <Image
                   src="/images/arrow-down.svg"
-                  alt=""
+                  alt="Scroll down"
+                  title="Scroll down"
                   fill
                   className="object-contain"
                 />

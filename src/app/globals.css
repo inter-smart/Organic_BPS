@@ -1073,3 +1073,83 @@ html[data-intro="done"] [data-diagram][data-in="1"] .dg-float {
     animation: none;
   }
 }
+/* 
+.grecaptcha-badge {
+  visibility: hidden;
+} */
+
+@keyframes route-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes route-loader-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes route-loader-breathe {
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.route-loader {
+  animation: route-loader-in 0.2s ease-out both;
+}
+
+.route-loader-logo {
+  animation: route-loader-breathe 2s ease-in-out infinite;
+}
+
+.route-loader-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  animation: route-loader-spin 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95)
+    infinite;
+}
+
+.route-loader-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(from 0deg, transparent 0 40%, var(--basecolor));
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 1px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 1px)
+  );
+}
+
+.route-loader-dot {
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--basecolor);
+  box-shadow: 0 0 12px 3px rgb(218 77 71 / 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-loader,
+  .route-loader-logo {
+    animation: none;
+  }
+
+  .route-loader-ring {
+    animation: route-loader-breathe 2s ease-in-out infinite;
+  }
+}

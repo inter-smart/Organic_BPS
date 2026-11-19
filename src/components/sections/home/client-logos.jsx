@@ -1,9 +1,10 @@
 import ClientCarousel from "@/components/common/client-carousel";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
+import { text } from "@/lib/cms-text";
 
-export default function ClientLogos({ data }) {
+export default function ClientLogos({ data, partners, title }) {
   return (
     <section
       id="clients"
@@ -19,7 +20,8 @@ export default function ClientLogos({ data }) {
               size="displayMd"
               className="mx-auto max-w-5xl text-[#171717]"
             >
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <Reveal
@@ -28,12 +30,12 @@ export default function ClientLogos({ data }) {
             delay={0.15}
             className="mx-auto mt-5 max-w-3xl text-sm/[1.8] text-black sm:text-base/[1.8] lg:mt-6 lg:max-w-221 lg:text-lead/[1.6] text-pretty"
           >
-            {data?.text}
+            {text(data.description)}
           </Reveal>
         </div>
       </div>
       <Reveal variant="scale" delay={0.2} className="mt-0 lg:-mt-6">
-        <ClientCarousel items={data?.items} />
+        <ClientCarousel items={partners} />
       </Reveal>
     </section>
   );

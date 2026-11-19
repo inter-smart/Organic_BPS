@@ -1,9 +1,17 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import PerspectivesSlider from "@/components/sections/why-purpose/perspectives-slider";
+import { text } from "@/lib/cms-text";
 
-export default function Perspectives({ data }) {
+const slider = {
+  label: "Purpose perspectives",
+  prev: "Previous articles",
+  next: "Next articles",
+  goTo: "Go to articles",
+};
+
+export default function Perspectives({ data, items }) {
   return (
     <section
       id="perspectives"
@@ -17,7 +25,7 @@ export default function Perspectives({ data }) {
             variant="fade"
             className="font-roboto text-sm font-bold tracking-[0.04em] text-basecolor14 uppercase lg:text-[clamp(14px,calc(21*var(--u)),21px)]/[1.28]"
           >
-            {data?.eyebrow}
+            {text(data?.title)}
           </Reveal>
           <Reveal variant="up" className="mt-4 lg:mt-[calc(25*var(--u))]">
             <Heading
@@ -26,12 +34,12 @@ export default function Perspectives({ data }) {
               size="display"
               className="font-roboto text-basecolor25 tracking-normal lg:max-w-[calc(1229*var(--u))] lg:leading-[1.18]"
             >
-              <RichText segments={data?.title} />
+              {renderTitle(data?.description)}
             </Heading>
           </Reveal>
         </div>
 
-        <PerspectivesSlider items={data?.items} labels={data?.slider} />
+        <PerspectivesSlider items={items} labels={slider} />
       </div>
     </section>
   );

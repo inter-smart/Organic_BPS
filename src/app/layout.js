@@ -1,11 +1,12 @@
+import RouteLoader from "@/components/common/route-loader";
 import { Google_Sans, Inter, Roboto } from "next/font/google";
+import { Suspense } from "react";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Preloader from "@/components/common/preloader";
 import SmoothScroll from "@/components/common/smooth-scroll";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
-import { layout_data } from "@/lib/layout-data";
+import SiteLayout from "@/components/layout/site-layout";
+import { allowIndexing, siteUrl } from "@/data/seo";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],
@@ -28,16 +29,18 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Organic BPS — Purpose is the journey that powers every other journey",
-  description:
-    "Organic BPS is a Brand Purpose Consultancy with more than 26 years of experience in brand strategy and communication.",
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: { index: false, follow: false, noarchive: true },
-  },
+  metadataBase: new URL(siteUrl),
+  robots: allowIndexing
+    ? { index: true, follow: true }
+    : {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: { index: false, follow: false, noarchive: true },
+      },
 };
+
+export const viewport = { themeColor: "#161616" };
 
 export default function RootLayout({ children }) {
   return (
@@ -50,9 +53,9 @@ export default function RootLayout({ children }) {
       <body>
         <Preloader />
         <SmoothScroll />
-        <Header data={layout_data.header} />
-        {children}
-        <Footer data={layout_data.footer} />
+        <Suspense fallback={<RouteLoader />}>
+          <SiteLayout>{children}</SiteLayout>
+        </Suspense>
       </body>
     </html>
   );

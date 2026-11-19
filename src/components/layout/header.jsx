@@ -127,6 +127,7 @@ export default function Header({ data }) {
               <Image
                 src="/images/organic-bps-logo.png"
                 alt={data?.logo?.alt ?? "Organic BPS"}
+                title={data?.logo?.alt ?? "Organic BPS"}
                 fill
                 loading="eager"
                 fetchPriority="high"
@@ -137,7 +138,8 @@ export default function Header({ data }) {
             <div className="absolute -top-0.5 right-0 w-2.5 lg:w-3">
               <Image
                 src="/images/registered-mark.svg"
-                alt=""
+                alt="Registered trademark"
+                title="Registered trademark"
                 width={10}
                 height={10}
                 className="size-full"

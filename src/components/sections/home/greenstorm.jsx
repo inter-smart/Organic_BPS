@@ -4,24 +4,50 @@ import Heading from "@/components/common/heading";
 import NumberTicker from "@/components/common/number-ticker";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
+import { cta, figure, paragraphs } from "@/lib/cms-text";
 
-export default function Greenstorm({ data }) {
-  const [a, b, c, d] = data?.photos ?? [];
-  const photo = (p, delay, extra = "") => (
+// One counter reads { title: "Photographers", value: "50K+" }, but the last
+// one arrives swapped ({ title: "17", value: "Impactful Years" }).
+function counter(c) {
+  const swapped = !/^\d/.test(c.value ?? "");
+  const [number, label] = swapped ? [c.title, c.value] : [c.value, c.title];
+  return { ...figure(number), label };
+}
+
+export default function Greenstorm({ data, title }) {
+  const [a, b, c, d] = [
+    data.image_one,
+    data.image_two,
+    data.image_three,
+    data.image_four,
+  ];
+  const stats = [
+    data.counter_one,
+    data.counter_two,
+    data.counter_three,
+    data.counter_four,
+  ]
+    .filter(Boolean)
+    .map(counter);
+  const button = cta(data);
+  const photo = (src, delay, extra = "") => (
     <Reveal
       variant="clip"
       delay={delay}
       className={`group relative overflow-hidden rounded-[20px] ${extra}`}
     >
       <Parallax className="absolute inset-0" from={-6} to={6}>
-        <Image
-          src={p?.src}
-          alt={p?.alt ?? ""}
-          fill
-          sizes="(min-width: 1280px) 33vw, 50vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
+        {src ? (
+          <Image
+            src={src}
+            alt="Greenstorm"
+            title="Greenstorm"
+            fill
+            sizes="(min-width: 1280px) 33vw, 50vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        ) : null}
       </Parallax>
     </Reveal>
   );
@@ -41,7 +67,8 @@ export default function Greenstorm({ data }) {
               size="display"
               className="text-black lg:max-w-208"
             >
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <Reveal
@@ -49,7 +76,7 @@ export default function Greenstorm({ data }) {
             delay={0.15}
             className="space-y-1 text-base/[1.8] text-black sm:text-lg/[1.8] lg:self-center lg:text-lead/[2]"
           >
-            {data?.paragraphs?.map((p, i) => (
+            {paragraphs(data.description).map((p, i) => (
               <p key={i} className="text-pretty">
                 {p}
               </p>
@@ -74,28 +101,34 @@ export default function Greenstorm({ data }) {
               className="flex items-center justify-between gap-6 lg:-mt-5"
             >
               <div className="relative h-10 w-60 sm:h-12 sm:w-72 lg:h-18 lg:w-102.5">
-                <Image
-                  src="/images/logo-unccd-g20.png"
-                  alt={data?.partners?.alt}
-                  fill
-                  sizes="410px"
-                  className="object-contain object-left mix-blend-darken"
-                />
+                {data.logo_one ? (
+                  <Image
+                    src={data.logo_one}
+                    alt="Greenstorm logo"
+                    title="Greenstorm logo"
+                    fill
+                    sizes="410px"
+                    className="object-contain object-left mix-blend-darken"
+                  />
+                ) : null}
               </div>
               <div className="relative h-12 w-14 lg:h-20.75 lg:w-23.25">
-                <Image
-                  src="/images/logo-greenstorm.png"
-                  alt={data?.partners?.markAlt}
-                  fill
-                  sizes="93px"
-                  className="object-contain"
-                />
+                {data.logo_two ? (
+                  <Image
+                    src={data.logo_two}
+                    alt="Greenstorm partner logo"
+                    title="Greenstorm partner logo"
+                    fill
+                    sizes="93px"
+                    className="object-contain"
+                  />
+                ) : null}
               </div>
             </Reveal>
             <dl className="relative mt-8 grid grid-cols-2 lg:mt-0 lg:w-[calc(392*var(--u))] before:absolute before:left-0 before:right-0 before:top-1/2 before:h-px before:bg-[linear-gradient(90deg,transparent,#d4d4d4_50%,#d4d4d4_50%,transparent)] after:absolute after:left-1/2 after:top-0 after:bottom-0 after:w-px after:bg-[linear-gradient(180deg,transparent,#d4d4d4_50%,#d4d4d4_50%,transparent)]">
-              {data?.stats?.map((s, i) => (
+              {stats.map((s, i) => (
                 <Reveal
-                  key={s?.id}
+                  key={i}
                   variant="up"
                   delay={0.1 * i}
                   className={`relative py-5 lg:py-0 lg:h-41.75 ${i % 2 === 0 ? "pr-0" : "pl-4 lg:pl-12"} ${i < 2 ? "" : ""} ${i < 2 ? "pb-0" : "lg:pt-6"} lg:flex lg:flex-col lg:justify-center`}
@@ -109,9 +142,11 @@ export default function Greenstorm({ data }) {
                 </Reveal>
               ))}
             </dl>
-            <Reveal variant="up" delay={0.2} className="mt-8 lg:mt-0">
-              <Button href={data?.cta?.href}>{data?.cta?.label}</Button>
-            </Reveal>
+            {button.href ? (
+              <Reveal variant="up" delay={0.2} className="mt-8 lg:mt-0">
+                <Button href={button.href}>{button.label}</Button>
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>

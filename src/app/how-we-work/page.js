@@ -6,12 +6,18 @@ import Methodology from "@/components/sections/how-we-work/methodology";
 import Methods from "@/components/sections/how-we-work/methods";
 import MicroStimuli from "@/components/sections/how-we-work/micro-stimuli";
 import Testimonials from "@/components/sections/how-we-work/testimonials";
+import { apiGet } from "@/lib/api-calls";
+import { buildMetadata, cmsMeta } from "@/lib/seo";
+import { cache } from "react";
 
-export const metadata = {
-  title: "How We Work — Organic BPS",
-  description:
-    "We combine the depth of a strategy consultancy with the creative capability of a brand communication agency, so purpose becomes communication, experiences and actions people can see and feel.",
-};
+
+const getHowWeWorks = cache(() => apiGet("how-its-works"));
+
+export async function generateMetadata() {
+  const { data } = await getHowWeWorks();
+  return buildMetadata(cmsMeta(data?.banner), "/how-its-works");
+}
+
 
 /*
  * One object, one key per section — shaped like the future CMS response.
@@ -19,47 +25,10 @@ export const metadata = {
  */
 const local_data = {
   hero: {
-    image: { src: "/images/how-we-work/hero.jpg", alt: "" },
-    title: [
-      { t: "Purpose", ring: true },
-      { t: " Works When " },
-      { t: "Strategy & Execution ", accent: true },
-      { t: "Work Together" },
-    ],
-    paragraph:
-      "We combine the depth of a strategy consultancy with the creative capability of a brand communication agency. This helps organisations move from a clear sense of purpose to communication, experiences and actions people can see and feel.",
-    cta: { label: "Explore Our Approach", href: "#our-approach" },
     scroll: { label: "Scroll to our approach", href: "#our-approach" },
   },
-  approach: {
-    eyebrow: "Our Approach",
-    title: [
-      [{ t: "From the boardroom" }],
-      [{ t: "to the " }, { t: "real world.", accent: true }],
-    ],
-    copy: "We begin by understanding the business, its people and its ambitions. We bring strategic thinking and creative execution together, so the direction set by leadership can take shape across the organisation and in the marketplace.",
-    tagline: [
-      [
-        { t: "Strategy", c: "#da4d47" },
-        { t: "gives", c: "#da4d47" },
-        { t: "the", c: "#da4d47" },
-        { t: "work", c: "#da4d47" },
-        { t: "direction.", c: "#da4d47" },
-      ],
-      [
-        { t: "Creativity", c: "#da4d47" },
-        { t: "makes", c: "#da4d47" },
-        { t: "it", c: "#da4d47" },
-        { t: "visible", c: "#da4d47" },
-        { t: "and", c: "#da4d47" },
-        { t: "meaningful.", c: "#da4d47" },
-      ],
-    ],
-  },
+
   methodology: {
-    eyebrow: "Our Methodology",
-    title: [{ t: "Connecting purpose to " }, { t: "action.", accent: true }],
-    copy: "Our BPS — Brand Purpose Solutions framework connects four elements: purpose, belief, behaviour and sustainable growth. Purpose sets the direction. Belief builds connection. Behaviour turns intent into action. Sustained action helps create lasting value.",
     mechanism: {
       label:
         "The BPS framework as a mechanism: purpose at the core, wrapped by belief and behaviour, drives the wheel of sustainable growth.",
@@ -69,36 +38,9 @@ const local_data = {
       belief: "BELIEF",
       purpose: "PURPOSE",
     },
-    steps: {
-      label: "The four framework principles",
-      items: [
-        {
-          id: "purpose",
-          number: "01",
-          title: "Purpose",
-          text: "Purpose defines the\ndirection.",
-        },
-        {
-          id: "belief",
-          number: "02",
-          title: "Belief",
-          text: "Belief creates\nconnection.",
-        },
-        {
-          id: "behaviour",
-          number: "03",
-          title: "Behaviour",
-          text: "Behaviour turns\nintention into action.",
-        },
-        {
-          id: "growth",
-          number: "04",
-          title: "Sustainable Growth",
-          text: "Sustainable growth\nmakes it enduring.",
-        },
-      ],
-    },
+    steps: { label: "The four framework principles" },
   },
+
   methods: {
     map: {
       label: "Brand Farm explores four dimensions of an organisation",
@@ -136,6 +78,7 @@ const local_data = {
       { t: " to uncover a purpose it can act on." },
     ],
   },
+
   microStimuli: {
     image: {
       src: "/images/how-we-work/book-cover.jpg",
@@ -146,8 +89,6 @@ const local_data = {
     text: "based on behavioural science thinking introduced by Biju Dominic, helps us identify where intention falls short of action and design cues and experiences that make the desired behaviour easier.",
   },
   testimonials: {
-    eyebrow: "Testimonials",
-    title: [{ t: "In our " }, { t: "clients", accent: true }, { t: "’ words" }],
     slider: {
       label: "Client testimonials",
       prev: "Previous testimonial",
@@ -185,13 +126,15 @@ const local_data = {
       },
     ],
   },
+
   clients: {
     eyebrow: "Long-standing relationships",
-    title: [
-      [{ t: "We grow with the" }],
-      [{ t: "organisations" }],
-      [{ t: "we work", accent: true }, { t: " with." }],
-    ],
+    // title: [
+    //   [{ t: "We grow with the" }],
+    //   [{ t: "organisations" }],
+    //   [{ t: "we work", accent: true }, { t: " with." }],
+    // ],
+    title: "We grow with the<br>organisations<br><span>we work</span> with.",
     copy: [
       "We believe the best work grows from a deep understanding of the organisation.",
       "Many of our client relationships have continued for years, with some extending beyond a decade. This continuity allows us to understand the business, its people, its culture and its changing ambitions.",
@@ -271,30 +214,44 @@ const local_data = {
       },
     ],
   },
-  cta: {
-    image: { src: "/images/how-we-work/cta.jpg", alt: "" },
-    eyebrow: "Let’s talk",
-    title: [[{ t: "What are you" }], [{ t: "working towards?", accent: true }]],
-    text: "Tell us about your challenge. Let’s explore how we can help you move forward.",
-    cta: { label: "Let’s talk", href: "/contact" },
-  },
+
 };
 
-export default function HowWeWorkPage() {
+export default async function HowWeWorkPage() {
+  const { data, error } = await apiGet("how-its-works");
+  const {
+    page_cms,
+    banner,
+    methodologies,
+    testimonials,
+    brand_pillers,
+    partners,
+  } = data;
+
+  const { section_one, section_two, section_three, section_four, section_five, section_six, section_seven } = page_cms;
+
   return (
     <main>
-      <Hero data={local_data.hero} />
-      <Approach data={local_data.approach} />
+      <Hero data={local_data.hero} banner={banner} />
+      <Approach section_one={section_one} />
       <div className="container mx-auto px-4 xl:px-0 mb-10 2xl:mb-25">
         <div className="rounded-[20px] sm:rounded-[40px] 2xl:rounded-[60px] bg-[#F6F6F6] overflow-hidden">
-          <Methodology data={local_data.methodology} />
-          <Methods data={local_data.methods} />
+          <Methodology
+            section_two={section_two}
+            data={local_data.methodology}
+            methodologies={methodologies}
+          />
+          <Methods
+            section_three={section_three}
+            brand_pillers={brand_pillers}
+            data={local_data.methods}
+          />
           <MicroStimuli data={local_data.microStimuli} />
         </div>
       </div>
-      <Testimonials data={local_data.testimonials} />
+      <Testimonials section_five={section_five} testimonials={testimonials} data={local_data.testimonials} />
       <Clients data={local_data.clients} />
-      <Cta data={local_data.cta} />
+      <Cta section_seven={section_seven}/>
     </main>
   );
 }

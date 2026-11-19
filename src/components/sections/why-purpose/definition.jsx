@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
+import { paragraphs } from "@/lib/cms-text";
 import DistinctionsSlider from "@/components/sections/why-purpose/distinctions-slider";
 
-export default function Definition({ data }) {
+const label = "Vision, mission, values and purpose";
+
+export default function Definition({ data, statements, title }) {
   return (
     <section
       id="what-is-purpose"
@@ -20,11 +23,11 @@ export default function Definition({ data }) {
               size="display"
               className="text-basecolor25 tracking-normal lg:leading-[0.89]"
             >
-              <RichLines lines={data?.title} />
+              {renderTitle(title)}
             </Heading>
           </Reveal>
           <div className="space-y-5 lg:space-y-[calc(29*var(--u))] lg:border-l-[3px] lg:border-[#F0F0F0] lg:pl-[calc(100*var(--u))]">
-            {data?.paragraphs?.map((p, i) => (
+            {paragraphs(data?.description).map((p, i) => (
               <Reveal
                 key={i}
                 as="p"
@@ -37,10 +40,7 @@ export default function Definition({ data }) {
             ))}
           </div>
         </div>
-        <DistinctionsSlider
-          items={data?.distinctions}
-          label={data?.distinctionsLabel}
-        />
+        <DistinctionsSlider items={statements} label={label} />
       </div>
     </section>
   );

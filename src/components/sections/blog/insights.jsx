@@ -1,18 +1,14 @@
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import FeaturedSlider from "@/components/sections/blog/featured-slider";
 import Listing from "@/components/sections/blog/listing";
 
-/** Featured slider (random category picks) followed by the filterable listing. */
-export default function Insights({ featured, listing }) {
-  const byId = Object.fromEntries(
-    (listing?.articles ?? []).map((a) => [a.id, a]),
-  );
-  const items = (featured?.items ?? [])
-    .map((item) => (item.title ? item : byId[item.id]))
-    .filter(Boolean);
+const cta = { label: "Read more" };
+const slider = { label: "Featured perspectives" };
 
+/** Featured slider followed by the filterable listing. */
+export default function Insights({ featured, listing }) {
   return (
     <>
       <section
@@ -36,7 +32,8 @@ export default function Insights({ featured, listing }) {
                 size="display"
                 className="text-basecolor7 lg:leading-[1.12] lg:tracking-[-0.02em] 3xl:text-[100px]!"
               >
-                <RichLines lines={featured?.title} />
+                {/* <RichLines lines={featured?.title} /> */}
+                {renderTitle(featured?.title)}
               </Heading>
             </Reveal>
             <Reveal
@@ -50,11 +47,9 @@ export default function Insights({ featured, listing }) {
           </div>
           <div className="mt-10 lg:mt-[calc(152*var(--u))] 3xl:mt-37.5">
             <FeaturedSlider
-              items={items}
-              author={featured?.author}
-              cta={featured?.cta}
-              labels={featured?.slider}
-              categories={listing?.filters?.items}
+              items={featured?.items}
+              cta={cta}
+              labels={slider}
             />
           </div>
         </div>

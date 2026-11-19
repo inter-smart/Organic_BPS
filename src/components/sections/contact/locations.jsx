@@ -2,9 +2,11 @@ import { Mail, Phone } from "lucide-react";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
-export default function Locations({ data }) {
+const mapLabel = "Location Map";
+
+export default function Locations({ data, title, offices, mapHref }) {
   return (
     <section
       id="locations"
@@ -21,7 +23,8 @@ export default function Locations({ data }) {
                 size="display"
                 className="text-white 3xl:text-[100px]!"
               >
-                <RichLines lines={data?.title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <Reveal
@@ -30,25 +33,32 @@ export default function Locations({ data }) {
               delay={0.1}
               className="mt-6 text-base/[1.6] font-medium text-white sm:text-lg/[1.6] lg:mt-[calc(36*var(--u))] lg:text-body"
             >
-              {data?.text}
+              {data?.description}
             </Reveal>
-            {data?.map?.href ? (
+            {mapHref ? (
               <Reveal
                 variant="up"
                 delay={0.2}
                 className="mt-8 lg:mt-[calc(40*var(--u))]"
               >
-                <Button variant="dark">{data.map.label}</Button>
+                <Button
+                  href={mapHref}
+                  variant="dark"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {mapLabel}
+                </Button>
               </Reveal>
             ) : null}
           </div>
 
           <div>
             <p className="text-xs font-semibold tracking-[0.3em] text-basecolor8 uppercase lg:text-eyebrow 3xl:text-xl">
-              {data?.eyebrow}
+              {data?.location_title}
             </p>
             <div className="mt-8 grid gap-10 sm:grid-cols-2 lg:mt-[calc(60*var(--u))] lg:gap-0">
-              {data?.offices?.map((office, i) => (
+              {offices?.map((office, i) => (
                 <Reveal
                   key={office?.id}
                   variant="up"
@@ -60,7 +70,7 @@ export default function Locations({ data }) {
                   }
                 >
                   <h3 className="text-3xl font-medium lg:text-[clamp(28px,calc(50*var(--u)),50px)] 3xl:text-[50px]">
-                    {office?.city}
+                    {office?.location}
                   </h3>
                   <p className="mt-2 text-xs font-bold tracking-[0.3em] text-basecolor8 uppercase lg:mt-[calc(12*var(--u))] lg:text-eyebrow 3xl:text-xl">
                     {office?.country}

@@ -3,9 +3,10 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichText } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
+import { paragraphs } from "@/lib/cms-text";
 
-export default function Hero({ data }) {
+export default function Hero({ data, banner }) {
   return (
     <section
       id="hero"
@@ -13,7 +14,7 @@ export default function Hero({ data }) {
       className="relative isolate flex min-h-150 flex-col justify-end overflow-hidden bg-basecolor4 text-white lg:min-h-[calc(885*var(--u))]"
     >
       <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
-        <Image src={data?.image?.src} alt={data?.image?.alt ?? ""} fill priority sizes="100vw" className="object-cover object-[35%_center] lg:object-center" />
+        <Image src={banner?.banner} alt={banner?.banner_alt_text} title={banner?.banner_alt_text} fill priority sizes="100vw" className="object-cover object-[35%_center] lg:object-center" />
         <div className="absolute inset-0 bg-linear-to-t from-basecolor4/60 via-basecolor4/20 via-50% to-basecolor4/30" />
       </Parallax>
 
@@ -22,17 +23,20 @@ export default function Hero({ data }) {
           <div>
             <Reveal variant="blur" duration={1.1} immediate>
               <Heading as="h1" id="how-we-work-title" size="display" className="max-w-[7.63em] text-white">
-                <RichText segments={data?.title} />
+                {/* <RichText segments={banner?.banner_title} /> */}
+                {renderTitle(banner?.banner_title)}
               </Heading>
             </Reveal>
-            <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-[calc(51*var(--u))]" immediate>
-              <Button href={data?.cta?.href} variant="dark">
-                {data?.cta?.label}
-              </Button>
-            </Reveal>
+            {banner?.button_link ? (
+              <Reveal variant="up" delay={0.3} className="mt-8 lg:mt-[calc(51*var(--u))]" immediate>
+                <Button href={banner?.button_link} variant="dark">
+                  {banner?.button_name}
+                </Button>
+              </Reveal>
+            ) : null}
           </div>
           <Reveal as="p" variant="up" delay={0.2} immediate className="max-w-[642px] lg:justify-self-end text-base/[1.55] font-medium text-pretty text-white sm:text-lg/[1.55] lg:text-[clamp(16px,calc(25*var(--u)),25px)]/[1.52]">
-            {data?.paragraph}
+            {paragraphs(banner?.banner_description)}
           </Reveal>
         </div>
       </div>
@@ -43,7 +47,7 @@ export default function Hero({ data }) {
         className="absolute right-4 bottom-6 hidden size-12 items-center justify-center sm:flex lg:right-[calc(90*var(--u))] lg:bottom-[calc(80*var(--u))]"
       >
         <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
-          <Image src="/images/arrow-down.svg" alt="" fill className="object-contain" />
+          <Image src="/images/arrow-down.svg" alt="Scroll down" title="Scroll down" fill className="object-contain" />
         </span>
       </a>
     </section>

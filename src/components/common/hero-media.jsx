@@ -55,6 +55,7 @@ export default function HeroMedia({ slides = [] }) {
                 <Image
                   src={slide.src}
                   alt={slide.alt ?? ""}
+                  title={slide.alt ?? ""}
                   fill
                   priority={index === 0}
                   sizes="100vw"

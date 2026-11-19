@@ -14,16 +14,17 @@ export default function TopicRail({ data }) {
       </p>
       {data?.items?.map((topic) => (
         <button
-          key={topic}
+          key={topic.slug}
           type="button"
-          aria-pressed={category === topic}
-          onClick={() => selectTopic(topic)}
+          aria-pressed={category === topic.slug}
+          onClick={() => selectTopic(topic.slug)}
           className="group flex items-center gap-2.5 rounded-sm text-base font-medium text-white transition-opacity duration-300 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none lg:text-[clamp(14px,calc(16*var(--u)),16px)] 3xl:text-base"
         >
-          {topic}
+          {topic.name}
           <Image
             src="/images/blog/arrow-up-right.svg"
-            alt=""
+            alt="Arrow up right"
+            title="Arrow up right"
             width={14}
             height={14}
             className="size-3.5 3xl:size-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"

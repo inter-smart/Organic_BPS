@@ -3,9 +3,12 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import HiMedia from "@/components/common/hi-media";
 import Reveal from "@/components/common/reveal";
-import { RichLines, RichText } from "@/components/common/rich-text";
+import { RichText, renderTitle } from "@/components/common/rich-text";
+import { cta, segmentParagraphs } from "@/lib/cms-text";
 
-export default function WhatWeDo({ data }) {
+export default function WhatWeDo({ data, title }) {
+  const button = cta(data);
+
   return (
     <HiStage
       id="what-we-do"
@@ -18,12 +21,7 @@ export default function WhatWeDo({ data }) {
             data-hi
             className="will-change-transform lg:self-stretch lg:flex lg:items-center"
           >
-            <HiMedia
-              video={data?.media?.video}
-              poster={data?.media?.poster}
-              alt={data?.media?.alt}
-              className="lg:h-full lg:aspect-auto"
-            />
+            <HiMedia video={data.video} className="lg:h-full lg:aspect-auto" />
           </div>
           <div data-copy>
             <Reveal variant="up">
@@ -33,11 +31,12 @@ export default function WhatWeDo({ data }) {
                 size="display"
                 className="text-basecolor2"
               >
-                <RichLines lines={data?.title} />
+                {/* <RichLines lines={title} /> */}
+                {renderTitle(title)}
               </Heading>
             </Reveal>
             <div className="mt-6 space-y-5 text-base/[1.6] font-medium text-basecolor2 sm:text-lg/[1.6] lg:mt-8 lg:space-y-7 lg:text-lead/[1.5]">
-              {data?.paragraphs?.map((p, i) => (
+              {segmentParagraphs(data.description).map((p, i) => (
                 <Reveal
                   as="p"
                   key={i}
@@ -49,9 +48,11 @@ export default function WhatWeDo({ data }) {
                 </Reveal>
               ))}
             </div>
-            <Reveal variant="up" delay={0.45} className="mt-8 lg:mt-11">
-              <Button href={data?.cta?.href}>{data?.cta?.label}</Button>
-            </Reveal>
+            {button.href ? (
+              <Reveal variant="up" delay={0.45} className="mt-8 lg:mt-11">
+                <Button href={button.href}>{button.label}</Button>
+              </Reveal>
+            ) : null}
           </div>
         </div>
       </div>

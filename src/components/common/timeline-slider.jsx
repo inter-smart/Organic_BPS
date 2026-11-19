@@ -285,7 +285,7 @@ export default function TimelineSlider({ items = [] }) {
               </span>
             </div>
             <p className="mt-3 max-w-36 pl-4 text-base/[1.4] font-medium text-basecolor2 lg:mt-[calc(8*var(--u))] lg:pl-[calc(27*var(--u))] lg:max-w-[calc(180*var(--u))] lg:text-label">
-              {item?.label}
+              {item?.description}
             </p>
           </li>
         ))}

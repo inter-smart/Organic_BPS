@@ -40,6 +40,7 @@ export default function Button({
   className,
   ...props
 }) {
+  if (!href && !props.onClick && !props.type) return null;
   const classes = cn(buttonVariants({ variant, size }), className);
   const inner = (
     <>
@@ -75,7 +76,8 @@ export default function Button({
                 ? "/images/arrow-right-white.svg"
                 : "/images/arrow-right-dark.svg"
             }
-            alt=""
+            alt="Arrow right"
+            title="Arrow right"
             fill
             className="object-contain"
           />

@@ -61,9 +61,11 @@ export default function DistinctionsSlider({ items = [], label }) {
                 <div className="size-15 aspect-square overflow-hidden flex items-center justify-center">
                   <Image
                     src={item.icon}
-                    alt=""
+                    alt={item.title ?? "Distinction icon"}
+                    title={item.title ?? "Distinction icon"}
                     width={57}
                     height={57}
+                    unoptimized
                     className="size-full object-contain"
                   />
                 </div>
@@ -79,7 +81,7 @@ export default function DistinctionsSlider({ items = [], label }) {
                     "text-sm sm:text-base font-medium text-basecolor21 transition-colors duration-300 group-hover:text-basecolor14 lg:text-[clamp(14px,calc(25*var(--u)),25px)]",
                   )}
                 >
-                  {item.text}
+                  {item.description}
                 </p>
               </div>
             </Reveal>

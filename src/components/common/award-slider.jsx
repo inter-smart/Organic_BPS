@@ -44,7 +44,8 @@ export default function AwardSlider({ items = [] }) {
               <div className="group relative aspect-552/368 overflow-hidden rounded-[30px]">
                 <Image
                   src={item?.image}
-                  alt={item?.alt ?? ""}
+                  alt={item?.title ?? "Award"}
+                  title={item?.title ?? "Award"}
                   fill
                   sizes="(min-width: 1024px) 36vw, 78vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -54,7 +55,7 @@ export default function AwardSlider({ items = [] }) {
                 {item?.title}
               </h3>
               <p className="mt-1 text-sm/[1.6] font-medium text-basecolor2 sm:text-base/[1.6] lg:mt-[calc(8*var(--u))] lg:text-body">
-                {item?.text}
+                {item?.description}
               </p>
             </li>
           ))}

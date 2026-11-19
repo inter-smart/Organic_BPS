@@ -5,9 +5,19 @@ import Heading from "@/components/common/heading";
 import HeroMedia from "@/components/common/hero-media";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Hero({ data }) {
+  const slides = data.video
+    ? [
+        {
+          id: data.id,
+          type: "video",
+          src: data.video,
+          poster: data.video_thumbnail_image,
+        },
+      ]
+    : undefined;
   return (
     <section
       id="home"
@@ -22,7 +32,7 @@ export default function Hero({ data }) {
         start="top top"
         end="bottom top"
       >
-        <HeroMedia slides={data?.slides} />
+        <HeroMedia slides={slides} />
       </Parallax>
 
       <div className="container mx-auto px-4">
@@ -34,28 +44,34 @@ export default function Hero({ data }) {
               size="display"
               className="max-w-190 text-white"
             >
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={title} /> */}
+              {renderTitle(data?.title)}
             </Heading>
           </Reveal>
-          <Reveal variant="up" delay={0.35} className="mt-8 lg:mt-13.5">
-            <Button href={data?.cta?.href} variant="dark">
-              {data?.cta?.label}
-            </Button>
-          </Reveal>
-          <Link
-            href={data?.scroll?.href}
-            aria-label={data?.scroll?.label}
-            className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
-          >
-            <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
-              <Image
-                src="/images/arrow-down.svg"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </span>
-          </Link>
+          {data.button_url ? (
+            <Reveal variant="up" delay={0.35} className="mt-8 lg:mt-13.5">
+              <Button href={data.button_url} variant="dark">
+                {data.button_title}
+              </Button>
+            </Reveal>
+          ) : null}
+          {data?.button_url && (
+            <Link
+              href={data.button_url}
+              aria-label={data.button_title}
+              className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
+            >
+              <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
+                <Image
+                  src="/images/arrow-down.svg"
+                  alt="Scroll down"
+                  title="Scroll down"
+                  fill
+                  className="object-contain"
+                />
+              </span>
+            </Link>
+          )}
         </div>
       </div>
     </section>

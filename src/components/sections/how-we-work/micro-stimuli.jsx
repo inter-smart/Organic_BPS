@@ -16,6 +16,7 @@ export default function MicroStimuli({ data }) {
           <Image
             src={data?.image?.src}
             alt={data?.image?.alt ?? ""}
+            title={data?.image?.alt ?? ""}
             fill
             sizes="(min-width: 1024px) 55vw, 100vw"
             className="object-cover"

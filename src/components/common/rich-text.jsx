@@ -1,4 +1,5 @@
-import PurposeWord from "@/components/common/ring";
+import PurposeWord, { Ring } from "@/components/common/ring";
+import { text } from "@/lib/cms-text";
 
 /**
  * Renders mixed-colour copy from data: segments = [{ t: "text", accent?: true, ring?: true, className? }].
@@ -15,6 +16,88 @@ export function RichText({ segments = [] }) {
       <span key={i}>{content}</span>
     );
   });
+}
+
+// A full stop outside a highlighted span takes the accent colour too.
+function withStops(t, accent) {
+  return t
+    .split(/(\.(?=\s|$))/)
+    .map((chunk, i) =>
+      chunk === "." ? (
+        <span key={i} className={accent}>
+          .
+        </span>
+      ) : (
+        chunk
+      ),
+    );
+}
+
+// Plain text between tags; text() trims, so the edge spaces are put back.
+function plain(part, cls, key, accent) {
+  const body = text(part);
+  const t = body
+    ? (/^\s/.test(part) ? " " : "") + body + (/\s$/.test(part) ? " " : "")
+    : /\s/.test(part)
+      ? " "
+      : "";
+  if (!t) return null;
+  // if (!cls && accent) return <span key={key}>{withStops(t, accent)}</span>;
+  return cls ? (
+    <span key={key} className={cls}>
+      {t}
+    </span>
+  ) : (
+    <span key={key}>{t}</span>
+  );
+}
+
+// <em>o</em> becomes the ring image (the letter stays for screen readers). The
+// word around it is kept on one line.
+function ringParts(html, cls, accent) {
+  return html.split(/(\S*<em[^>]*>[\s\S]*?<\/em>\S*)/i).map((chunk, i) => {
+    if (!/<em/i.test(chunk)) return plain(chunk, cls, i, accent);
+    return (
+      <span key={i} className="whitespace-nowrap">
+        {chunk.split(/(<em[^>]*>[\s\S]*?<\/em>)/i).map((part, j) =>
+          /^<em/i.test(part) ? (
+            <span key={j} className={cls}>
+              <span className="sr-only">{text(part)}</span>
+              <Ring />
+            </span>
+          ) : (
+            plain(part, cls, j, accent)
+          ),
+        )}
+      </span>
+    );
+  });
+}
+
+// Only the brand colour tokens are honoured; CMS classes are not generated.
+function spanColor(tag, accent) {
+  const cls = /class=["']\s*(text-basecolor\d*)\s*["']/i.exec(tag)?.[1];
+  return cls ?? accent;
+}
+
+/**
+ * Title from CMS html: <span> text is highlighted, <b>o</b> is swapped for the
+ * ring image and <br> starts a new line.
+ */
+export function renderTitle(title, accent = "text-basecolor") {
+  if (!title) return null;
+  return title.split(/<\/?br\s*\/?>/i).map((line, i) => (
+    <span key={i} className="block">
+      {line.split(/(<span[^>]*>[\s\S]*?<\/span>)/i).map((part, j) => {
+        const isSpan = /^<span/i.test(part);
+        const inner = isSpan
+          ? part.replace(/^<span[^>]*>|<\/span>$/gi, "")
+          : part;
+        const cls = isSpan ? spanColor(part, accent) : undefined;
+        return <span key={j}>{ringParts(inner, cls, accent)}</span>;
+      })}
+    </span>
+  ));
 }
 
 /** Multi-line variant: lines = [segments, segments, ...] — each line is its own block. */

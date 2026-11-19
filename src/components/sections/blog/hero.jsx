@@ -2,8 +2,13 @@ import Image from "next/image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
-import { RichLines } from "@/components/common/rich-text";
+import { renderTitle } from "@/components/common/rich-text";
 import TopicRail from "@/components/sections/blog/topic-rail";
+
+const scroll = {
+  label: "Scroll to featured perspectives",
+  href: "#featured",
+};
 
 export default function Hero({ data }) {
   return (
@@ -23,6 +28,7 @@ export default function Hero({ data }) {
         <Image
           src={data?.image?.src}
           alt={data?.image?.alt ?? ""}
+          title={data?.image?.alt ?? ""}
           fill
           priority
           sizes="100vw"
@@ -42,7 +48,8 @@ export default function Hero({ data }) {
               size="display"
               className="text-white lg:max-w-[763px] lg:leading-[1.12] lg:tracking-[-0.02em] 3xl:text-[100px]!"
             >
-              <RichLines lines={data?.title} />
+              {/* <RichLines lines={data?.title} /> */}
+              {renderTitle(data?.title)}
             </Heading>
           </Reveal>
         </div>
@@ -52,21 +59,22 @@ export default function Hero({ data }) {
         <div className="container mx-auto px-4">
           <div className="hidden justify-end pb-6 sm:flex lg:pb-[calc(54*var(--u))]">
             <a
-              href={data?.scroll?.href}
-              aria-label={data?.scroll?.label}
+              href={scroll.href}
+              aria-label={scroll.label}
               className="flex size-12 items-center justify-center"
             >
               <span className="relative block aspect-[50/14.7] w-10 rotate-90 animate-[bob_2.4s_ease-in-out_infinite] lg:w-12.25 motion-reduce:animate-none">
                 <Image
                   src="/images/arrow-down.svg"
-                  alt=""
+                  alt="Scroll down"
+                  title="Scroll down"
                   fill
                   className="object-contain"
                 />
               </span>
             </a>
           </div>
-          <TopicRail data={data?.topics} />
+          <TopicRail data={{ label: "Explore the thinking", items: data?.topics }} />
         </div>
       </div>
     </section>

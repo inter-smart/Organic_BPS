@@ -19,22 +19,10 @@ export default function Footer({ data }) {
                 className="relative block w-fit"
               >
                 <div className="relative aspect-250/47 w-48 lg:w-63.5">
-                  <Image
-                    src="/images/organic-bps-logo.png"
-                    alt={data?.logo?.alt ?? "Organic BPS"}
-                    fill
-                    sizes="254px"
-                    className="object-contain object-left"
-                  />
+                  <Image src="/images/organic-bps-logo.png" alt={data?.logo?.alt ?? "Organic BPS"} title={data?.logo?.alt ?? "Organic BPS"} fill sizes="254px" className="object-contain object-left" />
                 </div>
                 <div className="absolute -top-0.5 right-0 w-2.5 lg:w-3">
-                  <Image
-                    src="/images/registered-mark.svg"
-                    alt=""
-                    width={10}
-                    height={10}
-                    className="size-full"
-                  />
+                  <Image src="/images/registered-mark.svg" alt="Registered trademark" title="Registered trademark" width={10} height={10} className="size-full" />
                 </div>
               </Link>
               <Reveal variant="up">
@@ -72,9 +60,11 @@ export default function Footer({ data }) {
               >
                 {data?.welcome}
               </Reveal>
-              <Reveal variant="up" delay={0.2} className="lg:mt-23">
-                <Button href={data?.cta?.href}>{data?.cta?.label}</Button>
-              </Reveal>
+              {data?.cta?.href ? (
+                <Reveal variant="up" delay={0.2} className="lg:mt-23">
+                  <Button href={data.cta.href}>{data.cta.label}</Button>
+                </Reveal>
+              ) : null}
             </div>
           </div>
         </div>
@@ -91,15 +81,12 @@ export default function Footer({ data }) {
                 <li key={s?.id}>
                   <a
                     href={s?.href ?? "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={s?.label}
                     className="relative block size-9 transition-transform duration-300 hover:-translate-y-1 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:size-10"
                   >
-                    <Image
-                      src={s?.icon}
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
+                    <Image src={s?.icon} alt={s?.label ?? "Social link"} title={s?.label ?? "Social link"} fill unoptimized className="object-contain" />
                   </a>
                 </li>
               ))}

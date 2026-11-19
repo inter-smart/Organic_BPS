@@ -4,7 +4,7 @@ import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { formatDate } from "@/lib/format-date";
 
-export default function Hero({ data }) {
+export default function Hero({ data, categories }) {
   return (
     <section
       id="article-hero"
@@ -55,6 +55,7 @@ export default function Hero({ data }) {
           <Image
             src={data?.image?.src}
             alt={data?.image?.alt ?? ""}
+            title={data?.image?.alt ?? ""}
             fill
             priority
             sizes="(min-width: 1024px) 90vw, 100vw"
@@ -74,12 +75,13 @@ export default function Hero({ data }) {
             </p>
             <a
               href="#article"
-              aria-label={data?.scroll}
+              aria-label="Scroll to the article"
               className="flex size-12 shrink-0 items-center justify-center rounded-full bg-basecolor14 transition-transform duration-300 hover:translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none lg:size-[calc(70.4*var(--u))]"
             >
               <Image
                 src="/images/blog/scroll-down.svg"
-                alt=""
+                alt="Scroll down"
+                title="Scroll down"
                 width={27}
                 height={27}
                 className="size-5 lg:size-[calc(27*var(--u))]"
@@ -93,6 +95,7 @@ export default function Hero({ data }) {
             <Image
               src={data?.author?.imageLarge?.src}
               alt={data?.author?.imageLarge?.alt ?? ""}
+              title={data?.author?.imageLarge?.alt ?? ""}
               width={60}
               height={60}
               className="size-12 rounded-full object-cover lg:size-[calc(59.5*var(--u))]"
@@ -107,19 +110,20 @@ export default function Hero({ data }) {
             </div>
           </div>
           <ul
-            aria-label={data?.topicsLabel}
+            aria-label="Topics"
             className="flex flex-wrap gap-2.5 lg:gap-[calc(12.9*var(--u))]"
           >
-            {data?.topics?.map((topic) => (
-              <li key={topic}>
+            {categories?.map((item) => (
+              <li key={item}>
                 <Link
-                  href={`/blog#topic=${encodeURIComponent(topic)}`}
+                  href={`/blog?category=${item?.slug}`}
                   className="group flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-medium transition-colors duration-300 hover:border-white/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white motion-reduce:transition-none lg:gap-[calc(9*var(--u))] lg:px-[calc(18.1*var(--u))] lg:py-[calc(12.9*var(--u))] lg:text-[clamp(13px,calc(15.5*var(--u)),15.5px)]"
                 >
-                  {topic}
+                  {item?.name}
                   <Image
                     src="/images/blog/arrow-up-right.svg"
-                    alt=""
+                    alt="Arrow up right"
+                    title="Arrow up right"
                     width={15}
                     height={15}
                     className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
