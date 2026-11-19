@@ -31,7 +31,6 @@ const local_data = {
     cta: { label: "Explore Our Approach", href: "#our-approach" },
     scroll: { label: "Scroll to our approach", href: "#our-approach" },
   },
-
   approach: {
     eyebrow: "Our Approach",
     title: [
@@ -57,7 +56,6 @@ const local_data = {
       ],
     ],
   },
-
   methodology: {
     eyebrow: "Our Methodology",
     title: [{ t: "Connecting purpose to " }, { t: "action.", accent: true }],
@@ -101,7 +99,6 @@ const local_data = {
       ],
     },
   },
-
   methods: {
     map: {
       label: "Brand Farm explores four dimensions of an organisation",
@@ -139,7 +136,6 @@ const local_data = {
       { t: " to uncover a purpose it can act on." },
     ],
   },
-
   microStimuli: {
     image: {
       src: "/images/how-we-work/book-cover.jpg",
@@ -149,7 +145,6 @@ const local_data = {
     title: "MicroStimuli",
     text: "based on behavioural science thinking introduced by Biju Dominic, helps us identify where intention falls short of action and design cues and experiences that make the desired behaviour easier.",
   },
-
   testimonials: {
     eyebrow: "Testimonials",
     title: [{ t: "In our " }, { t: "clients", accent: true }, { t: "’ words" }],
@@ -190,7 +185,6 @@ const local_data = {
       },
     ],
   },
-
   clients: {
     eyebrow: "Long-standing relationships",
     title: [
@@ -209,77 +203,74 @@ const local_data = {
         id: "cial",
         src: "/images/how-we-work/logo-cial.png",
         alt: "Cochin International Airport Limited",
-        width: 640,
-        height: 219,
-        w: 69,
       },
       {
         id: "cosmoversity",
         src: "/images/how-we-work/logo-cosmoversity.png",
         alt: "Cosmoversity",
-        width: 640,
-        height: 115,
-        w: 81,
       },
       {
         id: "aster",
         src: "/images/logo-aster.png",
         alt: "Aster MIMS Hospital",
-        width: 332,
-        height: 134,
-        w: 76,
       },
       {
         id: "kma",
         src: "/images/logo-kma.png",
         alt: "Kerala Management Association",
-        width: 464,
-        height: 155,
-        w: 69,
       },
       {
         id: "scms",
         src: "/images/logo-scms.png",
         alt: "SCMS Group of Educational Institutions",
-        width: 528,
-        height: 186,
-        w: 78,
       },
       {
         id: "scms-2",
         src: "/images/logo-scms.png",
         alt: "SCMS Group of Educational Institutions",
-        width: 528,
-        height: 186,
-        w: 78,
       },
       {
         id: "agappe",
         src: "/images/logo-agappe.png",
         alt: "Agappe",
-        width: 900,
-        height: 188,
-        w: 61,
       },
       {
         id: "aster-2",
         src: "/images/logo-aster.png",
         alt: "Aster MIMS Hospital",
-        width: 332,
-        height: 134,
-        w: 76,
       },
       {
         id: "cosmoversity-2",
         src: "/images/how-we-work/logo-cosmoversity.png",
         alt: "Cosmoversity",
-        width: 640,
-        height: 115,
-        w: 81,
+      },
+      {
+        id: "cosmoversity",
+        src: "/images/how-we-work/logo-cosmoversity.png",
+        alt: "Cosmoversity",
+      },
+      {
+        id: "aster",
+        src: "/images/logo-aster.png",
+        alt: "Aster MIMS Hospital",
+      },
+      {
+        id: "kma",
+        src: "/images/logo-kma.png",
+        alt: "Kerala Management Association",
+      },
+      {
+        id: "scms",
+        src: "/images/logo-scms.png",
+        alt: "SCMS Group of Educational Institutions",
+      },
+      {
+        id: "scms-2",
+        src: "/images/logo-scms.png",
+        alt: "SCMS Group of Educational Institutions",
       },
     ],
   },
-
   cta: {
     image: { src: "/images/how-we-work/cta.jpg", alt: "" },
     eyebrow: "Let’s talk",

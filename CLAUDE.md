@@ -102,3 +102,6 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Breakpoint (2026-11-05)
 - Tailwind `lg` is 960px (`--breakpoint-lg` in globals.css), matching the container step; JS matchMedia/scale thresholds use 960 too. Between 960 and 1023 the desktop (`lg:`) styles apply, not sm/md.
+
+## Header navigation breakpoint (2026-11-16)
+- Desktop header and nav show from `xl`: nav is `hidden xl:flex`, padding is `xl:pt-11` / `xl:py-4`, logo is `xl:w-63.5`, registered mark is `xl:w-3`, and menu icon is `xl:w-8.5`. Below `xl`, all mobile header sizing and styling apply.
