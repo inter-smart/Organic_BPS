@@ -6,7 +6,7 @@ export default function MicroStimuli({ data }) {
     <section
       id="micro-stimuli"
       aria-labelledby="micro-stimuli-title"
-      className="px-4 py-16 sm:py-20 lg:py-[calc(100*var(--u))] lg:pr-[calc(41*var(--u))] lg:pl-[calc(59*var(--u))]"
+      className="px-4 py-10 sm:py-20 lg:py-[calc(100*var(--u))] lg:pr-[calc(41*var(--u))] lg:pl-[calc(59*var(--u))]"
     >
       <div className="grid gap-5 lg:grid-cols-[936fr_664fr]">
         <Reveal

@@ -18,12 +18,12 @@ export default function FounderBio({ data }) {
         className="pointer-events-none absolute bottom-0 left-[calc(26*var(--u))] -z-10 hidden rotate-180 text-[calc(135*var(--u))]/[1] font-bold tracking-[-0.02em] whitespace-nowrap text-basecolor/20 select-none before:content-[attr(data-text)] [writing-mode:vertical-rl] lg:block"
       ></span>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 flex flex-col justify-end">
         <div className="relative grid items-end gap-8 pt-16 lg:grid-cols-[7fr_12fr] lg:items-stretch lg:gap-0 lg:pt-0">
           <Reveal
             variant="right"
             duration={1.1}
-            className="relative order-2 mx-auto aspect-2191/1910 w-full max-w-xl lg:order-1 lg:mx-0 lg:w-full lg:max-w-none lg:self-end"
+            className="relative order-2 mx-auto aspect-2191/1910 w-full max-w-xl lg:order-1 lg:mx-0 lg:w-[600px] 2xl:w-200 lg:max-w-none lg:self-end"
           >
             <Parallax
               className="absolute inset-0"
@@ -45,7 +45,7 @@ export default function FounderBio({ data }) {
             </Parallax>
           </Reveal>
 
-          <div className="order-1 pb-8 lg:order-2 lg:self-center lg:py-[calc(60*var(--u))] lg:pl-[calc(60*var(--u))]">
+          <div className="order-1 lg:order-2 lg:self-center lg:py-[80px] 2xl:py-30">
             <Reveal variant="up">
               <Heading
                 as="h2"

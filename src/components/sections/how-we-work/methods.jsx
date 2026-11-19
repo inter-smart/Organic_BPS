@@ -8,7 +8,11 @@ export default function Methods({ data, section_three, brand_pillers }) {
   if (!section_three) return null;
 
   return (
-    <section id="methods" aria-labelledby="methods-title" className="px-4 py-16 sm:py-20 lg:py-[calc(100*var(--u))] lg:pr-[calc(41*var(--u))] lg:pl-[calc(38*var(--u))]">
+    <section
+      id="methods"
+      aria-labelledby="methods-title"
+      className="px-4 py-10 sm:py-20 lg:py-[calc(100*var(--u))] lg:pr-[calc(41*var(--u))] lg:pl-[calc(38*var(--u))]"
+    >
       <div className="grid items-start gap-12 lg:grid-cols-[718fr_913fr] lg:gap-x-12">
         <PurposeMap
           data={data?.map}

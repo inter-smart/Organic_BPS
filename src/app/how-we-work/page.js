@@ -33,6 +33,10 @@ const local_data = {
       label:
         "The BPS framework as a mechanism: purpose at the core, wrapped by belief and behaviour, drives the wheel of sustainable growth.",
       scrollLabel: "Framework diagram, scrollable",
+      growth: ["SUSTAINABLE", "GROWTH"],
+      behaviour: "BEHAVIOUR",
+      belief: "BELIEF",
+      purpose: "PURPOSE",
     },
     steps: { label: "The four framework principles" },
   },
@@ -40,7 +44,39 @@ const local_data = {
   methods: {
     map: {
       label: "Brand Farm explores four dimensions of an organisation",
+      items: [
+        { id: "history", title: "History", text: "Where you come from" },
+        { id: "strengths", title: "Strengths", text: "What you do best" },
+        {
+          id: "stakeholders",
+          title: "Stakeholders",
+          text: "Who you create\nvalue for",
+        },
+        {
+          id: "ambitions",
+          title: "Ambitions",
+          text: "What you aspire\nto become",
+        },
+      ],
     },
+    title: [
+      [{ t: "We draw on" }],
+      [{ t: "specific methods" }],
+      [{ t: "where they can" }],
+      [{ t: "make a difference:", accent: true }],
+    ],
+    copy: [
+      { t: "Brand Farm explores an organisation’s " },
+      { t: "history", className: "font-semibold text-basecolor14" },
+      { t: ", ", className: "text-basecolor14" },
+      {
+        t: "strengths, stakeholders",
+        className: "font-semibold text-basecolor14",
+      },
+      { t: " & " },
+      { t: "ambitions", className: "font-semibold text-basecolor14" },
+      { t: " to uncover a purpose it can act on." },
+    ],
   },
 
   microStimuli: {
@@ -52,7 +88,6 @@ const local_data = {
     title: "MicroStimuli",
     text: "based on behavioural science thinking introduced by Biju Dominic, helps us identify where intention falls short of action and design cues and experiences that make the desired behaviour easier.",
   },
-
   testimonials: {
     slider: {
       label: "Client testimonials",
@@ -60,6 +95,36 @@ const local_data = {
       next: "Next testimonial",
       goTo: "Go to testimonial",
     },
+    items: [
+      {
+        id: "asset-homes",
+        quote:
+          "The single-minded purpose-driven approach by Organic BPS has delivered amazing results for us on several fronts.",
+        name: "Sunil Kumar V",
+        role: "Founder and Managing Director, Asset Homes",
+        logo: {
+          src: "/images/how-we-work/logo-asset.png",
+          alt: "Asset Homes",
+          width: 300,
+          height: 356,
+          w: 15.4,
+        },
+      },
+      {
+        id: "muthoot",
+        quote:
+          "The discovery and integration of Purpose by Organic BPS has brought about an inherent shift in the way we look at our business and work.",
+        name: "Thomas George Muthoot",
+        role: "Director, Muthoot Pappachan Group",
+        logo: {
+          src: "/images/how-we-work/logo-muthoot.png",
+          alt: "Muthoot Pappachan Group",
+          width: 379,
+          height: 282,
+          w: 16.5,
+        },
+      },
+    ],
   },
 
   clients: {
@@ -77,73 +142,71 @@ const local_data = {
         id: "cial",
         src: "/images/how-we-work/logo-cial.png",
         alt: "Cochin International Airport Limited",
-        width: 640,
-        height: 219,
-        w: 69,
       },
       {
         id: "cosmoversity",
         src: "/images/how-we-work/logo-cosmoversity.png",
         alt: "Cosmoversity",
-        width: 640,
-        height: 115,
-        w: 81,
       },
       {
         id: "aster",
         src: "/images/logo-aster.png",
         alt: "Aster MIMS Hospital",
-        width: 332,
-        height: 134,
-        w: 76,
       },
       {
         id: "kma",
         src: "/images/logo-kma.png",
         alt: "Kerala Management Association",
-        width: 464,
-        height: 155,
-        w: 69,
       },
       {
         id: "scms",
         src: "/images/logo-scms.png",
         alt: "SCMS Group of Educational Institutions",
-        width: 528,
-        height: 186,
-        w: 78,
       },
       {
         id: "scms-2",
         src: "/images/logo-scms.png",
         alt: "SCMS Group of Educational Institutions",
-        width: 528,
-        height: 186,
-        w: 78,
       },
       {
         id: "agappe",
         src: "/images/logo-agappe.png",
         alt: "Agappe",
-        width: 900,
-        height: 188,
-        w: 61,
       },
       {
         id: "aster-2",
         src: "/images/logo-aster.png",
         alt: "Aster MIMS Hospital",
-        width: 332,
-        height: 134,
-        w: 76,
       },
       {
         id: "cosmoversity-2",
         src: "/images/how-we-work/logo-cosmoversity.png",
         alt: "Cosmoversity",
-        width: 640,
-        height: 115,
-        w: 81,
+      },
+      {
+        id: "cosmoversity",
+        src: "/images/how-we-work/logo-cosmoversity.png",
+        alt: "Cosmoversity",
+      },
+      {
+        id: "aster",
+        src: "/images/logo-aster.png",
+        alt: "Aster MIMS Hospital",
+      },
+      {
+        id: "kma",
+        src: "/images/logo-kma.png",
+        alt: "Kerala Management Association",
+      },
+      {
+        id: "scms",
+        src: "/images/logo-scms.png",
+        alt: "SCMS Group of Educational Institutions",
+      },
+      {
+        id: "scms-2",
+        src: "/images/logo-scms.png",
+        alt: "SCMS Group of Educational Institutions",
       },
     ],
   },
@@ -167,8 +230,8 @@ export default async function HowWeWorkPage() {
     <main>
       <Hero data={local_data.hero} banner={banner} />
       <Approach section_one={section_one} />
-      <div className="container mx-auto px-4 xl:px-0">
-        <div className="rounded-[60px] bg-[#F6F6F6] overflow-hidden">
+      <div className="container mx-auto px-4 xl:px-0 mb-10 2xl:mb-25">
+        <div className="rounded-[20px] sm:rounded-[40px] 2xl:rounded-[60px] bg-[#F6F6F6] overflow-hidden">
           <Methodology
             section_two={section_two}
             data={local_data.methodology}

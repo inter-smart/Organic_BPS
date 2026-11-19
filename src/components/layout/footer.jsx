@@ -13,7 +13,11 @@ export default function Footer({ data }) {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-0 lg:min-h-140.5">
             {/* brand + CTA headline */}
             <div className="flex flex-col justify-between gap-16 lg:pr-12">
-              <Link href="/" aria-label="Organic BPS — home" className="relative block w-fit">
+              <Link
+                href="/"
+                aria-label="Organic BPS — home"
+                className="relative block w-fit"
+              >
                 <div className="relative aspect-250/47 w-48 lg:w-63.5">
                   <Image src="/images/organic-bps-logo.png" alt={data?.logo?.alt ?? "Organic BPS"} title={data?.logo?.alt ?? "Organic BPS"} fill sizes="254px" className="object-contain object-left" />
                 </div>
@@ -41,10 +45,19 @@ export default function Footer({ data }) {
                   </Link>
                 ))}
               </nav>
-              <Reveal as="p" variant="up" className="text-base/[1.6] font-medium text-black sm:text-lg/[1.6] lg:mt-31 lg:max-w-118.25 lg:text-lead/[1.5] text-pretty">
+              <Reveal
+                as="p"
+                variant="up"
+                className="text-base/[1.6] font-medium text-black sm:text-lg/[1.6] lg:mt-31 lg:max-w-118.25 lg:text-lead/[1.5] text-pretty"
+              >
                 {data?.text}
               </Reveal>
-              <Reveal as="p" variant="up" delay={0.1} className="text-3xl font-semibold text-basecolor lg:mt-17.5 lg:text-title">
+              <Reveal
+                as="p"
+                variant="up"
+                delay={0.1}
+                className="text-3xl font-semibold text-basecolor lg:mt-17.5 lg:text-title"
+              >
                 {data?.welcome}
               </Reveal>
               {data?.cta?.href ? (
@@ -60,7 +73,9 @@ export default function Footer({ data }) {
       <div className="bg-black text-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center gap-4 py-5 text-center text-sm sm:text-base md:flex-row md:justify-between lg:min-h-22.75 lg:py-3 lg:text-[clamp(14px,calc(18*var(--u)),18px)]">
-            <p className="md:flex-1 md:text-left lg:flex-[1.4] lg:whitespace-nowrap">{data?.copyright}</p>
+            <p className="md:flex-1 md:text-left lg:flex-[1.4] lg:whitespace-nowrap">
+              {data?.copyright}
+            </p>
             <ul className="flex items-center gap-2 md:flex-1 md:justify-center">
               {data?.social?.map((s) => (
                 <li key={s?.id}>
@@ -78,8 +93,20 @@ export default function Footer({ data }) {
             </ul>
             <p className="flex items-center gap-2 text-[#fffbfb] md:flex-1 md:justify-end lg:text-[clamp(14px,calc(18*var(--u)),18px)]">
               <span>{data?.credit?.label}</span>
-              <a href={data?.credit?.href} target="_blank" rel="noopener noreferrer" aria-label={data?.credit?.name} className="inline-flex">
-                <Image src="/images/partner-credit.png" alt="Intersmart" title="Intersmart" width={111} height={16} unoptimized className="h-4 w-auto" />
+              <a
+                href={data?.credit?.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={data?.credit?.name}
+                className="inline-flex w-[90px] 2xl:w-[110px] h-auto aspect-115/20 items-center justify-center"
+              >
+                <Image
+                  src="/images/intersmart-logo.svg"
+                  alt="logo"
+                  width={115}
+                  height={20}
+                  className="size-full object-contain"
+                />
               </a>
             </p>
           </div>

@@ -32,16 +32,26 @@ export default function TestimonialsSlider({ items = [], labels }) {
 
 
   return (
-    <Reveal variant="up" delay={0.1} role="region" aria-roledescription="carousel" aria-label={labels?.label} className="mt-6 lg:mt-[calc(40*var(--u))]">
-      <div ref={viewportRef} className="-mx-4 -my-12 overflow-hidden px-4 py-12">
-        <div className="-ml-6 flex lg:-ml-[91px]">
+    <Reveal
+      variant="up"
+      delay={0.1}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={labels?.label}
+      className="mt-6 lg:mt-[calc(40*var(--u))]"
+    >
+      <div
+        ref={viewportRef}
+        className="-mx-4 -my-12 overflow-hidden px-4 py-12"
+      >
+        <div className="-ml-6 flex lg:-ml-[50px] 2xl:-ml-[91px]">
           {items.map((item, i) => (
             <div
               key={item.id}
               role="group"
               aria-roledescription="slide"
               aria-label={`${i + 1} / ${items.length}`}
-              className="min-w-0 flex-[0_0_100%] pl-6 lg:flex-[0_0_50%] lg:pl-[91px]"
+              className="min-w-0 flex-[0_0_100%] pl-6 lg:flex-[0_0_50%] lg:pl-[50px] 2xl:pl-[91px]"
             >
               <TestimonialCard
                 quote={item.message}
