@@ -26,9 +26,7 @@ export async function getRecaptchaToken(action) {
   }
 }
 
-export default function Recaptcha({
-  className = "text-xs text-basecolor9 2xl:text-sm",
-}) {
+export default function Recaptcha() {
   if (!RECAPTCHA_SITE_KEY) return null;
   return (
     <>
@@ -36,27 +34,6 @@ export default function Recaptcha({
         src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
         strategy="lazyOnload"
       />
-      <p className={className}>
-        This site is protected by reCAPTCHA and the Google{" "}
-        <a
-          href="https://policies.google.com/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline focus-visible:outline-2 focus-visible:outline-offset-2"
-        >
-          Privacy Policy
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://policies.google.com/terms"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline focus-visible:outline-2 focus-visible:outline-offset-2"
-        >
-          Terms of Service
-        </a>{" "}
-        apply.
-      </p>
     </>
   );
 }

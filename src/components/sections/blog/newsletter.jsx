@@ -147,7 +147,7 @@ export default function Newsletter({ data }) {
                 {error}
               </p>
             ) : null}
-            <Recaptcha className="mt-4 text-xs text-white opacity-70 2xl:text-sm" />
+            <Recaptcha />
             <p className="mt-5 text-sm/[1.4] text-white lg:mt-[calc(22*var(--u))] lg:text-[clamp(13px,calc(18*var(--u)),18px)] 3xl:text-lg opacity-70">
               {before}
               {after !== undefined ? (
