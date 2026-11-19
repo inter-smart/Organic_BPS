@@ -64,11 +64,7 @@ const local_data = {
 
   clients: {
     eyebrow: "Long-standing relationships",
-    // title: [
-    //   [{ t: "We grow with the" }],
-    //   [{ t: "organisations" }],
-    //   [{ t: "we work", accent: true }, { t: " with." }],
-    // ],
+
     title: "We grow with the<br>organisations<br><span>we work</span> with.",
     copy: [
       "We believe the best work grows from a deep understanding of the organisation.",

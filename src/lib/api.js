@@ -1,5 +1,5 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-export const REVALIDATE_SECONDS = 300;
+export const REVALIDATE_SECONDS = 60;
 
 // Every call returns { data, error } and never throws.
 export async function request(
