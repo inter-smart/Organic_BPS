@@ -13,8 +13,8 @@ function LogoCard({ logo }) {
     <div className="flex aspect-[330/242] items-center justify-center rounded-[20px] bg-basecolor28 lg:rounded-[calc(20*var(--u))]">
       <div className="relative h-[60%] w-3/4">
         <Image
-          src={logo.src}
-          alt={logo.alt}
+          src={logo?.image}
+          alt={logo?.image_alt_tag}
           fill
           draggable={false}
           sizes="(min-width: 640px) 30vw, 40vw"
@@ -27,7 +27,7 @@ function LogoCard({ logo }) {
 
 export default function PartnerLogoGrid({
   logos = [],
-  label,
+  label="Organisations we work with",
   bleed = false,
   className,
 }) {
@@ -36,6 +36,8 @@ export default function PartnerLogoGrid({
     bleed && "lg:w-[126.2%]",
     className,
   );
+
+
 
   return (
     <Suspense

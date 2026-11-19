@@ -2,8 +2,9 @@ import Heading from "@/components/common/heading";
 import PartnerLogoGrid from "@/components/common/partner-logo-grid";
 import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
+import { paragraphs } from "@/lib/cms-text";
 
-export default function Clients({ data }) {
+export default function Clients({ section_six, partners }) {
   return (
     <section
       id="relationships"
@@ -18,7 +19,7 @@ export default function Clients({ data }) {
               variant="fade"
               className="text-sm font-bold tracking-[0.19em] text-basecolor14 uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]"
             >
-              {data?.eyebrow}
+              {section_six?.title}
             </Reveal>
             <Reveal variant="up" className="mt-4 lg:mt-[calc(17*var(--u))]">
               <Heading
@@ -27,19 +28,19 @@ export default function Clients({ data }) {
                 size="display"
                 className="text-basecolor25"
               >
-                {/* <RichLines lines={data?.title} /> */}
-                {renderTitle(data?.title)}
+                {/* <RichLines lines={section_six?.title} /> */}
+                {renderTitle(section_six?.title)}
               </Heading>
             </Reveal>
             <div className="mt-8 max-w-[680px] space-y-5 text-base/[1.65] font-medium text-pretty text-basecolor2 lg:mt-[calc(42*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-lead/[1.5]">
-              {data?.copy?.map((paragraph, i) => (
+              {paragraphs(section_six?.description).map((paragraph, i) => (
                 <Reveal as="p" key={i} variant="up" delay={0.08 * i}>
                   {paragraph}
                 </Reveal>
               ))}
             </div>
           </div>
-          <PartnerLogoGrid logos={data?.logos} label={data?.logosLabel} bleed />
+          <PartnerLogoGrid logos={partners} bleed />
         </div>
       </div>
     </section>

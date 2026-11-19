@@ -79,15 +79,6 @@ const local_data = {
     ],
   },
 
-  microStimuli: {
-    image: {
-      src: "/images/how-we-work/book-cover.jpg",
-      alt: "The MicroStimuli book on a wooden table beside a small potted plant",
-    },
-    number: "02",
-    title: "MicroStimuli",
-    text: "based on behavioural science thinking introduced by Biju Dominic, helps us identify where intention falls short of action and design cues and experiences that make the desired behaviour easier.",
-  },
   testimonials: {
     slider: {
       label: "Client testimonials",
@@ -126,91 +117,6 @@ const local_data = {
       },
     ],
   },
-
-  clients: {
-    eyebrow: "Long-standing relationships",
-
-    title: "We grow with the<br>organisations<br><span>we work</span> with.",
-    copy: [
-      "We believe the best work grows from a deep understanding of the organisation.",
-      "Many of our client relationships have continued for years, with some extending beyond a decade. This continuity allows us to understand the business, its people, its culture and its changing ambitions.",
-      "Our clients often engage us as a strategic extension of their leadership and brand teams, involving us at defining moments of growth and change.",
-    ],
-    logosLabel: "Organisations we work with",
-    logos: [
-      {
-        id: "cial",
-        src: "/images/how-we-work/logo-cial.png",
-        alt: "Cochin International Airport Limited",
-      },
-      {
-        id: "cosmoversity",
-        src: "/images/how-we-work/logo-cosmoversity.png",
-        alt: "Cosmoversity",
-      },
-      {
-        id: "aster",
-        src: "/images/logo-aster.png",
-        alt: "Aster MIMS Hospital",
-      },
-      {
-        id: "kma",
-        src: "/images/logo-kma.png",
-        alt: "Kerala Management Association",
-      },
-      {
-        id: "scms",
-        src: "/images/logo-scms.png",
-        alt: "SCMS Group of Educational Institutions",
-      },
-      {
-        id: "scms-2",
-        src: "/images/logo-scms.png",
-        alt: "SCMS Group of Educational Institutions",
-      },
-      {
-        id: "agappe",
-        src: "/images/logo-agappe.png",
-        alt: "Agappe",
-      },
-      {
-        id: "aster-2",
-        src: "/images/logo-aster.png",
-        alt: "Aster MIMS Hospital",
-      },
-      {
-        id: "cosmoversity-2",
-        src: "/images/how-we-work/logo-cosmoversity.png",
-        alt: "Cosmoversity",
-      },
-      {
-        id: "cosmoversity",
-        src: "/images/how-we-work/logo-cosmoversity.png",
-        alt: "Cosmoversity",
-      },
-      {
-        id: "aster",
-        src: "/images/logo-aster.png",
-        alt: "Aster MIMS Hospital",
-      },
-      {
-        id: "kma",
-        src: "/images/logo-kma.png",
-        alt: "Kerala Management Association",
-      },
-      {
-        id: "scms",
-        src: "/images/logo-scms.png",
-        alt: "SCMS Group of Educational Institutions",
-      },
-      {
-        id: "scms-2",
-        src: "/images/logo-scms.png",
-        alt: "SCMS Group of Educational Institutions",
-      },
-    ],
-  },
-
 };
 
 export default async function HowWeWorkPage() {
@@ -242,11 +148,11 @@ export default async function HowWeWorkPage() {
             brand_pillers={brand_pillers}
             data={local_data.methods}
           />
-          <MicroStimuli data={local_data.microStimuli} />
+          <MicroStimuli data={section_four} />
         </div>
       </div>
       <Testimonials section_five={section_five} testimonials={testimonials} data={local_data.testimonials} />
-      <Clients data={local_data.clients} />
+      <Clients section_six={section_six} partners={partners} />
       <Cta section_seven={section_seven}/>
     </main>
   );
