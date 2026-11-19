@@ -285,8 +285,8 @@ export default function HowWeWorkPage() {
     <main>
       <Hero data={local_data.hero} />
       <Approach data={local_data.approach} />
-      <div className="container mx-auto px-4 xl:px-0">
-        <div className="rounded-[60px] bg-[#F6F6F6] overflow-hidden">
+      <div className="container mx-auto px-4 xl:px-0 mb-10 2xl:mb-25">
+        <div className="rounded-[20px] sm:rounded-[40px] 2xl:rounded-[60px] bg-[#F6F6F6] overflow-hidden">
           <Methodology data={local_data.methodology} />
           <Methods data={local_data.methods} />
           <MicroStimuli data={local_data.microStimuli} />

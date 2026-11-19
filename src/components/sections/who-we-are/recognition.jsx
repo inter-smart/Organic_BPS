@@ -34,7 +34,7 @@ export default function Recognition({ data }) {
           </div>
           <div className="lg:pl-[calc(150*var(--u))]">
             <Reveal variant="up" delay={0.15}>
-              <p className="text-figure font-bold tracking-[-0.02em] text-basecolor">
+              <p className="text-figure font-bold tracking-[-0.02em] text-basecolor text-[58px] sm:text-[80px] xl:text-[130px] 2xl:text-[160px] 3xl:text-[200px]">
                 <NumberTicker
                   value={data?.count?.value}
                   suffix={data?.count?.suffix}

@@ -75,7 +75,7 @@ const local_data = {
       { id: 6, year: "2023", label: "Expanded to Chennai" },
       { id: 7, year: "2024", label: "Partnered with UNCCD" },
     ],
-  },
+  }, 
 
   purpose: {
     image: { src: "/images/who-we-are/purpose.jpg", alt: "" },
@@ -133,7 +133,7 @@ const local_data = {
     name: "Dileep Narayanan",
     role: "Founder & Managing Director",
     image: {
-      src: "/images/who-we-are/founder.png",
+      src: "/images/who-we-are/founder-who-we-are.png",
       alt: "Dileep Narayanan, founder and managing director of Organic BPS",
     },
     paragraphs: [
