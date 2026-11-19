@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import useScrubTrack from "@/components/common/use-scrub-track";
 import { cn } from "@/lib/utils";
 
@@ -49,7 +50,7 @@ export default function InsightSlider({ items = [] }) {
               className="flex w-[78vw] shrink-0 sm:w-[416px] lg:w-[25.052vw]"
             >
               <article
-                tabIndex={0}
+                tabIndex={item?.slug ? undefined : 0}
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
                 onFocus={() => setHover(i)}
@@ -72,7 +73,16 @@ export default function InsightSlider({ items = [] }) {
                 </div>
                 <div className="px-5 pt-5 pb-6 lg:px-8 lg:pt-8 lg:pb-8">
                   <h3 className="text-lg/[1.4] font-medium sm:text-xl/[1.4] lg:text-card">
-                    {item?.title}
+                    {item?.slug ? (
+                      <Link
+                        href={`/blog/${item.slug}`}
+                        className="outline-none after:absolute after:inset-0 after:rounded-[30px]"
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      item?.title
+                    )}
                   </h3>
                   <p className="mt-3 text-sm/[1.6] sm:text-base/[1.6] lg:mt-5 lg:text-[clamp(13px,calc(18*var(--u)),18px)]/[1.6] text-white/90 text-pretty">
                     {item?.small_description}
