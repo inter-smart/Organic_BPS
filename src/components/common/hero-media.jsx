@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import HeroImage from "@/components/common/hero-image";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 export default function HeroMedia({ slides = [] }) {
@@ -52,13 +52,22 @@ export default function HeroMedia({ slides = [] }) {
                 animate={{ scale: 1 }}
                 transition={{ duration: 8, ease: "easeOut" }}
               >
-                <HeroImage
-                  src={slide.src}
-                  mobileSrc={slide.mobileSrc}
-                  alt={slide.alt ?? ""}
-                  priority={index === 0}
-                  className="size-full object-cover object-[72%_center] lg:object-center"
-                />
+                <picture>
+                  {slide.mobileSrc && (
+                    <source
+                      media="(max-width: 959px)"
+                      srcSet={slide.mobileSrc}
+                    />
+                  )}
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt ?? ""}
+                    fill
+                    priority={index === 0}
+                    sizes="100vw"
+                    className="size-full object-cover object-[72%_center] lg:object-center"
+                  />
+                </picture>
               </motion.div>
             )}
           </motion.div>

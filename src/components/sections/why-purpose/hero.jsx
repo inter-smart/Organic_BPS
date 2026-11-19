@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Button from "@/components/common/button";
-import HeroImage from "@/components/common/hero-image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
@@ -27,12 +26,19 @@ export default function Hero({ banner, title }) {
         start="top top"
         end="bottom top"
       >
-        <HeroImage
-          src={banner?.banner}
-          mobileSrc={banner?.banner_mobile}
-          alt={banner?.banner_alt_text ?? ""}
-          className="size-full object-cover object-[72%_center] lg:object-center"
-        />
+        <picture>
+          {banner?.banner_mobile && (
+            <source media="(max-width: 959px)" srcSet={banner.banner_mobile} />
+          )}
+          <Image
+            src={banner?.banner}
+            alt={banner?.banner_alt_text ?? ""}
+            fill
+            priority
+            sizes="100vw"
+            className="size-full object-cover object-[72%_center] lg:object-center"
+          />
+        </picture>
         <div className="absolute inset-0 bg-linear-to-t from-basecolor4/70 via-basecolor4/25 via-45% to-basecolor4/35" />
       </Parallax>
 
