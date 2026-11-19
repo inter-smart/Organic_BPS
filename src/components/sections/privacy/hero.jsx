@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HeroImage from "@/components/common/hero-image";
 import Heading from "@/components/common/heading";
 import Parallax from "@/components/common/parallax";
 import Reveal from "@/components/common/reveal";
@@ -21,14 +22,11 @@ export default function Hero({ data }) {
         start="top top"
         end="bottom top"
       >
-        <Image
+        <HeroImage
           src={data?.image?.src}
+          mobileSrc={data?.image?.mobileSrc}
           alt={data?.image?.alt ?? ""}
-          title={data?.image?.alt ?? ""}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[72%_center] lg:object-center"
+          className="size-full object-cover object-[72%_center] lg:object-center"
         />
         <div className="absolute inset-0 bg-linear-to-r from-basecolor4/97 via-basecolor4/84 via-52% to-basecolor4/45" />
       </Parallax>

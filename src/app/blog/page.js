@@ -39,7 +39,11 @@ export default async function BlogPage() {
         {banner && (
           <Hero
             data={{
-              image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
+              image: {
+                src: banner.banner,
+                mobileSrc: banner.banner_mobile,
+                alt: banner.banner_alt_text ?? "",
+              },
               title: banner.banner_title,
               topics,
             }}

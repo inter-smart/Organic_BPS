@@ -38,6 +38,7 @@ export default function Hero({ banner }) {
                     id: banner.id,
                     type: "image",
                     src: banner.banner,
+                    mobileSrc: banner.banner_mobile,
                     alt: banner.banner_alt_text,
                   },
                 ]

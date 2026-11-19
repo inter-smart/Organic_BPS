@@ -1,3 +1,4 @@
+import HeroImage from "@/components/common/hero-image";
 import Image from "next/image";
 import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
@@ -14,7 +15,7 @@ export default function Hero({ data, banner }) {
       className="relative isolate flex min-h-150 flex-col justify-end overflow-hidden bg-basecolor4 text-white lg:min-h-[calc(885*var(--u))]"
     >
       <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
-        <Image src={banner?.banner} alt={banner?.banner_alt_text} title={banner?.banner_alt_text} fill priority sizes="100vw" className="object-cover object-[35%_center] lg:object-center" />
+        <HeroImage src={banner?.banner} mobileSrc={banner?.banner_mobile} alt={banner?.banner_alt_text ?? ""} className="size-full object-cover object-[35%_center] lg:object-center" />
         <div className="absolute inset-0 bg-linear-to-t from-basecolor4/60 via-basecolor4/20 via-50% to-basecolor4/30" />
       </Parallax>
 

@@ -29,6 +29,7 @@ export default function Hero({ banner, title }) {
                     id: banner.id,
                     type: "image",
                     src: banner.banner,
+                    mobileSrc: banner.banner_mobile,
                     alt: banner.banner_alt_text,
                   },
                 ]
@@ -95,7 +96,7 @@ export default function Hero({ banner, title }) {
           </div>
 
           <a
-            href={'#enquiry'}
+            href={"#enquiry"}
             aria-label={"Scroll to the next section"}
             className="absolute right-0 bottom-0 hidden size-12 items-center justify-center sm:flex lg:-right-4 lg:-bottom-14"
           >

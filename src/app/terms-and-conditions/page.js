@@ -39,7 +39,11 @@ async function PrivacyContent() {
       {banner && (
         <Hero
           data={{
-            image: { src: banner.banner, alt: banner.banner_alt_text ?? "" },
+            image: {
+              src: banner.banner,
+              mobileSrc: banner.banner_mobile,
+              alt: banner.banner_alt_text ?? "",
+            },
             // one line per segment, the accent word sits on its own line
             title: titleLines(banner.banner_title),
             paragraph: text(banner.banner_description),
