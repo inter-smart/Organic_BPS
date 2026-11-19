@@ -22,12 +22,22 @@ export default function Methods({ data, section_three, brand_pillers }) {
 
         <div className="lg:pt-[calc(95*var(--u))]">
           <Reveal variant="up">
-            <Heading as="h2" id="methods-title" size="display" className="text-basecolor2 lg:leading-[1.05]">
+            <Heading
+              as="h2"
+              id="methods-title"
+              size="display"
+              className="text-basecolor2 lg:leading-[1.05]"
+            >
               {renderTitle(section_three.title)}
             </Heading>
           </Reveal>
           <hr className="mt-6 w-[283px] border-t border-basecolor16 lg:mt-[calc(8*var(--u))]" />
-          <Reveal as="p" variant="up" delay={0.1} className="mt-6 max-w-[738px] text-lg/[1.45] text-pretty text-basecolor2 lg:mt-[calc(24*var(--u))] lg:text-[clamp(16px,calc(25*var(--u)),25px)]/[1.44]">
+          <Reveal
+            as="p"
+            variant="up"
+            delay={0.1}
+            className="mt-6 max-w-[738px] text-lg/[1.45] text-pretty text-basecolor2 lg:mt-[calc(24*var(--u))] lg:text-[clamp(16px,calc(25*var(--u)),25px)]/[1.44]"
+          >
             <RichText segments={emphasisSegments(section_three.description)} />
           </Reveal>
         </div>
