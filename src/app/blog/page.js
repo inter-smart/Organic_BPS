@@ -19,7 +19,7 @@ export async function generateMetadata() {
 export default async function BlogPage() {
   const [{ data }, { data: all }] = await Promise.all([
     getBlogs(),
-    apiGet("blogs/filter", { cache: false }),
+    apiGet("blogs/filter"),
   ]);
   if (!data) return null;
 

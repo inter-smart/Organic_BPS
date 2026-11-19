@@ -17,14 +17,14 @@ const local_data = {
     title: "Page not<br><span>found.</span>",
     text: "The page you’re looking for doesn’t exist or may have moved. Start fresh with one of the routes below, or return to the homepage to continue exploring.",
     cards: [
-      {
-        id: "browse",
-        icon: "/images/not-found/search.svg",
-        eyebrow: "Explore content",
-        title: "Browse useful pages",
-        text: "Visit the pages most people use when they need a clear next step.",
-        cta: { label: "Browse pages", href: "#quick-links" },
-      },
+      // {
+      //   id: "browse",
+      //   icon: "/images/not-found/search.svg",
+      //   eyebrow: "Explore content",
+      //   title: "Browse useful pages",
+      //   text: "Visit the pages most people use when they need a clear next step.",
+      //   cta: { label: "Browse pages", href: "#quick-links" },
+      // },
       {
         id: "home",
         icon: "/images/not-found/home-circle.svg",

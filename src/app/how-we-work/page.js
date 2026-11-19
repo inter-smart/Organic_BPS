@@ -19,103 +19,22 @@ export async function generateMetadata() {
 }
 
 
-/*
- * One object, one key per section — shaped like the future CMS response.
- * Rich copy uses segments: { t: text, accent?: red, ring?: swap the first "o" for the ring }.
- */
 const local_data = {
   hero: {
     scroll: { label: "Scroll to our approach", href: "#our-approach" },
   },
-
   methodology: {
     mechanism: {
       label:
         "The BPS framework as a mechanism: purpose at the core, wrapped by belief and behaviour, drives the wheel of sustainable growth.",
       scrollLabel: "Framework diagram, scrollable",
-      growth: ["SUSTAINABLE", "GROWTH"],
-      behaviour: "BEHAVIOUR",
-      belief: "BELIEF",
-      purpose: "PURPOSE",
     },
     steps: { label: "The four framework principles" },
   },
-
   methods: {
     map: {
       label: "Brand Farm explores four dimensions of an organisation",
-      items: [
-        { id: "history", title: "History", text: "Where you come from" },
-        { id: "strengths", title: "Strengths", text: "What you do best" },
-        {
-          id: "stakeholders",
-          title: "Stakeholders",
-          text: "Who you create\nvalue for",
-        },
-        {
-          id: "ambitions",
-          title: "Ambitions",
-          text: "What you aspire\nto become",
-        },
-      ],
     },
-    title: [
-      [{ t: "We draw on" }],
-      [{ t: "specific methods" }],
-      [{ t: "where they can" }],
-      [{ t: "make a difference:", accent: true }],
-    ],
-    copy: [
-      { t: "Brand Farm explores an organisation’s " },
-      { t: "history", className: "font-semibold text-basecolor14" },
-      { t: ", ", className: "text-basecolor14" },
-      {
-        t: "strengths, stakeholders",
-        className: "font-semibold text-basecolor14",
-      },
-      { t: " & " },
-      { t: "ambitions", className: "font-semibold text-basecolor14" },
-      { t: " to uncover a purpose it can act on." },
-    ],
-  },
-
-  testimonials: {
-    slider: {
-      label: "Client testimonials",
-      prev: "Previous testimonial",
-      next: "Next testimonial",
-      goTo: "Go to testimonial",
-    },
-    items: [
-      {
-        id: "asset-homes",
-        quote:
-          "The single-minded purpose-driven approach by Organic BPS has delivered amazing results for us on several fronts.",
-        name: "Sunil Kumar V",
-        role: "Founder and Managing Director, Asset Homes",
-        logo: {
-          src: "/images/how-we-work/logo-asset.png",
-          alt: "Asset Homes",
-          width: 300,
-          height: 356,
-          w: 15.4,
-        },
-      },
-      {
-        id: "muthoot",
-        quote:
-          "The discovery and integration of Purpose by Organic BPS has brought about an inherent shift in the way we look at our business and work.",
-        name: "Thomas George Muthoot",
-        role: "Director, Muthoot Pappachan Group",
-        logo: {
-          src: "/images/how-we-work/logo-muthoot.png",
-          alt: "Muthoot Pappachan Group",
-          width: 379,
-          height: 282,
-          w: 16.5,
-        },
-      },
-    ],
   },
 };
 
