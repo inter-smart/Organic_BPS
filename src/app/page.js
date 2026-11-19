@@ -49,9 +49,7 @@ async function HomeContent() {
     <main>
       <MetaTags html={data.banner?.other_meta_tags} />
       {sliders && <Hero data={sliders} />}
-      {section_one && (
-        <WhatWeDo data={section_one} title={section_one.title} />
-      )}
+      {section_one && <WhatWeDo data={section_one} title={section_one.title} />}
       {section_two && (
         <GlobeImpact
           data={section_two}
@@ -71,9 +69,7 @@ async function HomeContent() {
       {section_five && (
         <Greenstorm data={section_five} title={section_five.title} />
       )}
-      {section_six && (
-        <Founder data={section_six} title={section_six.title} />
-      )}
+      {section_six && <Founder data={section_six} title={section_six.title} />}
       {section_seven && (
         <TeamGallery
           data={section_seven}

@@ -143,6 +143,9 @@ Follow these in new builds; they replace the older behaviour described above whe
 - `lib/meta-tags.js` parses the CMS `other_meta_tags` string (pure, allowlisted): title/description/keywords/robots/canonical and unsafe http-equiv are ignored; og/twitter/hreflang/name tags go through Next Metadata, the rest through `<MetaTags>`.
 - Env: `NEXT_PUBLIC_SITE_URL` (required, `data/seo.js`) and `NEXT_PUBLIC_APP_ENV=production` on live only. Anything else stays noindex three ways: layout robots meta, `app/robots.js`, `X-Robots-Tag` header in `next.config.mjs`. `app/sitemap.js` lists static routes plus blog slugs.
 
+## Security headers (2026-11-19)
+- `next.config.mjs` `headers()` sends `Strict-Transport-Security: max-age=31536000; includeSubDomains` on every route in every environment; `X-Robots-Tag` noindex is still added only when `NEXT_PUBLIC_APP_ENV` is not `production`. If a reverse proxy (Nginx/Apache/Cloudflare) fronts the app, it must pass the header through or set it too, and HTTP must redirect to HTTPS.
+
 ## Why Purpose labels (2026-11-17)
 - `local_data` is gone from `app/why-purpose/page.js`; the static aria labels, hero scroll link, authentic image alt and slider labels are constants inside their section files.
 - (2026-11-17) Same for home, who-we-are, what-we-do, contact, privacy, terms and blog: no `local_data` in the page files. Static section titles, scroll links and aria labels are constants in the section files (so earlier notes saying titles are "static in `local_data`" no longer apply). how-we-work, about and 404 still use `local_data` (no API).
