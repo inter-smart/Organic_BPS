@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Reveal from "@/components/common/reveal";
 import { cn } from "@/lib/utils";
+import { renderTitle } from "@/components/common/rich-text";
 
 const ctrl =
   "flex size-10 items-center justify-center rounded-full border border-basecolor16 bg-white text-basecolor7 transition-colors duration-300 hover:border-basecolor14 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 motion-reduce:transition-none";
@@ -63,7 +64,7 @@ export default function PerspectivesSlider({ items = [], labels }) {
                 </div>
                 <div className="flex flex-1 flex-col p-6 font-roboto lg:px-[calc(26*var(--u))] lg:pt-[calc(31*var(--u))] lg:pb-[calc(32*var(--u))]">
                   <h3 className="text-xl/[1.22] font-bold text-basecolor20 lg:text-[clamp(18px,calc(22*var(--u)),22px)]">
-                    {item.title}
+                    {renderTitle(item.title)}
                   </h3>
                   <p className="mt-4 text-base/[1.35] text-basecolor21 lg:mt-[calc(23*var(--u))] lg:text-[clamp(14px,calc(20*var(--u)),20px)]">
                     {item.small_description}
