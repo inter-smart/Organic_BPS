@@ -3,7 +3,14 @@ import { twMerge } from "tailwind-merge";
 
 export const cn = (...inputs) => twMerge(clsx(inputs));
 
-const entities = { "&nbsp;": " ", "&amp;": "&", "&quot;": '"', "&#039;": "'" };
+const entities = {
+  "&nbsp;": " ",
+  "&amp;": "&",
+  "&quot;": '"',
+  "&#039;": "'",
+  "&mdash;": "—",
+  "&ndash;": "–",
+};
 const plainText = (v) =>
   v.replace(/<[^>]*>/g, "").replace(/&[a-z#0-9]+;/gi, (m) => entities[m] ?? m);
 

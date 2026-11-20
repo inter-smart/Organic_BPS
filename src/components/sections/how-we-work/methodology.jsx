@@ -33,7 +33,7 @@ export default function Methodology({ data, section_two, methodologies }) {
           className="mx-auto max-w-[9.81em] text-wrap text-basecolor25"
         >
           {/* <RichText segments={data?.title} /> */}
-          {renderTitle(section_two?.subtitle)}
+          {/* {renderTitle(section_two?.subtitle)} */}
         </Heading>
       </Reveal>
       <Reveal

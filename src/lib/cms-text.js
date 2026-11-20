@@ -10,17 +10,29 @@ const entities = {
   "&rsquo;": "’",
   "&ldquo;": "“",
   "&rdquo;": "”",
+  "&lsquo;": "‘",
+  "&mdash;": "—",
+  "&ndash;": "–",
+  "&hellip;": "…",
   "&lt;": "<",
   "&gt;": ">",
 };
+
+const decode = (value) =>
+  value.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+\d*);/gi, (m, code) => {
+    if (code[0] !== "#") return entities[m] ?? m;
+    const point =
+      code[1].toLowerCase() === "x"
+        ? parseInt(code.slice(2), 16)
+        : parseInt(code.slice(1), 10);
+    return point > 0 && point <= 0x10ffff ? String.fromCodePoint(point) : m;
+  });
 
 const blocks = (html) => html?.match(/<p[\s\S]*?<\/p>/g) ?? [];
 
 export function text(html) {
   if (!html) return "";
-  return html
-    .replace(/<[^>]*>/g, "")
-    .replace(/&[a-z#0-9]+;/gi, (m) => entities[m] ?? m)
+  return decode(html.replace(/<[^>]*>/g, ""))
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -73,10 +85,7 @@ export function emphasisSegments(html) {
   if (!first) return [];
   const segs = [...first.matchAll(/<span([^>]*)>([\s\S]*?)<\/span>/g)]
     .map(([, attrs, inner]) => {
-      const t = inner
-        .replace(/<[^>]*>/g, "")
-        .replace(/&[a-z#0-9]+;/gi, (m) => entities[m] ?? m)
-        .replace(/\s+/g, " ");
+      const t = decode(inner.replace(/<[^>]*>/g, "")).replace(/\s+/g, " ");
       const classes = (/class="([^"]*)"/.exec(attrs)?.[1] ?? "")
         .split(/\s+/)
         .filter((c) => emphasis.includes(c))

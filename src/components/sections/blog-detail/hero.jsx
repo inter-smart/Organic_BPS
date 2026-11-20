@@ -3,6 +3,7 @@ import Link from "next/link";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { formatDate } from "@/lib/format-date";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function Hero({ data, categories }) {
   return (
@@ -35,7 +36,7 @@ export default function Hero({ data, categories }) {
             size="display"
             className="text-white lg:max-w-[1402px] lg:leading-[1.12] lg:tracking-[-0.02em] 3xl:text-[100px]!"
           >
-            {data?.title}
+            {renderTitle(data?.title)}
             {data?.accent ? (
               <span className="text-basecolor">{data.accent}</span>
             ) : null}

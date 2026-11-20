@@ -6,6 +6,7 @@ import Fade from "embla-carousel-fade";
 import useEmblaCarousel from "embla-carousel-react";
 import Button from "@/components/common/button";
 import { formatDate } from "@/lib/format-date";
+import { renderTitle } from "@/components/common/rich-text";
 
 export default function FeaturedSlider({ items = [], cta, labels }) {
   const [selected, setSelected] = useState(0);
@@ -74,7 +75,7 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
                     </span>
                   </p>
                   <h3 className="mt-4 text-3xl/[1.08] font-bold tracking-[-0.02em] text-balance text-basecolor7 lg:mt-[calc(20*var(--u))] lg:text-[clamp(26px,calc(44*var(--u)),44px)]/[1.08] 3xl:text-[44px]!">
-                    {item.title}
+                    {renderTitle(item.title)}
                   </h3>
                   <p className="mt-4 text-base/[1.55] text-basecolor2 lg:mt-[calc(20*var(--u))] lg:text-[clamp(14px,calc(17*var(--u)),17px)]/[1.55] 3xl:text-[17px]! lg:max-w-[80%]">
                     {item.summary}

@@ -29,7 +29,7 @@ export default function Clients({ section_six, partners }) {
                 className="text-basecolor25"
               >
                 {/* <RichLines lines={section_six?.title} /> */}
-                {renderTitle(section_six?.title)}
+                {renderTitle(section_six?.subtitle)}
               </Heading>
             </Reveal>
             <div className="mt-8 max-w-[680px] space-y-5 text-base/[1.65] font-medium text-pretty text-basecolor2 lg:mt-[calc(42*var(--u))] lg:space-y-[calc(30*var(--u))] lg:text-lead/[1.5]">

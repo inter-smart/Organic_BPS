@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/lib/format-date";
+import { renderTitle } from "@/components/common/rich-text";
 
 /** One article tile in the listing grid. */
 export default function ArticleCard({ article }) {
@@ -38,7 +39,7 @@ export default function ArticleCard({ article }) {
           </time>
         </p>
         <h3 className="text-2xl/[1.14] font-bold tracking-[-0.015em] text-basecolor7 lg:text-[clamp(20px,calc(30*var(--u)),30px)]/[1.14]">
-          {article?.title}
+          {renderTitle(article?.title)}
         </h3>
         <p className="text-base/[1.5] text-basecolor9 lg:text-[clamp(14px,calc(20*var(--u)),20px)]/[1.5]">
           {article?.summary}
