@@ -126,7 +126,7 @@ export default function Newsletter({ data }) {
                   disabled={submitting}
                   className="flex shrink-0 items-center gap-2.5 rounded-full bg-basecolor7 px-5 py-3 text-xs font-semibold text-white transition-colors duration-300 hover:bg-basecolor2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 disabled:opacity-70 motion-reduce:transition-none lg:px-[calc(20*var(--u))] lg:py-[calc(13*var(--u))] lg:text-[clamp(12px,calc(13*var(--u)),13px)]"
                 >
-                  {newsletter.form.submit}
+                  {submitting? newsletter.form.submitting: newsletter.form.submit}
                   <Image
                     src="/images/blog/subscribe-arrow.svg"
                     alt="Subscribe"

@@ -174,6 +174,7 @@ export const newsletter = {
     label: "Your work email",
     placeholder: "Your work email",
     submit: "Subscribe",
+    submitting: "Subscribing...",
     done: "Thank you. You are on the list.",
   },
   note: "By subscribing, you agree to our privacy policy. Unsubscribe anytime.",
