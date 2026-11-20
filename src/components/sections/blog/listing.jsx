@@ -156,7 +156,8 @@ export default function Listing({ data }) {
                 <Spinner />
               </div>
             ) : (
-              <Button onClick={loadMore}>View More</Button>
+          
+              <Button arrow={false} onClick={loadMore}>Load More</Button>
             )}
           </div>
         ) : null}

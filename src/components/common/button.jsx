@@ -7,7 +7,7 @@ const GLOW_CONIC =
   "conic-gradient(from 112deg at 35% 35%, rgba(37,82,170,0) 0%, #2552AA 5%, #2552AA 26%, #DA4D47 41%, #DA4D47 70%, rgba(218,77,71,0) 80%, rgba(37,82,170,0) 100%)";
 
 const buttonVariants = cva(
-  "group relative isolate inline-flex w-fit items-center justify-center gap-4 overflow-hidden rounded-full border-[2.5px] font-medium whitespace-nowrap transition-[transform,box-shadow] duration-500 ease-out hover:shadow-[0_12px_30px_-12px_rgba(37,82,170,0.65)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+  "group relative isolate inline-flex w-fit items-center cursor-pointer justify-center gap-4 overflow-hidden rounded-full border-[2.5px] font-medium whitespace-nowrap transition-[transform,box-shadow] duration-500 ease-out hover:shadow-[0_12px_30px_-12px_rgba(37,82,170,0.65)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-basecolor3 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
   {
     variants: {
       variant: {
