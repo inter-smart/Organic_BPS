@@ -24,7 +24,7 @@ export default function Hero({ data }) {
         <picture>
           {data?.image?.mobileSrc && (
             <source
-              media="(max-width: 959px)"
+              media="(max-width: 1023px)"
               srcSet={data.image.mobileSrc}
             />
           )}

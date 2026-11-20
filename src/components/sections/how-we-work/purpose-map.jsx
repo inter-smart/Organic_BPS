@@ -1,39 +1,40 @@
 import Image from "next/image";
 import Reveal from "@/components/common/reveal";
 import { artboard, cqw } from "@/components/sections/how-we-work/diagram-box";
-import { slug } from "@/lib/cms-text";
 
 const W = 718;
 const at = artboard(W, 694);
 const src = (name) => `/images/how-we-work/${name}.svg`;
 
 // circle = [x, y, w, h]; label = [centre x, title top]; icon = [file, x, y, w, h]; drift = px travelled by the slow float
-const layout = {
-  history: {
+const layout = [
+  {
     circle: ["circle-history", 4.74, 0, 423.78, 406.86],
     label: [199.9, 161.2],
     icon: ["icon-history", 164.9, 68.25, 78.53, 73.11],
     drift: 7,
   },
-  strengths: {
+  {
     circle: ["circle-strengths", 292.45, 0, 425.81, 406.86],
     label: [536.8, 160.5],
     icon: ["icon-strengths", 488.2, 62.2, 97.48, 75.82],
     drift: -6,
   },
-  stakeholders: {
+  {
     circle: ["circle-stakeholders", 0, 283.92, 429.87, 409.56],
     label: [202.7, 525.8],
     icon: ["icon-stakeholders", 157.4, 438.06, 92.07, 60.93],
     drift: -7,
   },
-  ambitions: {
+  {
     circle: ["circle-ambitions", 292.45, 284.59, 430.55, 412.95],
     label: [524.4, 524.7],
     icon: ["icon-ambitions-chart", 486.4, 448.5, 75.82, 53.7],
+    extraIcon: [484.7, 423.7, 70.4, 47.39],
+    local: true,
     drift: 6,
   },
-};
+];
 
 // where two circles overlap
 const overlaps = [
@@ -47,8 +48,7 @@ const lines = (value) => (value ?? "").replace(/\r\n?/g, "\n");
 export default function PurposeMap({ data, items: pillars, logo }) {
   const items = [...(pillars ?? [])]
     .sort((a, b) => a.sort_order - b.sort_order)
-    .map((item) => ({ ...item, key: slug(item.title) }))
-    .filter((item) => layout[item.key]);
+    .slice(0, layout.length);
   const summary = items
     .map(
       (item) => `${item.title}: ${lines(item.description).replace("\n", " ")}`,
@@ -71,15 +71,15 @@ export default function PurposeMap({ data, items: pillars, logo }) {
       >
         <div aria-hidden="true">
           {items.map((item, i) => {
-            const [file, x, y, w, h] = layout[item.key]?.circle ?? [];
+            const [file, x, y, w, h] = layout[i].circle;
             return (
               <span
-                key={item.key}
+                key={i}
                 style={{
                   ...at(x, y, w, h),
                   "--dg-i": i,
                   "--dg-d": i * 0.4,
-                  "--dg-fy": layout[item.key]?.drift,
+                  "--dg-fy": layout[i].drift,
                 }}
                 className="dg-pop dg-float absolute"
               >
@@ -131,11 +131,11 @@ export default function PurposeMap({ data, items: pillars, logo }) {
           )}
 
           {items.map((item, i) => {
-            const [file, x, y, w, h] = layout[item.key]?.icon ?? [];
-            if (item.key === "ambitions")
+            const [file, x, y, w, h] = layout[i].icon;
+            if (layout[i].local)
               return (
                 <Image
-                  key={item.key}
+                  key={i}
                   src={src(file)}
                   alt={`Purpose map ${file}`}
                   title={`Purpose map ${file}`}
@@ -147,10 +147,10 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               );
             return (
               <Image
-                key={item.key}
+                key={i}
                 src={item.icon}
-                alt={item.key}
-                title={item.key}
+                alt={item.title}
+                title={item.title}
                 width={Math.round(w)}
                 height={Math.round(h)}
                 unoptimized
@@ -159,25 +159,30 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               />
             );
           })}
-          {items.find((item) => item.key === "ambitions") && (
-            <Image
-              src={items.find((item) => item.key === "ambitions").icon}
-              alt="Ambitions"
-              title="Ambitions"
-              width={70}
-              height={47}
-              unoptimized
-              style={{ ...at(484.7, 423.7, 70.4, 47.39), "--dg-i": 8 }}
-              className="dg-pop absolute max-w-none"
-            />
-          )}
+          {items.map((item, i) => {
+            if (!layout[i].extraIcon) return null;
+            const [x, y, w, h] = layout[i].extraIcon;
+            return (
+              <Image
+                key={i}
+                src={item.icon}
+                alt={item.title}
+                title={item.title}
+                width={Math.round(w)}
+                height={Math.round(h)}
+                unoptimized
+                style={{ ...at(x, y, w, h), "--dg-i": i + 5 }}
+                className="dg-pop absolute max-w-none"
+              />
+            );
+          })}
         </div>
 
         {items.map((item, i) => {
-          const [cx, top] = layout[item.key]?.label ?? [];
+          const [cx, top] = layout[i].label;
           return (
             <div
-              key={item.key}
+              key={i}
               aria-hidden="true"
               style={{ ...at(cx, top), "--dg-i": i + 5 }}
               className="dg-label absolute w-[38%] -translate-x-1/2 text-center"

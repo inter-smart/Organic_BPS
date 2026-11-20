@@ -16,7 +16,7 @@ export default function Hero({ data, banner }) {
       <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
         <picture>
           {banner?.banner_mobile && (
-            <source media="(max-width: 959px)" srcSet={banner.banner_mobile} />
+            <source media="(max-width: 1023px)" srcSet={banner.banner_mobile} />
           )}
           <Image
             src={banner?.banner}

@@ -55,7 +55,7 @@ export default function HeroMedia({ slides = [] }) {
                 <picture>
                   {slide.mobileSrc && (
                     <source
-                      media="(max-width: 959px)"
+                      media="(max-width: 1023px)"
                       srcSet={slide.mobileSrc}
                     />
                   )}

@@ -181,7 +181,7 @@ export default function TimelineSlider({ items = [] }) {
 
   useEffect(() => {
     if (items.length < 2) return;
-    const mobile = window.matchMedia("(max-width: 959px)");
+    const mobile = window.matchMedia("(max-width: 1023px)");
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const id = setInterval(() => {
