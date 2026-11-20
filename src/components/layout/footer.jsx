@@ -50,7 +50,7 @@ export default function Footer({ data }) {
                 variant="up"
                 className="text-base/[1.6] font-medium text-black sm:text-lg/[1.6] lg:mt-31 lg:max-w-118.25 lg:text-lead/[1.5] text-pretty"
               >
-                {data?.footer_description_right}
+                {data?.text}
               </Reveal>
               <Reveal
                 as="p"
