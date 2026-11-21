@@ -6,12 +6,15 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Button from "@/components/common/button";
 import MenuSheet from "@/components/layout/menu-sheet";
+import { usePathname } from "next/navigation";
 
 /** Site header — fixed to the top; transparent over the hero, solid once the page scrolls. Nav links show from xl; below that they live in the menu sheet. */
 export default function Header({ data }) {
   const [stuck, setStuck] = useState(false);
   const [visible, setVisible] = useState(true);
   const ref = useRef(null);
+
+  const path = usePathname();
 
   useEffect(() => {
     const el = ref.current;
@@ -49,10 +52,11 @@ export default function Header({ data }) {
             return;
           }
 
-          const currentScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+          const currentScrollY =
+            window.scrollY || document.documentElement.scrollTop || 0;
           const maxScroll = Math.max(
             0,
-            document.documentElement.scrollHeight - window.innerHeight
+            document.documentElement.scrollHeight - window.innerHeight,
           );
 
           // Always visible and unstuck near the top of the page
@@ -77,7 +81,10 @@ export default function Header({ data }) {
           const delta = currentScrollY - lastScrollY;
 
           // Reset accumulation if scroll direction flipped
-          if ((delta > 0 && accumulatedScroll < 0) || (delta < 0 && accumulatedScroll > 0)) {
+          if (
+            (delta > 0 && accumulatedScroll < 0) ||
+            (delta < 0 && accumulatedScroll > 0)
+          ) {
             accumulatedScroll = 0;
           }
           accumulatedScroll += delta;
@@ -151,19 +158,33 @@ export default function Header({ data }) {
             aria-label="Main"
             className="mx-auto hidden items-center gap-10 xl:gap-15 whitespace-nowrap lg:flex"
           >
-            <span
-              aria-hidden="true"
-              className="-mr-6 xl:-mr-9 size-1.5 rounded-full bg-basecolor"
-            />
-            {data?.links?.map((link) => (
-              <Link
-                key={link?.id}
-                href={link?.href ?? "#"}
-                className="relative text-sm 2xl:text-lg font-medium text-white transition-colors duration-300 after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-basecolor after:transition-transform after:duration-500 hover:text-white/90 hover:after:scale-x-100"
-              >
-                {link?.label}
-              </Link>
-            ))}
+            {data?.links?.map((link) => {
+              let isActive = path === link.href;
+
+              return isActive ? (
+                <div className="flex items-center gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="size-1.5 rounded-full bg-basecolor"
+                  />
+                  <Link
+                    key={link?.id}
+                    href={link?.href}
+                    className="relative text-sm 2xl:text-lg font-medium text-white transition-colors duration-300 after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-basecolor after:transition-transform after:duration-500 hover:text-white/90 hover:after:scale-x-100"
+                  >
+                    {link?.label}
+                  </Link>
+                </div>
+              ) : (
+                <Link
+                  key={link?.id}
+                  href={link?.href}
+                  className="relative text-sm 2xl:text-lg font-medium text-white transition-colors duration-300 after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-basecolor after:transition-transform after:duration-500 hover:text-white/90 hover:after:scale-x-100"
+                >
+                  {link?.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-6">
