@@ -16,13 +16,14 @@ export default function Hero({ data, banner }) {
       <Parallax className="absolute inset-0 -z-10" from={0} to={25} scale={1} start="top top" end="bottom top">
         <picture>
           {banner?.banner_mobile && (
-            <source media="(max-width: 1023px)" srcSet={banner.banner_mobile} />
+            <source media="(max-width: 959px)" srcSet={banner.banner_mobile} />
           )}
           <Image
             src={banner?.banner}
             alt={banner?.banner_alt_text ?? ""}
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="size-full object-cover object-[35%_center] lg:object-center"
           />

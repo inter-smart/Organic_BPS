@@ -1,11 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
+const DESKTOP_MEDIA = "(min-width: 960px)";
+
+const subscribeDesktop = (cb) => {
+  const mq = window.matchMedia(DESKTOP_MEDIA);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+
+// false on the server, so phones never get a <video> in the HTML and never start its download
+const useDesktop = () =>
+  useSyncExternalStore(
+    subscribeDesktop,
+    () => window.matchMedia(DESKTOP_MEDIA).matches,
+    () => false,
+  );
+
 export default function HeroMedia({ slides = [] }) {
   const reduce = useReducedMotion();
+  const desktop = useDesktop();
   const [index, setIndex] = useState(0);
   const count = slides?.length ?? 0;
   const slide = slides?.[index];
@@ -33,18 +50,33 @@ export default function HeroMedia({ slides = [] }) {
             transition={{ duration: reduce ? 0 : 1.2, ease: "easeInOut" }}
           >
             {slide.type === "video" ? (
-              <video
-                className="size-full object-cover"
-                src={slide.src}
-                poster={slide.poster}
-                autoPlay
-                muted
-                playsInline
-                loop={count < 2}
-                preload="auto"
-                onEnded={count > 1 ? next : undefined}
-                aria-hidden="true"
-              />
+              <>
+                {slide.poster ? (
+                  <Image
+                    src={slide.poster}
+                    alt=""
+                    fill
+                    unoptimized
+                    loading="eager"
+                    fetchPriority="high"
+                    sizes="100vw"
+                    className="size-full object-cover object-[72%_center] lg:object-center"
+                  />
+                ) : null}
+                {desktop ? (
+                  <video
+                    className="size-full object-cover"
+                    src={slide.src}
+                    autoPlay
+                    muted
+                    playsInline
+                    loop={count < 2}
+                    preload="auto"
+                    onEnded={count > 1 ? next : undefined}
+                    aria-hidden="true"
+                  />
+                ) : null}
+              </>
             ) : (
               <motion.div
                 className="relative size-full"
@@ -55,7 +87,7 @@ export default function HeroMedia({ slides = [] }) {
                 <picture>
                   {slide.mobileSrc && (
                     <source
-                      media="(max-width: 1023px)"
+                      media="(max-width: 959px)"
                       srcSet={slide.mobileSrc}
                     />
                   )}
@@ -63,7 +95,8 @@ export default function HeroMedia({ slides = [] }) {
                     src={slide.src}
                     alt={slide.alt ?? ""}
                     fill
-                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
                     sizes="100vw"
                     className="size-full object-cover object-[72%_center] lg:object-center"
                   />

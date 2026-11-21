@@ -28,13 +28,14 @@ export default function Hero({ banner, title }) {
       >
         <picture>
           {banner?.banner_mobile && (
-            <source media="(max-width: 1023px)" srcSet={banner.banner_mobile} />
+            <source media="(max-width: 959px)" srcSet={banner.banner_mobile} />
           )}
           <Image
             src={banner?.banner}
             alt={banner?.banner_alt_text ?? ""}
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="size-full object-cover object-[72%_center] lg:object-center"
           />

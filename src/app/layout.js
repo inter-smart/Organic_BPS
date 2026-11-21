@@ -20,6 +20,7 @@ const roboto = Roboto({
   variable: "--font-roboto",
   weight: ["400", "600", "700"],
   display: "swap",
+  preload: false,
 });
 
 const inter = Inter({
