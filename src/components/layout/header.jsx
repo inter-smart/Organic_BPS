@@ -162,14 +162,14 @@ export default function Header({ data }) {
               let isActive = path === link.href;
 
               return isActive ? (
-                <div className="flex items-center gap-4">
+                <div key={link?.id} className="flex items-center gap-4">
                   <span
                     aria-hidden="true"
                     className="size-1.5 rounded-full bg-basecolor"
                   />
                   <Link
-                    key={link?.id}
                     href={link?.href}
+                    aria-current="page"
                     className="relative text-sm 2xl:text-lg font-medium text-white transition-colors duration-300 after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-basecolor after:transition-transform after:duration-500 hover:text-white/90 hover:after:scale-x-100"
                   >
                     {link?.label}
