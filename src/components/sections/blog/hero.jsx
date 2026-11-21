@@ -36,8 +36,7 @@ export default function Hero({ data }) {
             src={data?.image?.src}
             alt={data?.image?.alt ?? ""}
             fill
-            loading="eager"
-            fetchPriority="high"
+            priority
             sizes="100vw"
             className="size-full object-cover object-[60%_center] lg:object-center"
           />

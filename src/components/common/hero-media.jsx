@@ -57,8 +57,7 @@ export default function HeroMedia({ slides = [] }) {
                     alt=""
                     fill
                     unoptimized
-                    loading="eager"
-                    fetchPriority="high"
+                    priority
                     sizes="100vw"
                     className="size-full object-cover object-[72%_center] lg:object-center"
                   />
@@ -95,8 +94,7 @@ export default function HeroMedia({ slides = [] }) {
                     src={slide.src}
                     alt={slide.alt ?? ""}
                     fill
-                    loading={index === 0 ? "eager" : "lazy"}
-                    fetchPriority={index === 0 ? "high" : "auto"}
+                    priority={index === 0}
                     sizes="100vw"
                     className="size-full object-cover object-[72%_center] lg:object-center"
                   />
