@@ -34,7 +34,8 @@ export default function Hero({ banner, title }) {
             src={banner?.banner}
             alt={banner?.banner_alt_text ?? ""}
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="100vw"
             className="size-full object-cover object-[72%_center] lg:object-center"
           />
