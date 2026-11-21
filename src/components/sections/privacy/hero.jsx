@@ -24,7 +24,7 @@ export default function Hero({ data }) {
         <picture>
           {data?.image?.mobileSrc && (
             <source
-              media="(max-width: 959px)"
+              media="(max-width: 1023px)"
               srcSet={data.image.mobileSrc}
             />
           )}
@@ -32,8 +32,7 @@ export default function Hero({ data }) {
             src={data?.image?.src}
             alt={data?.image?.alt ?? ""}
             fill
-            loading="eager"
-            fetchPriority="high"
+            priority
             sizes="100vw"
             className="size-full object-cover object-[72%_center] lg:object-center"
           />

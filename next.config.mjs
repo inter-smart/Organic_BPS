@@ -14,15 +14,6 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: "/:dir(images|videos)/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=86400, stale-while-revalidate=604800",
-          },
-        ],
-      },
     ];
     if (process.env.NEXT_PUBLIC_APP_ENV !== "production") {
       rules.push({
@@ -36,7 +27,6 @@ const nextConfig = {
   },
   images: {
     qualities: [100],
-    minimumCacheTTL: 86400,
     remotePatterns: [
       {
         protocol: "https",
