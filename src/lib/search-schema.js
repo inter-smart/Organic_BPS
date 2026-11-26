@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { isSafe } from "@/lib/contact-schema";
 
-const SEARCH_MAX = 1;
+const SEARCH_MAX = 1000;
 
 export const searchSchema = z
   .string()
