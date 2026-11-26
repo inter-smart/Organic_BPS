@@ -17,7 +17,7 @@ const UNSAFE_RES = [
   /'\s*or\s*'?\d/i,
 ];
 
-const isSafe = (value) => !UNSAFE_RES.some((re) => re.test(value));
+export const isSafe = (value) => !UNSAFE_RES.some((re) => re.test(value));
 
 const UNSAFE_MESSAGE = "Please remove special markup or code from this field.";
 

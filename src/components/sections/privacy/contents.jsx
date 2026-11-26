@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export default function Contents({ data, items = [] }) {
   const name = data?.name;
   const [active, setActive] = useState(items?.[0]?.id);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const heads = items.map((s) => document.getElementById(s.id)).filter(Boolean);
@@ -48,14 +48,13 @@ export default function Contents({ data, items = [] }) {
           aria-controls="policy-contents-list"
           aria-label={`${open ? "Collapse" : "Expand"} ${name.toLowerCase()} contents`}
           onClick={() => setOpen((v) => !v)}
-          className="flex items-center rounded-full p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 min-[992px]:hidden"
+          className="flex min-h-[24px] min-w-[24px] cursor-pointer items-center justify-center rounded-full p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-basecolor3 lg:p-0"
         >
-          <Image src="/images/icon-list.svg" alt="Contents list" title="Contents list" width={26} height={26} className="size-5" />
+          <Image src="/images/icon-list.svg" alt="Contents list" title="Contents list" width={26} height={26} className="size-5 lg:size-[calc(26*var(--u))]" />
         </button>
-        <Image src="/images/icon-list.svg" alt="Contents list" title="Contents list" width={26} height={26} className="hidden min-[992px]:block lg:size-[calc(26*var(--u))]" />
       </div>
 
-      <nav id="policy-contents-list" aria-label={`${name} contents`} className={cn(!open && "max-[992px]:hidden")}>
+      <nav id="policy-contents-list" aria-label={`${name} contents`} className={cn(!open && "hidden")}>
         <ol>
           {items.map((s, i) => {
             const on = active === s.id;

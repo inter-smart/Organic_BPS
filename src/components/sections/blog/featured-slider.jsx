@@ -8,8 +8,13 @@ import Button from "@/components/common/button";
 import { formatDate } from "@/lib/format-date";
 import { renderTitle } from "@/components/common/rich-text";
 
+const AUTOPLAY_MS = 3000;
+
 export default function FeaturedSlider({ items = [], cta, labels }) {
   const [selected, setSelected] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const [viewportRef, embla] = useEmblaCarousel(
     {
       loop: true,
@@ -29,12 +34,34 @@ export default function FeaturedSlider({ items = [], cta, labels }) {
     return () => embla.off("select", sync).off("reInit", sync);
   }, [embla, items]);
 
+  useEffect(() => {
+    if (!embla) return;
+    const start = () => setDragging(true);
+    const end = () => setDragging(false);
+    embla.on("pointerDown", start).on("pointerUp", end);
+    return () => embla.off("pointerDown", start).off("pointerUp", end);
+  }, [embla]);
+
+  // keyed on `selected` so a manual swipe restarts the wait
+  useEffect(() => {
+    if (!embla || hovered || focused || dragging || items.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = setTimeout(() => embla.scrollNext(), AUTOPLAY_MS);
+    return () => clearTimeout(timer);
+  }, [embla, selected, hovered, focused, dragging, items.length]);
+
   return (
     <div
       role="region"
       aria-roledescription="carousel"
       aria-label={labels?.label}
       className="mx-auto lg:max-w-[1576px]"
+      onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(e) =>
+        !e.currentTarget.contains(e.relatedTarget) && setFocused(false)
+      }
     >
       <div ref={viewportRef} className="overflow-hidden">
         <div className="flex">

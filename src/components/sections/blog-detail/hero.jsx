@@ -63,13 +63,15 @@ export default function Hero({ data, categories }) {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-linear-to-b from-transparent from-20% to-black/72" />
-          <p className="absolute top-4 left-4 flex items-center gap-3 rounded-full bg-basecolor7/85 px-4 py-2.5 text-xs font-bold tracking-[0.1em] uppercase lg:top-[calc(43.35*var(--u))] lg:left-[calc(43.35*var(--u))] lg:gap-[calc(12.2*var(--u))] lg:px-[calc(21.7*var(--u))] lg:py-[calc(13.5*var(--u))] lg:text-[clamp(11px,calc(16.3*var(--u)),16.3px)]">
-            <span
-              aria-hidden="true"
-              className="size-2.5 shrink-0 rounded-full bg-basecolor lg:size-[calc(10.8*var(--u))]"
-            />
-            {data?.badge}
-          </p>
+          {data?.badge && (
+            <p className="absolute top-4 left-4 flex items-center gap-3 rounded-full bg-basecolor7/85 px-4 py-2.5 text-xs font-bold tracking-[0.1em] uppercase lg:top-[calc(43.35*var(--u))] lg:left-[calc(43.35*var(--u))] lg:gap-[calc(12.2*var(--u))] lg:px-[calc(21.7*var(--u))] lg:py-[calc(13.5*var(--u))] lg:text-[clamp(11px,calc(16.3*var(--u)),16.3px)]">
+              <span
+                aria-hidden="true"
+                className="size-2.5 shrink-0 rounded-full bg-basecolor lg:size-[calc(10.8*var(--u))]"
+              />
+              {data?.badge}
+            </p>
+          )}
           <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-4 lg:inset-x-[calc(43.35*var(--u))] lg:bottom-[calc(43.35*var(--u))]">
             <p className="max-w-[637px] text-base/[1.4] font-semibold text-pretty sm:text-xl/[1.4] lg:text-[clamp(16px,calc(24.4*var(--u)),24.4px)]/[1.4]">
               {data?.caption}
@@ -93,15 +95,18 @@ export default function Hero({ data, categories }) {
 
         <div className="mt-8 flex flex-col gap-6 lg:mt-[calc(43*var(--u))] lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-4 lg:gap-[calc(15.5*var(--u))]">
-            <Image
-              src={data?.author?.imageLarge?.src}
-              alt={data?.author?.imageLarge?.alt ?? ""}
-              title={data?.author?.imageLarge?.alt ?? ""}
-              width={60}
-              height={60}
-              className="size-12 rounded-full object-cover lg:size-[calc(59.5*var(--u))]"
-            />
+            {data?.author?.imageLarge?.src && (
+              <Image
+                src={data?.author?.imageLarge?.src}
+                alt={data?.author?.imageLarge?.alt ?? ""}
+                title={data?.author?.imageLarge?.alt ?? ""}
+                width={60}
+                height={60}
+                className="size-12 rounded-full object-cover lg:size-[calc(59.5*var(--u))]"
+              />
+            )}
             <div>
+
               <p className="text-base font-semibold lg:text-[clamp(14px,calc(18.1*var(--u)),18.1px)]">
                 {data?.author?.name}
               </p>

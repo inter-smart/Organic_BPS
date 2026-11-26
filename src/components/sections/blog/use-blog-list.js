@@ -33,7 +33,11 @@ export default function useBlogList({ initial, category, search }) {
 
   // a new topic or search starts again from the first page; typing waits for the pause
   useEffect(() => {
-    if (filterKey === loadedKey.current) return;
+    if (filterKey === loadedKey.current) {
+      // back on the list already shown: clear what a cancelled request left behind
+      const reset = setTimeout(() => setStatus("idle"));
+      return () => clearTimeout(reset);
+    }
     const timer = setTimeout(
       async () => {
         const res = await run(1, "loading");

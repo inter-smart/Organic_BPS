@@ -8,6 +8,7 @@ import Spinner from "@/components/common/spinner";
 import ArticleCard from "@/components/sections/blog/article-card";
 import { useBlogFilter } from "@/components/sections/blog/blog-filter";
 import useBlogList from "@/components/sections/blog/use-blog-list";
+import { searchSchema } from "@/lib/search-schema";
 import { cn } from "@/lib/utils";
 
 const pill =
@@ -20,10 +21,13 @@ const emptyText =
 /** "Latest thinking": topic filters, search and paged article grid, all served by the API. */
 export default function Listing({ data }) {
   const { category, setCategory, query, setQuery } = useBlogFilter();
+  // checked on every render so a ?search= value from the address bar is covered
+  const checked = searchSchema.safeParse(query);
+  const searchError = checked.success ? "" : checked.error.issues[0].message;
   const { list, status, loadMore } = useBlogList({
     initial: data.initial,
     category,
-    search: query.trim(),
+    search: checked.success ? checked.data : "",
   });
 
   const shown = list.articles;
@@ -96,31 +100,47 @@ export default function Listing({ data }) {
             })}
           </div>
 
-          <form
-            role="search"
-            onSubmit={(e) => e.preventDefault()}
-            className="flex items-center gap-3 rounded-full border border-basecolor16 bg-white px-5 py-3 focus-within:border-basecolor3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-basecolor3 lg:w-[347px] lg:gap-[calc(13.4*var(--u))] lg:border-[1.3px] lg:px-[calc(22.7*var(--u))] lg:py-[calc(16*var(--u))]"
-          >
-            <Image
-              src="/images/blog/search.svg"
-              alt="Search"
-              title="Search"
-              width={23}
-              height={23}
-              className="size-5 shrink-0 lg:size-[calc(22.7*var(--u))]"
-            />
-            <label htmlFor="blog-search" className="sr-only">
-              Search perspectives
-            </label>
-            <input
-              id="blog-search"
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search perspectives"
-              className="min-w-0 flex-1 bg-transparent text-sm text-basecolor7 outline-none placeholder:text-basecolor9 lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]"
-            />
-          </form>
+          <div className="relative lg:w-[347px] lg:shrink-0">
+            <form
+              role="search"
+              onSubmit={(e) => e.preventDefault()}
+              className={cn(
+                "flex items-center gap-3 rounded-full border border-basecolor16 bg-white px-5 py-3 focus-within:border-basecolor3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-basecolor3 lg:gap-[calc(13.4*var(--u))] lg:border-[1.3px] lg:px-[calc(22.7*var(--u))] lg:py-[calc(16*var(--u))]",
+                searchError && "border-basecolor14",
+              )}
+            >
+              <Image
+                src="/images/blog/search.svg"
+                alt="Search"
+                title="Search"
+                width={23}
+                height={23}
+                className="size-5 shrink-0 lg:size-[calc(22.7*var(--u))]"
+              />
+              <label htmlFor="blog-search" className="sr-only">
+                Search perspectives
+              </label>
+              <input
+                id="blog-search"
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                aria-invalid={searchError ? true : undefined}
+                aria-describedby={searchError ? "blog-search-error" : undefined}
+                placeholder="Search perspectives"
+                className="min-w-0 flex-1 bg-transparent text-sm text-basecolor7 outline-none placeholder:text-basecolor9 lg:text-[clamp(13px,calc(17.4*var(--u)),17.4px)]"
+              />
+            </form>
+            {searchError ? (
+              <p
+                id="blog-search-error"
+                role="alert"
+                className="mt-2 px-5 text-sm font-semibold whitespace-nowrap text-basecolor14 lg:absolute lg:inset-x-0 lg:top-full"
+              >
+                {searchError}
+              </p>
+            ) : null}
+          </div>
         </div>
 
         {loading ? (
