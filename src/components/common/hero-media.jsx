@@ -1,15 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { preload } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
+const subscribeLoad = (cb) => {
+  window.addEventListener("load", cb);
+  return () => window.removeEventListener("load", cb);
+};
+
+// the video file is only requested once the rest of the page has loaded
+const useLoaded = () =>
+  useSyncExternalStore(
+    subscribeLoad,
+    () => document.readyState === "complete",
+    () => false,
+  );
+
 export default function HeroMedia({ slides = [] }) {
+  const loaded = useLoaded();
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const count = slides?.length ?? 0;
   const slide = slides?.[index];
   const next = () => setIndex((i) => (i + 1) % count);
+  const poster = slides?.[0]?.poster;
+  if (poster) preload(poster, { as: "image", fetchPriority: "high" });
 
   useEffect(() => {
     if (count < 2 || slide?.type === "video") return;
@@ -35,7 +52,7 @@ export default function HeroMedia({ slides = [] }) {
             {slide.type === "video" ? (
               <video
                 className="size-full object-cover"
-                src={slide.src}
+                src={loaded ? slide.src : undefined}
                 poster={slide.poster}
                 autoPlay
                 muted

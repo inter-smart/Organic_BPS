@@ -4,17 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { INTRO_EVENT } from "@/components/common/intro";
-
-const MIN_MS = 900;
+import { INTRO_KEY } from "@/lib/intro-key";
 
 const finish = () => {
   document.documentElement.dataset.intro = "done";
+  try {
+    sessionStorage.setItem(INTRO_KEY, "1");
+  } catch {
+    // storage blocked: the intro simply plays again next time
+  }
   window.dispatchEvent(new Event(INTRO_EVENT));
 };
 
 /**
  * Intro loader: logo + 0-100 counter over the brand-black screen, then a curtain wipes up to reveal the hero.
- * Waits for the window `load` event (and at least MIN_MS) so the hero video/poster is ready behind it.
+ * Runs for about a second and only on the first page load of a browser session; it never waits for page assets.
  * Server-rendered visible, so there is no flash of the page before it.
  */
 export default function Preloader() {
@@ -24,7 +28,8 @@ export default function Preloader() {
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const seen = document.documentElement.dataset.introSkip !== undefined;
+    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       el.style.display = "none";
       finish();
       return;
@@ -33,9 +38,6 @@ export default function Preloader() {
     const counter = el.querySelector("[data-count]");
     const bar = el.querySelector("[data-bar]");
     const state = { n: 0 };
-    let loaded = document.readyState === "complete";
-    const onLoad = () => (loaded = true);
-    window.addEventListener("load", onLoad);
 
     const tl = gsap.timeline();
     // logo stays visible from the server HTML (it is the LCP element); only the counter animates in
@@ -43,11 +45,9 @@ export default function Preloader() {
         state,
         {
           n: 100,
-          duration: MIN_MS / 1000,
+          duration: 0.5,
           ease: "power2.inOut",
           onUpdate: () => {
-            // hold near 90% until the page has really loaded
-            tl.timeScale(!loaded && state.n > 90 ? 0.15 : 1);
             const v = Math.round(state.n);
             counter.textContent = String(v).padStart(3, "0");
             bar.style.transform = `scaleX(${v / 100})`;
@@ -55,17 +55,14 @@ export default function Preloader() {
         },
         0
       )
-      .to("[data-logo], [data-meta]", { yPercent: -30, opacity: 0, duration: 0.5, ease: "power2.in" })
-      .to(el, { clipPath: "inset(0 0 100% 0)", duration: 0.8, ease: "power4.inOut" }, "-=0.1")
+      .to("[data-logo], [data-meta]", { yPercent: -30, opacity: 0, duration: 0.2, ease: "power2.in" })
+      .to(el, { clipPath: "inset(0 0 100% 0)", duration: 0.4, ease: "power4.inOut" }, "-=0.05")
       .add(() => {
         finish();
         setGone(true);
-      }, "-=0.45");
+      }, "-=0.2");
 
-    return () => {
-      window.removeEventListener("load", onLoad);
-      tl.kill();
-    };
+    return () => tl.kill();
   }, []);
 
   if (gone) return null;

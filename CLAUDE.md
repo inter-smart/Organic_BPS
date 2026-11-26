@@ -19,7 +19,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - `src/components/layout/` — Header, Footer, MenuSheet. `src/components/ui/` — shadcn-style primitives.
 - `src/components/sections/<page>/` — one file per page section (e.g. `sections/home/hero.jsx`), kebab-case filenames.
 - `src/lib/` — `layout-data` (header/footer/menu data), `cn`, `globe/` (Three.js engine).
-- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer token is `NEXT_PUBLIC_API_TOKEN` for server and browser calls (exposed by design; there are no proxy route handlers). `apiGet` takes `cache` (2026-11-18): default `true` = server fetch revalidates every 300 s, `false` = no-store (used for `blogs/filter`); POST is never cached.
+- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer token is `NEXT_PUBLIC_API_TOKEN` for server and browser calls (exposed by design; there are no proxy route handlers). `apiGet`/`apiPost` are for the browser and are never cached; server components read through `cmsGet` (see "CMS caching").
 - `public/images`, `public/videos` — assets, kebab-case names.
 
 ## Page standards (apply to EVERY page/build — keep all pages identical in approach)
@@ -141,7 +141,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 - Cards link to `/blog/<slug>`; the detail page still only knows the static article.
 
 ## Metadata (2026-11-17)
-- Every API page exports `generateMetadata` → `buildMetadata(cmsMeta(source), "/route")` (`lib/seo.js`) and renders `<MetaTags html={source.other_meta_tags} />` (`components/common/meta-tags`). Source is `data.banner` (home, why-purpose, what-we-do, who-we-are, contact, blog), `data.policy` (privacy, terms) or `data.blog` (blog detail). The page fetch is wrapped in `cache()` so metadata and page share one request. How We Work, About and 404 have no CMS meta.
+- Every API page exports `generateMetadata` → `buildMetadata(cmsMeta(source), "/route")` (`lib/seo.js`) and renders `<MetaTags html={source.other_meta_tags} />` (`components/common/meta-tags`). Source is `data.banner` (home, why-purpose, what-we-do, who-we-are, contact, blog), `data.policy` (privacy, terms) or `data.blog` (blog detail). Metadata and page call the same `cmsGet`, so they share one cached read. How We Work, About and 404 have no CMS meta.
 - `lib/meta-tags.js` parses the CMS `other_meta_tags` string (pure, allowlisted): title/description/keywords/robots/canonical and unsafe http-equiv are ignored; og/twitter/hreflang/name tags go through Next Metadata, the rest through `<MetaTags>`.
 - Env: `NEXT_PUBLIC_SITE_URL` (required, `data/seo.js`) and `NEXT_PUBLIC_APP_ENV=production` on live only. Anything else stays noindex three ways: layout robots meta, `app/robots.js`, `X-Robots-Tag` header in `next.config.mjs`. `app/sitemap.js` lists static routes plus blog slugs.
 
@@ -163,3 +163,12 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Blog featured autoplay (2026-11-26)
 - The featured blog slider (`sections/blog/featured-slider`) advances every 3 s and loops. It waits while the mouse is over it, focus is inside it or it is being dragged; reduced motion = no autoplay.
+
+## CMS caching (2026-11-26)
+- Server reads use `cmsGet(path, params)` from `lib/cms.js` (`"use cache"`, refreshed every 1 minute, stale-while-revalidate; a failed read is retried at once). Never call `apiGet` from a server component: an uncached read keeps the page out of the static HTML. Earlier notes that say a page reads `apiGet(...)` now mean `cmsGet(...)`.
+
+## Intro and hero video (2026-11-26)
+- The preloader lasts about 1 s, plays once per browser session (`lib/intro-key.js`, inline script in `app/layout.js` sets `data-intro-skip`) and never waits for page assets.
+- `common/hero-media` shows the poster first and requests the video only after the window `load` event.
+- `common/route-loader` keeps a screen of height (`min-h-svh`) so the footer does not shift when the page replaces it.
+

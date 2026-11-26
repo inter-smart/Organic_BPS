@@ -1,14 +1,13 @@
-import { cache } from "react";
 import CareersCta from "@/components/sections/contact/careers-cta";
 import Enquiry from "@/components/sections/contact/enquiry";
 import Hero from "@/components/sections/contact/hero";
 import Locations from "@/components/sections/contact/locations";
 import { link } from "@/lib/cms-text";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-const getContact = cache(() => apiGet("contact"));
+const getContact = () => cmsGet("contact");
 
 export async function generateMetadata() {
   const { data } = await getContact();

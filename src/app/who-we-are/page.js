@@ -1,4 +1,4 @@
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import CoreBelief from "@/components/sections/who-we-are/core-belief";
 import FounderBio from "@/components/sections/who-we-are/founder-bio";
 import Hero from "@/components/sections/who-we-are/hero";
@@ -8,10 +8,10 @@ import Recognition from "@/components/sections/who-we-are/recognition";
 import Team from "@/components/sections/who-we-are/team";
 import Values from "@/components/sections/who-we-are/values";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-const getWhoWeAre = cache(() => apiGet("who-we-are"));
+const getWhoWeAre = () => cmsGet("who-we-are");
 
 export async function generateMetadata() {
   const { data } = await getWhoWeAre();

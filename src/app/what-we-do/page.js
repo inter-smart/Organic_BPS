@@ -1,11 +1,11 @@
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import Hero from "@/components/sections/what-we-do/hero";
 import Practices from "@/components/sections/what-we-do/practices";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-const getWhatWeDo = cache(() => apiGet("what-we-do"));
+const getWhatWeDo = () => cmsGet("what-we-do");
 
 export async function generateMetadata() {
   const { data } = await getWhatWeDo();

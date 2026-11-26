@@ -1,4 +1,4 @@
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import Authentic from "@/components/sections/why-purpose/authentic";
 import Cta from "@/components/sections/why-purpose/cta";
 import Definition from "@/components/sections/why-purpose/definition";
@@ -8,10 +8,10 @@ import Importance from "@/components/sections/why-purpose/importance";
 import Moments from "@/components/sections/why-purpose/moments";
 import Perspectives from "@/components/sections/why-purpose/perspectives";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-const getWhyPurpose = cache(() => apiGet("why-purpose"));
+const getWhyPurpose = () => cmsGet("why-purpose");
 
 export async function generateMetadata() {
   const { data } = await getWhyPurpose();

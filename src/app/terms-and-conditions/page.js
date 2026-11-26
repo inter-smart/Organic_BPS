@@ -1,15 +1,15 @@
 import RouteLoader from "@/components/common/route-loader";
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import Cta from "@/components/sections/privacy/cta";
 import Hero from "@/components/sections/privacy/hero";
 import Policy from "@/components/sections/privacy/policy";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { paragraphs, slug, text } from "@/lib/cms-text";
 import { titleLines } from "@/lib/utils";
 
-const getTerms = cache(() => apiGet("policies/terms-and-conditions"));
+const getTerms = () => cmsGet("policies/terms-and-conditions");
 
 export async function generateMetadata() {
   const { data } = await getTerms();

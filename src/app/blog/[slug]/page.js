@@ -1,18 +1,17 @@
 import { notFound } from "next/navigation";
-import { cache } from "react";
 import MetaTags from "@/components/common/meta-tags";
 import Newsletter from "@/components/sections/blog/newsletter";
 import Close from "@/components/sections/blog-detail/close";
 import Hero from "@/components/sections/blog-detail/hero";
 import Related from "@/components/sections/blog-detail/related";
 import Share from "@/components/sections/blog-detail/share";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { mapDetail } from "@/lib/blog-api";
 import { newsletter } from "@/lib/blog-data";
 import { text } from "@/lib/cms-text";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-const getBlog = cache((slug) => apiGet(`blogs/${slug}`));
+const getBlog = (slug) => cmsGet(`blogs/${slug}`);
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

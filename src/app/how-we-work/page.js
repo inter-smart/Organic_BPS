@@ -6,12 +6,11 @@ import Methodology from "@/components/sections/how-we-work/methodology";
 import Methods from "@/components/sections/how-we-work/methods";
 import MicroStimuli from "@/components/sections/how-we-work/micro-stimuli";
 import Testimonials from "@/components/sections/how-we-work/testimonials";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
-import { cache } from "react";
 
 
-const getHowWeWorks = cache(() => apiGet("how-its-works"));
+const getHowWeWorks = () => cmsGet("how-its-works");
 
 export async function generateMetadata() {
   const { data } = await getHowWeWorks();
@@ -39,7 +38,8 @@ const local_data = {
 };
 
 export default async function HowWeWorkPage() {
-  const { data, error } = await apiGet("how-its-works");
+  const { data } = await getHowWeWorks();
+  if (!data) return null;
   const {
     page_cms,
     banner,

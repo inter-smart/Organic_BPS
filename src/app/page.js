@@ -1,5 +1,5 @@
 import RouteLoader from "@/components/common/route-loader";
-import { Suspense, cache } from "react";
+import { Suspense } from "react";
 import Clients from "@/components/sections/home/client-logos";
 import Greenstorm from "@/components/sections/home/greenstorm";
 import Hero from "@/components/sections/home/hero";
@@ -10,10 +10,10 @@ import TeamGallery from "@/components/sections/home/team-gallery";
 import PurposeInsights from "@/components/sections/home/purpose-insights";
 import PurposeActivation from "@/components/sections/home/purpose-activation";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
-const getHome = cache(() => apiGet("home"));
+const getHome = () => cmsGet("home");
 
 export async function generateMetadata() {
   const { data } = await getHome();

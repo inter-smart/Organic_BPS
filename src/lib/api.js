@@ -1,10 +1,9 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-export const REVALIDATE_SECONDS = 300;
 
 // Every call returns { data, error } and never throws.
 export async function request(
   path,
-  { method = "GET", params, body, signal, cache },
+  { method = "GET", params, body, signal },
 ) {
   let url = `${BASE_URL}/${path}`;
   if (params) url += `?${new URLSearchParams(params)}`;
@@ -23,18 +22,12 @@ export async function request(
   }
 
   try {
-    const cacheOptions =
-      method !== "GET"
-        ? {}
-        : cache === false
-          ? { cache: "no-store" }
-          : { next: { revalidate: REVALIDATE_SECONDS } };
     const res = await fetch(url, {
       method,
       headers,
       body: payload,
       signal,
-      ...cacheOptions,
+      ...(method === "GET" && { cache: "no-store" }),
     });
     const json = await res.json().catch(() => null);
 

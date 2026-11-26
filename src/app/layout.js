@@ -7,6 +7,7 @@ import Preloader from "@/components/common/preloader";
 import SmoothScroll from "@/components/common/smooth-scroll";
 import SiteLayout from "@/components/layout/site-layout";
 import { allowIndexing, siteUrl } from "@/data/seo";
+import { INTRO_KEY } from "@/lib/intro-key";
 
 const googleSans = Google_Sans({
   subsets: ["latin"],
@@ -44,10 +45,18 @@ export const metadata = {
 
 export const viewport = { themeColor: "#161616" };
 
+// runs before first paint so a returning visitor never sees the intro flash
+const skipIntro = `try{if(sessionStorage.getItem("${INTRO_KEY}")){var d=document.documentElement;d.dataset.intro="done";d.dataset.introSkip=""}}catch(e){}`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${googleSans.variable} ${inter.variable} ${roboto.variable}`}>
+    <html
+      lang="en"
+      className={`${googleSans.variable} ${inter.variable} ${roboto.variable}`}
+      suppressHydrationWarning
+    >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: skipIntro }} />
         <noscript>
           <style>{".preloader{display:none!important}"}</style>
         </noscript>

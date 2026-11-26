@@ -1,6 +1,6 @@
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { text } from "@/lib/cms-text";
 import { layout_data } from "@/lib/layout-data";
 
@@ -20,8 +20,8 @@ function footerTitle(value) {
 
 export default async function SiteLayout({ children }) {
   const [settings, social] = await Promise.all([
-    apiGet("site-settings"),
-    apiGet("social-links"),
+    cmsGet("site-settings"),
+    cmsGet("social-links"),
   ]);
   const s = settings.data;
 

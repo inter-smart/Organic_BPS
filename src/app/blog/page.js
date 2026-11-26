@@ -1,15 +1,14 @@
-import { cache } from "react";
 import Hero from "@/components/sections/blog/hero";
 import Insights from "@/components/sections/blog/insights";
 import Newsletter from "@/components/sections/blog/newsletter";
 import { BlogFilterProvider } from "@/components/sections/blog/blog-filter";
 import MetaTags from "@/components/common/meta-tags";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 import { mapBlog, mapPage } from "@/lib/blog-api";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { text } from "@/lib/cms-text";
 
-const getBlogs = cache(() => apiGet("blogs"));
+const getBlogs = () => cmsGet("blogs");
 
 export async function generateMetadata() {
   const { data } = await getBlogs();
@@ -19,7 +18,7 @@ export async function generateMetadata() {
 export default async function BlogPage() {
   const [{ data }, { data: all }] = await Promise.all([
     getBlogs(),
-    apiGet("blogs/filter"),
+    cmsGet("blogs/filter"),
   ]);
   if (!data) return null;
 

@@ -1,5 +1,5 @@
 import { siteUrl } from "@/data/seo";
-import { apiGet } from "@/lib/api-calls";
+import { cmsGet } from "@/lib/cms";
 
 const routes = [
   { path: "/", priority: 1 },
@@ -14,7 +14,7 @@ const routes = [
 ];
 
 export default async function sitemap() {
-  const { data } = await apiGet("blogs/filter", { params: { per_page: 1000 } });
+  const { data } = await cmsGet("blogs/filter", { per_page: 1000 });
   const posts = (data?.data ?? []).filter((b) => b.slug);
 
   return [
