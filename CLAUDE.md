@@ -166,6 +166,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## CMS caching (2026-11-26)
 - Server reads use `cmsGet(path, params)` from `lib/cms.js` (`"use cache"`, refreshed every 1 minute, stale-while-revalidate; a failed read is retried at once). Never call `apiGet` from a server component: an uncached read keeps the page out of the static HTML. Earlier notes that say a page reads `apiGet(...)` now mean `cmsGet(...)`.
+- (2026-11-26) Cache switches: `CACHE_ENABLED` in `lib/cms.js` (`false` = everything fetches on every request) and a `const CACHE = true` in each page, `site-layout.jsx` (header/footer) and `sitemap.js`, passed as `cmsGet(path, { params, cache: CACHE })` (`false` = that file only). Both values must build.
 
 ## Intro and hero video (2026-11-26)
 - The preloader lasts about 1 s, plays once per browser session (`lib/intro-key.js`, inline script in `app/layout.js` sets `data-intro-skip`) and never waits for page assets.

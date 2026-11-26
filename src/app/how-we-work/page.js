@@ -10,6 +10,7 @@ import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
 
+// const CACHE = false;
 const getHowWeWorks = () => cmsGet("how-its-works");
 
 export async function generateMetadata() {

@@ -11,6 +11,7 @@ import MetaTags from "@/components/common/meta-tags";
 import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
+// const CACHE = false;
 const getWhoWeAre = () => cmsGet("who-we-are");
 
 export async function generateMetadata() {

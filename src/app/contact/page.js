@@ -7,6 +7,7 @@ import MetaTags from "@/components/common/meta-tags";
 import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
+// const CACHE = false;
 const getContact = () => cmsGet("contact");
 
 export async function generateMetadata() {

@@ -9,7 +9,9 @@ import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { paragraphs, slug, text } from "@/lib/cms-text";
 import { titleLines } from "@/lib/utils";
 
-const getTerms = () => cmsGet("policies/terms-and-conditions");
+// const CACHE = false;
+const getTerms = () =>
+  cmsGet("policies/terms-and-conditions");
 
 export async function generateMetadata() {
   const { data } = await getTerms();

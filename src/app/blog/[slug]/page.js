@@ -11,6 +11,7 @@ import { newsletter } from "@/lib/blog-data";
 import { text } from "@/lib/cms-text";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
+// const CACHE = false;
 const getBlog = (slug) => cmsGet(`blogs/${slug}`);
 
 export async function generateMetadata({ params }) {

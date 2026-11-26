@@ -4,6 +4,8 @@ import { cmsGet } from "@/lib/cms";
 import { text } from "@/lib/cms-text";
 import { layout_data } from "@/lib/layout-data";
 
+// const CACHE = false;
+
 // "Let’s Connect." -> two lines, the closing full stop in the accent colour.
 function footerTitle(value) {
   const title = text(value);

@@ -13,6 +13,7 @@ import MetaTags from "@/components/common/meta-tags";
 import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 
+// const CACHE = false;
 const getHome = () => cmsGet("home");
 
 export async function generateMetadata() {

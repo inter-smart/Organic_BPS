@@ -9,6 +9,7 @@ import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { paragraphs, slug, text } from "@/lib/cms-text";
 import { titleLines } from "@/lib/utils";
 
+// const CACHE = false;
 const getPrivacy = () => cmsGet("policies/privacy-policy");
 
 export async function generateMetadata() {

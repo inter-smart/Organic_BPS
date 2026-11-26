@@ -13,8 +13,13 @@ const routes = [
   { path: "/terms-and-conditions", priority: 0.3 },
 ];
 
+const CACHE = false;
+
 export default async function sitemap() {
-  const { data } = await cmsGet("blogs/filter", { per_page: 1000 });
+  const { data } = await cmsGet("blogs/filter", {
+    params: { per_page: 1000 },
+    cache: CACHE,
+  });
   const posts = (data?.data ?? []).filter((b) => b.slug);
 
   return [

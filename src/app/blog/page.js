@@ -8,6 +8,7 @@ import { mapBlog, mapPage } from "@/lib/blog-api";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
 import { text } from "@/lib/cms-text";
 
+// const CACHE = false;
 const getBlogs = () => cmsGet("blogs");
 
 export async function generateMetadata() {
