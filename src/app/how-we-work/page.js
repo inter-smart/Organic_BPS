@@ -15,7 +15,7 @@ const getHowWeWorks = cache(() => apiGet("how-its-works"));
 
 export async function generateMetadata() {
   const { data } = await getHowWeWorks();
-  return buildMetadata(cmsMeta(data?.banner), "/how-its-works");
+  return buildMetadata(cmsMeta(data?.banner), "/how-we-work");
 }
 
 

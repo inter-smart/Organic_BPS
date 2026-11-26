@@ -21,7 +21,10 @@ export function buildMetadata(
   path = "/",
 ) {
   const cms = metadataFromTags(otherMetaTags);
+  console.log(cms)
+
   const url = new URL(path, siteUrl).href;
+
   const alternates = { canonical: url };
   if (Object.keys(cms.languages).length) alternates.languages = cms.languages;
 
