@@ -1,5 +1,5 @@
-const API_HOST = process.env.NEXT_PUBLIC_API_URL
-  ? new URL(process.env.NEXT_PUBLIC_API_URL).host
+const API_HOST = process.env.API_URL
+  ? new URL(process.env.API_URL).host
   : "";
 
 const entities = {

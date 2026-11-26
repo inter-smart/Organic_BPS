@@ -1,4 +1,6 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+// Neither variable may get a NEXT_PUBLIC_ prefix. Both are empty in the browser,
+// which calls the handlers in app/api; they add the token on the server.
+const BASE_URL = process.env.API_URL || "/api";
 
 // Every call returns { data, error } and never throws.
 export async function request(
@@ -10,7 +12,7 @@ export async function request(
 
   const headers = { Accept: "application/json" };
 
-  const token = process.env.NEXT_PUBLIC_API_TOKEN;
+  const token = process.env.API_TOKEN;
   if (token) headers.Authorization = `Bearer ${token}`;
 
   let payload;

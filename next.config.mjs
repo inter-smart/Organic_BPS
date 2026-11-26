@@ -1,6 +1,6 @@
 const isDev = process.env.NODE_ENV === "development";
-const cms = process.env.NEXT_PUBLIC_API_URL
-  ? new URL(process.env.NEXT_PUBLIC_API_URL).origin
+const cms = process.env.API_URL
+  ? new URL(process.env.API_URL).origin
   : "";
 const recaptcha = "https://www.google.com/recaptcha/";
 

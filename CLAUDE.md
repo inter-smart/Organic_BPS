@@ -11,7 +11,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 
 ## Commands
 - `npm run dev` (use `npx next dev -p 3100`, port 3000 is taken), `npm run build`, `npm start`, `npm run lint`. There is no test runner; verification is lint + clean build + the checks under "Verification".
-- `.env` needs `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_API_TOKEN` for the API helpers (`src/lib/api.js`). `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (reCAPTCHA v3, contact form) is optional: when empty the form skips the captcha.
+- `.env` needs `API_URL` and `API_TOKEN` (server only) for the API helpers (`src/lib/api.js`). `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (reCAPTCHA v3, contact form) is optional: when empty the form skips the captcha.
 
 ## Structure
 - `src/app/` — `layout.js` (renders Header, Footer, Preloader, SmoothScroll), `page.js` (page + `local_data`), `globals.css` (tokens, scale, `.typography`).
@@ -19,7 +19,7 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 - `src/components/layout/` — Header, Footer, MenuSheet. `src/components/ui/` — shadcn-style primitives.
 - `src/components/sections/<page>/` — one file per page section (e.g. `sections/home/hero.jsx`), kebab-case filenames.
 - `src/lib/` — `layout-data` (header/footer/menu data), `cn`, `globe/` (Three.js engine).
-- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). Base URL `NEXT_PUBLIC_API_URL`; the Bearer token is `NEXT_PUBLIC_API_TOKEN` for server and browser calls (exposed by design; there are no proxy route handlers). `apiGet`/`apiPost` are for the browser and are never cached; server components read through `cmsGet` (see "CMS caching").
+- `src/lib/api.js` (shared `request`) + `src/lib/api-calls.js` (2026-11-16) — `apiGet(path, { params, signal })` / `apiPost(path, body, { signal })` for the PHP backend. Never throw; always return `{ data, error }` (`error` = `{ status, message, errors }`). `API_URL` and the Bearer `API_TOKEN` are server only; browser calls go to the route handlers in `app/api` (see "API credentials"). `apiGet`/`apiPost` are for the browser and are never cached; server components read through `cmsGet` (see "CMS caching").
 - `public/images`, `public/videos` — assets, kebab-case names.
 
 ## Page standards (apply to EVERY page/build — keep all pages identical in approach)
@@ -126,7 +126,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Contact API (2026-11-16)
 - `/contact` reads `apiGet("contact")` in `app/contact/page.js`. Title line breaks/accents and the map button label are static in `local_data`; everything else (banner, enquiry copy, email/phone, office list, explore options for the form select, careers email) comes from the API with no fallback copy. The form still has no submit endpoint. Hero uses `banner_top_image` as a single avatar.
-- Form submit (2026-11-17): reCAPTCHA v3 token (`g-recaptcha-response`, from `common/recaptcha`) is added to the payload and verified by the backend; the badge is hidden in CSS and the Google notice sits above the button. `contact-form` calls `apiPost("contact-enquiry")` straight from the browser (no route handler). Validation is the shared zod schema `lib/contact-schema.js` (client submit); rules follow the QA matrix (name letters only, phone optional but 7-15 digits when given, message 2-2000 with no markup/code). Field map: `organisation`→`organization`, `phone`→`phone_number`, `topic`→`explore_together`.
+- Form submit (2026-11-17): reCAPTCHA v3 token (`g-recaptcha-response`, from `common/recaptcha`) is added to the payload and verified by the backend; the badge is hidden in CSS and the Google notice sits above the button. `contact-form` calls `apiPost("contact-enquiry")`, handled by `app/api/contact-enquiry`. Validation is the shared zod schema `lib/contact-schema.js` (client submit); rules follow the QA matrix (name letters only, phone optional but 7-15 digits when given, message 2-2000 with no markup/code). Field map: `organisation`→`organization`, `phone`→`phone_number`, `topic`→`explore_together`.
 - Titles (2026-11-16): hero, enquiry, locations and careers headings come from the API (`banner_title`, `section_one.subtitle`, `section_two.title`, `section_three.title`) through `parseTitle` (`<span>` = accent, `<br>`/`</br>` = line break). The static title arrays in `local_data` are commented out.
 
 ## Privacy API (2026-11-16)
@@ -137,7 +137,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Blog API (2026-11-17)
 - `/blog` reads `apiGet("blogs")` in `app/blog/page.js` (no Suspense wrapper); `lib/blog-api.js` maps API blogs to the card shape. Banner, titles, categories (slug), featured blogs, first page of articles and newsletter copy come from the API; labels are static; the listing labels are written directly in `listing.jsx`.
-- Topic, search (500 ms debounce, `use-blog-list`) and "View More" call `blogs/filter` straight from the browser (`listing.jsx`, no proxy route; the Bearer token is `NEXT_PUBLIC_API_TOKEN`). `/blogs` leaves the featured blog out of the list, `/blogs/filter` includes it.
+- Topic, search (500 ms debounce, `use-blog-list`) and "View More" call `blogs/filter` through `app/api/blogs/filter`. `/blogs` leaves the featured blog out of the list, `/blogs/filter` includes it.
 - Cards link to `/blog/<slug>`; the detail page still only knows the static article.
 
 ## Metadata (2026-11-17)
@@ -172,3 +172,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 - `common/hero-media` shows the poster first and requests the video only after the window `load` event.
 - `common/route-loader` keeps a screen of height (`min-h-svh`) so the footer does not shift when the page replaces it.
 
+## API credentials (2026-11-26)
+- The backend token must never reach the browser: no `NEXT_PUBLIC_` prefix on API settings, and `API_TOKEN` is read only in `lib/api.js`.
+- Browser calls (`apiGet`/`apiPost`) hit `/api/<path>`. A new browser call needs its own route handler; no catch-all proxy.
+- Keep API calling simple, server side too: one shared `request`, no extra layers or helper files. Route handlers only call `apiGet`/`apiPost` and return the result (the backend validates).
