@@ -3,11 +3,11 @@ import { connection } from "next/server";
 import { request } from "@/lib/api";
 
 // false turns caching off everywhere; otherwise each caller decides
-const CACHE_ENABLED = false;
+const CACHE_ENABLED = true;
 
 // Server reads only. api-calls.js is also bundled for the browser, so the
 // cache directive has to live apart from it.
-export async function cmsGet(path, { params, cache = false } = {}) {
+export async function cmsGet(path, { params, cache = true } = {}) {
   if (CACHE_ENABLED && cache) return cachedGet(path, params);
   // keeps the read out of the prerender, so it runs on every request
   await connection();
