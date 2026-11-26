@@ -34,7 +34,6 @@ const dots = [
   "lg:top-[calc(387*var(--u))] lg:left-[calc(507*var(--u))]",
 ];
 
-
 export default function Importance({ data, benefits = [], title }) {
   const [intro] = paragraphs(data?.note);
   const core = benefits.find((b) => b.position === "center");
@@ -139,15 +138,18 @@ export default function Importance({ data, benefits = [], title }) {
                 style={{ "--dg-i": 0 }}
                 className="dg-pop mx-auto flex size-55 flex-col items-center justify-center rounded-full bg-basecolor text-center text-white lg:absolute lg:top-[calc(170*var(--u))] lg:left-[calc(290*var(--u))] lg:size-[calc(244*var(--u))]"
               >
-                <Image
-                  src={core?.icon}
-                  alt="Purpose core"
-                  title="Purpose core"
-                  width={72}
-                  height={72}
-                  unoptimized
-                  className="size-12 lg:size-[calc(72*var(--u))]"
-                />
+                {core?.icon && (
+                  <Image
+                    src={core?.icon}
+                    alt="Purpose core"
+                    title="Purpose core"
+                    width={72}
+                    height={72}
+                    unoptimized
+                    className="size-12 lg:size-[calc(72*var(--u))]"
+                  />
+                )}
+
                 <p className="mt-2 font-roboto text-lg sm:text-xl/[1.03] font-bold lg:mt-[calc(10*var(--u))] lg:w-[calc(144*var(--u))] lg:text-[clamp(18px,calc(34*var(--u)),34px)]/[1.03]">
                   {core?.title}
                 </p>

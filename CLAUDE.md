@@ -154,3 +154,6 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Loaders (2026-11-18)
 - Every loading state (`loading.js`, page-level `Suspense` fallback, `app/layout.js`) renders `common/route-loader` (logo + rotating ring loader). No skeletons; never `fallback={null}`.
+
+## Server headers (2026-11-26)
+- Do not change nginx; header fixes go in code. `next.config.mjs` sends `Content-Security-Policy` and `Permissions-Policy` and sets `poweredByHeader: false`; a new third-party script, embed or media host must be added to the CSP. Referrer policy is set by the `referrer` meta in `app/layout.js` (nginx still sends its own header). `X-XSS-Protection`, the nginx version and the `Referrer-Policy` header value come from nginx and cannot be changed from code.

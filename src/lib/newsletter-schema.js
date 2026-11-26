@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+// Stops zod probing new Function, which the CSP blocks.
+z.config({ jitless: true });
+
 export const newsletterSchema = z.object({
   email: z
     .string()

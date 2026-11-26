@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+// Stops zod probing new Function, which the CSP blocks.
+z.config({ jitless: true });
+
 const NAME_RE = /^[\p{L}\p{M}]+(?:[ '’.-][\p{L}\p{M}]+)*\.?$/u;
 const PHONE_RE = /^\+?[0-9\s\-()]+$/;
 const HAS_TEXT_RE = /[\p{L}\p{N}]/u;

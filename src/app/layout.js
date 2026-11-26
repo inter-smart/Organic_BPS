@@ -30,6 +30,8 @@ const inter = Inter({
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
+  // A meta tag overrides the weaker Referrer-Policy header set by the server.
+  referrer: "strict-origin-when-cross-origin",
   robots: allowIndexing
     ? { index: true, follow: true }
     : {
