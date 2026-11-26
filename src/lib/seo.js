@@ -21,7 +21,6 @@ export function buildMetadata(
   path = "/",
 ) {
   const cms = metadataFromTags(otherMetaTags);
-  console.log(cms)
 
   const url = new URL(path, siteUrl).href;
 
