@@ -154,6 +154,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 
 ## Loaders (2026-11-18)
 - Every loading state (`loading.js`, page-level `Suspense` fallback, `app/layout.js`) renders `common/route-loader` (logo + rotating ring loader). No skeletons; never `fallback={null}`.
+- (2026-11-27, supersedes the above for cached pages) No `Suspense` or `loading.js` around the layout or any cached page: a boundary hides the hero until a script swaps it in and delays LCP. `app/layout.js` exports `instant = false` so `CACHE = false` still builds. Only `blog/[slug]/loading.js` remains.
 
 ## Server headers (2026-11-26)
 - Do not change nginx; header fixes go in code. `next.config.mjs` sends `Content-Security-Policy` and `Permissions-Policy` and sets `poweredByHeader: false`; a new third-party script, embed or media host must be added to the CSP. Referrer policy is set by the `referrer` meta in `app/layout.js` (nginx still sends its own header). `X-XSS-Protection`, the nginx version and the `Referrer-Policy` header value come from nginx and cannot be changed from code.
@@ -172,6 +173,8 @@ Follow these in new builds; they replace the older behaviour described above whe
 - The preloader lasts about 1 s, plays once per browser session (`lib/intro-key.js`, inline script in `app/layout.js` sets `data-intro-skip`) and never waits for page assets.
 - `common/hero-media` shows the poster first and requests the video only after the window `load` event.
 - `common/route-loader` keeps a screen of height (`min-h-svh`) so the footer does not shift when the page replaces it.
+- (2026-11-27) Below 960px the intro runs on CSS only (`data-intro-lite`, set by the inline script) and lifts about 1 s after first paint; desktop keeps the GSAP timeline. Change both together.
+- (2026-11-27) Lenis does not run on touch (`pointer: coarse`) devices. The client carousel autoplays only while on screen.
 
 ## API credentials (2026-11-26)
 - The backend token must never reach the browser: no `NEXT_PUBLIC_` prefix on API settings, and `API_TOKEN` is read only in `lib/api.js`.

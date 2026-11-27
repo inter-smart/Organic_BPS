@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import CoreBelief from "@/components/sections/who-we-are/core-belief";
 import FounderBio from "@/components/sections/who-we-are/founder-bio";
 import Hero from "@/components/sections/who-we-are/hero";

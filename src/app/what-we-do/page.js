@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Hero from "@/components/sections/what-we-do/hero";
 import Practices from "@/components/sections/what-we-do/practices";
 import MetaTags from "@/components/common/meta-tags";

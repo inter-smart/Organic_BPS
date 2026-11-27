@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Authentic from "@/components/sections/why-purpose/authentic";
 import Cta from "@/components/sections/why-purpose/cta";
 import Definition from "@/components/sections/why-purpose/definition";

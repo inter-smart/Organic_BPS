@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 /*
@@ -50,6 +50,7 @@ export default function ClientCarousel({
   const [hovered, setHovered] = useState(false);
   const [cw, setCw] = useState(348);
   const stageRef = useRef(null);
+  const inView = useInView(stageRef);
 
   const go = useCallback(
     (dir) => setActive((i) => (i + dir + count) % count),
@@ -67,10 +68,10 @@ export default function ClientCarousel({
   }, [count]);
 
   useEffect(() => {
-    if (!autoplay || reduce || hovered || count < 2) return;
+    if (!autoplay || reduce || hovered || !inView || count < 2) return;
     const t = setInterval(() => go(1), autoplay);
     return () => clearInterval(t);
-  }, [autoplay, reduce, hovered, count, go]);
+  }, [autoplay, reduce, hovered, inView, count, go]);
 
   const k = cw / BASE_W;
 

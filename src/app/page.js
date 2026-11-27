@@ -1,5 +1,3 @@
-import RouteLoader from "@/components/common/route-loader";
-import { Suspense } from "react";
 import Clients from "@/components/sections/home/client-logos";
 import Greenstorm from "@/components/sections/home/greenstorm";
 import Hero from "@/components/sections/home/hero";
@@ -21,7 +19,7 @@ export async function generateMetadata() {
   return buildMetadata(cmsMeta(data?.banner), "/");
 }
 
-async function HomeContent() {
+export default async function HomePage() {
   const { data } = await getHome();
   if (!data) return null;
 
@@ -86,13 +84,5 @@ async function HomeContent() {
         />
       )}
     </main>
-  );
-}
-
-export default function page() {
-  return (
-    <Suspense fallback={<RouteLoader />}>
-      <HomeContent />
-    </Suspense>
   );
 }

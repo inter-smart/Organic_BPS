@@ -1,5 +1,3 @@
-import RouteLoader from "@/components/common/route-loader";
-import { Suspense } from "react";
 import Cta from "@/components/sections/privacy/cta";
 import Hero from "@/components/sections/privacy/hero";
 import Policy from "@/components/sections/privacy/policy";
@@ -17,7 +15,7 @@ export async function generateMetadata() {
   return buildMetadata(cmsMeta(data?.policy), "/privacy");
 }
 
-async function PrivacyContent() {
+export default async function PrivacyPage() {
   const { data } = await getPrivacy();
   const policy = data?.policy;
   if (!policy) return null;
@@ -75,13 +73,5 @@ async function PrivacyContent() {
         }}
       />
     </main>
-  );
-}
-
-export default function PrivacyPage() {
-  return (
-    <Suspense fallback={<RouteLoader />}>
-      <PrivacyContent />
-    </Suspense>
   );
 }

@@ -11,7 +11,9 @@ gsap.registerPlugin(ScrollTrigger);
 /** Lenis inertia scroll driven by the GSAP ticker so ScrollTrigger scrubs stay in sync. Locked until the intro finishes. */
 export default function SmoothScroll() {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // touch scrolling is never smoothed by Lenis, so phones skip its frame loop
+    const query = "(prefers-reduced-motion: reduce), (pointer: coarse)";
+    if (window.matchMedia(query).matches) return;
 
     const lenis = new Lenis({ lerp: 0.09, anchors: true });
     if (document.documentElement.dataset.intro !== "done") lenis.stop();

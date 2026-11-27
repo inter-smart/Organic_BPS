@@ -1,6 +1,4 @@
-import RouteLoader from "@/components/common/route-loader";
 import { Google_Sans, Inter, Roboto } from "next/font/google";
-import { Suspense } from "react";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Preloader from "@/components/common/preloader";
@@ -21,6 +19,8 @@ const roboto = Roboto({
   variable: "--font-roboto",
   weight: ["400", "600", "700"],
   display: "swap",
+  // used by one inner page, so it should not compete with the heading font
+  preload: false,
 });
 
 const inter = Inter({
@@ -45,8 +45,13 @@ export const metadata = {
 
 export const viewport = { themeColor: "#161616" };
 
-// runs before first paint so a returning visitor never sees the intro flash
-const skipIntro = `try{if(sessionStorage.getItem("${INTRO_KEY}")){var d=document.documentElement;d.dataset.intro="done";d.dataset.introSkip=""}}catch(e){}`;
+// Pages go out as complete HTML, with no loading boundary above them. This keeps
+// the build passing when caching is switched off and a page has to wait for the API.
+export const instant = false;
+
+// Runs before first paint: a returning visitor never sees the intro flash, and on
+// phones the intro is left to CSS so it does not wait for the scripts.
+const introFlags = `(function(){var d=document.documentElement,seen;try{seen=sessionStorage.getItem("${INTRO_KEY}")}catch(e){}if(seen){d.dataset.intro="done";d.dataset.introSkip=""}else if(matchMedia("(max-width: 959.98px)").matches){d.dataset.intro="done";d.dataset.introLite=""}})()`;
 
 export default function RootLayout({ children }) {
   return (
@@ -56,7 +61,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: skipIntro }} />
+        <script dangerouslySetInnerHTML={{ __html: introFlags }} />
         <noscript>
           <style>{".preloader{display:none!important}"}</style>
         </noscript>
@@ -64,9 +69,7 @@ export default function RootLayout({ children }) {
       <body>
         <Preloader />
         <SmoothScroll />
-        <Suspense fallback={<RouteLoader />}>
-          <SiteLayout>{children}</SiteLayout>
-        </Suspense>
+        <SiteLayout>{children}</SiteLayout>
       </body>
     </html>
   );
