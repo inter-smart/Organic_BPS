@@ -78,7 +78,8 @@ export default function HeroMedia({ slides = [] }) {
                   )}
                   <Image
                     src={slide.src}
-                    alt={slide.alt ?? ""}
+                    alt={slide.alt || "Organic BPS banner"}
+                    title={slide.alt || "Organic BPS banner"}
                     fill
                     priority={index === 0}
                     sizes="100vw"

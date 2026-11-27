@@ -35,8 +35,8 @@ export default function FounderBio({ data }) {
               {data?.image ? (
                 <Image
                   src={data.image}
-                  alt={data?.name ?? ""}
-                  title={data?.name ?? ""}
+                  alt={data?.name || "Our founder"}
+                  title={data?.name || "Our founder"}
                   fill
                   sizes="(min-width: 1280px) 45vw, 90vw"
                   className="object-contain object-bottom"

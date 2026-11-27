@@ -34,7 +34,8 @@ export default function Hero({ data }) {
           )}
           <Image
             src={data?.image?.src}
-            alt={data?.image?.alt ?? ""}
+            alt={data?.image?.alt || "Blog banner"}
+            title={data?.image?.alt || "Blog banner"}
             fill
             priority
             sizes="100vw"

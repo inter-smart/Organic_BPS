@@ -22,8 +22,8 @@ function Tile({ item, result, delay }) {
     >
       <Image
         src={item?.icon}
-        alt={item?.title ?? "Authentic purpose icon"}
-        title={item?.title ?? "Authentic purpose icon"}
+        alt={item?.title || "Authentic purpose icon"}
+        title={item?.title || "Authentic purpose icon"}
         width={42}
         height={42}
         unoptimized

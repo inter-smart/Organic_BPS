@@ -116,7 +116,7 @@ export default function ClientCarousel({
                 key={i}
                 role="group"
                 aria-roledescription="slide"
-                aria-label={`${(i % total) + 1} of ${total}: ${item?.image_alt_tag}`}
+                aria-label={`${(i % total) + 1} of ${total}: ${item?.image_alt_tag || "Client logo"}`}
                 aria-hidden={far || copy || undefined}
                 className="absolute top-1/2 left-1/2 h-[76%] w-[min(52vw,348px)] -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d] sm:w-[min(40vw,348px)] lg:w-[min(calc(348*var(--u)),18.2vw)]"
                 style={{
@@ -141,8 +141,8 @@ export default function ClientCarousel({
                   <div className="relative h-1/2 w-[68%]">
                     <Image
                       src={item?.image}
-                      alt={copy ? "" : (item?.image_alt_tag ?? "")}
-                      title={copy ? "" : (item?.image_alt_tag ?? "")}
+                      alt={item?.image_alt_tag || "Client logo"}
+                      title={item?.image_alt_tag || "Client logo"}
                       fill
                       sizes="(min-width: 1200px) 18vw, 50vw"
                       className="object-contain"

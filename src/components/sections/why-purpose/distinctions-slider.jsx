@@ -61,8 +61,8 @@ export default function DistinctionsSlider({ items = [], label }) {
                 <div className="size-15 aspect-square overflow-hidden flex items-center justify-center">
                   <Image
                     src={item.icon}
-                    alt={item.title ?? "Distinction icon"}
-                    title={item.title ?? "Distinction icon"}
+                    alt={item.title || "Distinction icon"}
+                    title={item.title || "Distinction icon"}
                     width={57}
                     height={57}
                     unoptimized

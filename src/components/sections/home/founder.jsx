@@ -84,8 +84,8 @@ export default function Founder({ data, title }) {
           {data.image ? (
             <Image
               src={data.image}
-              alt={text(data.title)}
-              title={text(data.title)}
+              alt={text(data.title) || "Our founder"}
+              title={text(data.title) || "Our founder"}
               fill
               sizes="(min-width: 1280px) 57vw, 100vw"
               className="object-contain object-bottom"

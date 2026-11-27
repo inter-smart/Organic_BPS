@@ -69,8 +69,8 @@ export default function TeamGallery({ data, gallery, title }) {
               <Parallax className="absolute inset-0" from={-6} to={6}>
                 <Image
                   src={img.image}
-                  alt={img.image_alt_tag}
-                  title={img.image_alt_tag}
+                  alt={img.image_alt_tag || "Organic BPS team"}
+                  title={img.image_alt_tag || "Organic BPS team"}
                   fill
                   sizes="(min-width: 1280px) 30vw, 50vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

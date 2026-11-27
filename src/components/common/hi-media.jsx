@@ -9,7 +9,12 @@ import {
   useTransform,
 } from "framer-motion";
 
-export default function HiMedia({ video, poster, alt = "", className = "" }) {
+export default function HiMedia({
+  video,
+  poster,
+  alt = "What we do at Organic BPS",
+  className = "",
+}) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const near = useInView(ref, { once: true });
@@ -33,6 +38,7 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
       ref={ref}
       role="img"
       aria-label={alt}
+      title={alt}
       className={`relative aspect-834/669 w-full ${className}`}
       initial={reduce ? false : { opacity: 0, scale: 0.92 }}
       whileInView={{ opacity: 1, scale: 1 }}
@@ -63,8 +69,8 @@ export default function HiMedia({ video, poster, alt = "", className = "" }) {
         ) : (
           <Image
             src={poster}
-            alt="Poster"
-            title="Poster"
+            alt={alt}
+            title={alt}
             fill
             sizes="(min-width: 1200px) 45vw, 100vw"
             className="object-cover"

@@ -25,10 +25,13 @@ Auto-loaded every session. **Whenever the user gives a new rule or instruction i
 ## Page standards (apply to EVERY page/build — keep all pages identical in approach)
 - Page file = one `local_data` object (one key per section, shaped like the future CMS response) passed as `data` to section components. No hard-coded copy inside sections.
 - Rich titles/paragraphs use the segment format `{ t, accent?, ring? }` rendered via `Heading`/`RichText`; CTAs via `Button`. Reuse these — don't re-create.
-- Every section: semantic HTML (`section`, `h1` once per page then `h2`…), `container mx-auto px-4`, shared vertical spacing, `next/image` with real `alt` (empty only if decorative), lazy-load below the fold, visible focus states, keyboard-accessible, `prefers-reduced-motion` respected.
+- Every section: semantic HTML (`section`, `h1` once per page then `h2`…), `container mx-auto px-4`, shared vertical spacing, `next/image` with non-empty `alt` and `title`, lazy-load below the fold, visible focus states, keyboard-accessible, `prefers-reduced-motion` respected.
 - Colours only from tokens (`basecolor…basecolor6`, shadcn tokens); sizes via the `--u` scale / design-scale type tokens in `globals.css`. No arbitrary hex/px per component.
 - Animation via the shared helpers (Reveal, TextReveal, Parallax, NumberTicker, GSAP/Lenis already wired). Same timing/easing feel across pages.
 - Before finishing any page: run the Verification checks below, `npm run lint`, and a clean `npm run build`.
+
+## Image text (2026-11-27)
+- Every image on every page, decorative ones included, carries a non-empty `alt` and `title` with the same text: CMS value first, then a readable fallback joined with `||` (not `??`). `<img>` inside CMS HTML goes through `withImageText` (`lib/cms-text.js`).
 
 ## Pages built
 - `/` home (`src/app/page.js`, sections in `sections/home/`). `/who-we-are` (`src/app/who-we-are/page.js`, sections in `sections/who-we-are/`) — 2026-10-29.

@@ -14,7 +14,8 @@ function LogoCard({ logo }) {
       <div className="relative h-[60%] w-3/4">
         <Image
           src={logo?.image}
-          alt={logo?.image_alt_tag}
+          alt={logo?.image_alt_tag || "Partner logo"}
+          title={logo?.image_alt_tag || "Partner logo"}
           fill
           draggable={false}
           sizes="(min-width: 640px) 30vw, 40vw"

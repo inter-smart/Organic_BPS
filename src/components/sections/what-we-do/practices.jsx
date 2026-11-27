@@ -126,8 +126,8 @@ export default function Practices({ data, practices = [] }) {
                         {s?.icon ? (
                           <Image
                             src={s.icon}
-                            alt={s.title ?? "Service icon"}
-                            title={s.title ?? "Service icon"}
+                            alt={s.title || "Service icon"}
+                            title={s.title || "Service icon"}
                             width={40}
                             height={40}
                             unoptimized

@@ -66,8 +66,8 @@ export default function FrameworkMechanism({ items, label: ariaLabel, scrollLabe
             >
               <Image
                 src={src(file)}
-                alt={`Framework ${file}`}
-                title={`Framework ${file}`}
+                alt={`Framework ${file.replaceAll("-", " ")}`}
+                title={`Framework ${file.replaceAll("-", " ")}`}
                 width={size}
                 height={size}
                 style={{

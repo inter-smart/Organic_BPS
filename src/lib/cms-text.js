@@ -37,6 +37,30 @@ export function text(html) {
     .trim();
 }
 
+const imageTag = /<img\b((?:"[^"]*"|'[^']*'|[^'">])*)>/gi;
+const attribute = /([^\s=/]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
+
+const escapeAttribute = (value) =>
+  value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
+// Editor images often arrive without alt or title text.
+export function withImageText(html, fallback) {
+  return (html ?? "").replace(imageTag, (_, source) => {
+    const attrs = new Map(
+      [...source.matchAll(attribute)].map(([, name, a, b, c]) => [
+        name.toLowerCase(),
+        (a ?? b ?? c ?? "").replace(/"/g, "&quot;"),
+      ]),
+    );
+    const alt = attrs.get("alt")?.trim();
+    const title = attrs.get("title")?.trim();
+    const spare = alt || title || escapeAttribute(fallback ?? "");
+    attrs.set("alt", alt || spare);
+    attrs.set("title", title || spare);
+    return `<img ${[...attrs].map(([name, value]) => `${name}="${value}"`).join(" ")}>`;
+  });
+}
+
 // One plain string per <p>.
 export function paragraphs(html) {
   return blocks(html).map(text).filter(Boolean);

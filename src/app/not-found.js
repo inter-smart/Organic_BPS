@@ -12,7 +12,10 @@ export const metadata = {
  */
 const local_data = {
   hero: {
-    image: { src: "/images/privacy/hero.jpg", alt: "" },
+    image: {
+      src: "/images/privacy/hero.jpg",
+      alt: "A man at a desk using a tablet that shows data privacy controls",
+    },
     // title: [[{ t: "Page not" }], [{ t: "found.", accent: true }]],
     title: "Page not<br><span>found.</span>",
     text: "The page you’re looking for doesn’t exist or may have moved. Start fresh with one of the routes below, or return to the homepage to continue exploring.",

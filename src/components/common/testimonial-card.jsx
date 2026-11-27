@@ -49,8 +49,8 @@ export default function TestimonialCard({
       {logo ? (
         <Image
           src={logo}
-          alt={name}
-          title={name}
+          alt={name || "Client logo"}
+          title={name || "Client logo"}
           width={300}
           height={356}
           sizes="(min-width: 1024px) 14vw, 80px"

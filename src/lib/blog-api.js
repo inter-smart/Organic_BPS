@@ -1,4 +1,5 @@
 import { apiGet } from "@/lib/api-calls";
+import { withImageText } from "@/lib/cms-text";
 
 const MONTHS = [
   "jan",
@@ -36,7 +37,7 @@ export function mapBlog(blog) {
     summary: blog.small_description,
     image: {
       src: blog.image,
-      alt: blog.image_alt_text ?? "",
+      alt: blog.image_alt_text || blog.title,
       width: 1104,
       height: 673,
     },
@@ -44,7 +45,7 @@ export function mapBlog(blog) {
       ? {
           name: blog.author,
           role: blog.author_designation,
-          image: { src: blog.author_image, alt: "" },
+          image: { src: blog.author_image, alt: blog.author },
         }
       : null,
   };
@@ -79,7 +80,7 @@ function articleBody(blog) {
         [blog.author, blog.author_designation].filter(Boolean).join(" · "),
       )}</footer></blockquote>`
     : "";
-  return [
+  const html = [
     blog.main_title && `<p class="lead">${escapeHtml(blog.main_title)}</p>`,
     blog.content,
     quote,
@@ -88,6 +89,7 @@ function articleBody(blog) {
   ]
     .filter(Boolean)
     .join("\n");
+  return withImageText(html, blog.title);
 }
 
 // The detail response in the shape the blog-detail sections read.
@@ -96,7 +98,7 @@ export function mapDetail(blog, related) {
     name: blog.author,
     role: blog.author_designation,
     bio: blog.about_author,
-    imageLarge: { src: blog.author_image, alt: "" },
+    imageLarge: { src: blog.author_image, alt: blog.author || "Blog author" },
   };
   return {
     hero: {
@@ -104,7 +106,10 @@ export function mapDetail(blog, related) {
       readTime: parseInt(blog.duration, 10),
       title: blog.title,
       summary: blog.small_description,
-      image: { src: blog.detail_page_image, alt: blog.image_alt_text ?? "" },
+      image: {
+        src: blog.detail_page_image,
+        alt: blog.image_alt_text || blog.title,
+      },
       badge: blog.image_tag,
       caption: blog.description_over_image,
       topics: [blog.category_name],

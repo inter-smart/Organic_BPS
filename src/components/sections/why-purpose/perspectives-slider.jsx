@@ -54,8 +54,8 @@ export default function PerspectivesSlider({ items = [], labels }) {
                 <div className="aspect-360/198 overflow-hidden rounded-lg">
                   <Image
                     src={item.image}
-                    alt={item.image_alt_text}
-                    title={item.image_alt_text}
+                    alt={item.image_alt_text || item.title}
+                    title={item.image_alt_text || item.title}
                     width={750}
                     height={500}
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"

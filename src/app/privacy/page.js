@@ -4,7 +4,7 @@ import Policy from "@/components/sections/privacy/policy";
 import MetaTags from "@/components/common/meta-tags";
 import { cmsGet } from "@/lib/cms";
 import { buildMetadata, cmsMeta } from "@/lib/seo";
-import { paragraphs, slug, text } from "@/lib/cms-text";
+import { paragraphs, slug, text, withImageText } from "@/lib/cms-text";
 import { titleLines } from "@/lib/utils";
 
 // const CACHE = false;
@@ -28,7 +28,7 @@ export default async function PrivacyPage() {
   const body = sections
     .map(
       (s) =>
-        `<h3 id="${slug(s.title)}">${s.title}</h3>${s.description ?? ""}`,
+        `<h3 id="${slug(s.title)}">${s.title}</h3>${withImageText(s.description, s.title)}`,
     )
     .join("");
 

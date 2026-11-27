@@ -20,7 +20,8 @@ export default function Hero({ data, banner }) {
           )}
           <Image
             src={banner?.banner}
-            alt={banner?.banner_alt_text ?? ""}
+            alt={banner?.banner_alt_text || "How We Work banner"}
+            title={banner?.banner_alt_text || "How We Work banner"}
             fill
             priority
             sizes="100vw"

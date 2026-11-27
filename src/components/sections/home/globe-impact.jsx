@@ -82,8 +82,8 @@ export default function GlobeImpact({ data, pins, stats, title }) {
                     <div className="relative h-12 lg:h-16.25">
                       <Image
                         src={stat.icon}
-                        alt={stat.label ?? "Impact icon"}
-                        title={stat.label ?? "Impact icon"}
+                        alt={stat.label || "Impact icon"}
+                        title={stat.label || "Impact icon"}
                         fill
                         className="object-contain object-left"
                       />

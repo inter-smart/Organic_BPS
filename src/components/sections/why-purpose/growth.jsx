@@ -45,8 +45,8 @@ export default function Growth({ data, items = [], title }) {
               >
                 <Image
                   src={item.icon}
-                  alt={item.title ?? "Growth icon"}
-                  title={item.title ?? "Growth icon"}
+                  alt={item.title || "Growth icon"}
+                  title={item.title || "Growth icon"}
                   width={60}
                   height={60}
                   unoptimized

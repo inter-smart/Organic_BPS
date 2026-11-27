@@ -32,7 +32,8 @@ export default function Hero({ banner, title }) {
           )}
           <Image
             src={banner?.banner}
-            alt={banner?.banner_alt_text ?? ""}
+            alt={banner?.banner_alt_text || "Why Purpose banner"}
+            title={banner?.banner_alt_text || "Why Purpose banner"}
             fill
             priority
             sizes="100vw"

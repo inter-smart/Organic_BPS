@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Reveal from "@/components/common/reveal";
-import { paragraphs } from "@/lib/cms-text";
+import { paragraphs, text } from "@/lib/cms-text";
 
 export default function MicroStimuli({ data }) {
   return (
@@ -16,8 +16,8 @@ export default function MicroStimuli({ data }) {
         >
           <Image
             src={data?.image}
-            alt={data?.title ?? ""}
-            title={data?.title?? ""}
+            alt={text(data?.title) || "MicroStimuli"}
+            title={text(data?.title) || "MicroStimuli"}
             fill
             sizes="(min-width: 1024px) 55vw, 100vw"
             className="object-cover"

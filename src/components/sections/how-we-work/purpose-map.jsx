@@ -85,8 +85,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               >
                 <Image
                   src={src(file)}
-                  alt={`Purpose map ${file}`}
-                  title={`Purpose map ${file}`}
+                  alt={`Purpose map ${file.replaceAll("-", " ")}`}
+                  title={`Purpose map ${file.replaceAll("-", " ")}`}
                   width={Math.round(w)}
                   height={Math.round(h)}
                   className="size-full max-w-none"
@@ -99,8 +99,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
             <Image
               key={file}
               src={src(file)}
-              alt={`Purpose map ${file}`}
-              title={`Purpose map ${file}`}
+              alt={`Purpose map ${file.replaceAll("-", " ")}`}
+              title={`Purpose map ${file.replaceAll("-", " ")}`}
               width={Math.round(w)}
               height={Math.round(h)}
               style={{ ...at(x, y, w, h), "--dg-d": 0.9 }}
@@ -137,8 +137,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
                 <Image
                   key={i}
                   src={src(file)}
-                  alt={`Purpose map ${file}`}
-                  title={`Purpose map ${file}`}
+                  alt={`Purpose map ${file.replaceAll("-", " ")}`}
+                  title={`Purpose map ${file.replaceAll("-", " ")}`}
                   width={Math.round(w)}
                   height={Math.round(h)}
                   style={{ ...at(x, y, w, h), "--dg-i": i + 5 }}
@@ -149,8 +149,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               <Image
                 key={i}
                 src={item.icon}
-                alt={item.title}
-                title={item.title}
+                alt={item.title || "Purpose map icon"}
+                title={item.title || "Purpose map icon"}
                 width={Math.round(w)}
                 height={Math.round(h)}
                 unoptimized
@@ -166,8 +166,8 @@ export default function PurposeMap({ data, items: pillars, logo }) {
               <Image
                 key={i}
                 src={item.icon}
-                alt={item.title}
-                title={item.title}
+                alt={item.title || "Purpose map icon"}
+                title={item.title || "Purpose map icon"}
                 width={Math.round(w)}
                 height={Math.round(h)}
                 unoptimized

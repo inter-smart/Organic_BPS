@@ -86,7 +86,7 @@ export default function Footer({ data }) {
                     aria-label={s?.label}
                     className="relative block size-9 transition-transform duration-300 hover:-translate-y-1 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:size-10"
                   >
-                    <Image src={s?.icon} alt={s?.label ?? "Social link"} title={s?.label ?? "Social link"} fill unoptimized className="object-contain" />
+                    <Image src={s?.icon} alt={s?.label || "Social link"} title={s?.label || "Social link"} fill unoptimized className="object-contain" />
                   </a>
                 </li>
               ))}
@@ -102,7 +102,8 @@ export default function Footer({ data }) {
               >
                 <Image
                   src="/images/intersmart-logo.svg"
-                  alt="logo"
+                  alt={data?.credit?.name || "Intersmart"}
+                  title={data?.credit?.name || "Intersmart"}
                   width={115}
                   height={20}
                   className="size-full object-contain"

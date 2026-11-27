@@ -163,8 +163,8 @@ export default function Importance({ data, benefits = [], title }) {
                   >
                     <Image
                       src={b.icon}
-                      alt={b.title ?? "Purpose icon"}
-                      title={b.title ?? "Purpose icon"}
+                      alt={b.title || "Purpose icon"}
+                      title={b.title || "Purpose icon"}
                       width={114}
                       height={114}
                       unoptimized

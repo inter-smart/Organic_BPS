@@ -3,7 +3,7 @@ import Button from "@/components/common/button";
 import Heading from "@/components/common/heading";
 import Reveal from "@/components/common/reveal";
 import { renderTitle } from "@/components/common/rich-text";
-import { paragraphs } from "@/lib/cms-text";
+import { paragraphs, text } from "@/lib/cms-text";
 
 export default function Cta({ section_seven }) {
   return (
@@ -12,7 +12,7 @@ export default function Cta({ section_seven }) {
       aria-labelledby="how-we-work-cta-title"
       className="relative isolate flex flex-col items-center overflow-hidden bg-basecolor4 px-4 py-20 text-center text-white sm:py-24 lg:py-[calc(200*var(--u))]"
     >
-      <Image src={section_seven?.image} alt={section_seven?.title} title={section_seven?.title} fill sizes="100vw" className="-z-10 object-cover" />
+      <Image src={section_seven?.image} alt={text(section_seven?.title) || "How We Work banner"} title={text(section_seven?.title) || "How We Work banner"} fill sizes="100vw" className="-z-10 object-cover" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-black/70" />
 
       <Reveal as="p" variant="fade" className="text-sm font-bold tracking-[0.19em] text-basecolor8 uppercase lg:text-[clamp(13px,calc(20*var(--u)),20px)]">

@@ -64,8 +64,8 @@ export default function InsightSlider({ items = [] }) {
                 <div className="relative aspect-481/287 overflow-hidden rounded-[30px]">
                   <Image
                     src={item?.image}
-                    alt={item?.title ?? ""}
-                    title={item?.title ?? ""}
+                    alt={item?.title || "Insight"}
+                    title={item?.title || "Insight"}
                     fill
                     sizes="(min-width: 1280px) 480px, 80vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
