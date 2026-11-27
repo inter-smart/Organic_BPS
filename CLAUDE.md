@@ -173,7 +173,7 @@ Follow these in new builds; they replace the older behaviour described above whe
 - The preloader lasts about 1 s, plays once per browser session (`lib/intro-key.js`, inline script in `app/layout.js` sets `data-intro-skip`) and never waits for page assets.
 - `common/hero-media` shows the poster first and requests the video only after the window `load` event.
 - `common/route-loader` keeps a screen of height (`min-h-svh`) so the footer does not shift when the page replaces it.
-- (2026-11-27) Below 960px the intro runs on CSS only (`data-intro-lite`, set by the inline script) and lifts about 1 s after first paint; desktop keeps the GSAP timeline. Change both together.
+- (2026-11-27) The intro is CSS only at every width (`.preloader` in `globals.css`, `common/preloader` is a server component) and lifts about 1 s after first paint; no scroll lock, no intro events. The inline script in `app/layout.js` sets `data-intro` and the once-per-session skip. Don't bring back a JS or GSAP intro.
 - (2026-11-27) Lenis does not run on touch (`pointer: coarse`) devices. The client carousel autoplays only while on screen.
 
 ## API credentials (2026-11-26)

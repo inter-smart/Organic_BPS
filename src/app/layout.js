@@ -49,9 +49,9 @@ export const viewport = { themeColor: "#161616" };
 // the build passing when caching is switched off and a page has to wait for the API.
 export const instant = false;
 
-// Runs before first paint: a returning visitor never sees the intro flash, and on
-// phones the intro is left to CSS so it does not wait for the scripts.
-const introFlags = `(function(){var d=document.documentElement,seen;try{seen=sessionStorage.getItem("${INTRO_KEY}")}catch(e){}if(seen){d.dataset.intro="done";d.dataset.introSkip=""}else if(matchMedia("(max-width: 959.98px)").matches){d.dataset.intro="done";d.dataset.introLite=""}})()`;
+// Runs before first paint, so a returning visitor never sees the intro flash.
+// `data-intro` switches on the scroll reveals in globals.css.
+const introFlags = `(function(){var d=document.documentElement;d.dataset.intro="done";try{if(sessionStorage.getItem("${INTRO_KEY}"))d.dataset.introSkip="";else sessionStorage.setItem("${INTRO_KEY}","1")}catch(e){}})()`;
 
 export default function RootLayout({ children }) {
   return (

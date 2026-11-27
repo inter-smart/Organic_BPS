@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 /**
  * Scroll-triggered entrance (Magic UI "BlurFade" style) for any server-rendered children.
  * variant: up | down | left | right | scale | fade | blur | clip (image wipe-up)
- * Nothing plays until the preloader curtain has lifted (html[data-intro="done"]). It replays each time the element
+ * Styles apply once the head script has set html[data-intro="done"]. It replays each time the element
  * scrolls back into view (pass once to keep it final after the first play).
  * Purely CSS-driven (see `[data-reveal]` in globals.css): the observer only flips an attribute, so there is no React
- * state, re-render or JS animation when the curtain lifts — that keeps the main thread free during load.
+ * state, re-render or JS animation — that keeps the main thread free during load.
  * `immediate` is for the one LCP element per page (the hero <h1>): it is always shown, since the preloader's opaque
  * curtain already hides it from users.
  */

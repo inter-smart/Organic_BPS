@@ -284,15 +284,11 @@ body::-webkit-scrollbar-corner,
   }
 }
 
-html:not([data-intro="done"]) {
-  overflow: hidden;
-}
-
 html[data-intro-skip] .preloader {
   display: none;
 }
 
-/* phones: the intro runs on CSS alone so it lifts without waiting for scripts */
+/* the intro runs on CSS alone so it lifts without waiting for scripts */
 @property --intro-count {
   syntax: "<integer>";
   inherits: false;
@@ -304,23 +300,19 @@ html[data-intro-skip] .preloader {
   pad: 3 "0";
 }
 
-html[data-intro-lite] .preloader {
+.preloader {
   animation: intro-curtain 0.4s cubic-bezier(0.76, 0, 0.24, 1) 0.65s forwards;
 }
 
-html[data-intro-lite] .preloader :is([data-logo], [data-meta]) {
+.preloader :is([data-logo], [data-meta]) {
   animation: intro-leave 0.2s ease-in 0.5s forwards;
 }
 
-html[data-intro-lite] .preloader [data-bar] {
+.preloader [data-bar] {
   animation: intro-bar 0.5s ease-in-out forwards;
 }
 
-html[data-intro-lite] .preloader [data-count] > span {
-  display: none;
-}
-
-html[data-intro-lite] .preloader [data-count]::after {
+.preloader [data-count]::after {
   counter-reset: intro var(--intro-count);
   content: counter(intro, intro-count);
   animation: intro-count 0.5s ease-in-out forwards;
@@ -353,7 +345,7 @@ html[data-intro-lite] .preloader [data-count]::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-intro-lite] .preloader {
+  .preloader {
     display: none;
   }
 }

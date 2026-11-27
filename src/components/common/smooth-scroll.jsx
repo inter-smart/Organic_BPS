@@ -4,11 +4,10 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { INTRO_EVENT } from "@/components/common/intro";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Lenis inertia scroll driven by the GSAP ticker so ScrollTrigger scrubs stay in sync. Locked until the intro finishes. */
+/** Lenis inertia scroll driven by the GSAP ticker so ScrollTrigger scrubs stay in sync. */
 export default function SmoothScroll() {
   useEffect(() => {
     // touch scrolling is never smoothed by Lenis, so phones skip its frame loop
@@ -16,13 +15,6 @@ export default function SmoothScroll() {
     if (window.matchMedia(query).matches) return;
 
     const lenis = new Lenis({ lerp: 0.09, anchors: true });
-    if (document.documentElement.dataset.intro !== "done") lenis.stop();
-    // the loader can hide a classic scrollbar, so the width ScrollTrigger measured with may be off; overlay scrollbars (touch) never change it
-    const width = document.documentElement.clientWidth;
-    const start = () => {
-      lenis.start();
-      if (document.documentElement.clientWidth !== width) ScrollTrigger.refresh();
-    };
     const tick = (t) => lenis.raf(t * 1000);
 
     // Hero snap: one downward scroll/key press inside the hero glides to the next section's top (where its pin
@@ -49,13 +41,11 @@ export default function SmoothScroll() {
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("keydown", onKey);
 
-    window.addEventListener(INTRO_EVENT, start);
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
-      window.removeEventListener(INTRO_EVENT, start);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKey);
       gsap.ticker.remove(tick);
